@@ -47,14 +47,13 @@ $clock-face-padding: 20px;
 }
 
 .clock-face__clock-hand {
-  $height: 110px;
   display: block;
-  height: $height;
+  height: 110px;
   width: 2px;
   background-color: $primary-color;
   transform-origin: 0 100%;
   position: absolute;
-  top: 50% - $height;
+  top: calc(50% - 110px);
   z-index: 1;
   &:after {
     content: '';
