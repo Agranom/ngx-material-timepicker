@@ -1,14 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import "../../styles/config";
+
+$clock-face-size: 290px;
+$clock-face-padding: 20px;
 
 .clock-face {
-  width: 290px;
-  height: 290px;
+  width: $clock-face-size;
+  height: $clock-face-size;
   border-radius: 50%;
   background-color: #f0f0f0;
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: $clock-face-padding;
   box-sizing: border-box;
 }
 
@@ -21,7 +24,7 @@
   font-size: 16px;
   color: grey;
   transform-origin: 0 100%;
-  height: calc(290px / 2 - 20px);
+  height: $clock-face-size / 2 - $clock-face-padding;
   width: 50px;
   text-align: center;
   z-index: 2;
@@ -35,29 +38,30 @@
     margin: auto;
     border-radius: 50%;
     font-weight: 500;
-    font-family: 'Roboto', sans-serif;
+    font-family: $primary-font-family;
     &.active {
-      background-color: deepskyblue;
+      background-color: $primary-color;
       color: #fff;
     }
   }
 }
 
 .clock-face__clock-hand {
+  $height: 110px;
   display: block;
-  height: 110px;
+  height: $height;
   width: 2px;
-  background-color: deepskyblue;
+  background-color: $primary-color;
   transform-origin: 0 100%;
   position: absolute;
-  top: calc(50% - 110px);
+  top: 50% - $height;
   z-index: 1;
   &:after {
     content: '';
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background-color: deepskyblue;
+    background-color: $primary-color;
     position: absolute;
     bottom: -3px;
     left: -3.5px;
@@ -69,7 +73,7 @@
   width: 7px;
   height: 7px;
   background-color: #fff;
-  border: 4px solid deepskyblue;
+  border: 4px solid $primary-color;
   border-radius: 50%;
   position: absolute;
   top: -3px;

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import "styles/config";
+
+$item-color: #fff;
 
 .timepicker-overlay {
   position: fixed;
@@ -18,7 +20,7 @@
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.25) 0 14px 45px, rgba(0, 0, 0, 0.22) 0 10px 18px;
   &__header {
-    background-color: deepskyblue;
+    background-color: $primary-color;
     padding: 15px 30px;
   }
   &__body {
@@ -43,8 +45,8 @@
   &__time {
     line-height: normal;
     font-size: 50px;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: 'Roboto', sans-serif;
+    color: transparentize($item-color, .5);
+    font-family: $primary-font-family;
   }
   &__period {
     display: flex;
@@ -52,14 +54,14 @@
     margin-left: 10px;
     font-size: 14px;
     font-weight: 500;
-    font-family: 'Roboto', sans-serif;
+    font-family: $primary-font-family;
   }
   &__item {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
+    color: transparentize($item-color, .5);
     font-family: 'Roboto', sans-serif;
     &_active {
-      color: rgba(255, 255, 255, 1);
+      color: $item-color;
     }
   }
 }
