@@ -32,10 +32,10 @@
     </div>
     <div class="timepicker__actions">
       <div (click)="close()">
-        <ng-container *ngTemplateOutlet="cancelBtn ? cancelBtn : cancelBtnDefault"></ng-container>
+        <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
       </div>
       <div (click)="setTime()">
-        <ng-container *ngTemplateOutlet="confirmBtn ? confirmBtn : confirmBtnDefault"></ng-container>
+        <ng-container *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
       </div>
     </div>
   </div>

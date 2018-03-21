@@ -42,8 +42,8 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     isOpened = false;
     animationState: AnimationState;
 
-    @Input('cancelButtonTemplate') cancelBtn: TemplateRef<Node>;
-    @Input('cancelButtonTemplate') confirmBtn: TemplateRef<Node>;
+    @Input() cancelBtnTmpl: TemplateRef<Node>;
+    @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Output() timeSet = new EventEmitter<string>();
 
     constructor(private timepickerService: NgxMaterialTimepickerService) {
