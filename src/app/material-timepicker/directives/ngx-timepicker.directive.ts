@@ -3,8 +3,9 @@ import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.compone
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {TimeFormat} from '../models/time-format.enum';
-import * as moment from 'moment';
-
+import * as moment_ from 'moment';
+//Workaround for error "Cannot call a namespace ('moment')
+const moment = moment_;
 
 const VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
