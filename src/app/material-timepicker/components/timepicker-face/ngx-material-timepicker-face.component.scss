@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+.clock-face {
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.clock-face__container {
+  margin-left: -2px;
+}
+
+.clock-face__number {
+  position: absolute;
+  font-size: 16px;
+  color: grey;
+  transform-origin: 0 100%;
+  height: calc(290px / 2 - 20px);
+  width: 50px;
+  text-align: center;
+  z-index: 2;
+  > span {
+    user-select: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 50%;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    &.active {
+      background-color: deepskyblue;
+      color: #fff;
+    }
+  }
+}
+
+.clock-face__clock-hand {
+  display: block;
+  height: 110px;
+  width: 2px;
+  background-color: deepskyblue;
+  transform-origin: 0 100%;
+  position: absolute;
+  top: calc(50% - 110px);
+  z-index: 1;
+  &:after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: deepskyblue;
+    position: absolute;
+    bottom: -3px;
+    left: -3.5px;
+  }
+}
+
+.clock-face__clock-hand_minute:before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background-color: #fff;
+  border: 4px solid deepskyblue;
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+  left: calc(50% - 8px);
+  box-sizing: content-box;
+}
