@@ -1,27 +1,93 @@
-# NgxMaterialTimepicker
+# ngx-material-timepicker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+Handy [material design](https://material.io/guidelines/components/pickers.html#pickers-time-pickers) timepicker for Angular 4.0+
 
-## Development server
+## Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install timepicker through npm:
+```angular2html
+npm install --save ngx-material-timepicker
+```
+Next import the timepicker module into your apps module:
+```typescript
+import {NgModule} from '@angular/core';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
-## Code scaffolding
+@NgModule({
+  imports: [NgxMaterialTimepickerModule.forRoot()]
+})
+export class MyModule {}
+```
+Finally connect the timepicker to an input via a template property:
+```angular2html
+<input [ngxTimepicker]="picker">
+<ngx-material-timepicker #picker></ngx-material-timepicker>
+```
+The timepicker opens once you click on the input 
+## Documentation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### API reference for Angular Material Timepicker
+```typescript
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+```
+**NgxTimepicker**
 
-## Build
+Directive responsible for managing the timepicker popup and setting value to input
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Selector: `ngxTimepicker`
 
-## Running unit tests
+**Properties**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+| Name | Description |
+|------|-------------|
+| @Input()
+  ngxTimepicker: NgxMaterialTimepicker | The timepicker that this input is associated with. | 
+| @Input()
+  disabled: boolean | Weather the timepicker popup should be disabled. |
+| @Input()
+  value: string | Set time for an input. Now available format only `hh:mm a`. |
+| @Input()
+  format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
+  
+**NgxMaterialTimepickerComponent**
 
-## Running end-to-end tests
+Component responsible for visualisation the timepicker
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Selector: `ngx-material-timepicker`
 
-## Further help
+**Properties**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  cancelBtnTmpl: TemplateRef<Node> |  Set if you want to change cancel button to your custom one. | 
+| @Input()
+  confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
+| @Output()
+  timeSet: EventEmitter<string> | Emits time when that was set. |
+| @Input()
+  format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
+
+## Changes
+
+Work is in progress.
+
+### Prepare your environment
+
+Install local dev dependencies: `npm install` while current directory is this repo.
+ 
+### Development server
+
+Run `npm start` to start a development server on a port 4200.
+
+Open `http//:localhost:4200` on your browser.
+
+## Tests
+
+Work is in progress.
+
+## License
+
+MIT
+
