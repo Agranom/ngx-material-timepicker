@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NgxMaterialTimepickerComponent} from './ngx-material-timepicker.component';
 import {StyleSanitizerPipe} from './pipes/style-sanitizer.pipe';
@@ -29,10 +29,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 		TimeFormatterPipe,
 		NgxMaterialTimepickerButtonComponent,
 		TimepickerDirective,
-	],
-	providers: [
-		NgxMaterialTimepickerService
 	]
 })
 export class NgxMaterialTimepickerModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: NgxMaterialTimepickerModule,
+      providers: [NgxMaterialTimepickerService]
+    }
+  }
 }

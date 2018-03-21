@@ -12,7 +12,7 @@ import {NgxMaterialTimepickerModule} from "./material-timepicker/ngx-material-ti
   ],
   imports: [
     BrowserModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

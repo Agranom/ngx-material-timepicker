@@ -15,7 +15,7 @@ export enum AnimationState {
 @Component({
     selector: 'ngx-material-timepicker',
     templateUrl: './ngx-material-timepicker.component.html',
-    styleUrls: ['./ngx-material-timepicker.module.ts'],
+    styleUrls: ['./ngx-material-timepicker.component.scss'],
     animations: [
         trigger('timepicker', [
             transition(`* => ${AnimationState.ENTER}`, [
