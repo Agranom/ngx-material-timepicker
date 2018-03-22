@@ -1,6 +1,7 @@
 {
   "name": "ngx-material-timepicker",
-  "version": "0.0.0",
+  "description": "Handy material design timepicker for angular",
+  "version": "0.0.2",
   "license": "MIT",
   "author": "Vitalii Boiko <boyko330@gmail.com>",
   "keywords": [
@@ -22,7 +23,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p ng-package.json"
+    "packagr": "ng-packagr -p ng-package.json",
+    "publish": "npm publish dist"
   },
   "types": ".src/app/material-timepicker/index.d.ts",
   "private": false,
@@ -32,10 +34,12 @@
     "@angular/core": ">=4.0.0",
     "@angular/forms": ">=4.0.0",
     "@angular/platform-browser": ">=4.0.0",
-    "moment": "^2.21.0",
     "rxjs": "^5.5.7"
   },
   "dependencies": {
+    "moment": "^2.21.0"
+  },
+  "devDependencies": {
     "@angular/animations": "^5.1.0",
     "@angular/common": "^5.1.0",
     "@angular/compiler": "^5.1.0",
@@ -48,9 +52,7 @@
     "core-js": "^2.4.1",
     "moment": "^2.21.0",
     "rxjs": "^5.5.7",
-    "zone.js": "^0.8.19"
-  },
-  "devDependencies": {
+    "zone.js": "^0.8.19",
     "@angular/cli": "~1.7.3",
     "@angular/compiler-cli": "^5.1.0",
     "@angular/language-service": "^5.1.0",
@@ -67,6 +69,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^2.2.0",
     "protractor": "~5.1.2",
+    "semantic-release": "^15.1.4",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "2.4.2"
