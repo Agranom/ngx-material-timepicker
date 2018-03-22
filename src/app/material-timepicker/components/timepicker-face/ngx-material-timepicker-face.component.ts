@@ -46,7 +46,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit {
     @HostListener('touchmove', ['$event.changedTouches[0]'])
     @HostListener('touchend', ['$event.changedTouches[0]'])
     @HostListener('mousemove', ['$event'])
-    moveClockStick(e: MouseEvent | Touch): void {
+    selectTime(e: MouseEvent | Touch): void {
 
         if (!this.isStarted && (e instanceof MouseEvent && e.type !== 'click')) {
             return;
