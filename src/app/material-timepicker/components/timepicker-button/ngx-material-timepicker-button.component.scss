@@ -15,6 +15,7 @@
   user-select: none;
   position: relative;
   cursor: pointer;
+  outline: none;
   &:hover, &:focus {
     background-color: rgba(153, 153, 153, 0.2);
   }
