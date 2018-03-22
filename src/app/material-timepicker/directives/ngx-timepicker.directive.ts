@@ -8,100 +8,95 @@ import * as moment_ from 'moment';
 const moment = moment_;
 
 const VALUE_ACCESSOR = {
-	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => TimepickerDirective),
-	multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TimepickerDirective),
+    multi: true
 };
 
 const TWENTY_FOUR_HOUR_FORMAT = 24;
 
 @Directive({
-	selector: '[ngxTimepicker]',
-	providers: [VALUE_ACCESSOR],
-	host: {
-		'[disabled]': 'disabled',
-		'(input)': 'onInput($event.target.value)',
-		'(blur)': 'onTouched()',
-	}
+    selector: '[ngxTimepicker]',
+    providers: [VALUE_ACCESSOR],
+    host: {
+        '[disabled]': 'disabled',
+        '(input)': 'onInput($event.target.value)',
+        '(blur)': 'onTouched()',
+    }
 })
 export class TimepickerDirective implements AfterViewInit, ControlValueAccessor, OnDestroy {
 
-	@Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
+    @Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
+    @Input() disabled: boolean;
+    onTouched = () => {
+    };
+    private timepickerSubscription: Subscription;
+    private onChange: (value: any) => void = () => {
+    };
 
+    constructor(private elementRef: ElementRef) {
+    }
 
-	@Input()
-	get value(): string {
-		return this._value;
-	}
+    private _value: string;
 
-	set value(value: string) {
-		this._value = formatTime(value, this._format);
-		this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : ''
-	}
+    @Input()
+    get value(): string {
+        return this._value;
+    }
 
+    set value(value: string) {
+        this._value = formatTime(value, this._format);
+        this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : ''
+    }
 
-	private _value: string;
+    private _format: TimeFormat;
 
-	@Input()
-	set format(value: number) {
-		this._format = value === TWENTY_FOUR_HOUR_FORMAT ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
-	}
+    @Input()
+    set format(value: number) {
+        this._format = value === TWENTY_FOUR_HOUR_FORMAT ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+    }
 
-	private _format: TimeFormat;
+    ngAfterViewInit() {
+        if (this.timepicker) {
+            this.timepickerSubscription = this.timepicker.timeSet.subscribe((time: string) => {
+                this.value = time;
+                this.onChange(time);
+                this.onTouched();
+            })
+        }
+    }
 
-	@Input() disabled: boolean;
+    onInput(value: string) {
+        this._value = value;
+        this.onChange(value);
+    }
 
-	onTouched = () => {
-	};
+    @HostListener('click')
+    onClick() {
+        this.timepicker.open();
+    }
 
-	private timepickerSubscription: Subscription;
-	private onChange: (value: any) => void = () => {
-	};
+    writeValue(value: string): void {
+        this.value = value;
+    }
 
-	constructor(private elementRef: ElementRef) {
-	}
+    registerOnChange(fn: (value: any) => void): void {
+        this.onChange = fn;
+    }
 
-	ngAfterViewInit() {
-		if (this.timepicker) {
-			this.timepickerSubscription = this.timepicker.timeSet.subscribe((time: string) => {
-				this.value = time;
-				this.onChange(time);
-				this.onTouched();
-			})
-		}
-	}
+    registerOnTouched(fn: () => void): void {
+        this.onTouched = fn;
+    }
 
-	onInput(value: string) {
-		this._value = value;
-		this.onChange(value);
-	}
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
 
-	@HostListener('click')
-	onClick() {
-		this.timepicker.open();
-	}
-
-	writeValue(value: string): void {
-		this.value = value;
-	}
-
-	registerOnChange(fn: (value: any) => void): void {
-		this.onChange = fn;
-	}
-
-	registerOnTouched(fn: () => void): void {
-		this.onTouched = fn;
-	}
-
-	setDisabledState(isDisabled: boolean): void {
-		this.disabled = isDisabled;
-	}
-
-	ngOnDestroy() {
-		this.timepickerSubscription.unsubscribe();
-	}
+    ngOnDestroy() {
+        this.timepickerSubscription.unsubscribe();
+    }
 }
 
 function formatTime(time: string, format = TimeFormat.TWELVE): string {
-	return moment(time, 'hh:mm a').format(<string>format);
+    return moment(time, 'hh:mm a').format(<string>format);
 }
