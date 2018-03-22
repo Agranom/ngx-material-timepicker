@@ -42,15 +42,9 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit {
         this.isStarted = true;
     }
 
-    @HostListener('touchend', ['$event'])
-    @HostListener('mouseup', ['$event'])
-    onMouseup(e: MouseEvent | TouchEvent) {
-        e.preventDefault();
-        this.isStarted = false;
-    }
-
     @HostListener('click', ['$event'])
     @HostListener('touchmove', ['$event.changedTouches[0]'])
+    @HostListener('touchend', ['$event.changedTouches[0]'])
     @HostListener('mousemove', ['$event'])
     moveClockStick(e: MouseEvent | Touch): void {
 
@@ -72,6 +66,13 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit {
 
         this.clockHand.nativeElement.style.transform = `rotate(${roundedAngle}deg)`;
         this.timeChange.next(selectedTime);
+    }
+
+    @HostListener('touchend', ['$event'])
+    @HostListener('mouseup', ['$event'])
+    onMouseup(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+        this.isStarted = false;
     }
 
     private setClockHandPosition() {

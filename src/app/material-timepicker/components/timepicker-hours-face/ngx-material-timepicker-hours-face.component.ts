@@ -22,7 +22,8 @@ export class NgxMaterialTimepickerHoursFaceComponent {
         }
     }
 
-    @HostListener('click')
+    @HostListener('touchend')
+    @HostListener('mouseup')
     onMouseup() {
         this.hourSelected.next();
     }
