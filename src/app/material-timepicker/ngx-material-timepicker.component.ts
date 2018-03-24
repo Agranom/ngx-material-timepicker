@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {Observable} from 'rxjs/Observable';
@@ -11,6 +21,8 @@ export enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
+
+const ESCAPE = 27;
 
 @Component({
     selector: 'ngx-material-timepicker',
@@ -45,6 +57,10 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Output() timeSet = new EventEmitter<string>();
+
+    @ViewChild('timepicker') timepicker: ElementRef;
+
+    private activeElement: HTMLElement;
 
     constructor(private timepickerService: NgxMaterialTimepickerService) {
     }
@@ -86,8 +102,21 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     }
 
     animationDone(event: AnimationEvent): void {
+        if (event.phaseName === 'done' && event.toState === AnimationState.ENTER) {
+            this.activeElement = <HTMLElement>document.activeElement;
+            this.timepicker.nativeElement.focus();
+        }
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.isOpened = false;
+            this.activeElement.focus();
+        }
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeydown(e: KeyboardEvent) {
+        if (e.keyCode === ESCAPE) {
+            this.close();
+            e.preventDefault();
         }
     }
 }

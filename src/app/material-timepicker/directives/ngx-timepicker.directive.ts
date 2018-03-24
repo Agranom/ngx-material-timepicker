@@ -28,8 +28,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     @Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
     @Input() disabled: boolean;
-    onTouched = () => {
-    };
+
     private timepickerSubscription: Subscription;
     private onChange: (value: any) => void = () => {
     };
@@ -55,6 +54,9 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     set format(value: number) {
         this._format = value === TWENTY_FOUR_HOUR_FORMAT ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
     }
+
+    onTouched = () => {
+    };
 
     ngAfterViewInit() {
         if (this.timepicker) {

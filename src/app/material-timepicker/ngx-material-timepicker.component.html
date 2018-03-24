@@ -1,5 +1,5 @@
 <div class="timepicker-overlay" *ngIf="isOpened">
-  <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)">
+  <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" tabindex="0" #timepicker>
     <header class="timepicker__header">
       <div class="timepicker-dial">
         <div class="timepicker-dial__time">
