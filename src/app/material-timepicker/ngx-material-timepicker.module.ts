@@ -10,6 +10,9 @@ import {TimeFormatterPipe} from './pipes/time-formatter.pipe';
 import {NgxMaterialTimepickerButtonComponent} from './components/timepicker-button/ngx-material-timepicker-button.component';
 import {TimepickerDirective} from './directives/ngx-timepicker.directive';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { OverlayDirective } from './directives/overlay.directive';
+import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
+import { FocusAnchorDirective } from './directives/focus-anchor.directive';
 
 @NgModule({
 	imports: [
@@ -29,13 +32,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 		TimeFormatterPipe,
 		NgxMaterialTimepickerButtonComponent,
 		TimepickerDirective,
+		OverlayDirective,
+		FocusAnchorDirective,
 	]
 })
 export class NgxMaterialTimepickerModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: NgxMaterialTimepickerModule,
-      providers: [NgxMaterialTimepickerService]
+      providers: [NgxMaterialTimepickerService, NgxMaterialTimepickerEventService]
     }
   }
 }

@@ -1,21 +1,13 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener, Inject,
-    Input,
-    OnInit, Optional,
-    Output,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {Observable} from 'rxjs/Observable';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
-import {DOCUMENT} from '@angular/common';
+import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepicker-event.service';
+import {merge} from 'rxjs/observable/merge';
+import {filter} from 'rxjs/operators';
 
 
 export enum AnimationState {
@@ -61,10 +53,13 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     @ViewChild('timepicker') timepicker: ElementRef;
 
-    private activeElement: HTMLElement;
-
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                @Optional() @Inject(DOCUMENT) private document: Document) {
+                private eventService: NgxMaterialTimepickerEventService) {
+
+        merge(this.eventService.backdropClick,
+            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE)))
+            .subscribe(() => this.close());
+
     }
 
     ngOnInit() {
@@ -104,21 +99,8 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     }
 
     animationDone(event: AnimationEvent): void {
-        if (event.phaseName === 'done' && event.toState === AnimationState.ENTER) {
-            this.activeElement = <HTMLElement>this.document.activeElement;
-            this.timepicker.nativeElement.focus();
-        }
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.isOpened = false;
-            this.activeElement.focus();
-        }
-    }
-
-    @HostListener('keydown', ['$event'])
-    onKeydown(e: KeyboardEvent) {
-        if (e.keyCode === ESCAPE) {
-            this.close();
-            e.preventDefault();
         }
     }
 }
