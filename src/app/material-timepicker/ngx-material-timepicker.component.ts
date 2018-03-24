@@ -2,9 +2,9 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    HostListener,
+    HostListener, Inject,
     Input,
-    OnInit,
+    OnInit, Optional,
     Output,
     TemplateRef,
     ViewChild
@@ -15,6 +15,7 @@ import {Observable} from 'rxjs/Observable';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
+import {DOCUMENT} from '@angular/common';
 
 
 export enum AnimationState {
@@ -62,7 +63,8 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     private activeElement: HTMLElement;
 
-    constructor(private timepickerService: NgxMaterialTimepickerService) {
+    constructor(private timepickerService: NgxMaterialTimepickerService,
+                @Optional() @Inject(DOCUMENT) private document: Document) {
     }
 
     ngOnInit() {
@@ -103,7 +105,7 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     animationDone(event: AnimationEvent): void {
         if (event.phaseName === 'done' && event.toState === AnimationState.ENTER) {
-            this.activeElement = <HTMLElement>document.activeElement;
+            this.activeElement = <HTMLElement>this.document.activeElement;
             this.timepicker.nativeElement.focus();
         }
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
