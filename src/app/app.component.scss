@@ -2,14 +2,27 @@
 
 $border-color: rgba(0, 0, 0, .09);
 
+:host {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .header {
-    min-height: 50px;
+    min-height: 70px;
     background-color: $primary-color;
+    position: relative;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
     &__container {
         display: flex;
         justify-content: space-between;
@@ -43,11 +56,13 @@ $border-color: rgba(0, 0, 0, .09);
     margin: auto;
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 70px;
 }
 
 .ngx-material-timepicker {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    padding-top: 50px;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .ngx-material-timepicker-heading {
@@ -109,5 +124,19 @@ $border-color: rgba(0, 0, 0, .09);
                 color: #cccccc;
             }
         }
+    }
+}
+
+.footer {
+    min-height: 100px;
+    background-color: $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__version {
+        font-size: 14px;
+        color: #ffffff;
+        margin: 0;
+        text-align: center;
     }
 }
