@@ -66,12 +66,12 @@ Selector: `ngx-material-timepicker`
   confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
 | @Output()
   timeSet: EventEmitter<string> | Emits time when that was set. |
-| @Input()
-  format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
 
 ## Changes
 
 Work is in progress.
+
+## Development
 
 ### Prepare your environment
 

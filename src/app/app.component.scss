@@ -131,11 +131,21 @@ $border-color: rgba(0, 0, 0, .09);
         width: 100%;
         height: 36px;
         border-bottom: 1px solid $border-color;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        &--disabled {
+            border-bottom-style: dashed;
+        }
         > input {
             width: 100%;
             height: 100%;
             border: 0;
             font-size: 16px;
+            &:disabled {
+                background-color: transparent;
+                cursor: not-allowed;
+            }
             &:focus {
                 outline: none;
             }
