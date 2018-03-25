@@ -74,51 +74,6 @@ $border-color: rgba(0, 0, 0, .09);
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
     overflow: hidden;
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: lighten(#ccc, 10%);
-        padding: 15px 20px;
-    }
-    &__title {
-        font-weight: 400;
-        margin: 0;
-        font-size: 18px;
-        color: darken(#ccc, 30%);
-    }
-    &__btn {
-        background-color: transparent;
-        border: 0;
-        padding: 0;
-        outline: none;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        text-align: center;
-        cursor: pointer;
-        position: relative;
-        &:focus {
-            background-color: rgba(0, 0, 0, .07);
-        }
-        &:hover {
-            .tooltip {
-                display: inline-block;
-            }
-        }
-        .tooltip {
-            display: none;
-            position: absolute;
-            top: 40px;
-            left: -30px;
-            padding: 5px;
-            color: #ffffff;
-            font-size: 12px;
-            background-color: rgba(0, 0, 0, .7);
-            border-radius: 2px;
-            white-space: nowrap;
-        }
-    }
     &__body {
         padding: 15px;
     }

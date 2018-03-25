@@ -1,0 +1,58 @@
+.ngx-material-timepicker-example {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: lighten(#ccc, 10%);
+        padding: 15px 20px;
+    }
+    &__title {
+        font-weight: 400;
+        margin: 0;
+        font-size: 18px;
+        color: darken(#ccc, 30%);
+    }
+    &__btn {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+        outline: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+        &:focus {
+            background-color: rgba(0, 0, 0, .07);
+        }
+        &:hover {
+            .tooltip {
+                display: inline-block;
+            }
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: -30px;
+            padding: 5px;
+            color: #ffffff;
+            font-size: 12px;
+            background-color: rgba(0, 0, 0, .7);
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+    }
+}
+
+.source-code {
+    background-color: #f0f0f0;
+    overflow: hidden;
+    pre {
+        margin: 0;
+    }
+}

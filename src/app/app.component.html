@@ -12,17 +12,7 @@
     <div class="ngx-material-timepicker-examples">
         <h3 class="ngx-material-timepicker-examples__title">Examples</h3>
         <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
-            <header class="ngx-material-timepicker-example__header">
-                <h4 class="ngx-material-timepicker-example__title">Simple examples</h4>
-                <button class="ngx-material-timepicker-example__btn">
-                    <svg viewBox="0 0 24 24"
-                         style="display: inline-block; color: rgba(0, 0, 0, 0.87); fill: currentcolor; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-                        <path
-                            d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path>
-                    </svg>
-                    <span class="tooltip">View source</span>
-                </button>
-            </header>
+            <app-example-source-code [sourceCode]="simpleExamples">Simple examples</app-example-source-code>
             <div class="ngx-material-timepicker-example__body">
                 <p class="ngx-material-timepicker-example__description">
                     Time Picker shows only 12hr format, but it can convert and return 24hr format time, if you need
@@ -39,7 +29,7 @@
                     <ngx-material-timepicker #fullTime></ngx-material-timepicker>
                 </div>
                 <div class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--disabled">
-                    <input placeholder="24hr format" aria-label="24hr format"
+                    <input placeholder="Disabled Time Picker" aria-label="disabled time picker"
                            [ngxTimepicker]="disabled" [disabled]="true">
                     <ngx-material-timepicker #disabled></ngx-material-timepicker>
                 </div>
