@@ -23,4 +23,19 @@ export class AppComponent {
             <ngx-material-timepicker #disabled></ngx-material-timepicker>
        </div>
     `;
+
+    customSettings: string = `
+        <div class="custom-buttons-example">
+            <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>
+            <ngx-material-timepicker #timepickerWithButtons [cancelBtnTmpl]="cancelBtn"
+                                             [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+                                             
+            <ng-template #cancelBtn>
+                <button style="margin-right: 10px;">Cancel tmpl</button>
+            </ng-template>
+            <ng-template #confirmBtn>
+                <button>Confirm tmpl</button>
+            </ng-template>
+         </div>
+    `;
 }

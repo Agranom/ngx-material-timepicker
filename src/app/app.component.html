@@ -25,13 +25,34 @@
                 </div>
                 <div class="ngx-material-timepicker-example__form-group">
                     <input placeholder="24hr format" aria-label="24hr format"
-                           [ngxTimepicker]="fullTime" [format]="24"  readonly>
+                           [ngxTimepicker]="fullTime" [format]="24" readonly>
                     <ngx-material-timepicker #fullTime></ngx-material-timepicker>
                 </div>
-                <div class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--disabled">
+                <div
+                    class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--disabled">
                     <input placeholder="Disabled Time Picker" aria-label="disabled time picker"
                            [ngxTimepicker]="disabled" [disabled]="true">
                     <ngx-material-timepicker #disabled></ngx-material-timepicker>
+                </div>
+            </div>
+        </section>
+        <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+            <app-example-source-code [sourceCode]="customSettings">Custom settings examples</app-example-source-code>
+            <div class="ngx-material-timepicker-example__body">
+                <p class="ngx-material-timepicker-example__description">
+                    You can change time picker view with your own settings.
+                </p>
+                <div class="ngx-material-timepicker-example__form-group">
+                    <input placeholder="Custom buttons" aria-label="Custom buttons"
+                           [ngxTimepicker]="timepickerWithButtons" readonly>
+                    <ngx-material-timepicker #timepickerWithButtons [cancelBtnTmpl]="cancelBtn"
+                                             [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+                    <ng-template #cancelBtn>
+                        <button style="margin-right: 10px;">Cancel tmpl</button>
+                    </ng-template>
+                    <ng-template #confirmBtn>
+                        <button>Confirm tmpl</button>
+                    </ng-template>
                 </div>
             </div>
         </section>
