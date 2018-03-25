@@ -1,0 +1,36 @@
+@import "material-timepicker/styles/config";
+
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    min-height: 50px;
+    background-color: $primary-color;
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    h1 {
+        color: #ffffff;
+        font-family: $primary-font-family;
+        font-weight: 500;
+        line-height: 2em;
+        margin: 0;
+    }
+}
+
+.github-link {
+    display: block;
+    width: 30px;
+    > img {
+        width: 100%;
+    }
+}
+
+.container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
