@@ -1,4 +1,14 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {Observable} from 'rxjs/Observable';
@@ -102,5 +112,10 @@ export class NgxMaterialTimepickerComponent implements OnInit {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.isOpened = false;
         }
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeydown(e: KeyboardEvent) {
+        this.eventService.keydownEventSubject.next(e);
     }
 }
