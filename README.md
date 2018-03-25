@@ -2,6 +2,10 @@
 
 Handy [material design](https://material.io/guidelines/components/pickers.html#pickers-time-pickers) timepicker for Angular 4.0+
 
+## Demo
+
+https://agranom.github.io/ngx-material-timepicker/
+
 ## Getting started
 
 Install timepicker through npm:
