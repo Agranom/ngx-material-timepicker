@@ -9,7 +9,7 @@ export class FocusAnchorDirective implements AfterViewInit, OnDestroy {
     private activeElement: HTMLElement;
     private element: HTMLElement;
 
-    constructor(@Optional() @Inject(DOCUMENT) private document: Document,
+    constructor(@Optional() @Inject(DOCUMENT) private document: any, //Type 'any' because of build error
                 elementRef: ElementRef) {
         this.element = elementRef.nativeElement;
     }
