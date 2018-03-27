@@ -59,6 +59,7 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
+    @Input('ESC') isEsc = true;
     @Output() timeSet = new EventEmitter<string>();
 
     @ViewChild('timepicker') timepicker: ElementRef;
@@ -67,7 +68,7 @@ export class NgxMaterialTimepickerComponent implements OnInit {
                 private eventService: NgxMaterialTimepickerEventService) {
 
         merge(this.eventService.backdropClick,
-            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE)))
+            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
             .subscribe(() => this.close());
 
     }
