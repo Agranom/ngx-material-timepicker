@@ -3,8 +3,8 @@ import {NgModule} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
-import {NgxMaterialTimepickerModule} from "./material-timepicker/ngx-material-timepicker.module";
 import {ExampleSourceCodeComponent} from './example-source-code/example-source-code.component';
+import {NgxMaterialTimepickerModule} from './material-timepicker/ngx-material-timepicker.module';
 
 
 @NgModule({
