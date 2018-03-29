@@ -1,49 +1,53 @@
 <div class="timepicker-backdrop-overlay" *ngIf="isOpened" overlay></div>
 <div class="timepicker-overlay" *ngIf="isOpened">
-  <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" tabindex="0" focusAnchor>
-    <header class="timepicker__header">
-      <div class="timepicker-dial">
-        <div class="timepicker-dial__time">
+    <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" tabindex="0"
+         focusAnchor>
+        <header class="timepicker__header">
+            <div class="timepicker-dial">
+                <div class="timepicker-dial__time">
 				<span class="timepicker-dial__item"
-              [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.HOUR}"
-              (click)="changeTimeUnit(timeUnit.HOUR)">
+                      [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.HOUR}"
+                      (click)="changeTimeUnit(timeUnit.HOUR)">
 					{{(selectedHour | async)?.time | timeFormatter: timeUnit.HOUR}}</span>:<span
-          class="timepicker-dial__item"
-          [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.MINUTE}"
-          (click)="changeTimeUnit(timeUnit.MINUTE)">{{(selectedMinute | async)?.time | timeFormatter: timeUnit.MINUTE}}</span>
-        </div>
-        <div class="timepicker-dial__period">
+                    class="timepicker-dial__item"
+                    [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.MINUTE}"
+                    (click)="changeTimeUnit(timeUnit.MINUTE)">{{(selectedMinute | async)?.time | timeFormatter: timeUnit.MINUTE}}</span>
+                </div>
+                <div class="timepicker-dial__period">
 			<span class="timepicker-dial__item"
-            [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.AM}"
-            (click)="changePeriod(timePeriod.AM)">AM</span>
-          <span class="timepicker-dial__item"
-                [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.PM}"
-                (click)="changePeriod(timePeriod.PM)">PM</span>
+                  [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.AM}"
+                  (click)="changePeriod(timePeriod.AM)">AM</span>
+                    <span class="timepicker-dial__item"
+                          [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.PM}"
+                          (click)="changePeriod(timePeriod.PM)">PM</span>
+                </div>
+            </div>
+        </header>
+        <div class="timepicker__main-content">
+            <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
+                <ngx-material-timepicker-hours-face *ngSwitchCase="timeUnit.HOUR"
+                                                    (hourChange)="onHourChange($event)"
+                                                    [selectedHour]="selectedHour|async"
+                                                    (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-hours-face>
+                <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
+                                                      [selectedMinute]="selectedMinute|async"
+                                                      (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
+            </div>
+            <div class="timepicker__actions">
+                <div (click)="close()">
+                    <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
+                </div>
+                <div (click)="setTime()">
+                    <ng-container
+                        *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
+                </div>
+            </div>
         </div>
-      </div>
-    </header>
-    <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
-      <ngx-material-timepicker-hours-face *ngSwitchCase="timeUnit.HOUR"
-                                          (hourChange)="onHourChange($event)"
-                                          [selectedHour]="selectedHour|async"
-                                          (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-hours-face>
-      <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
-                                            [selectedMinute]="selectedMinute|async"
-                                            (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
     </div>
-    <div class="timepicker__actions">
-      <div (click)="close()">
-        <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
-      </div>
-      <div (click)="setTime()">
-        <ng-container *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
-      </div>
-    </div>
-  </div>
 </div>
 <ng-template #cancelBtnDefault>
-  <ngx-material-timepicker-button>Cancel</ngx-material-timepicker-button>
+    <ngx-material-timepicker-button>Cancel</ngx-material-timepicker-button>
 </ng-template>
 <ng-template #confirmBtnDefault>
-  <ngx-material-timepicker-button>Ok</ngx-material-timepicker-button>
+    <ngx-material-timepicker-button>Ok</ngx-material-timepicker-button>
 </ng-template>
