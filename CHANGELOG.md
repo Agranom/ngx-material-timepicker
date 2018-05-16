@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file
 
 <a name="0.1.1"></a>
-## 1.1.3 (2018-05-16)
+## 1.1.0 (2018-05-16)
 
 ### Features
 
