@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
-<a name="0.1.1"></a>
+<a name="1.1.1"></a>
+## 1.1.0 (2018-05-16)
+
+### Bug fixes
+
+* Fix error 'cannot find module' which occurs after deploying the previous version
+
+<a name="1.1.0"></a>
 ## 1.1.0 (2018-05-16)
 
 ### Features
@@ -15,7 +22,7 @@ All notable changes to this project will be documented in this file
 
 * **timepicker button:** add type button to prevent auto submitting a form [(2598aa1)](https://github.com/Agranom/ngx-material-timepicker/commit/2598aa1092034843c400c96937e89f4f735d02b1), closes [#1](https://github.com/Agranom/ngx-material-timepicker/issues/1)
 
-<a name="0.1.0"></a>
+<a name="1.0.0"></a>
 # 1.0.0 (2018-03-20)
 
 _Initial release_
