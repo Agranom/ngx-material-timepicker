@@ -2,8 +2,15 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="1.1.2"></a>
+## 1.1.2 (2018-05-16)
+
+### Bug fixes
+
+* Remove BrowserAnimationsModule from NgxMaterialTimepickerModule imports [(2fb6b7d)](https://github.com/Agranom/ngx-material-timepicker/commit/2fb6b7d8475e166e4ca5c1be6bb1eb35e813d79e), closes [(#3)](https://github.com/Agranom/ngx-material-timepicker/issues/3) 
+
 <a name="1.1.1"></a>
-## 1.1.0 (2018-05-16)
+## 1.1.1 (2018-05-16)
 
 ### Bug fixes
 
