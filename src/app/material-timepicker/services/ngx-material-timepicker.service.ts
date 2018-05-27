@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ClockFaceTime} from '../models/clock-face-time.interface';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {TimePeriod} from '../models/time-period.enum';
 
 const DEFAULT_HOUR: ClockFaceTime = {

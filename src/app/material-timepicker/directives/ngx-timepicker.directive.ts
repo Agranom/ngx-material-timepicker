@@ -1,7 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, forwardRef, HostListener, Input, OnDestroy} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {TimeFormat} from '../models/time-format.enum';
 import * as moment_ from 'moment';
 //Workaround for error "Cannot call a namespace ('moment')

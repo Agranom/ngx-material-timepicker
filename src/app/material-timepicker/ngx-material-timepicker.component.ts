@@ -11,12 +11,11 @@ import {
 } from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
-import {Observable} from 'rxjs/Observable';
+import {Observable, merge} from 'rxjs';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
 import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepicker-event.service';
-import {merge} from 'rxjs/observable/merge';
 import {filter} from 'rxjs/operators';
 
 
