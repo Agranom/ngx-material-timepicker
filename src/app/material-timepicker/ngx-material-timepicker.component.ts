@@ -41,7 +41,8 @@ const ESCAPE = 27;
                 animate('0.2s ease-out', style({transform: 'translateY(-30%)', opacity: 0}))
             ])
         ])
-    ]
+    ],
+    providers: [NgxMaterialTimepickerService]
 })
 export class NgxMaterialTimepickerComponent implements OnInit {
 
@@ -55,6 +56,8 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     isOpened = false;
     animationState: AnimationState;
+
+    faceFormat: number = 12;
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
@@ -106,6 +109,11 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     close() {
         this.animationState = AnimationState.LEAVE;
+    }
+
+    setFaceFormat(format: number): void {
+        this.timepickerService.faceFormat = format;
+        this.faceFormat = format;
     }
 
     animationDone(event: AnimationEvent): void {

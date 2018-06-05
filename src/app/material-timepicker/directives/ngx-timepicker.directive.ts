@@ -28,6 +28,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     @Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
     @Input() disabled: boolean;
+    @Input() faceFormat: number = 12;
 
     private timepickerSubscription: Subscription;
     private onChange: (value: any) => void = () => {
@@ -65,6 +66,8 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
                 this.onChange(time);
                 this.onTouched();
             })
+
+            this.timepicker.setFaceFormat(this.faceFormat);
         }
     }
 
@@ -100,5 +103,9 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 }
 
 function formatTime(time: string, format = TimeFormat.TWELVE): string {
-    return moment(time, 'hh:mm a').format(<string>format);
+    let parsedTime = time.split(':');
+    if (parsedTime[0] === '24') {
+        parsedTime[0] = '00';
+    }
+    return moment(parsedTime.join(':'), 'hh:mm a').format(<string>format);
 }

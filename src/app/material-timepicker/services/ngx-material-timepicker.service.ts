@@ -3,10 +3,6 @@ import {ClockFaceTime} from '../models/clock-face-time.interface';
 import {Observable, BehaviorSubject} from 'rxjs';
 import {TimePeriod} from '../models/time-period.enum';
 
-const DEFAULT_HOUR: ClockFaceTime = {
-	time: 12,
-	angle: 360
-};
 const DEFAULT_MINUTE: ClockFaceTime = {
 	time: '00',
 	angle: 360
@@ -15,11 +11,24 @@ const DEFAULT_MINUTE: ClockFaceTime = {
 @Injectable()
 export class NgxMaterialTimepickerService {
 
-	private hourSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_HOUR);
+	public DEFAULT_HOUR: ClockFaceTime = {
+		time: 12,
+		angle: 360
+	};
+	
+	private hourSubject = new BehaviorSubject<ClockFaceTime>(this.DEFAULT_HOUR);
 	private minuteSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_MINUTE);
 	private periodSubject = new BehaviorSubject<TimePeriod>(TimePeriod.AM);
+	private faceFormatSubject = new BehaviorSubject<number>(12);
 
 	constructor() {
+		this.selectedFaceFormat.subscribe(format => {
+			this.DEFAULT_HOUR = {
+				time: format,
+				angle: 360
+			}
+			this.hourSubject.next(this.DEFAULT_HOUR);
+		})
 	}
 
 	set hour(hour: ClockFaceTime) {
@@ -54,4 +63,11 @@ export class NgxMaterialTimepickerService {
 		return `${hour}:${minute} ${period}`;
 	}
 
+	set faceFormat(format: number) {
+		this.faceFormatSubject.next(format);
+	}
+
+	get selectedFaceFormat(): Observable<number> {
+		return this.faceFormatSubject.asObservable();
+	}
 }
