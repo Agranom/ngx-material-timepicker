@@ -38,7 +38,7 @@ export class NgxMaterialTimepickerModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: NgxMaterialTimepickerModule,
-            providers: [NgxMaterialTimepickerService, NgxMaterialTimepickerEventService]
+            providers: [NgxMaterialTimepickerEventService]
         }
     }
 }
