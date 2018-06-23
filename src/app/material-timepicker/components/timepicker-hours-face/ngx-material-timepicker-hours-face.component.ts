@@ -13,13 +13,13 @@ export class NgxMaterialTimepickerHoursFaceComponent {
 
     @Input() selectedHour: ClockFaceTime;
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
-    @Output() hourSelected = new EventEmitter();
+    @Output() hourSelected = new EventEmitter<null>();
 
     constructor() {
-        for (let i = 1; i < HOURS + 1; i++) {
-            const angleStep = 360 / HOURS;
-            this.hoursList.push({time: i, angle: angleStep * i});
-        }
+        const angleStep = 360 / HOURS;
+        this.hoursList = Array(HOURS).fill(1).map((v, i) => {
+            return {time: v + i, angle: angleStep * (v + i)};
+        });
     }
 
     @HostListener('touchend')

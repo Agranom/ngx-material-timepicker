@@ -17,12 +17,12 @@ export class NgxMaterialTimepickerMinutesFaceComponent {
     @Output() minuteChange = new EventEmitter<ClockFaceTime>();
 
     constructor() {
-        for (let i = 0; i < MINUTES; i++) {
-            const angleStep = 360 / MINUTES;
-            const angle = angleStep * i;
-
-            this.minutesList.push({time: i === 0 ? '00' : i, angle: angle !== 0 ? angle : 360});
-        }
+        const angleStep = 360 / MINUTES;
+        this.minutesList = Array(MINUTES).fill(0).map((v, i) => {
+            const index = (v + i);
+            const angle = angleStep * index;
+            return {time: index === 0 ? '00' : index, angle: angle !== 0 ? angle : 360};
+        })
     }
 }
 
