@@ -2,8 +2,10 @@ import {Injectable} from '@angular/core';
 import {ClockFaceTime} from '../models/clock-face-time.interface';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {TimePeriod} from '../models/time-period.enum';
-import * as moment from 'moment';
+import * as moment_ from 'moment';
 import {TimeFormat} from '../models/time-format.enum';
+
+const moment = moment_;
 
 const DEFAULT_HOUR: ClockFaceTime = {
     time: 12,
