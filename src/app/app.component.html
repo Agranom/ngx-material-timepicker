@@ -33,6 +33,11 @@
                                [ngxTimepicker]="fullTime" [format]="24" readonly>
                         <ngx-material-timepicker #fullTime></ngx-material-timepicker>
                     </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input aria-label="default time"
+                               [ngxTimepicker]="defaultTime" [value]="'05:11 pm'" readonly>
+                        <ngx-material-timepicker #defaultTime></ngx-material-timepicker>
+                    </div>
                     <div
                         class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--disabled">
                         <input placeholder="Disabled Time Picker" aria-label="disabled time picker"
