@@ -8,17 +8,17 @@
 				<span class="timepicker-dial__item"
                       [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.HOUR}"
                       (click)="changeTimeUnit(timeUnit.HOUR)">
-					{{(selectedHour | async)?.time | timeFormatter: timeUnit.HOUR}}</span>:<span
+					{{selectedHour?.time | timeFormatter: timeUnit.HOUR}}</span>:<span
                     class="timepicker-dial__item"
                     [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.MINUTE}"
-                    (click)="changeTimeUnit(timeUnit.MINUTE)">{{(selectedMinute | async)?.time | timeFormatter: timeUnit.MINUTE}}</span>
+                    (click)="changeTimeUnit(timeUnit.MINUTE)">{{selectedMinute?.time | timeFormatter: timeUnit.MINUTE}}</span>
                 </div>
                 <div class="timepicker-dial__period">
 			<span class="timepicker-dial__item"
-                  [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.AM}"
+                  [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.AM}"
                   (click)="changePeriod(timePeriod.AM)">AM</span>
                     <span class="timepicker-dial__item"
-                          [ngClass]="{'timepicker-dial__item_active': (selectedPeriod|async) === timePeriod.PM}"
+                          [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.PM}"
                           (click)="changePeriod(timePeriod.PM)">PM</span>
                 </div>
             </div>
@@ -27,10 +27,10 @@
             <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
                 <ngx-material-timepicker-hours-face *ngSwitchCase="timeUnit.HOUR"
                                                     (hourChange)="onHourChange($event)"
-                                                    [selectedHour]="selectedHour|async"
+                                                    [selectedHour]="selectedHour"
                                                     (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-hours-face>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
-                                                      [selectedMinute]="selectedMinute|async"
+                                                      [selectedMinute]="selectedMinute"
                                                       (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
             </div>
             <div class="timepicker__actions">

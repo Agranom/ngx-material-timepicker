@@ -3,7 +3,7 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Input,
+    Input, OnDestroy,
     OnInit,
     Output,
     TemplateRef,
@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
-import {Observable, merge} from 'rxjs';
+import {merge, Subscription} from 'rxjs';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
@@ -43,11 +43,11 @@ const ESCAPE = 27;
         ])
     ]
 })
-export class NgxMaterialTimepickerComponent implements OnInit {
+export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
-    selectedHour: Observable<ClockFaceTime>;
-    selectedMinute: Observable<ClockFaceTime>;
-    selectedPeriod: Observable<TimePeriod>;
+    selectedHour: ClockFaceTime;
+    selectedMinute: ClockFaceTime;
+    selectedPeriod: TimePeriod;
 
     timePeriod = TimePeriod;
     timeUnit = TimeUnit;
@@ -55,6 +55,8 @@ export class NgxMaterialTimepickerComponent implements OnInit {
 
     isOpened = false;
     animationState: AnimationState;
+
+    subscriptions: Subscription[] = [];
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
@@ -66,16 +68,16 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     constructor(private timepickerService: NgxMaterialTimepickerService,
                 private eventService: NgxMaterialTimepickerEventService) {
 
-        merge(this.eventService.backdropClick,
+        this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
-            .subscribe(() => this.close());
+            .subscribe(() => this.close()));
 
     }
 
     ngOnInit() {
-        this.selectedHour = this.timepickerService.selectedHour;
-        this.selectedMinute = this.timepickerService.selectedMinute;
-        this.selectedPeriod = this.timepickerService.selectedPeriod;
+        this.subscriptions.push(this.timepickerService.selectedHour.subscribe(hour => this.selectedHour = hour));
+        this.subscriptions.push(this.timepickerService.selectedMinute.subscribe(minute => this.selectedMinute = minute));
+        this.subscriptions.push(this.timepickerService.selectedPeriod.subscribe(period => this.selectedPeriod = period));
     }
 
     onHourChange(hour: ClockFaceTime): void {
@@ -117,5 +119,9 @@ export class NgxMaterialTimepickerComponent implements OnInit {
     @HostListener('keydown', ['$event'])
     onKeydown(e: KeyboardEvent) {
         this.eventService.keydownEventSubject.next(e);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 }
