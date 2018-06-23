@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.2.2"></a>
+## 2.2.2 (2018-06-23)
+
+### Feature
+
+* (timepicker): user can change default time with input [(571ccb3)](https://github.com/Agranom/ngx-material-timepicker/commit/571ccb3785ee2f2cd5d8638a7fe76b949357c798), closes [(#7)](https://github.com/Agranom/ngx-material-timepicker/issues/7)
+* refactoring 
+
 <a name="2.1.2"></a>
 ## 2.1.2 (2018-05-27)
 
