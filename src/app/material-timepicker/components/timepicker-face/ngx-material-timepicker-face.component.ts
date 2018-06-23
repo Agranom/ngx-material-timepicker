@@ -4,8 +4,8 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Input,
-    Output,
+    Input, OnChanges,
+    Output, SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
@@ -16,7 +16,7 @@ import {TimeUnit} from '../../models/time-unit.enum';
     templateUrl: './ngx-material-timepicker-face.component.html',
     styleUrls: ['./ngx-material-timepicker-face.component.scss']
 })
-export class NgxMaterialTimepickerFaceComponent implements AfterViewInit {
+export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges {
 
     timeUnit = TimeUnit;
 
@@ -33,6 +33,12 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.setClockHandPosition();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes && changes['selectedTime'].currentValue) {
+            this.selectedTime = this.faceTime.find(time => time.time === changes['selectedTime'].currentValue.time);
+        }
     }
 
     @HostListener('touchstart', ['$event'])

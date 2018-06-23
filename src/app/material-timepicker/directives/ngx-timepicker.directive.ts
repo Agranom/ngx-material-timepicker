@@ -4,6 +4,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {TimeFormat} from '../models/time-format.enum';
 import * as moment_ from 'moment';
+import {NgxMaterialTimepickerService} from '../services/ngx-material-timepicker.service';
 //Workaround for error "Cannot call a namespace ('moment')
 const moment = moment_;
 
@@ -12,8 +13,6 @@ const VALUE_ACCESSOR = {
     useExisting: forwardRef(() => TimepickerDirective),
     multi: true
 };
-
-const TWENTY_FOUR_HOUR_FORMAT = 24;
 
 @Directive({
     selector: '[ngxTimepicker]',
@@ -33,7 +32,15 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     private onChange: (value: any) => void = () => {
     };
 
-    constructor(private elementRef: ElementRef) {
+    constructor(private elementRef: ElementRef,
+                private timepickerService: NgxMaterialTimepickerService) {
+    }
+
+    private _format: TimeFormat;
+
+    @Input()
+    set format(value: number) {
+        this._format = value === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
     }
 
     private _value: string;
@@ -45,14 +52,8 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     set value(value: string) {
         this._value = formatTime(value, this._format);
-        this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : ''
-    }
-
-    private _format: TimeFormat;
-
-    @Input()
-    set format(value: number) {
-        this._format = value === TWENTY_FOUR_HOUR_FORMAT ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+        this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : '';
+        this.timepickerService.defaultTime = formatTime(value);
     }
 
     onTouched = () => {
@@ -100,5 +101,5 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 }
 
 function formatTime(time: string, format = TimeFormat.TWELVE): string {
-    return moment(time, 'hh:mm a').format(<string>format);
+    return moment(time, format).format(format);
 }
