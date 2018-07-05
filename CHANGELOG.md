@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.2.3"></a>
+## 2.2.3 (2018-07-05)
+
+### Fixes
+
+* fix(default time): move NgxMaterialTimepickerService to component providers, so that each timepicker has its own default time [(409b032)](https://github.com/Agranom/ngx-material-timepicker/commit/409b032c52f030203578709dcf57b2a28ca2cd5d), closes [(#9)](https://github.com/Agranom/ngx-material-timepicker/issues/9)
+* fix(focus anchor directive): wrap focusing element in setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError while using ngModel [(f9c86fa)](https://github.com/Agranom/ngx-material-timepicker/commit/f9c86fa2675347708598900265cd89cba72f4fdb), closes [(#8)](https://github.com/Agranom/ngx-material-timepicker/issues/9)
+* fix(ie): remove css variables, because IE doesn't support it [(1fb090f)](https://github.com/Agranom/ngx-material-timepicker/commit/1fb090fbfdb01a8451e15eaf6a0cff43261a5da7)
+* fix(ie, edge) change X and Y props to left and top in getBoundingClientRect [(798bda2)](https://github.com/Agranom/ngx-material-timepicker/commit/798bda26e3ee75f052be6a92d545726d5bd0c9ac)
+* fix(adaptive): fix adaptive for orientation landscape (increase max width) [(6eac2ff)](https://github.com/Agranom/ngx-material-timepicker/commit/6eac2ff2552007c7736da6887f1943e48b471e68)
+
 <a name="2.2.2"></a>
 ## 2.2.2 (2018-06-23)
 
