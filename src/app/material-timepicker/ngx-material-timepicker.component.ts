@@ -31,7 +31,8 @@ const ESCAPE = 27;
                 animate('0.2s ease-out', style({transform: 'translateY(-30%)', opacity: 0}))
             ])
         ])
-    ]
+    ],
+    providers: [NgxMaterialTimepickerService]
 })
 export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
@@ -88,6 +89,10 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     setTime() {
         this.timeSet.next(this.timepickerService.fullTime);
         this.close();
+    }
+
+    setDefaultTime(time: string): void {
+        this.timepickerService.defaultTime = time;
     }
 
     open() {

@@ -4,7 +4,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {TimeFormat} from '../models/time-format.enum';
 import * as moment_ from 'moment';
-import {NgxMaterialTimepickerService} from '../services/ngx-material-timepicker.service';
 //Workaround for error "Cannot call a namespace ('moment')
 const moment = moment_;
 
@@ -27,13 +26,13 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     @Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
     @Input() disabled: boolean;
-
+    onTouched = () => {
+    };
     private timepickerSubscription: Subscription;
     private onChange: (value: any) => void = () => {
     };
 
-    constructor(private elementRef: ElementRef,
-                private timepickerService: NgxMaterialTimepickerService) {
+    constructor(private elementRef: ElementRef) {
     }
 
     private _format: TimeFormat;
@@ -53,11 +52,8 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     set value(value: string) {
         this._value = formatTime(value, this._format);
         this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : '';
-        this.timepickerService.defaultTime = formatTime(value);
+        this.timepicker.setDefaultTime(formatTime(value));
     }
-
-    onTouched = () => {
-    };
 
     ngAfterViewInit() {
         if (this.timepicker) {
