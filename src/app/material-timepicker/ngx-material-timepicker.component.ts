@@ -9,7 +9,7 @@ import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepi
 import {filter} from 'rxjs/operators';
 
 
-enum AnimationState {
+export enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
