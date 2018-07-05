@@ -1,19 +1,14 @@
 @import "../../styles/config";
 
-:host {
-    --clock-face-size: 290px;
-    --clock-face-padding: 20px;
-}
-
 .clock-face {
-    width: var(--clock-face-size);
-    height: var(--clock-face-size);
+    width: 290px;
+    height: 290px;
     border-radius: 50%;
     background-color: #f0f0f0;
     position: relative;
     display: flex;
     justify-content: center;
-    padding: var(--clock-face-padding);
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -26,7 +21,7 @@
     font-size: 16px;
     color: grey;
     transform-origin: 0 100%;
-    height: calc(var(--clock-face-size) / 2 - var(--clock-face-padding));
+    height: calc(290px / 2 - 20px);
     width: 50px;
     text-align: center;
     z-index: 2;
@@ -49,14 +44,13 @@
 }
 
 .clock-face__clock-hand {
-    --height: 110px;
     display: block;
-    height: var(--height);
+    height: 110px;
     width: 2px;
     background-color: $primary-color;
     transform-origin: 0 100%;
     position: absolute;
-    top: calc(50% - var(--height));
+    top: calc(50% - 110px);
     z-index: 1;
     &:after {
         content: '';
@@ -84,11 +78,16 @@
 }
 
 @media (max-width: 575px) and (orientation: landscape) {
-    :host {
-        --clock-face-size: 225px;
-        --clock-face-padding: 5px;
+    .clock-face {
+        width: 225px;
+        height: 225px;
+        padding: 5px;
+    }
+    .clock-face__number {
+        height: calc(225px / 2 - 5px);
     }
     .clock-face__clock-hand {
-        --height: 90px;
+        height: 90px;
+        top: calc(50% - 90px);
     }
 }
