@@ -84,7 +84,7 @@ $item-color: #fff;
     }
 }
 
-@media (max-width: 575px) and (orientation: landscape) {
+@media (max-width: 1023px) and (orientation: landscape) {
     .timepicker {
         display: flex;
         width: 515px;
