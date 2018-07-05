@@ -9,14 +9,16 @@ export class FocusAnchorDirective implements AfterViewInit, OnDestroy {
     private activeElement: HTMLElement;
     private element: HTMLElement;
 
-    constructor(@Optional() @Inject(DOCUMENT) private document: any, //Type 'any' because of build error
+    constructor(@Optional() @Inject(DOCUMENT) private document: any,
                 elementRef: ElementRef) {
         this.element = elementRef.nativeElement;
     }
 
     ngAfterViewInit() {
         this.activeElement = <HTMLElement>this.document.activeElement;
-        this.element.focus();
+        // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
+        setTimeout(() => this.element.focus())
+
     }
 
     ngOnDestroy() {
