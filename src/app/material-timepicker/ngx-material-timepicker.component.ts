@@ -1,14 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input, OnDestroy,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {merge, Subscription} from 'rxjs';
@@ -19,7 +9,7 @@ import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepi
 import {filter} from 'rxjs/operators';
 
 
-export enum AnimationState {
+enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
@@ -63,8 +53,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input('ESC') isEsc = true;
     @Output() timeSet = new EventEmitter<string>();
 
-    @ViewChild('timepicker') timepicker: ElementRef;
-
     constructor(private timepickerService: NgxMaterialTimepickerService,
                 private eventService: NgxMaterialTimepickerEventService) {
 
@@ -78,6 +66,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.timepickerService.selectedHour.subscribe(hour => this.selectedHour = hour));
         this.subscriptions.push(this.timepickerService.selectedMinute.subscribe(minute => this.selectedMinute = minute));
         this.subscriptions.push(this.timepickerService.selectedPeriod.subscribe(period => this.selectedPeriod = period));
+
     }
 
     onHourChange(hour: ClockFaceTime): void {
