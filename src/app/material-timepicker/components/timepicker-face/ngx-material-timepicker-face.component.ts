@@ -60,8 +60,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const clockFaceCords = this.clockFace.nativeElement.getBoundingClientRect();
 
         //Get x0 and y0 of the circle
-        const centerX = clockFaceCords.x + clockFaceCords.width / 2;
-        const centerY = clockFaceCords.y + clockFaceCords.height / 2;
+        const centerX = clockFaceCords.left + clockFaceCords.width / 2;
+        const centerY = clockFaceCords.top + clockFaceCords.height / 2;
         //Counting the arctangent and convert it to from radian to deg
         const arctangent = Math.atan(Math.abs(e.clientX - centerX) / Math.abs(e.clientY - centerY)) * 180 / Math.PI;
         //Get angle according to quadrant
