@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file
 
 ### BREAKING CHANGES
 
-* upgrade to Angular 6 [(252e998)](https://github.com/Agranom/ngx-material-timepicker/commit/252e9987db9440c79b43b3cb1d202643926ebda1), closes [(#4)](https://github.com/Agranom/ngx-material-timepicker/issues/4)
+* upgrade to Angular 6 [(252e998)](https://github.com/Agranom/ngx-material-timepicker/commit/252e9987db9440c79b43b3cb1d202643926ebda1), closes [(#4)](https://github.com/Agranom/ngx-material-timepicker/issues/4) (angular 6 or higher is now required to use this package)
 
 <a name="1.1.2"></a>
 ## 1.1.2 (2018-05-24)
