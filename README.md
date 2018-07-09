@@ -49,9 +49,11 @@ Selector: `ngxTimepicker`
 | @Input()
   disabled: boolean | Weather the timepicker popup should be disabled. |
 | @Input()
-  value: string | Set time for an input. Now available format only `hh:mm a`. |
+  value: string | Set default time for timepicker. |
 | @Input()
   format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
+| @Input()
+  ESC: boolean | Disable or enable closing timepicker by ESC. |
   
 **NgxMaterialTimepickerComponent**
 
