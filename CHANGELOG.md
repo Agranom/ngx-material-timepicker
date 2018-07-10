@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.2.4"></a>
+## 2.2.4 (2018-07-10)
+
+### Fixes
+
+* fix(timepicker format): change momentJs format to make 24-hours formatting workable [(6966dd9)](https://github.com/Agranom/ngx-material-timepicker/commit/6966dd94e119d62683d3f54855905b9e47a71c93), closes [(#12)](https://github.com/Agranom/ngx-material-timepicker/issues/12)
+
 <a name="2.2.3"></a>
 ## 2.2.3 (2018-07-05)
 
