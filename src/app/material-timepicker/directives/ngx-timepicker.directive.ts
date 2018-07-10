@@ -52,7 +52,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     set value(value: string) {
         this._value = formatTime(value, this._format);
         this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : '';
-        this.timepicker.setDefaultTime(formatTime(value));
+        // this.timepicker.setDefaultTime(this._value);
     }
 
     ngAfterViewInit() {
@@ -97,5 +97,5 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 }
 
 function formatTime(time: string, format = TimeFormat.TWELVE): string {
-    return moment(time, format).format(format);
+    return moment(time, 'hh:mm a').format(format);
 }
