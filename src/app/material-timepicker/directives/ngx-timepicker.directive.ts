@@ -52,7 +52,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     set value(value: string) {
         this._value = formatTime(value, this._format);
         this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : '';
-        // this.timepicker.setDefaultTime(this._value);
+        this.timepicker.setDefaultTime(value);
     }
 
     ngAfterViewInit() {
