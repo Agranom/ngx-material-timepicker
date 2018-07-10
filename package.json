@@ -1,7 +1,7 @@
 {
     "name": "ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "2.2.4",
+    "version": "2.2.5",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
@@ -76,7 +76,7 @@
         "karma-jasmine": "~1.1.0",
         "karma-jasmine-html-reporter": "^0.2.2",
         "ng-packagr": "^2.2.0",
-        "ngx-material-timepicker": "^2.1.2",
+        "ngx-material-timepicker": "^2.2.4",
         "protractor": "~5.1.2",
         "rxjs": "^6.2.0",
         "travis-deploy-once": "^5.0.0",

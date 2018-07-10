@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.2.5"></a>
+## 2.2.5 (2018-07-10)
+
+### Fixes
+
+* fix(default time): fix bug which occurs when set value in 24-hours format [(24e7156)](https://github.com/Agranom/ngx-material-timepicker/commit/24e7156924e2ea785024936e429a3654c47d3612)
+
 <a name="2.2.4"></a>
 ## 2.2.4 (2018-07-10)
 
