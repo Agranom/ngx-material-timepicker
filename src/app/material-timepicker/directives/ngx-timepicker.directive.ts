@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, forwardRef, HostListener, Input, OnDestroy} from '@angular/core';
+import {Directive, ElementRef, forwardRef, HostListener, Input, OnDestroy} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -22,9 +22,8 @@ const VALUE_ACCESSOR = {
         '(blur)': 'onTouched()',
     }
 })
-export class TimepickerDirective implements AfterViewInit, ControlValueAccessor, OnDestroy {
+export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
 
-    @Input('ngxTimepicker') timepicker: NgxMaterialTimepickerComponent;
     @Input() disabled: boolean;
     onTouched = () => {
     };
@@ -33,6 +32,13 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     };
 
     constructor(private elementRef: ElementRef) {
+    }
+
+    private _timepicker: NgxMaterialTimepickerComponent;
+
+    @Input('ngxTimepicker')
+    set timepicker(picker: NgxMaterialTimepickerComponent) {
+        this.registerTimepicker(picker);
     }
 
     private _format: TimeFormat;
@@ -52,17 +58,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
     set value(value: string) {
         this._value = formatTime(value, this._format);
         this.elementRef.nativeElement.value = value ? formatTime(value, this._format) : '';
-        this.timepicker.setDefaultTime(formatTime(value));
-    }
-
-    ngAfterViewInit() {
-        if (this.timepicker) {
-            this.timepickerSubscription = this.timepicker.timeSet.subscribe((time: string) => {
-                this.value = time;
-                this.onChange(time);
-                this.onTouched();
-            })
-        }
+        this._timepicker.setDefaultTime(formatTime(value));
     }
 
     onInput(value: string) {
@@ -72,7 +68,7 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     @HostListener('click')
     onClick() {
-        this.timepicker.open();
+        this._timepicker.open();
     }
 
     writeValue(value: string): void {
@@ -93,6 +89,17 @@ export class TimepickerDirective implements AfterViewInit, ControlValueAccessor,
 
     ngOnDestroy() {
         this.timepickerSubscription.unsubscribe();
+    }
+
+    private registerTimepicker(picker: NgxMaterialTimepickerComponent): void {
+        if (picker) {
+            this._timepicker = picker;
+            this.timepickerSubscription = this._timepicker.timeSet.subscribe((time: string) => {
+                this.value = time;
+                this.onChange(time);
+                this.onTouched();
+            });
+        }
     }
 }
 
