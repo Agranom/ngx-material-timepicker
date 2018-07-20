@@ -18,8 +18,6 @@
 
 .clock-face__number {
     position: absolute;
-    font-size: 16px;
-    color: grey;
     transform-origin: 0 100%;
     height: calc(290px / 2 - 20px);
     width: 50px;
@@ -34,11 +32,16 @@
         align-items: center;
         margin: auto;
         border-radius: 50%;
+        font-size: 16px;
+        color: grey;
         font-weight: 500;
         font-family: $primary-font-family;
         &.active {
             background-color: $primary-color;
             color: #fff;
+        }
+        &.disabled {
+            color: lighten(grey, 35%);
         }
     }
 }

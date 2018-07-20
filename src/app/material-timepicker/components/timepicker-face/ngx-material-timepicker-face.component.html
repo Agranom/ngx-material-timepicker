@@ -2,9 +2,9 @@
   <div *ngIf="unit !== timeUnit.MINUTE;else minutesFace" class="clock-face__container">
     <div class="clock-face__number"
          [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
-         *ngFor="let time of faceTime">
+         *ngFor="let time of faceTime; trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
-            [ngClass]="{'active': time.time === (selectedTime.time)}">{{time.time}}</span>
+            [ngClass]="{'active': time.time === (selectedTime.time), 'disabled': time.disabled}">{{time.time}}</span>
     </div>
   </div>
   <span class="clock-face__clock-hand" [ngClass]="{'clock-face__clock-hand_minute': unit === timeUnit.MINUTE}"
@@ -14,7 +14,7 @@
   <div class="clock-face__container">
     <div class="clock-face__number"
          [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
-         *ngFor="let time of faceTime">
+         *ngFor="let time of faceTime; trackBy: trackByTime">
 	<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
         [ngClass]="{'active': (selectedTime.time === time.time) && time.time % 5 === 0}">
 	{{time.time % 5 === 0 ? time.time : ''}}</span>
