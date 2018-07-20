@@ -4,12 +4,15 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Input, OnChanges,
-    Output, SimpleChanges,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimeUnit} from '../../models/time-unit.enum';
+import {TimePeriod} from '../../models/time-period.enum';
 
 @Component({
     selector: 'ngx-material-timepicker-face',
@@ -23,6 +26,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() faceTime: ClockFaceTime[];
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
+    @Input() period: TimePeriod;
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
 
     @ViewChild('clockFace') clockFace: ElementRef;
@@ -30,17 +34,23 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     private isStarted: boolean;
 
-
     ngAfterViewInit() {
         this.setClockHandPosition();
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        if ((changes['faceTime'] && changes['faceTime'].currentValue)
+            && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
+            this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
+        }
         if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
-            this.selectedTime = this.faceTime.find(time => time.time === changes['selectedTime'].currentValue.time);
             this.setClockHandPosition();
         }
+        if (changes['period'] && changes['period'].currentValue) {
+            this.selectAvailableTime();
+        }
     }
+
 
     trackByTime(_, time: ClockFaceTime): string | number {
         return time.time;
@@ -88,8 +98,18 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         this.isStarted = false;
     }
 
-    private setClockHandPosition() {
+    private setClockHandPosition(): void {
         this.clockHand.nativeElement.style.transform = `rotate(${this.selectedTime.angle}deg)`;
+    }
+
+    private selectAvailableTime(): void {
+        const currentTime = this.faceTime.find(time => this.selectedTime.time === time.time);
+
+        if (currentTime && currentTime.disabled) {
+            const availableTime = this.faceTime.find(time => !time.disabled);
+
+            this.timeChange.next(availableTime);
+        }
     }
 }
 

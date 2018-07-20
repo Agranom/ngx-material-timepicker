@@ -40,13 +40,12 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
                 return {...value, disabled: currentTime.isBefore(minTime, 'hours')};
             });
         }
+        return this.hoursList;
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue) {
             this.hoursList = this.disabledHours;
-
-            this.selectAvailableHour();
         }
     }
 
@@ -55,17 +54,6 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
     onClick() {
         //TODO: fire if hour changed
         this.hourSelected.next();
-    }
-
-    private selectAvailableHour(): void {
-        const currentHour = this.hoursList.find(hour => this.selectedHour.time === hour.time);
-
-        if (currentHour && currentHour.disabled) {
-            const availableHour = this.hoursList.find(hour => !hour.disabled);
-
-            this.selectedHour = availableHour;
-            this.hourChange.next(availableHour);
-        }
     }
 }
 

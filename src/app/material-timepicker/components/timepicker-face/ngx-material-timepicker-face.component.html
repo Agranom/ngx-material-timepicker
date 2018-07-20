@@ -16,7 +16,7 @@
          [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
          *ngFor="let time of faceTime; trackBy: trackByTime">
 	<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
-        [ngClass]="{'active': (selectedTime.time === time.time) && time.time % 5 === 0}">
+        [ngClass]="{'active': (selectedTime.time === time.time) && time.time % 5 === 0, 'disabled': time.disabled}">
 	{{time.time % 5 === 0 ? time.time : ''}}</span>
     </div>
   </div>
