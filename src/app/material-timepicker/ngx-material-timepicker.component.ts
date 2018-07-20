@@ -1,4 +1,14 @@
-import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef
+} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {merge, Subscription} from 'rxjs';
@@ -7,7 +17,8 @@ import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
 import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepicker-event.service';
 import {filter} from 'rxjs/operators';
-
+import {TimepickerDirective} from './directives/ngx-timepicker.directive';
+import {skip, tap} from 'rxjs/internal/operators';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -47,6 +58,8 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     isOpened = false;
     animationState: AnimationState;
 
+    timepickerInput: TimepickerDirective;
+
     subscriptions: Subscription[] = [];
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
@@ -55,7 +68,8 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Output() timeSet = new EventEmitter<string>();
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService) {
+                private eventService: NgxMaterialTimepickerEventService,
+                private changeDetector: ChangeDetectorRef) {
 
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
@@ -63,11 +77,33 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     }
 
-    ngOnInit() {
-        this.subscriptions.push(this.timepickerService.selectedHour.subscribe(hour => this.selectedHour = hour));
-        this.subscriptions.push(this.timepickerService.selectedMinute.subscribe(minute => this.selectedMinute = minute));
-        this.subscriptions.push(this.timepickerService.selectedPeriod.subscribe(period => this.selectedPeriod = period));
+    get minTime(): string | null {
+        return this.timepickerInput && this.timepickerInput.min;
+    }
 
+    ngOnInit() {
+        this.subscriptions.push(this.timepickerService.selectedHour.pipe(
+            tap(hour => this.selectedHour = hour),
+            skip(1)
+        ).subscribe(() => this.changeDetector.detectChanges()));
+
+        this.subscriptions.push(this.timepickerService.selectedMinute.pipe(
+            tap(minute => this.selectedMinute = minute),
+            skip(1)
+        ).subscribe(() => this.changeDetector.detectChanges()));
+
+        this.subscriptions.push(this.timepickerService.selectedPeriod.subscribe(period => this.selectedPeriod = period));
+    }
+
+    /***
+     * Register an input with this timepicker.
+     * @param {TimepickerDirective} input - The timepicker input to register with this timepicker
+     */
+    registerInput(input: TimepickerDirective): void {
+        if (this.timepickerInput) {
+            throw Error('A Timepicker can only be associated with a single input.');
+        }
+        this.timepickerInput = input;
     }
 
     onHourChange(hour: ClockFaceTime): void {
