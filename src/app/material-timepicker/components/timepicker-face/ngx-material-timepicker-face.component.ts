@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimeUnit} from '../../models/time-unit.enum';
-import {TimePeriod} from '../../models/time-period.enum';
 
 @Component({
     selector: 'ngx-material-timepicker-face',
@@ -23,10 +22,11 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     timeUnit = TimeUnit;
 
+    isClockFaceDisabled: boolean;
+
     @Input() faceTime: ClockFaceTime[];
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
-    @Input() period: TimePeriod;
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
 
     @ViewChild('clockFace') clockFace: ElementRef;
@@ -41,12 +41,13 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     ngOnChanges(changes: SimpleChanges) {
         if ((changes['faceTime'] && changes['faceTime'].currentValue)
             && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
+            //Set time according to passed an input value
             this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
         }
         if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
             this.setClockHandPosition();
         }
-        if (changes['period'] && changes['period'].currentValue) {
+        if (changes['faceTime'] && changes['faceTime'].currentValue) {
             this.selectAvailableTime();
         }
     }
@@ -104,8 +105,9 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     private selectAvailableTime(): void {
         const currentTime = this.faceTime.find(time => this.selectedTime.time === time.time);
+        this.isClockFaceDisabled = this.faceTime.every(time => time.disabled);
 
-        if (currentTime && currentTime.disabled) {
+        if ((currentTime && currentTime.disabled) && !this.isClockFaceDisabled) {
             const availableTime = this.faceTime.find(time => !time.disabled);
 
             this.timeChange.next(availableTime);
