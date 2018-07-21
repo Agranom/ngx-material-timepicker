@@ -18,6 +18,7 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
     @Input() selectedHour: ClockFaceTime;
     @Input() period: TimePeriod;
     @Input() minTime: string;
+    @Input() maxTime: string;
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<null>();
 
@@ -29,15 +30,20 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
     }
 
     private get disabledHours(): ClockFaceTime[] {
-        if (this.minTime) {
-            const minTime = moment(this.minTime, TimeFormat.TWENTY_FOUR);
+        if (this.minTime || this.maxTime) {
+
+            const minTime = moment(this.minTime, TimeFormat.TWELVE);
+            const maxTime = moment(this.maxTime, TimeFormat.TWELVE);
 
             return this.hoursList.map(value => {
                 const currentHour = this.period === TimePeriod.AM ? +value.time : +value.time + 12;
                 const hour = this.period === TimePeriod.AM && currentHour === 12 ? 0 : currentHour;
                 const currentTime = moment().hour(hour);
 
-                return {...value, disabled: currentTime.isBefore(minTime, 'hours')};
+                return {
+                    ...value,
+                    disabled: currentTime.isBefore(minTime, 'hours') || currentTime.isAfter(maxTime, 'hours')
+                };
             });
         }
         return this.hoursList;
