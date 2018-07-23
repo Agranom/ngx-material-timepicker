@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimeUnit} from '../../models/time-unit.enum';
 import {TimePeriod} from '../../models/time-period.enum';
-import {TimeFormat} from '../../models/time-format.enum';
 import * as _moment from 'moment';
+import {Moment} from 'moment';
 
 const moment = _moment;
 const MINUTES = 60;
@@ -20,8 +20,8 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Input() selectedMinute: ClockFaceTime;
     @Input() selectedHour: number;
     @Input() period: TimePeriod;
-    @Input() minTime: string;
-    @Input() maxTime: string;
+    @Input() minTime: Moment;
+    @Input() maxTime: Moment;
     @Output() minuteChange = new EventEmitter<ClockFaceTime>();
 
     constructor() {
@@ -35,8 +35,6 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
 
     private get disabledMinutes(): ClockFaceTime[] {
         if (this.minTime || this.maxTime) {
-            const minTime = moment(this.minTime, TimeFormat.TWELVE);
-            const maxTime = moment(this.maxTime, TimeFormat.TWELVE);
 
             return this.minutesList.map(value => {
                 const hour = this.period === TimePeriod.AM ? this.selectedHour : this.selectedHour + 12;
@@ -44,7 +42,8 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
 
                 return {
                     ...value,
-                    disabled: currentTime.isBefore(minTime, 'minutes') || currentTime.isAfter(maxTime, 'minutes')
+                    disabled: currentTime.isBefore(this.minTime || null, 'minutes')
+                    || currentTime.isAfter(this.maxTime || null, 'minutes')
                 };
             })
         }

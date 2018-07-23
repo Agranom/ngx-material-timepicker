@@ -19,6 +19,7 @@ import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepi
 import {filter} from 'rxjs/operators';
 import {TimepickerDirective} from './directives/ngx-timepicker.directive';
 import {skip, tap} from 'rxjs/internal/operators';
+import {Moment} from 'moment';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -77,8 +78,12 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     }
 
-    get minTime(): string | null {
+    get minTime(): string | Moment {
         return this.timepickerInput && this.timepickerInput.min;
+    }
+
+    get maxTime(): string | Moment {
+        return this.timepickerInput && this.timepickerInput.max;
     }
 
     ngOnInit() {
