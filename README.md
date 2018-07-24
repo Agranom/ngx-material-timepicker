@@ -53,7 +53,10 @@ Selector: `ngxTimepicker`
 | @Input()
   format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
 | @Input()
-  ESC: boolean | Disable or enable closing timepicker by ESC. |
+  min: string or Moment | Set min time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+| @Input()
+  max: string or Moment | Set max time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+
   
 **NgxMaterialTimepickerComponent**
 
@@ -70,12 +73,10 @@ Selector: `ngx-material-timepicker`
   cancelBtnTmpl: TemplateRef<Node> |  Set if you want to change cancel button to your custom one. | 
 | @Input()
   confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
+| @Input()
+  ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Output()
   timeSet: EventEmitter<string> | Emits time when that was set. |
-
-## Changes
-
-Work is in progress.
 
 ## Development
 
