@@ -4,8 +4,10 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Input, OnChanges,
-    Output, SimpleChanges,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
@@ -20,6 +22,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     timeUnit = TimeUnit;
 
+    isClockFaceDisabled: boolean;
+
     @Input() faceTime: ClockFaceTime[];
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
@@ -30,15 +34,27 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     private isStarted: boolean;
 
-
     ngAfterViewInit() {
         this.setClockHandPosition();
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes && changes['selectedTime'].currentValue) {
-            this.selectedTime = this.faceTime.find(time => time.time === changes['selectedTime'].currentValue.time);
+        if ((changes['faceTime'] && changes['faceTime'].currentValue)
+            && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
+            //Set time according to passed an input value
+            this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
         }
+        if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
+            this.setClockHandPosition();
+        }
+        if (changes['faceTime'] && changes['faceTime'].currentValue) {
+            this.selectAvailableTime();
+        }
+    }
+
+
+    trackByTime(_, time: ClockFaceTime): string | number {
+        return time.time;
     }
 
     @HostListener('touchstart', ['$event'])
@@ -70,8 +86,10 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const roundedAngle = roundAngle(circleAngle, 360 / this.faceTime.length);
         const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
 
-        this.clockHand.nativeElement.style.transform = `rotate(${roundedAngle}deg)`;
-        this.timeChange.next(selectedTime);
+        if (!selectedTime.disabled) {
+            this.clockHand.nativeElement.style.transform = `rotate(${roundedAngle}deg)`;
+            this.timeChange.next(selectedTime);
+        }
     }
 
     @HostListener('touchend', ['$event'])
@@ -81,8 +99,19 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         this.isStarted = false;
     }
 
-    private setClockHandPosition() {
+    private setClockHandPosition(): void {
         this.clockHand.nativeElement.style.transform = `rotate(${this.selectedTime.angle}deg)`;
+    }
+
+    private selectAvailableTime(): void {
+        const currentTime = this.faceTime.find(time => this.selectedTime.time === time.time);
+        this.isClockFaceDisabled = this.faceTime.every(time => time.disabled);
+
+        if ((currentTime && currentTime.disabled) && !this.isClockFaceDisabled) {
+            const availableTime = this.faceTime.find(time => !time.disabled);
+
+            this.timeChange.next(availableTime);
+        }
     }
 }
 

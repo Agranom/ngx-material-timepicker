@@ -28,9 +28,16 @@
                 <ngx-material-timepicker-hours-face *ngSwitchCase="timeUnit.HOUR"
                                                     (hourChange)="onHourChange($event)"
                                                     [selectedHour]="selectedHour"
+                                                    [period]="selectedPeriod"
+                                                    [minTime]="minTime"
+                                                    [maxTime]="maxTime"
                                                     (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-hours-face>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
                                                       [selectedMinute]="selectedMinute"
+                                                      [selectedHour]="selectedHour?.time"
+                                                      [minTime]="minTime"
+                                                      [maxTime]="maxTime"
+                                                      [period]="selectedPeriod"
                                                       (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
             </div>
             <div class="timepicker__actions">

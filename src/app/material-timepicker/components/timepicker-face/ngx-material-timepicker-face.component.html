@@ -1,23 +1,23 @@
 <div class="clock-face" #clockFace>
-  <div *ngIf="unit !== timeUnit.MINUTE;else minutesFace" class="clock-face__container">
-    <div class="clock-face__number"
-         [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
-         *ngFor="let time of faceTime">
+    <div *ngIf="unit !== timeUnit.MINUTE;else minutesFace" class="clock-face__container">
+        <div class="clock-face__number"
+             [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
+             *ngFor="let time of faceTime; trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
-            [ngClass]="{'active': time.time === (selectedTime.time)}">{{time.time}}</span>
+                  [ngClass]="{'active': (time.time === selectedTime.time) && !isClockFaceDisabled, 'disabled': time.disabled}">{{time.time}}</span>
+        </div>
     </div>
-  </div>
-  <span class="clock-face__clock-hand" [ngClass]="{'clock-face__clock-hand_minute': unit === timeUnit.MINUTE}"
-        #clockHand></span>
+    <span class="clock-face__clock-hand" [ngClass]="{'clock-face__clock-hand_minute': unit === timeUnit.MINUTE}"
+          #clockHand [hidden]="isClockFaceDisabled"></span>
 </div>
 <ng-template #minutesFace>
-  <div class="clock-face__container">
-    <div class="clock-face__number"
-         [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
-         *ngFor="let time of faceTime">
+    <div class="clock-face__container">
+        <div class="clock-face__number"
+             [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
+             *ngFor="let time of faceTime; trackBy: trackByTime">
 	<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
-        [ngClass]="{'active': (selectedTime.time === time.time) && time.time % 5 === 0}">
+          [ngClass]="{'active': ((selectedTime.time === time.time) && time.time % 5 === 0) && !isClockFaceDisabled, 'disabled': time.disabled}">
 	{{time.time % 5 === 0 ? time.time : ''}}</span>
+        </div>
     </div>
-  </div>
 </ng-template>
