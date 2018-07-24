@@ -22,6 +22,8 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<null>();
 
+    private isHourChanged: boolean;
+
     constructor() {
         const angleStep = 360 / HOURS;
         this.hoursList = Array(HOURS).fill(1).map((v, i) => {
@@ -53,11 +55,17 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
         }
     }
 
+    changeHour(hour: ClockFaceTime): void {
+        this.isHourChanged = hour.time !== this.selectedHour.time;
+        this.hourChange.next(hour);
+    }
+
     @HostListener('touchend')
     @HostListener('click')
     onClick() {
-        //TODO: fire if hour changed
-        this.hourSelected.next();
+        if (this.isHourChanged) {
+            this.hourSelected.next();
+        }
     }
 }
 
