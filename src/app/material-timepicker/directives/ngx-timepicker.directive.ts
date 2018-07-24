@@ -75,11 +75,11 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
     set value(value: string) {
         this._value = formatTime(value, this._format);
 
-        if (this._min && convertTimeToMoment(this._value).isSameOrAfter(this._min)) {
+        if (this._min && convertTimeToMoment(this._value).isAfter(this._min)) {
             this.updateValue(value);
             return;
         }
-        if (this._max && convertTimeToMoment(this._value).isSameOrBefore(this._max)) {
+        if (this._max && convertTimeToMoment(this._value).isBefore(this._max)) {
             this.updateValue(value);
             return;
         }
