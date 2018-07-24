@@ -102,7 +102,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     /***
      * Register an input with this timepicker.
-     * @param {TimepickerDirective} input - The timepicker input to register with this timepicker
+     * input - The timepicker input to register with this timepicker
      */
     registerInput(input: TimepickerDirective): void {
         if (this.timepickerInput) {
