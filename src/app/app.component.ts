@@ -29,6 +29,25 @@ export class AppComponent {
        </div>
     `;
 
+    minMaxExamples: string = `
+        <div class="min-time-example">
+            <input placeholder="Min time 03:15 am"
+                [ngxTimepicker]="min" [min]="'03:15 am'" readonly>
+            <ngx-material-timepicker #min></ngx-material-timepicker>
+        </div>
+        
+        <div class="max-time-example">
+            <input placeholder="Max time 06:18 pm"
+                [ngxTimepicker]="max" max="06:18 pm" readonly>
+            <ngx-material-timepicker #max></ngx-material-timepicker>
+        </div>
+        
+        <div class="time-range-example">
+            <input placeholder="Time range from 12:10 am to 08:11 pm"
+                [ngxTimepicker]="range" min="12:10 am" max="08:11 pm" readonly>
+            <ngx-material-timepicker #range></ngx-material-timepicker>
+        </div>`;
+
     customSettings: string = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>

@@ -47,6 +47,32 @@
                 </div>
             </section>
             <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="minMaxExamples">Min and Max value</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Set up min or max value (or both) for the timepicker.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Min time 03:15 am"
+                               [ngxTimepicker]="min" [min]="'03:15 am'" readonly>
+
+                        <ngx-material-timepicker #min></ngx-material-timepicker>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Max time 06:18 pm"
+                               [ngxTimepicker]="max" max="06:18 pm" readonly>
+
+                        <ngx-material-timepicker #max></ngx-material-timepicker>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Time range from 12:10 am to 08:11 pm"
+                               [ngxTimepicker]="range" min="12:10 am" max="08:11 pm" readonly>
+
+                        <ngx-material-timepicker #range></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
                 <app-example-source-code [sourceCode]="customSettings">Custom settings examples
                 </app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">
@@ -71,7 +97,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 2.2.5</p>
+            <p class="footer__version">Current version 2.3.0</p>
         </div>
     </footer>
 </div>
