@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.3.0"></a>
+## 2.3.0 (2018-07-24)
+
+### Features
+
+* feat(timepicker): add possibility to set min and max time [(e084e28)](https://github.com/Agranom/ngx-material-timepicker/commit/e084e28f353420b9c74238a1b7e6688c61a7ee1b), closes [(#13)](https://github.com/Agranom/ngx-material-timepicker/issues/13)
+
+
 <a name="2.2.5"></a>
 ## 2.2.5 (2018-07-10)
 
