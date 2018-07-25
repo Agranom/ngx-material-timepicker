@@ -48,6 +48,30 @@ export class AppComponent {
             <ngx-material-timepicker #range></ngx-material-timepicker>
         </div>`;
 
+    toggleExamples: string = `
+        <div class="toggle-example">
+            <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly>
+            <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
+        </div>
+        
+        <div class="toggle-custom-icon-example">
+            <input [ngxTimepicker]="toggleIcon" [disableClick]="true" readonly>
+            <ngx-material-timepicker-toggle [for]="toggleIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" ngxMaterialTimepickerToggleIcon>
+                    <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>
+                </svg>
+            </ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleIcon></ngx-material-timepicker>
+        </div>
+        
+        <div class="toggle-disabled-example">
+            <input [ngxTimepicker]="toggleTimepickerDisabled" [disableClick]="true" readonly>
+            <ngx-material-timepicker-toggle [for]="toggleTimepickerDisabled" [disabled]="true"></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleTimepickerDisabled></ngx-material-timepicker>
+        </div>
+    `;
+
     customSettings: string = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>

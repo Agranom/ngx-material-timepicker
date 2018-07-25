@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.4.0"></a>
+## 2.4.0 (2018-07-25)
+
+### Features
+
+* feat(ngx-material-timepicker-toggle): add possibility to open timepicker by button [(f4b65c9)](https://github.com/Agranom/ngx-material-timepicker/commit/f4b65c94c659dfceaad63b3560adde08a3423a2c), closes [(#13)](https://github.com/Agranom/ngx-material-timepicker/issues/16)
+
 <a name="2.3.0"></a>
 ## 2.3.0 (2018-07-24)
 

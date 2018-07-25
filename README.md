@@ -45,7 +45,7 @@ Selector: `ngxTimepicker`
 | Name | Description |
 |------|-------------|
 | @Input()
-  ngxTimepicker: NgxMaterialTimepicker | The timepicker that this input is associated with. | 
+  ngxTimepicker: NgxMaterialTimepickerComponent | The timepicker that this input is associated with. | 
 | @Input()
   disabled: boolean | Weather the timepicker popup should be disabled. |
 | @Input()
@@ -77,6 +77,28 @@ Selector: `ngx-material-timepicker`
   ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Output()
   timeSet: EventEmitter<string> | Emits time when that was set. |
+  
+**NgxMaterialTimepickerToggleComponent**
+
+Component responsible for opening the timepicker.
+
+Selector: `ngx-material-timepicker-toggle`
+
+**Properties**
+
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  for: NgxMaterialTimepickerComponent |  Timepicker instance that the button will toggle | 
+| @Input()
+  disabled: boolean | Whether the toggle button is disabled |
+  
+**NgxMaterialTimepickerToggleIconDirective**
+
+Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
+
+Selector: `[ngxMaterialTimepickerToggleIcon]`
 
 ## Development
 
