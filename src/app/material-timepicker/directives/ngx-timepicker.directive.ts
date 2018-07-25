@@ -161,16 +161,13 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private isValueAvailableToUpdate(): boolean {
-        if (this._min && this._value) {
-            return convertTimeToMoment(this._value).isAfter(this._min)
-        }
-        if (this._max && this._value) {
-            return convertTimeToMoment(this._value).isBefore(this._max);
-        }
-        if (this._min && this._max && this._value) {
-            return convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes')
-        }
-        return !this._min && !this._max;
+        const isAfter = this._min && convertTimeToMoment(this._value).isAfter(this._min);
+        const isBefore = this._max && convertTimeToMoment(this._value).isBefore(this._max);
+        const isBetween = (this._min && this._max)
+            && convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes');
+        const isAvailable = !this._min && !this._max;
+
+        return isAfter || isBefore || isBetween || isAvailable;
     }
 }
 
