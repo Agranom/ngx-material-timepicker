@@ -86,6 +86,10 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         return this.timepickerInput && this.timepickerInput.max;
     }
 
+    get disabled(): boolean {
+        return this.timepickerInput && this.timepickerInput.disabled;
+    }
+
     ngOnInit() {
         this.subscriptions.push(this.timepickerService.selectedHour.pipe(
             tap(hour => this.selectedHour = hour),
@@ -154,6 +158,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @HostListener('keydown', ['$event'])
     onKeydown(e: KeyboardEvent) {
         this.eventService.keydownEventSubject.next(e);
+        e.stopPropagation();
     }
 
     ngOnDestroy() {

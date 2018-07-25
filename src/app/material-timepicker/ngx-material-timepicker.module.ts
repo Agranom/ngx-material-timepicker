@@ -12,6 +12,8 @@ import {TimepickerDirective} from './directives/ngx-timepicker.directive';
 import {OverlayDirective} from './directives/overlay.directive';
 import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
 import {FocusAnchorDirective} from './directives/focus-anchor.directive';
+import {NgxMaterialTimepickerToggleComponent} from './components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
+import {NgxMaterialTimepickerToggleIconDirective} from './directives/ngx-material-timepicker-toggle-icon.directive';
 
 @NgModule({
     imports: [
@@ -19,7 +21,9 @@ import {FocusAnchorDirective} from './directives/focus-anchor.directive';
     ],
     exports: [
         NgxMaterialTimepickerComponent,
-        TimepickerDirective
+        NgxMaterialTimepickerToggleComponent,
+        TimepickerDirective,
+        NgxMaterialTimepickerToggleIconDirective
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
@@ -27,11 +31,13 @@ import {FocusAnchorDirective} from './directives/focus-anchor.directive';
         NgxMaterialTimepickerHoursFaceComponent,
         NgxMaterialTimepickerMinutesFaceComponent,
         NgxMaterialTimepickerFaceComponent,
+        NgxMaterialTimepickerToggleComponent,
         TimeFormatterPipe,
         NgxMaterialTimepickerButtonComponent,
         TimepickerDirective,
         OverlayDirective,
         FocusAnchorDirective,
+        NgxMaterialTimepickerToggleIconDirective
     ]
 })
 export class NgxMaterialTimepickerModule {
