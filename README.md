@@ -56,6 +56,8 @@ Selector: `ngxTimepicker`
   min: string or Moment | Set min time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
 | @Input()
   max: string or Moment | Set max time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+| @Input()
+  disableClick: boolean | Set `true` to disable opening timepicker by clicking on the input |
 
   
 **NgxMaterialTimepickerComponent**
