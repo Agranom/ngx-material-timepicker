@@ -102,17 +102,20 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     constructor(private elementRef: ElementRef) {
     }
 
+    private set defaultTime(time: string) {
+        if (this.isValueAvailableToUpdate()) {
+            this._timepicker.setDefaultTime(formatTime(time));
+        }
+    }
+
     onInput(value: string) {
         this._value = value;
         this.onChange(value);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['value'] && changes['value'].firstChange) {
-            if (this.isValueAvailableToUpdate()) {
-                this.updateValue();
-                this._timepicker.setDefaultTime(this._value);
-            }
+        if (changes['value'] && changes['value'].currentValue) {
+            this.defaultTime = changes['value'].currentValue;
         }
     }
 
@@ -126,6 +129,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     writeValue(value: string): void {
         this.value = value;
+        this.defaultTime = value;
     }
 
     registerOnChange(fn: (value: any) => void): void {
