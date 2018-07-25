@@ -1,0 +1,17 @@
+.ngx-material-timepicker-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    background-color: transparent;
+    border-radius: 50%;
+    text-align: center;
+    border: none;
+    outline: none;
+    user-select: none;
+    transition: background-color .3s;
+    cursor: pointer;
+    &:focus {
+        background-color: rgba(0, 0, 0, .07);
+    }
+}

@@ -26,6 +26,7 @@ const VALUE_ACCESSOR = {
 export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
 
     @Input() disabled: boolean;
+    @Input() disableClick: boolean;
 
     @Input('ngxTimepicker')
     set timepicker(picker: NgxMaterialTimepickerComponent) {
@@ -115,9 +116,12 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
         this.onChange(value);
     }
 
-    @HostListener('click')
-    onClick() {
-        this._timepicker.open();
+    @HostListener('click', ['$event'])
+    onClick(event) {
+        if (!this.disableClick) {
+            this._timepicker.open();
+            event.stopPropagation();
+        }
     }
 
     writeValue(value: string): void {
