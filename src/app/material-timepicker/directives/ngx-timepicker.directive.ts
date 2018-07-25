@@ -1,4 +1,7 @@
-import {Directive, ElementRef, forwardRef, HostListener, Input, OnDestroy} from '@angular/core';
+import {
+    Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy,
+    SimpleChanges
+} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -23,7 +26,7 @@ const VALUE_ACCESSOR = {
         '(blur)': 'onTouched()',
     }
 })
-export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
+export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnChanges {
 
     @Input() disabled: boolean;
     @Input() disableClick: boolean;
@@ -76,21 +79,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
     set value(value: string) {
         this._value = formatTime(value, this._format);
 
-        if (this._min && convertTimeToMoment(this._value).isAfter(this._min)) {
-            this.updateValue(value);
+        if (this.isValueAvailableToUpdate()) {
+            this.updateValue();
             return;
-        }
-        if (this._max && convertTimeToMoment(this._value).isBefore(this._max)) {
-            this.updateValue(value);
-            return;
-        }
-        if ((this._min && this._max)
-            && convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes')) {
-            this.updateValue(value);
-            return;
-        }
-        if (!this._min && !this._max) {
-            this.updateValue(value);
         }
         console.warn('Selected time doesn\'t match min or max value');
     }
@@ -114,6 +105,15 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
     onInput(value: string) {
         this._value = value;
         this.onChange(value);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['value'] && changes['value'].firstChange) {
+            if (this.isValueAvailableToUpdate()) {
+                this.updateValue();
+                this._timepicker.setDefaultTime(this._value);
+            }
+        }
     }
 
     @HostListener('click', ['$event'])
@@ -156,9 +156,21 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy {
         }
     }
 
-    private updateValue(value: string): void {
+    private updateValue(): void {
         this.elementRef.nativeElement.value = this._value;
-        this._timepicker.setDefaultTime(formatTime(value));
+    }
+
+    private isValueAvailableToUpdate(): boolean {
+        if (this._min && this._value) {
+            return convertTimeToMoment(this._value).isAfter(this._min)
+        }
+        if (this._max && this._value) {
+            return convertTimeToMoment(this._value).isBefore(this._max);
+        }
+        if (this._min && this._max && this._value) {
+            return convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes')
+        }
+        return !this._min && !this._max;
     }
 }
 
