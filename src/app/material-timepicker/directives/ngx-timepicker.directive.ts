@@ -77,6 +77,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set value(value: string) {
+        if (!value) {
+            return;
+        }
         this._value = formatTime(value, this._format);
 
         if (this.isValueAvailableToUpdate()) {
