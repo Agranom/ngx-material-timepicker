@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.4.1"></a>
+## 2.4.1 (2018-07-27)
+
+### Features
+
+* fix(ngxTimepicker): check value if null, empty or undefined [(395188c)](https://github.com/Agranom/ngx-material-timepicker/commit/395188ce9883cbfb173bbf51fa87586ae6c4145e), closes [(#21)](https://github.com/Agranom/ngx-material-timepicker/issues/21)
+
+
 <a name="2.4.0"></a>
 ## 2.4.0 (2018-07-25)
 
