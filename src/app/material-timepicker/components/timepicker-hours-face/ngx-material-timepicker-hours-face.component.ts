@@ -24,8 +24,10 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
 
     constructor() {
         const angleStep = 360 / HOURS;
-        this.hoursList = Array(HOURS).fill(1).map((v, i) => {
-            return {time: v + i, angle: angleStep * (v + i)};
+        //TODO: pass format as array length
+        this.hoursList = Array(24).fill(1).map((v, i) => {
+            const time = v + i;
+            return {time: time === 24 ? '00' : time, angle: angleStep * time};
         });
     }
 
@@ -36,7 +38,6 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
                 const currentHour = this.period === TimePeriod.AM ? +value.time : +value.time + 12;
                 const hour = this.period === TimePeriod.AM && currentHour === 12 ? 0 : currentHour;
                 const currentTime = moment().hour(hour);
-                // console.log(currentTime);
 
                 return {
                     ...value,
@@ -60,4 +61,3 @@ export class NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
         this.hourSelected.next();
     }
 }
-
