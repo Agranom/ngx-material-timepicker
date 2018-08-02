@@ -13,7 +13,7 @@
                     [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.MINUTE}"
                     (click)="changeTimeUnit(timeUnit.MINUTE)">{{selectedMinute?.time | timeFormatter: timeUnit.MINUTE}}</span>
                 </div>
-                <div class="timepicker-dial__period">
+                <div class="timepicker-dial__period" *ngIf="format !== 24">
 			<span class="timepicker-dial__item"
                   [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.AM}"
                   (click)="changePeriod(timePeriod.AM)">AM</span>
@@ -25,13 +25,23 @@
         </header>
         <div class="timepicker__main-content">
             <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
-                <ngx-material-timepicker-hours-face *ngSwitchCase="timeUnit.HOUR"
-                                                    (hourChange)="onHourChange($event)"
-                                                    [selectedHour]="selectedHour"
-                                                    [period]="selectedPeriod"
-                                                    [minTime]="minTime"
-                                                    [maxTime]="maxTime"
-                                                    (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-hours-face>
+                <div *ngSwitchCase="timeUnit.HOUR">
+                    <ngx-material-timepicker-24-hours-face *ngIf="format === 24;else ampmHours"
+                                                           (hourChange)="onHourChange($event)"
+                                                           [selectedHour]="selectedHour"
+                                                           [minTime]="minTime"
+                                                           [maxTime]="maxTime"
+                                                           (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-24-hours-face>
+                    <ng-template #ampmHours>
+                        <ngx-material-timepicker-12-hours-face
+                            (hourChange)="onHourChange($event)"
+                            [selectedHour]="selectedHour"
+                            [period]="selectedPeriod"
+                            [minTime]="minTime"
+                            [maxTime]="maxTime"
+                            (hourSelected)="activeTimeUnit = timeUnit.MINUTE"></ngx-material-timepicker-12-hours-face>
+                    </ng-template>
+                </div>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
                                                       [selectedMinute]="selectedMinute"
                                                       [selectedHour]="selectedHour?.time"
