@@ -2,7 +2,6 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NgxMaterialTimepickerComponent} from './ngx-material-timepicker.component';
 import {StyleSanitizerPipe} from './pipes/style-sanitizer.pipe';
-import {NgxMaterialTimepickerHoursFaceComponent} from './components/timepicker-hours-face/ngx-material-timepicker-hours-face.component';
 import {NgxMaterialTimepickerMinutesFaceComponent} from './components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {NgxMaterialTimepickerFaceComponent} from './components/timepicker-face/ngx-material-timepicker-face.component';
@@ -14,6 +13,8 @@ import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepic
 import {FocusAnchorDirective} from './directives/focus-anchor.directive';
 import {NgxMaterialTimepickerToggleComponent} from './components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
 import {NgxMaterialTimepickerToggleIconDirective} from './directives/ngx-material-timepicker-toggle-icon.directive';
+import {NgxMaterialTimepicker12HoursFaceComponent} from './components/timepicker-12-hours-face/ngx-material-timepicker-12-hours-face.component';
+import {NgxMaterialTimepicker24HoursFaceComponent} from './components/timepicker-24-hours-face/ngx-material-timepicker-24-hours-face.component';
 
 @NgModule({
     imports: [
@@ -27,11 +28,12 @@ import {NgxMaterialTimepickerToggleIconDirective} from './directives/ngx-materia
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
-        StyleSanitizerPipe,
-        NgxMaterialTimepickerHoursFaceComponent,
+        NgxMaterialTimepicker24HoursFaceComponent,
+        NgxMaterialTimepicker12HoursFaceComponent,
         NgxMaterialTimepickerMinutesFaceComponent,
         NgxMaterialTimepickerFaceComponent,
         NgxMaterialTimepickerToggleComponent,
+        StyleSanitizerPipe,
         TimeFormatterPipe,
         NgxMaterialTimepickerButtonComponent,
         TimepickerDirective,

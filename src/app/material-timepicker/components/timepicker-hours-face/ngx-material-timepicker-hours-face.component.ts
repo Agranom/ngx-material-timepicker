@@ -5,7 +5,6 @@ import {Moment} from 'moment';
 
 export abstract class NgxMaterialTimepickerHoursFaceComponent {
 
-
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
@@ -23,7 +22,7 @@ export abstract class NgxMaterialTimepickerHoursFaceComponent {
     @HostListener('touchend')
     @HostListener('click')
     onClick() {
-        // this.hourSelected.next();
+        this.hourSelected.next();
     }
 
     initHours(hours: number): void {

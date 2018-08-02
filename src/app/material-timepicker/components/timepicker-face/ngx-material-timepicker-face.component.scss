@@ -14,7 +14,6 @@ $clock-face-number-color: #6c6c6c;
     box-sizing: border-box;
     &__inner {
         position: absolute;
-        top: calc(50% - calc(200px / 2 - 20px));
     }
 }
 
@@ -36,7 +35,6 @@ $clock-face-number-color: #6c6c6c;
         }
     }
     &--inner {
-        height: calc(200px / 2 - 20px);
         > span {
             font-size: 14px;
             color: lighten($clock-face-number-color, 15%);

@@ -111,7 +111,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private set defaultTime(time: string) {
         if (this.isValueAvailableToUpdate()) {
-            this._timepicker.setDefaultTime(formatTime(time));
+            this._timepicker.setDefaultTime(formatTime(time, this._format));
         }
     }
 

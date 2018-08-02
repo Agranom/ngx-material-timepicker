@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterContentInit, Component, Input} from '@angular/core';
 import {NgxMaterialTimepickerHoursFaceComponent} from '../timepicker-hours-face/ngx-material-timepicker-hours-face.component';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import * as _moment from 'moment';
@@ -10,7 +10,7 @@ const moment = _moment;
     templateUrl: 'ngx-material-timepicker-24-hours-face.component.html'
 })
 
-export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepickerHoursFaceComponent implements AfterViewInit {
+export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepickerHoursFaceComponent implements AfterContentInit {
 
     @Input() format: number;
 
@@ -34,7 +34,7 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
         return this.hoursList;
     }
 
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         this.hoursList = this.disabledHours;
     }
 }
