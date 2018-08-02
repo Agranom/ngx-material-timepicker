@@ -17,8 +17,7 @@ export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepi
     @Input() period: TimePeriod;
 
     constructor() {
-        super();
-        this.initHours();
+        super(12);
     }
 
     get disabledHours(): ClockFaceTime[] {
@@ -43,15 +42,5 @@ export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepi
         if (changes['period'] && changes['period'].currentValue) {
             this.hoursList = this.disabledHours;
         }
-    }
-
-    initHours(): void {
-        const defaultHours = 12;
-        const angleStep = 30;
-
-        this.hoursList = Array(defaultHours).fill(1).map((v, i) => {
-            const time = v + i;
-            return {time, angle: angleStep * time};
-        });
     }
 }

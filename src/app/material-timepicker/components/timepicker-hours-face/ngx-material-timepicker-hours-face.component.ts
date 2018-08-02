@@ -9,19 +9,29 @@ export abstract class NgxMaterialTimepickerHoursFaceComponent {
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
-    @Input() format: number;
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<null>();
 
     protected hoursList: ClockFaceTime[] = [];
 
-    abstract get disabledHours(): ClockFaceTime[]
+    constructor(hours: number) {
+        this.initHours(hours);
+    }
 
-    abstract initHours(): void;
+    abstract get disabledHours(): ClockFaceTime[]
 
     @HostListener('touchend')
     @HostListener('click')
     onClick() {
         // this.hourSelected.next();
+    }
+
+    initHours(hours: number): void {
+        const angleStep = 30;
+
+        this.hoursList = Array(hours).fill(1).map((v, i) => {
+            const time = v + i;
+            return {time, angle: angleStep * time};
+        });
     }
 }
