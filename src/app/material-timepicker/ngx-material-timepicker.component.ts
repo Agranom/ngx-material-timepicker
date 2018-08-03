@@ -90,6 +90,10 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         return this.timepickerInput && this.timepickerInput.disabled;
     }
 
+    get format(): number {
+        return this.timepickerInput && this.timepickerInput.format;
+    }
+
     ngOnInit() {
         this.subscriptions.push(this.timepickerService.selectedHour.pipe(
             tap(hour => this.selectedHour = hour),

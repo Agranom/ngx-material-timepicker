@@ -40,10 +40,14 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set format(value: number) {
-        this._format = value === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+        this._format = value === 24 ? 24 : 12;
     }
 
-    private _format: TimeFormat;
+    get format(): number {
+        return this._format;
+    }
+
+    private _format: number;
 
     @Input()
     set min(value: string | Moment) {
@@ -107,7 +111,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private set defaultTime(time: string) {
         if (this.isValueAvailableToUpdate()) {
-            this._timepicker.setDefaultTime(formatTime(time));
+            this._timepicker.setDefaultTime(formatTime(time, this._format));
         }
     }
 
@@ -178,8 +182,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 }
 
-function formatTime(time: string, format = TimeFormat.TWELVE): string {
-    return moment(time, TimeFormat.TWELVE).format(format);
+function formatTime(time: string, format = 12): string {
+    const timeFormat = format === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+    return moment(time, TimeFormat.TWELVE).format(timeFormat);
 }
 
 function convertTimeToMoment(time: string): Moment {

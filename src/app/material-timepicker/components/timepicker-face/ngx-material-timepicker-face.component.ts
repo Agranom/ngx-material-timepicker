@@ -13,6 +13,17 @@ import {
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimeUnit} from '../../models/time-unit.enum';
 
+const CLOCK_HAND_STYLES = {
+    small: {
+        height: '75px',
+        top: 'calc(50% - 75px)'
+    },
+    large: {
+        height: '95px',
+        top: 'calc(50% - 95px)'
+    }
+};
+
 @Component({
     selector: 'ngx-material-timepicker-face',
     templateUrl: './ngx-material-timepicker-face.component.html',
@@ -23,10 +34,12 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     timeUnit = TimeUnit;
 
     isClockFaceDisabled: boolean;
+    innerClockFaceSize = 85;
 
     @Input() faceTime: ClockFaceTime[];
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
+    @Input() format: number;
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
 
     @ViewChild('clockFace') clockFace: ElementRef;
@@ -82,14 +95,20 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const arctangent = Math.atan(Math.abs(e.clientX - centerX) / Math.abs(e.clientY - centerY)) * 180 / Math.PI;
         //Get angle according to quadrant
         const circleAngle = countAngleByCords(centerX, centerY, e.clientX, e.clientY, arctangent);
+        //Check if selected time from the inner clock face (24 hours format only)
+        const isInnerClockChosen = this.format && this.isInnerClockFace(centerX, centerY, e.clientX, e.clientY);
         //Round angle according to angle step
-        const roundedAngle = roundAngle(circleAngle, 360 / this.faceTime.length);
+        const angleStep = this.unit === TimeUnit.MINUTE ? 6 : 30;
+        const roundedAngle = isInnerClockChosen
+            ? roundAngle(circleAngle, angleStep) + 360
+            : roundAngle(circleAngle, angleStep);
+
         const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
 
         if (!selectedTime.disabled) {
-            this.clockHand.nativeElement.style.transform = `rotate(${roundedAngle}deg)`;
             this.timeChange.next(selectedTime);
         }
+
     }
 
     @HostListener('touchend', ['$event'])
@@ -100,6 +119,11 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     private setClockHandPosition(): void {
+        if (this.format === 24 && this.selectedTime.time > 12) {
+            this.decreaseClockHand();
+        } else if (this.format === 24 && this.selectedTime.time <= 12) {
+            this.increaseClockHand();
+        }
         this.clockHand.nativeElement.style.transform = `rotate(${this.selectedTime.angle}deg)`;
     }
 
@@ -113,6 +137,21 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
             this.timeChange.next(availableTime);
         }
     }
+
+    private isInnerClockFace(x0: number, y0: number, x: number, y: number): boolean {
+        //Detect whether time from the inner clock face or not (24 format only)
+        return Math.sqrt(Math.pow(x - x0, 2) + Math.pow(y - y0, 2)) < this.innerClockFaceSize;
+    }
+
+    private decreaseClockHand(): void {
+        this.clockHand.nativeElement.style.height = CLOCK_HAND_STYLES.small.height;
+        this.clockHand.nativeElement.style.top = CLOCK_HAND_STYLES.small.top;
+    }
+
+    private increaseClockHand(): void {
+        this.clockHand.nativeElement.style.height = CLOCK_HAND_STYLES.large.height;
+        this.clockHand.nativeElement.style.top = CLOCK_HAND_STYLES.large.top;
+    }
 }
 
 function roundAngle(angle: number, step: number): number {
@@ -121,13 +160,13 @@ function roundAngle(angle: number, step: number): number {
 }
 
 function countAngleByCords(x0: number, y0: number, x: number, y: number, currentAngle: number): number {
-    if (y > y0 && x >= x0) {
+    if (y > y0 && x >= x0) {// II quarter
         return 180 - currentAngle;
-    } else if (y > y0 && x < x0) {
+    } else if (y > y0 && x < x0) {// III quarter
         return 180 + currentAngle;
-    } else if (y < y0 && x < x0) {
+    } else if (y < y0 && x < x0) {// IV quarter
         return 360 - currentAngle;
-    } else {
+    } else {// I quarter
         return currentAngle;
     }
 }
