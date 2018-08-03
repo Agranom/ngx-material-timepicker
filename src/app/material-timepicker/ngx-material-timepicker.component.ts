@@ -156,6 +156,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     animationDone(event: AnimationEvent): void {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.isOpened = false;
+            this.activeTimeUnit = TimeUnit.HOUR;
         }
     }
 
