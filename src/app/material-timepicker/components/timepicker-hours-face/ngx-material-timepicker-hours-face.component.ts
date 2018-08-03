@@ -11,7 +11,7 @@ export abstract class NgxMaterialTimepickerHoursFaceComponent {
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<null>();
 
-    protected hoursList: ClockFaceTime[] = [];
+    hoursList: ClockFaceTime[] = [];
 
     constructor(hours: number) {
         this.initHours(hours);
