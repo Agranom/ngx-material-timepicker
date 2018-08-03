@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.5.0"></a>
+## 2.5.0 (2018-08-03)
+
+### Feature
+
+* feat(timepicker hours clock face): add 24-hours clock face [(f46bb49)](https://github.com/Agranom/ngx-material-timepicker/commit/f46bb49b43774db901026d8081a42216ad733a19), closes [(#14)](https://github.com/Agranom/ngx-material-timepicker/issues/14)
+
 <a name="2.4.1"></a>
 ## 2.4.1 (2018-07-27)
 

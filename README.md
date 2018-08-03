@@ -51,7 +51,7 @@ Selector: `ngxTimepicker`
 | @Input()
   value: string | Set default time for timepicker. |
 | @Input()
-  format: number | `12` or `24` . Select time format that returns timepicker. `12` (AM/PM) format by default. |
+  format: number | `12` or `24` . 12h/24h view for hour selection clock . `12` (AM/PM) format by default. |
 | @Input()
   min: string or Moment | Set min time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
 | @Input()
