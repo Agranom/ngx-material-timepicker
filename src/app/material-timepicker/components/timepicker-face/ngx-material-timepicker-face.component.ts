@@ -160,7 +160,7 @@ function roundAngle(angle: number, step: number): number {
 }
 
 function countAngleByCords(x0: number, y0: number, x: number, y: number, currentAngle: number): number {
-    if ((y > y0 && x >= x0)) {// II quarter
+    if (y > y0 && x >= x0) {// II quarter
         return 180 - currentAngle;
     } else if (y > y0 && x < x0) {// III quarter
         return 180 + currentAngle;
