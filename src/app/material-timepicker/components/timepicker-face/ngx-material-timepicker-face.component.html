@@ -1,5 +1,4 @@
 <div class="clock-face" #clockFace>
-    <!--TODO: make operations in component-->
     <div *ngIf="unit !== timeUnit.MINUTE;else minutesFace" class="clock-face__container">
         <div class="clock-face__number clock-face__number--outer"
              [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"

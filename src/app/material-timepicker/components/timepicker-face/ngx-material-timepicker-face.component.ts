@@ -19,8 +19,8 @@ const CLOCK_HAND_STYLES = {
         top: 'calc(50% - 75px)'
     },
     large: {
-        height: '110px',
-        top: 'calc(50% - 110px)'
+        height: '95px',
+        top: 'calc(50% - 95px)'
     }
 };
 
