@@ -61,7 +61,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
             this.setClockHandPosition();
         }
         if (changes['faceTime'] && changes['faceTime'].currentValue) {
-            this.selectAvailableTime();
+            // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
+            setTimeout(() => this.selectAvailableTime());
         }
     }
 

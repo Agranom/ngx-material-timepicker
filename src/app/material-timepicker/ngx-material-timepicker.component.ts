@@ -1,14 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    TemplateRef
-} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {merge, Subscription} from 'rxjs';
@@ -18,7 +8,6 @@ import {animate, AnimationEvent, style, transition, trigger} from '@angular/anim
 import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepicker-event.service';
 import {filter} from 'rxjs/operators';
 import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {skip, tap} from 'rxjs/internal/operators';
 import {Moment} from 'moment';
 
 export enum AnimationState {
@@ -69,8 +58,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Output() timeSet = new EventEmitter<string>();
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService,
-                private changeDetector: ChangeDetectorRef) {
+                private eventService: NgxMaterialTimepickerEventService) {
 
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
@@ -95,17 +83,14 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscriptions.push(this.timepickerService.selectedHour.pipe(
-            tap(hour => this.selectedHour = hour),
-            skip(1)
-        ).subscribe(() => this.changeDetector.detectChanges()));
+        this.subscriptions.push(this.timepickerService.selectedHour
+            .subscribe(hour => this.selectedHour = hour));
 
-        this.subscriptions.push(this.timepickerService.selectedMinute.pipe(
-            tap(minute => this.selectedMinute = minute),
-            skip(1)
-        ).subscribe(() => this.changeDetector.detectChanges()));
+        this.subscriptions.push(this.timepickerService.selectedMinute
+            .subscribe(minute => this.selectedMinute = minute));
 
-        this.subscriptions.push(this.timepickerService.selectedPeriod.subscribe(period => this.selectedPeriod = period));
+        this.subscriptions.push(this.timepickerService.selectedPeriod
+            .subscribe(period => this.selectedPeriod = period));
     }
 
     /***
