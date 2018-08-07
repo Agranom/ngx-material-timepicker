@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file
 
 <a name="2.5.1"></a>
-## 2.5.0 (2018-08-07)
+## 2.5.1 (2018-08-07)
 
 ### Fixes
 
