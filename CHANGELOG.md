@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.5.1"></a>
+## 2.5.0 (2018-08-07)
+
+### Fixes
+
+* fix(timepicker directive): fix bug with wrong output when choose 12h in 24hours format face [(d5c9166)](https://github.com/Agranom/ngx-material-timepicker/commit/d5c916649856a915335db9e9677219e708cc9ee7), closes [(#24)](https://github.com/Agranom/ngx-material-timepicker/issues/24)
+
+
 <a name="2.5.0"></a>
 ## 2.5.0 (2018-08-03)
 
