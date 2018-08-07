@@ -184,7 +184,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
 function formatTime(time: string, format = 12): string {
     const timeFormat = format === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
-    return moment(time, TimeFormat.TWELVE).format(timeFormat);
+    return moment(time, timeFormat).format(timeFormat);
 }
 
 function convertTimeToMoment(time: string): Moment {
