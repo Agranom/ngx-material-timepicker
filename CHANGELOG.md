@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.5.2"></a>
+## 2.5.2 (2018-08-16)
+
+### Fixes
+
+* fix(timepicker hour face): change clock hand size to fit it for adaptive version[(2a2e0c4)](https://github.com/Agranom/ngx-material-timepicker/commit/2a2e0c4918eb4da5e2aa0fc734dab7316035acca)
+* fix(timepicker hour face): fix bug which occurs if set 00 hour as default [(694ef21)](https://github.com/Agranom/ngx-material-timepicker/commit/694ef215ffa69ccfbe55e0b1dc70707feaad1a77), closes [(#28)](https://github.com/Agranom/ngx-material-timepicker/issues/28)
+
 <a name="2.5.1"></a>
 ## 2.5.1 (2018-08-07)
 
