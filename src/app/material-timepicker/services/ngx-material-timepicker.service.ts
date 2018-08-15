@@ -59,7 +59,7 @@ export class NgxMaterialTimepickerService {
         const defaultTime = moment(time, TimeFormat.TWENTY_FOUR).toDate();
 
         if (moment(defaultTime).isValid()) {
-            this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours()};
+            this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours() === 0 ? '00' : defaultTime.getHours()};
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes() === 0 ? '00' : defaultTime.getMinutes()};
             this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
         }

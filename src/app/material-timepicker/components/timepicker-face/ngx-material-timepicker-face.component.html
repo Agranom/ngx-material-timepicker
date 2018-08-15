@@ -6,14 +6,15 @@
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
                   [ngClass]="{'active': (time.time === selectedTime.time) && !isClockFaceDisabled, 'disabled': time.disabled}">{{time.time}}</span>
         </div>
-        <div class="clock-face__inner" *ngIf="faceTime.length > 12" [style.top]="'calc(50% - ' + innerClockFaceSize + 'px)'">
+        <div class="clock-face__inner" *ngIf="faceTime.length > 12"
+             [style.top]="'calc(50% - ' + innerClockFaceSize + 'px)'">
             <div class="clock-face__number clock-face__number--inner"
                  [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
                  [style.height.px]="innerClockFaceSize"
                  *ngFor="let time of faceTime.slice(12, 24); trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
                   [ngClass]="{'active': (time.time === selectedTime.time) && !isClockFaceDisabled, 'disabled': time.disabled}">
-                {{time.time === 24 ? '00' : time.time}}</span>
+                {{time.time}}</span>
             </div>
         </div>
     </div>

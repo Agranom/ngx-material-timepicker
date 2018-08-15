@@ -30,7 +30,7 @@ export abstract class NgxMaterialTimepickerHoursFaceComponent {
 
         this.hoursList = Array(hours).fill(1).map((v, i) => {
             const time = v + i;
-            return {time, angle: angleStep * time};
+            return {time: time === 24 ? '00' : time, angle: angleStep * time};
         });
     }
 }

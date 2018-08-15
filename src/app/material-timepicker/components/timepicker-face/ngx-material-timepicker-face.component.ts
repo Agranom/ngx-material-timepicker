@@ -19,8 +19,8 @@ const CLOCK_HAND_STYLES = {
         top: 'calc(50% - 75px)'
     },
     large: {
-        height: '107px',
-        top: 'calc(50% - 107px)'
+        height: '103px',
+        top: 'calc(50% - 103px)'
     }
 };
 
@@ -120,11 +120,14 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     private setClockHandPosition(): void {
-        if (this.format === 24 && this.selectedTime.time > 12) {
-            this.decreaseClockHand();
-        } else if (this.format === 24 && this.selectedTime.time <= 12) {
-            this.increaseClockHand();
+        if (this.format === 24 ) {
+            if (this.selectedTime.time > 12 || this.selectedTime.time === '00') {
+                this.decreaseClockHand();
+            } else if (this.selectedTime.time <= 12) {
+                this.increaseClockHand();
+            }
         }
+
         this.clockHand.nativeElement.style.transform = `rotate(${this.selectedTime.angle}deg)`;
     }
 
