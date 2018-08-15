@@ -62,12 +62,12 @@ $clock-face-number-color: #6c6c6c;
 }
 
 .clock-face__clock-hand {
-    height: 107px;
+    height: 103px;
     width: 2px;
     background-color: $primary-color;
     transform-origin: 0 100%;
     position: absolute;
-    top: calc(50% - 107px);
+    top: calc(50% - 103px);
     z-index: 1;
     &:after {
         content: '';
