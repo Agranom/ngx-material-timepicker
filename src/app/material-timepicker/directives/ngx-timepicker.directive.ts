@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 import {TimeFormat} from '../models/time-format.enum';
 import * as moment_ from 'moment';
 import {Moment} from 'moment';
-//Workaround for error "Cannot call a namespace ('moment')
+/*Workaround for error "Cannot call a namespace ('moment')*/
 const moment = moment_;
 
 const VALUE_ACCESSOR = {
@@ -24,7 +24,7 @@ const VALUE_ACCESSOR = {
         '[disabled]': 'disabled',
         '(input)': 'onInput($event.target.value)',
         '(blur)': 'onTouched()',
-    }
+    },
 })
 export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnChanges {
 
@@ -87,7 +87,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._value = formatTime(value, this._format);
 
         if (this.isValueAvailableToUpdate()) {
-            this.updateValue();
+            this.updateInputValue();
             return;
         }
         console.warn('Selected time doesn\'t match min or max value');
@@ -99,12 +99,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private _value: string;
 
-    onTouched = () => {
-    };
-
     private timepickerSubscription: Subscription;
-    private onChange: (value: any) => void = () => {
-    };
+
+    private onChange: (value: any) => void = () => {};
+    onTouched = () => {};
 
     constructor(private elementRef: ElementRef) {
     }
@@ -161,13 +159,13 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             this._timepicker.registerInput(this);
             this.timepickerSubscription = this._timepicker.timeSet.subscribe((time: string) => {
                 this.value = time;
-                this.onChange(time);
+                this.onChange(this._value);
                 this.onTouched();
             });
         }
     }
 
-    private updateValue(): void {
+    private updateInputValue(): void {
         this.elementRef.nativeElement.value = this._value;
     }
 
