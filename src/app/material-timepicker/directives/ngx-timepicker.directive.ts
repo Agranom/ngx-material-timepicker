@@ -5,11 +5,8 @@ import {
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {TimeFormat} from '../models/time-format.enum';
-import * as moment_ from 'moment';
 import {Moment} from 'moment';
-/*Workaround for error "Cannot call a namespace ('moment')*/
-const moment = moment_;
+import {TimeAdapter} from '../services/time-adapter';
 
 const VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -52,7 +49,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set min(value: string | Moment) {
         if (typeof value === 'string') {
-            this._min = convertTimeToMoment(value);
+            this._min = TimeAdapter.convertTimeToMoment(value);
             return;
         }
         this._min = value;
@@ -67,7 +64,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set max(value: string | Moment) {
         if (typeof value === 'string') {
-            this._max = convertTimeToMoment(value);
+            this._max = TimeAdapter.convertTimeToMoment(value);
             return;
         }
         this._max = value;
@@ -84,7 +81,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (!value) {
             return;
         }
-        this._value = formatTime(value, this._format);
+        this._value = TimeAdapter.formatTime(value, this._format);
 
         if (this.isValueAvailableToUpdate()) {
             this.updateInputValue();
@@ -109,7 +106,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private set defaultTime(time: string) {
         if (this.isValueAvailableToUpdate()) {
-            this._timepicker.setDefaultTime(formatTime(time, this._format));
+            this._timepicker.setDefaultTime(TimeAdapter.formatTime(time, this._format));
         }
     }
 
@@ -170,21 +167,13 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private isValueAvailableToUpdate(): boolean {
-        const isAfter = this._min && convertTimeToMoment(this._value).isAfter(this._min);
-        const isBefore = this._max && convertTimeToMoment(this._value).isBefore(this._max);
+        const isAfter = this._min && TimeAdapter.convertTimeToMoment(this._value).isAfter(this._min);
+        const isBefore = this._max && TimeAdapter.convertTimeToMoment(this._value).isBefore(this._max);
         const isBetween = (this._min && this._max)
-            && convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes');
+            && TimeAdapter.convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes');
         const isAvailable = !this._min && !this._max;
 
         return isAfter || isBefore || isBetween || isAvailable;
     }
 }
 
-function formatTime(time: string, format = 12): string {
-    const timeFormat = format === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
-    return moment(time, timeFormat).format(timeFormat);
-}
-
-function convertTimeToMoment(time: string): Moment {
-    return moment(time, TimeFormat.TWELVE);
-}

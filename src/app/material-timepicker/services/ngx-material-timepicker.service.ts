@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {TimePeriod} from '../models/time-period.enum';
 import * as moment_ from 'moment';
 import {TimeFormat} from '../models/time-format.enum';
+import {TimeAdapter} from './time-adapter';
 
 const moment = moment_;
 
@@ -47,14 +48,6 @@ export class NgxMaterialTimepickerService {
         return this.periodSubject.asObservable();
     }
 
-    get fullTime(): string {
-        const hour = this.hourSubject.getValue().time;
-        const minute = this.minuteSubject.getValue().time;
-        const period = this.periodSubject.getValue();
-
-        return `${hour}:${minute} ${period}`;
-    }
-
     set defaultTime(time: string) {
         const defaultTime = moment(time, TimeFormat.TWENTY_FOUR).toDate();
 
@@ -63,5 +56,13 @@ export class NgxMaterialTimepickerService {
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes() === 0 ? '00' : defaultTime.getMinutes()};
             this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
         }
+    }
+
+    getFullTime(format: number): string {
+        const hour = this.hourSubject.getValue().time;
+        const minute = this.minuteSubject.getValue().time;
+        const period = this.periodSubject.getValue();
+
+        return TimeAdapter.formatTime(`${hour}:${minute} ${period}`, format);
     }
 }

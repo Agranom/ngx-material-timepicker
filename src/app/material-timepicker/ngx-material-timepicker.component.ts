@@ -5,7 +5,7 @@ import {merge, Subscription} from 'rxjs';
 import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 import {TimeUnit} from './models/time-unit.enum';
 import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
-import {NgxMaterialTimepickerEventService,} from './services/ngx-material-timepicker-event.service';
+import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
 import {filter} from 'rxjs/operators';
 import {TimepickerDirective} from './directives/ngx-timepicker.directive';
 import {Moment} from 'moment';
@@ -121,7 +121,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     setTime() {
-        this.timeSet.next(this.timepickerService.fullTime);
+        this.timeSet.next(this.timepickerService.getFullTime(this.format));
         this.close();
     }
 
