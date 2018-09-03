@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+<a name="2.5.3"></a>
+## 2.5.3 (2018-08-28)
+
+### Fixes
+
+* fix(ngx timepicker directive): fix output value with reactive forms [(3eb6312)](https://github.com/Agranom/ngx-material-timepicker/commit/3eb63128bf1382d988789e5dcaeb2288751013a5), closes [(#30)](https://github.com/Agranom/ngx-material-timepicker/issues/30)
+
+
 <a name="2.5.2"></a>
 ## 2.5.2 (2018-08-16)
 
