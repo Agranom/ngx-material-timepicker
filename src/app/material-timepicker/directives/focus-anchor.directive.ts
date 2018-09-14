@@ -17,11 +17,11 @@ export class FocusAnchorDirective implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.activeElement = <HTMLElement>this.document.activeElement;
         // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
-        setTimeout(() => this.element.focus())
-
+        setTimeout(() => this.element.focus());
     }
 
     ngOnDestroy() {
-        this.activeElement.focus();
+        // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
+        setTimeout(() => this.activeElement.focus());
     }
 }
