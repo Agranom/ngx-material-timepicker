@@ -89,7 +89,7 @@ $clock-face-number-color: #6c6c6c;
     border: 4px solid $primary-color;
     border-radius: 50%;
     position: absolute;
-    top: -3px;
+    top: -8px;
     left: calc(50% - 8px);
     box-sizing: content-box;
 }
@@ -104,5 +104,9 @@ $clock-face-number-color: #6c6c6c;
         &--outer {
             height: calc(225px / 2 - 5px);
         }
+    }
+
+    .clock-face__clock-hand_minute:before {
+        top: 0;
     }
 }
