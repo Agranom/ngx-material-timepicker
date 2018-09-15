@@ -78,7 +78,9 @@ Selector: `ngx-material-timepicker`
 | @Input()
   ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Output()
-  timeSet: EventEmitter<string> | Emits time when that was set. |
+  timeSet: EventEmitter\<string\> | Emits time when that was set. |
+| @Output()
+  closed: EventEmitter\<null\> | Emits after timepicker was closed. |
   
 **NgxMaterialTimepickerToggleComponent**
 

@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.6.0 (2018-09-15)
+
+### Features
+
+* feat(ngx-material-timepicker-component): add closed output, that fires after timepicker was closed
+
+### Fixes
+
+* fix(timepicker clock face): reset time after cancelation timepicker [(3398591)](https://github.com/Agranom/ngx-material-timepicker/commit/3398591a5355aa1e30180c7b4f30ce5be9e5c5ce), closes [(#35)](https://github.com/Agranom/ngx-material-timepicker/issues/35)
+* fix(timepicker clock hand): set different sizes for portrait and landscape orientations [(429ddfd)](https://github.com/Agranom/ngx-material-timepicker/commit/429ddfd06992eb4e3ea1bc2aea9caa653d48df59) 
+
 ## 2.5.4 (2018-09-03)
 
 ### Fixes
