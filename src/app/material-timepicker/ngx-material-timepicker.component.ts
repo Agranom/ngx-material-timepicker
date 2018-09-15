@@ -56,6 +56,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Output() timeSet = new EventEmitter<string>();
+    @Output() closed = new EventEmitter<null>();
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
                 private eventService: NgxMaterialTimepickerEventService) {
@@ -142,6 +143,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.isOpened = false;
             this.activeTimeUnit = TimeUnit.HOUR;
+            this.closed.next();
         }
     }
 

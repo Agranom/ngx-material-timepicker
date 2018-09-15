@@ -55,6 +55,8 @@ export class NgxMaterialTimepickerService {
             this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours() === 0 ? '00' : defaultTime.getHours()};
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes() === 0 ? '00' : defaultTime.getMinutes()};
             this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
+        } else {
+            this.resetTime();
         }
     }
 
@@ -64,5 +66,11 @@ export class NgxMaterialTimepickerService {
         const period = this.periodSubject.getValue();
 
         return TimeAdapter.formatTime(`${hour}:${minute} ${period}`, format);
+    }
+
+    private resetTime(): void {
+        this.hour = {...DEFAULT_HOUR};
+        this.minute = {...DEFAULT_MINUTE};
+        this.period = TimePeriod.AM;
     }
 }
