@@ -149,7 +149,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(e: KeyboardEvent) {
-        this.eventService.keydownEventSubject.next(e);
+        this.eventService.dispatchEvent(e);
         e.stopPropagation();
     }
 
