@@ -90,7 +90,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._max = value;
     }
 
-    private _value: string;
+    private _value = '';
 
     get value(): string {
         return this._value;
@@ -99,6 +99,8 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set value(value: string) {
         if (!value) {
+            this._value = ''
+            this.updateInputValue()
             return;
         }
         this._value = TimeAdapter.formatTime(value, this._format);
