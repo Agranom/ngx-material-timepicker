@@ -28,8 +28,8 @@ describe('OverlayDirective', () => {
     it('should dispatch click event on click', inject([NgxMaterialTimepickerEventService],
         (service: NgxMaterialTimepickerEventService) => {
             const spy = spyOn(service, 'dispatchEvent').and.callThrough();
-            overlayEl.triggerEventHandler('click', {type: 'click'});
+            overlayEl.nativeElement.dispatchEvent(new Event('click' ));
             fixture.detectChanges();
-            expect(spy).toHaveBeenCalledWith({type: 'click'});
+            expect(spy).toHaveBeenCalled();
         }));
 });
