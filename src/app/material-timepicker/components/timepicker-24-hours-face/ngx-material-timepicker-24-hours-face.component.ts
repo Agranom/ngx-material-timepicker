@@ -2,6 +2,8 @@ import {AfterContentInit, Component, Input} from '@angular/core';
 import {NgxMaterialTimepickerHoursFaceComponent} from '../timepicker-hours-face/ngx-material-timepicker-hours-face.component';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import * as _moment from 'moment';
+import {TimeFormat} from '../../models/time-format.enum';
+import {TimeAdapter} from '../../services/time-adapter';
 
 const moment = _moment;
 
@@ -22,12 +24,11 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
         if (this.minTime || this.maxTime) {
 
             return this.hoursList.map(value => {
-                const currentTime = moment().hour(+value.time);
+                const currentTime = moment().hour(+value.time).format(TimeFormat.TWELVE);
 
                 return {
                     ...value,
-                    disabled: currentTime.isBefore(this.minTime || null, 'hours')
-                    || currentTime.isAfter(this.maxTime || null, 'hours')
+                    disabled: !TimeAdapter.isTimeAvailable(currentTime, this.minTime, this.maxTime)
                 };
             });
         }
