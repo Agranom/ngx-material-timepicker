@@ -12,7 +12,6 @@ class TestComponent {
 }
 
 describe('OverlayDirective', () => {
-    let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
     let overlayEl: DebugElement;
 
@@ -21,7 +20,6 @@ describe('OverlayDirective', () => {
             declarations: [TestComponent, OverlayDirective],
             providers: [NgxMaterialTimepickerEventService]
         }).createComponent(TestComponent);
-        component = fixture.componentInstance;
         overlayEl = fixture.debugElement.query(By.directive(OverlayDirective));
     });
 
