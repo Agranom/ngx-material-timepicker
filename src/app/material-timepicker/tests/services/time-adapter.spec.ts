@@ -66,21 +66,21 @@ describe('TimeAdapter', () => {
         expect(isAvailable).toBeFalsy();
     });
 
-    it('should return true if time between min and max(inclusively) value', () => {
+    it('should return true if time between min(inclusively) and max(inclusively) value', () => {
         const min = TimeAdapter.convertTimeToMoment('09:00 am');
         const max = TimeAdapter.convertTimeToMoment('03:00 pm');
-        const isAvailable = TimeAdapter.isTimeAvailable('12:12 pm', min, max);
+        let isAvailable = TimeAdapter.isTimeAvailable('12:12 pm', min, max);
+        expect(isAvailable).toBeTruthy();
+
+        isAvailable = TimeAdapter.isTimeAvailable('09:00 am', min, max);
         expect(isAvailable).toBeTruthy();
     });
 
-    it('should return false if time is not between min and max(inclusively) value', () => {
+    it('should return false if time is not between min(inclusively) and max(inclusively) value', () => {
         const min = TimeAdapter.convertTimeToMoment('09:00 am');
         const max = TimeAdapter.convertTimeToMoment('03:00 pm');
 
-        let isAvailable = TimeAdapter.isTimeAvailable('12:00 am', min, max);
-        expect(isAvailable).toBeFalsy();
-
-        isAvailable = TimeAdapter.isTimeAvailable('09:00 am', min, max);
+        const isAvailable = TimeAdapter.isTimeAvailable('12:00 am', min, max);
         expect(isAvailable).toBeFalsy();
     });
 });

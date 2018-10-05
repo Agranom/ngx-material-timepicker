@@ -25,7 +25,7 @@ export class TimeAdapter {
         const isBefore = (max && !min)
             && convertedTime.isBefore(max);
         const isBetween = (min && max)
-            && convertedTime.isBetween(min, max, granularity, '(]');
+            && convertedTime.isBetween(min, max, granularity, '[]');
         const isAvailable = !min && !max;
 
         return isAfter || isBefore || isBetween || isAvailable;
