@@ -28,7 +28,7 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
 
                 return {
                     ...value,
-                    disabled: !TimeAdapter.isTimeAvailable(currentTime, this.minTime, this.maxTime)
+                    disabled: !TimeAdapter.isTimeAvailable(currentTime, this.minTime, this.maxTime, 'hours')
                 };
             });
         }
