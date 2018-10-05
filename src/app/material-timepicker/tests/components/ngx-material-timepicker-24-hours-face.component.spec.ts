@@ -5,7 +5,7 @@ import {
 } from '../../components/timepicker-24-hours-face/ngx-material-timepicker-24-hours-face.component';
 import * as moment from 'moment';
 
-fdescribe('NgxMaterialTimepicker24HoursFaceComponent', () => {
+describe('NgxMaterialTimepicker24HoursFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepicker24HoursFaceComponent>;
     let component: NgxMaterialTimepicker24HoursFaceComponent;
 
