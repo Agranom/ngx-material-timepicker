@@ -1,5 +1,5 @@
-import {TimeFormatterPipe} from '../pipes/time-formatter.pipe';
-import {TimeUnit} from '../models/time-unit.enum';
+import {TimeFormatterPipe} from '../../pipes/time-formatter.pipe';
+import {TimeUnit} from '../../models/time-unit.enum';
 
 describe('TimeFormatterPipe', () => {
     let pipe: TimeFormatterPipe;
@@ -22,5 +22,5 @@ describe('TimeFormatterPipe', () => {
 
     it('should throw error if unknown TimeUnit', () => {
         expect(() => pipe.transform(20, 2)).toThrow('no such time unit');
-    })
+    });
 });

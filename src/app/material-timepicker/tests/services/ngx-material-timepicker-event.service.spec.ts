@@ -1,4 +1,4 @@
-import {NgxMaterialTimepickerEventService} from '../services/ngx-material-timepicker-event.service';
+import {NgxMaterialTimepickerEventService} from '../../services/ngx-material-timepicker-event.service';
 import {TestBed} from '@angular/core/testing';
 
 describe('NgxMaterialTimepickerService', () => {

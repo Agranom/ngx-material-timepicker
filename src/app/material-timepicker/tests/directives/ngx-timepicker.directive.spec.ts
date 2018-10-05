@@ -1,9 +1,9 @@
 import {Component, DebugElement, SimpleChanges} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TimepickerDirective} from '../directives/ngx-timepicker.directive';
+import {TimepickerDirective} from '../../directives/ngx-timepicker.directive';
 import {By} from '@angular/platform-browser';
-import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
-import {NgxMaterialTimepickerModule} from '../ngx-material-timepicker.module';
+import {NgxMaterialTimepickerComponent} from '../../ngx-material-timepicker.component';
+import {NgxMaterialTimepickerModule} from '../../ngx-material-timepicker.module';
 import * as _moment from 'moment';
 
 const moment = _moment;

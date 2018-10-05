@@ -1,5 +1,5 @@
 // import * as _moment from 'moment';
-import {TimeAdapter} from '../services/time-adapter';
+import {TimeAdapter} from '../../services/time-adapter';
 
 // const moment = _moment;
 
@@ -48,7 +48,7 @@ describe('TimeAdapter', () => {
         expect(isAvailable).toBeFalsy();
 
         isAvailable = TimeAdapter.isTimeAvailable('11:10 am', min);
-        expect(isAvailable).toBeFalsy()
+        expect(isAvailable).toBeFalsy();
     });
 
     it('should return true if time before max value', () => {
@@ -63,7 +63,7 @@ describe('TimeAdapter', () => {
         expect(isAvailable).toBeFalsy();
 
         isAvailable = TimeAdapter.isTimeAvailable('11:11 am', null, max);
-        expect(isAvailable).toBeFalsy()
+        expect(isAvailable).toBeFalsy();
     });
 
     it('should return true if time between min and max(inclusively) value', () => {

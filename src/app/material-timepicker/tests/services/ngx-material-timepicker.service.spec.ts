@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
-import {NgxMaterialTimepickerService} from '../services/ngx-material-timepicker.service';
-import {ClockFaceTime} from '../models/clock-face-time.interface';
-import {TimePeriod} from '../models/time-period.enum';
+import {NgxMaterialTimepickerService} from '../../services/ngx-material-timepicker.service';
+import {ClockFaceTime} from '../../models/clock-face-time.interface';
+import {TimePeriod} from '../../models/time-period.enum';
 
 describe('NgxMaterialTimepickerService', () => {
     const DEFAULT_HOUR: ClockFaceTime = {
@@ -83,5 +83,5 @@ describe('NgxMaterialTimepickerService', () => {
         expect(selectedHour).toEqual(DEFAULT_HOUR);
         expect(selectedMinute).toEqual(DEFAULT_MINUTE);
         expect(selectedPeriod).toBe(TimePeriod.AM);
-    })
+    });
 });

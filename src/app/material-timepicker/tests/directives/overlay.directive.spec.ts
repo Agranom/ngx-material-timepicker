@@ -1,8 +1,8 @@
 import {Component, DebugElement} from '@angular/core';
 import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import {OverlayDirective} from '../directives/overlay.directive';
+import {OverlayDirective} from '../../directives/overlay.directive';
 import {By} from '@angular/platform-browser';
-import {NgxMaterialTimepickerEventService} from '../services/ngx-material-timepicker-event.service';
+import {NgxMaterialTimepickerEventService} from '../../services/ngx-material-timepicker-event.service';
 
 @Component({
     template: `
