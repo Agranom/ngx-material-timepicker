@@ -34,7 +34,7 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
         expect(disabledHours.length).toBe(0);
     });
 
-    it(`should disable hours if min time exist`, () => {
+    it(`should disable hours`, () => {
         component.period = TimePeriod.AM;
         component.minTime = moment().hour(1);
         component.maxTime = moment().hour(18);
