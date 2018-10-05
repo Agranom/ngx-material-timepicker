@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {NgxMaterialTimepickerHoursFaceComponent} from '../timepicker-hours-face/ngx-material-timepicker-hours-face.component';
+import {NgxMaterialTimepickerHoursFace} from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
 import {TimePeriod} from '../../models/time-period.enum';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import * as _moment from 'moment';
@@ -14,7 +14,7 @@ const moment = _moment;
     templateUrl: 'ngx-material-timepicker-12-hours-face.component.html'
 })
 
-export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepickerHoursFaceComponent implements OnChanges {
+export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepickerHoursFace implements OnChanges {
 
     @Input() period: TimePeriod;
 

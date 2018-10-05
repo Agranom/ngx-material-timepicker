@@ -3,7 +3,7 @@ import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {Moment} from 'moment';
 
 
-export abstract class NgxMaterialTimepickerHoursFaceComponent {
+export abstract class NgxMaterialTimepickerHoursFace {
 
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: Moment;

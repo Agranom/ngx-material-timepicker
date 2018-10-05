@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, Input} from '@angular/core';
-import {NgxMaterialTimepickerHoursFaceComponent} from '../timepicker-hours-face/ngx-material-timepicker-hours-face.component';
+import {NgxMaterialTimepickerHoursFace} from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import * as _moment from 'moment';
 import {TimeFormat} from '../../models/time-format.enum';
@@ -12,7 +12,7 @@ const moment = _moment;
     templateUrl: 'ngx-material-timepicker-24-hours-face.component.html'
 })
 
-export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepickerHoursFaceComponent implements AfterContentInit {
+export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepickerHoursFace implements AfterContentInit {
 
     @Input() format: number;
 
