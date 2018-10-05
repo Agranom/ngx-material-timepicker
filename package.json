@@ -31,6 +31,7 @@
         "build": "ng build --prod",
         "lint": "ng lint",
         "e2e": "ng e2e",
+        "test": "ng test --code-coverage",
         "packagr": "ng-packagr -p ng-package.json",
         "publish": "run-s packagr && npm publish dist",
         "travis-deploy-once": "travis-deploy-once",
