@@ -22,6 +22,6 @@ describe('NgxMaterialTimepickerService', () => {
     });
 
     it('should throw error if wrong event type', () => {
-        expect(() => eventService.dispatchEvent(<MouseEvent>{type: 'mouseout'})).toThrow('no such event type');
+        expect(() => eventService.dispatchEvent(<MouseEvent>{type: 'mouseout'})).toThrowError('no such event type');
     });
 });

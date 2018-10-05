@@ -24,7 +24,7 @@ export class NgxMaterialTimepickerEventService {
                 this.keydownEventSubject.next(<KeyboardEvent>event);
                 break;
             default:
-                throw 'no such event type';
+                throw new Error('no such event type');
         }
     }
 
