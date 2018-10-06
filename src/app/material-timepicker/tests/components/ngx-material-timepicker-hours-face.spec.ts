@@ -17,7 +17,7 @@ class TestComponent extends NgxMaterialTimepickerHoursFace {
     }
 }
 
-fdescribe('NgxMaterialTimepickerHoursFace', () => {
+describe('NgxMaterialTimepickerHoursFace', () => {
     let fixture: ComponentFixture<TestComponent>;
     let component: TestComponent;
 
