@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
@@ -27,7 +28,8 @@ const CLOCK_HAND_STYLES = {
 @Component({
     selector: 'ngx-material-timepicker-face',
     templateUrl: './ngx-material-timepicker-face.component.html',
-    styleUrls: ['./ngx-material-timepicker-face.component.scss']
+    styleUrls: ['./ngx-material-timepicker-face.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges {
 
@@ -52,15 +54,18 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if ((changes['faceTime'] && changes['faceTime'].currentValue)
-            && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
+        const faceTimeChanges = changes['faceTime'];
+        const selectedTimeChanges = changes['selectedTime'];
+
+        if ((faceTimeChanges && faceTimeChanges.currentValue)
+            && (selectedTimeChanges && selectedTimeChanges.currentValue)) {
             //Set time according to passed an input value
-            this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
+            this.selectedTime = faceTimeChanges.currentValue.find(time => time.time === selectedTimeChanges.currentValue.time);
         }
-        if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
+        if (selectedTimeChanges && selectedTimeChanges.currentValue) {
             this.setClockHandPosition();
         }
-        if (changes['faceTime'] && changes['faceTime'].currentValue) {
+        if (faceTimeChanges && faceTimeChanges.currentValue) {
             // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
             setTimeout(() => this.selectAvailableTime());
         }
@@ -106,7 +111,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
         const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
 
-        if (!selectedTime.disabled) {
+        if (selectedTime && !selectedTime.disabled) {
             this.timeChange.next(selectedTime);
         }
 
@@ -120,10 +125,10 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     private setClockHandPosition(): void {
-        if (this.format === 24 ) {
+        if (this.format === 24) {
             if (this.selectedTime.time > 12 || this.selectedTime.time === '00') {
                 this.decreaseClockHand();
-            } else if (this.selectedTime.time <= 12) {
+            } else {
                 this.increaseClockHand();
             }
         }
@@ -135,10 +140,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const currentTime = this.faceTime.find(time => this.selectedTime.time === time.time);
         this.isClockFaceDisabled = this.faceTime.every(time => time.disabled);
 
-        if ((currentTime && currentTime.disabled) && !this.isClockFaceDisabled) {
-            const availableTime = this.faceTime.find(time => !time.disabled);
-
-            this.timeChange.next(availableTime);
+        if ((currentTime && !currentTime.disabled)) {
+            this.timeChange.next(currentTime);
         }
     }
 
