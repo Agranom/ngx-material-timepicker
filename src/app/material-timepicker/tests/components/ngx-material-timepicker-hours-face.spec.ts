@@ -17,7 +17,7 @@ class TestComponent extends NgxMaterialTimepickerHoursFace {
     }
 }
 
-describe('NgxMaterialTimepickerHoursFace', () => {
+fdescribe('NgxMaterialTimepickerHoursFace', () => {
     let fixture: ComponentFixture<TestComponent>;
     let component: TestComponent;
 
@@ -29,24 +29,24 @@ describe('NgxMaterialTimepickerHoursFace', () => {
         component = fixture.componentInstance;
     });
 
-    it('should generate array with 12 items', () => {
+    it('should generate array with 12 hours', () => {
         component.initHours(12);
-        expect(component.hoursList.length).toBe(12);
-    });
-
-    it(`last item should be {time: 12, angle: 12 * 30} `, () => {
-        component.initHours(12);
-        expect(component.hoursList[11]).toEqual({time: 12, angle: 12 * 30});
+        const hours = component.hoursList;
+        for (let i = 0; i < hours.length; i++) {
+            const angleStep = 30;
+            expect(hours[i]).toEqual({time: i + 1, angle: (i + 1) * angleStep})
+        }
     });
 
     it('should generate array with 24 items', () => {
         component.initHours(24);
-        expect(component.hoursList.length).toBe(24);
-    });
+        const hours = component.hoursList;
+        for (let i = 0; i < hours.length; i++) {
+            const angleStep = 30;
+            const time = i + 1;
 
-    it(`last item should be {time: 00, angle: 24 * 30} `, () => {
-        component.initHours(24);
-        expect(component.hoursList[23]).toEqual({time: '00', angle: 24 * 30});
+            expect(hours[i]).toEqual({time: time === 24 ? '00' : time, angle: time * angleStep})
+        }
     });
 
     it('should emit hourSelected on click', () => {
