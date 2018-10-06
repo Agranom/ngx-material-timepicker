@@ -48,15 +48,14 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     isOpened = false;
     animationState: AnimationState;
 
-    timepickerInput: TimepickerDirective;
-
-    subscriptions: Subscription[] = [];
-
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
+
+    private timepickerInput: TimepickerDirective;
+    private subscriptions: Subscription[] = [];
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
                 private eventService: NgxMaterialTimepickerEventService) {
@@ -149,7 +148,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(e: KeyboardEvent) {
-        this.eventService.keydownEventSubject.next(e);
+        this.eventService.dispatchEvent(e);
         e.stopPropagation();
     }
 

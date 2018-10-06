@@ -101,9 +101,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (!value) {
             return;
         }
-        this._value = TimeAdapter.formatTime(value, this._format);
-
-        if (this.isValueAvailableToUpdate()) {
+        const time = TimeAdapter.formatTime(value, this._format);
+        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
+            this._value = time;
             this.updateInputValue();
             return;
         }
@@ -111,13 +111,13 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private set defaultTime(time: string) {
-        if (this.isValueAvailableToUpdate()) {
+        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
             this._timepicker.setDefaultTime(TimeAdapter.formatTime(time, this._format));
         }
     }
 
     onInput(value: string) {
-        this._value = value;
+        this.value = value;
         this.onChange(value);
     }
 
@@ -167,6 +167,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             }));
             this.timepickerSubscriptions.push(
                 this._timepicker.closed.subscribe(() => this.defaultTime = this._value));
+        } else {
+            throw new Error('NgxMaterialTimepickerComponent is not defined.' +
+                ' Please make sure you passed the timepicker to ngxTimepicker directive');
         }
     }
 
@@ -174,14 +177,5 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this.elementRef.nativeElement.value = this._value;
     }
 
-    private isValueAvailableToUpdate(): boolean {
-        const isAfter = this._min && TimeAdapter.convertTimeToMoment(this._value).isAfter(this._min);
-        const isBefore = this._max && TimeAdapter.convertTimeToMoment(this._value).isBefore(this._max);
-        const isBetween = (this._min && this._max)
-            && TimeAdapter.convertTimeToMoment(this._value).isBetween(this._min, this._max, 'minutes');
-        const isAvailable = !this._min && !this._max;
-
-        return isAfter || isBefore || isBetween || isAvailable;
-    }
 }
 

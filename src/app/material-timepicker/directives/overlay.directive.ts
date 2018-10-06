@@ -12,7 +12,7 @@ export class OverlayDirective {
 
     @HostListener('click', ['$event'])
     onClick(e: MouseEvent) {
-        this.eventService.backdropClickSubject.next(e);
+        this.eventService.dispatchEvent(e);
         e.preventDefault();
     }
 

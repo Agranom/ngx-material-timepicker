@@ -16,6 +16,8 @@ export class TimeFormatterPipe implements PipeTransform {
 				return moment.utc(time * 3600 * 1000).format('HH');
 			case TimeUnit.MINUTE:
 				return moment.utc(time * 60 * 1000).format('mm');
+            default:
+                throw 'no such time unit';
 		}
 	}
 
