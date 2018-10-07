@@ -30,7 +30,7 @@
         "start": "ng serve",
         "build": "ng build --prod",
         "lint": "ng lint",
-        "test": "ng test --watch=false --code-coverage",
+        "test": "ng test --watch=false --code-coverage --browsers ChromeHeadlessNoSandbox",
         "codecov": "codecov",
         "packagr": "ng-packagr -p ng-package.json",
         "publish": "run-s packagr && npm publish dist",
