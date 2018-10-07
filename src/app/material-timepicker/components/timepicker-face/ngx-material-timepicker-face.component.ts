@@ -54,18 +54,15 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        const faceTimeChanges = changes['faceTime'];
-        const selectedTimeChanges = changes['selectedTime'];
-
-        if ((faceTimeChanges && faceTimeChanges.currentValue)
-            && (selectedTimeChanges && selectedTimeChanges.currentValue)) {
+        if ((changes['faceTime'] && changes['faceTime'].currentValue)
+            && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
             /* Set time according to passed an input value */
-            this.selectedTime = faceTimeChanges.currentValue.find(time => time.time === selectedTimeChanges.currentValue.time);
+            this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
         }
-        if (selectedTimeChanges && selectedTimeChanges.currentValue) {
+        if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
             this.setClockHandPosition();
         }
-        if (faceTimeChanges && faceTimeChanges.currentValue) {
+        if (changes['faceTime'] && changes['faceTime'].currentValue) {
             // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
             setTimeout(() => this.selectAvailableTime());
         }
@@ -140,8 +137,10 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const currentTime = this.faceTime.find(time => this.selectedTime.time === time.time);
         this.isClockFaceDisabled = this.faceTime.every(time => time.disabled);
 
-        if ((currentTime && !currentTime.disabled)) {
-            this.timeChange.next(currentTime);
+        if ((currentTime && currentTime.disabled) && !this.isClockFaceDisabled) {
+            const availableTime = this.faceTime.find(time => !time.disabled);
+
+            this.timeChange.next(availableTime);
         }
     }
 

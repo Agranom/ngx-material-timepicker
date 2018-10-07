@@ -78,7 +78,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
         };
         component.ngOnChanges(changes);
 
-        expect(component.selectedTime).toEqual({time: 11, angle: 20});
+        expect(component.selectedTime).toEqual({time: 12, angle: 30, disabled: true});
     });
 
     it('should set clock hand position on selectedTime changes', () => {
@@ -96,9 +96,9 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
         expect(getStyle(component.clockHand)('transform')).toBe('rotate(30deg)');
     });
 
-    it('should emit selected time on selectedTime changes', fakeAsync(() => {
-        component.selectedTime = {time: 11, angle: 30, disabled: false};
-        component.faceTime = [{time: 11, angle: 30, disabled: false}, {time: 12, angle: 30, disabled: true}];
+    it('should select available time', fakeAsync(() => {
+        component.selectedTime = {time: 11, angle: 30};
+        component.faceTime = [{time: 11, angle: 30, disabled: true}, {time: 12, angle: 30, disabled: false}];
         const changes: SimpleChanges = {
             faceTime: {
                 currentValue: [],
@@ -111,12 +111,12 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
         component.timeChange.subscribe(time => updatedTime = time);
         component.ngOnChanges(changes);
         tick();
-        expect(updatedTime).toEqual({time: 11, angle: 30, disabled: false});
+        expect(updatedTime).toEqual({time: 12, angle: 30, disabled: false});
     }));
 
-    it('should not emit selected time if it is disabled', fakeAsync(() => {
+    it('should not emit time if no one is available', fakeAsync(() => {
         component.selectedTime = {time: 11, angle: 30};
-        component.faceTime = [{time: 11, angle: 30, disabled: true}, {time: 12, angle: 30, disabled: false}];
+        component.faceTime = [{time: 11, angle: 30, disabled: true}, {time: 12, angle: 30, disabled: true}];
         const changes: SimpleChanges = {
             faceTime: {
                 currentValue: [],
@@ -236,7 +236,6 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
             component.faceTime = hourFaceTime;
             component.timeChange.subscribe((time) => selectedTime = time);
-            console.log(getAngle(mouseCords));
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
             expect(selectedTime.angle).toBe(getAngle(mouseCords));
