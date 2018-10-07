@@ -121,7 +121,7 @@ Open `http//:localhost:4200` on your browser.
 
 ## Tests
 
-Work is in progress.
+Run `npm test` to run tests once or `npm run test:watch` to continually run tests.
 
 ## License
 

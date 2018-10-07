@@ -1,7 +1,7 @@
 {
     "name": "ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "2.6.0",
+    "version": "2.6.1",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
@@ -31,6 +31,7 @@
         "build": "ng build --prod",
         "lint": "ng lint",
         "test": "ng test --watch=false --code-coverage --browsers ChromeHeadlessNoSandbox",
+        "test:watch": "ng test --code-coverage",
         "codecov": "codecov",
         "packagr": "ng-packagr -p ng-package.json",
         "publish": "run-s packagr && npm publish dist",

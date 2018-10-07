@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.6.1 (2018-10-07)
+
+### Fixes
+
+* fix(ngxTimepicker): fix bug with setting disabled time to input, closes [(#44)](https://github.com/Agranom/ngx-material-timepicker/issues/44)
+* fix(time range): fix bug with `12 pm` selection, closes [(#43)](https://github.com/Agranom/ngx-material-timepicker/issues/43)
+
 ## 2.6.0 (2018-09-15)
 
 ### Features
