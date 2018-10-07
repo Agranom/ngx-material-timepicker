@@ -30,26 +30,27 @@ const VALUE_ACCESSOR = {
     },
 })
 export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnChanges {
-
-    @Input() disabled: boolean;
-    @Input() disableClick: boolean;
-    onTouched = () => {
-    };
-    private timepickerSubscriptions: Subscription[] = [];
-    private onChange: (value: any) => void = () => {
-    };
-
-    constructor(private elementRef: ElementRef) {
+    @Input()
+    set value(value: string) {
+        if (!value) {
+            this._value = '';
+            this.updateInputValue();
+            return;
+        }
+        const time = TimeAdapter.formatTime(value, this._format);
+        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
+            this._value = time;
+            this.updateInputValue();
+            return;
+        }
+        console.warn('Selected time doesn\'t match min or max value');
     }
 
-    private _timepicker: NgxMaterialTimepickerComponent;
-
-    @Input('ngxTimepicker')
-    set timepicker(picker: NgxMaterialTimepickerComponent) {
-        this.registerTimepicker(picker);
+    get value(): string {
+        return this._value;
     }
 
-    private _format: number;
+    private _value = '';
 
     get format(): number {
         return this._format;
@@ -60,7 +61,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._format = value === 24 ? 24 : 12;
     }
 
-    private _min: string | Moment;
+    private _format: number;
 
     get min(): string | Moment {
         return this._min;
@@ -75,7 +76,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._min = value;
     }
 
-    private _max: string | Moment;
+    private _min: string | Moment;
 
     get max(): string | Moment {
         return this._max;
@@ -90,26 +91,23 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._max = value;
     }
 
-    private _value = '';
+    private _max: string | Moment;
 
-    get value(): string {
-        return this._value;
+
+
+    @Input('ngxTimepicker')
+    set timepicker(picker: NgxMaterialTimepickerComponent) {
+        this.registerTimepicker(picker);
     }
+    private _timepicker: NgxMaterialTimepickerComponent;
 
-    @Input()
-    set value(value: string) {
-        if (!value) {
-            this._value = ''
-            this.updateInputValue()
-            return;
-        }
-        const time = TimeAdapter.formatTime(value, this._format);
-        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
-            this._value = time;
-            this.updateInputValue();
-            return;
-        }
-        console.warn('Selected time doesn\'t match min or max value');
+    @Input() disabled: boolean;
+    @Input() disableClick: boolean;
+    private timepickerSubscriptions: Subscription[] = [];
+    onTouched = () => {};
+    private onChange: (value: any) => void = () => {};
+
+    constructor(private elementRef: ElementRef) {
     }
 
     private set defaultTime(time: string) {
@@ -176,7 +174,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private updateInputValue(): void {
-        this.elementRef.nativeElement.value = this._value;
+        this.elementRef.nativeElement.value = this.value;
     }
 
 }

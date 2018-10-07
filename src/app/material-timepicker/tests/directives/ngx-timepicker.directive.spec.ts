@@ -84,13 +84,13 @@ describe('TimepickerDirective', () => {
         expect(directive.max.minute()).toBe(11);
     });
 
-    it(`should return undefined if set value undefined, null, '' `, () => {
+    it(`should clear the time if set value undefined, null, '' `, () => {
         directive.value = undefined;
-        expect(directive.value).toBeUndefined();
+        expect(directive.value).toBe('');
         directive.value = null;
-        expect(directive.value).toBeUndefined();
+        expect(directive.value).toBe('');
         directive.value = '';
-        expect(directive.value).toBeUndefined();
+        expect(directive.value).toBe('');
     });
 
     it('should return formatted time', () => {
