@@ -53,7 +53,7 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
                     ...value,
                     disabled: !TimeAdapter.isTimeAvailable(currentTime, this.minTime, this.maxTime, 'minutes')
                 };
-            })
+            });
         }
         return this.minutesList;
     }

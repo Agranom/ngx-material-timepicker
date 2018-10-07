@@ -21,6 +21,6 @@ describe('TimeFormatterPipe', () => {
     });
 
     it('should throw error if unknown TimeUnit', () => {
-        expect(() => pipe.transform(20, 2)).toThrow('no such time unit');
+        expect(() => pipe.transform(20, 2)).toThrowError('no such time unit');
     });
 });

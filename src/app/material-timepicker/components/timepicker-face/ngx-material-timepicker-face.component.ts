@@ -59,7 +59,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
         if ((faceTimeChanges && faceTimeChanges.currentValue)
             && (selectedTimeChanges && selectedTimeChanges.currentValue)) {
-            //Set time according to passed an input value
+            /* Set time according to passed an input value */
             this.selectedTime = faceTimeChanges.currentValue.find(time => time.time === selectedTimeChanges.currentValue.time);
         }
         if (selectedTimeChanges && selectedTimeChanges.currentValue) {
@@ -94,16 +94,16 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         }
         const clockFaceCords = this.clockFace.nativeElement.getBoundingClientRect();
 
-        //Get x0 and y0 of the circle
+        /* Get x0 and y0 of the circle */
         const centerX = clockFaceCords.left + clockFaceCords.width / 2;
         const centerY = clockFaceCords.top + clockFaceCords.height / 2;
-        //Counting the arctangent and convert it to from radian to deg
+        /* Counting the arctangent and convert it to from radian to deg */
         const arctangent = Math.atan(Math.abs(e.clientX - centerX) / Math.abs(e.clientY - centerY)) * 180 / Math.PI;
-        //Get angle according to quadrant
+        /* Get angle according to quadrant */
         const circleAngle = countAngleByCords(centerX, centerY, e.clientX, e.clientY, arctangent);
-        //Check if selected time from the inner clock face (24 hours format only)
+        /* Check if selected time from the inner clock face (24 hours format only) */
         const isInnerClockChosen = this.format && this.isInnerClockFace(centerX, centerY, e.clientX, e.clientY);
-        //Round angle according to angle step
+        /* Round angle according to angle step */
         const angleStep = this.unit === TimeUnit.MINUTE ? 6 : 30;
         const roundedAngle = isInnerClockChosen
             ? roundAngle(circleAngle, angleStep) + 360
@@ -146,7 +146,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     private isInnerClockFace(x0: number, y0: number, x: number, y: number): boolean {
-        //Detect whether time from the inner clock face or not (24 format only)
+        /* Detect whether time from the inner clock face or not (24 format only) */
         return Math.sqrt(Math.pow(x - x0, 2) + Math.pow(y - y0, 2)) < this.innerClockFaceSize;
     }
 

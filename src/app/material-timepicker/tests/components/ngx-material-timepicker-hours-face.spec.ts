@@ -34,7 +34,7 @@ describe('NgxMaterialTimepickerHoursFace', () => {
         const hours = component.hoursList;
         for (let i = 0; i < hours.length; i++) {
             const angleStep = 30;
-            expect(hours[i]).toEqual({time: i + 1, angle: (i + 1) * angleStep})
+            expect(hours[i]).toEqual({time: i + 1, angle: (i + 1) * angleStep});
         }
     });
 
@@ -45,7 +45,7 @@ describe('NgxMaterialTimepickerHoursFace', () => {
             const angleStep = 30;
             const time = i + 1;
 
-            expect(hours[i]).toEqual({time: time === 24 ? '00' : time, angle: time * angleStep})
+            expect(hours[i]).toEqual({time: time === 24 ? '00' : time, angle: time * angleStep});
         }
     });
 

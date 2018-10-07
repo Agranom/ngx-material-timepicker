@@ -7,17 +7,17 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 
-    simpleExamples: string = `
+
+    simpleExamples = `
        <div class="12hr-example">
             <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>
             <ngx-material-timepicker #default></ngx-material-timepicker>
        </div>
-       
+
        <div class="24hr-example">
             <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
             <ngx-material-timepicker #fullTime></ngx-material-timepicker>
-       </div>
-       
+       </div>       
        <div class="default-time-example">
             <input aria-label="default time" [ngxTimepicker]="defaultTime" [value]="'05:11 pm'"  readonly>
             <ngx-material-timepicker #defaultTime></ngx-material-timepicker>
@@ -29,7 +29,7 @@ export class AppComponent {
        </div>
     `;
 
-    minMaxExamples: string = `
+    minMaxExamples = `
         <div class="min-time-example">
             <input placeholder="Min time 03:15 am"
                 [ngxTimepicker]="min" [min]="'03:15 am'" readonly>
@@ -48,7 +48,7 @@ export class AppComponent {
             <ngx-material-timepicker #range></ngx-material-timepicker>
         </div>`;
 
-    toggleExamples: string = `
+    toggleExamples = `
         <div class="toggle-example">
             <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly>
             <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
@@ -72,7 +72,7 @@ export class AppComponent {
         </div>
     `;
 
-    customSettings: string = `
+    customSettings = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>
             <ngx-material-timepicker #timepickerWithButtons [cancelBtnTmpl]="cancelBtn"

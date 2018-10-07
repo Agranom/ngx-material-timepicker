@@ -1,5 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NgxMaterialTimepickerMinutesFaceComponent} from '../../components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
+import {
+    NgxMaterialTimepickerMinutesFaceComponent
+} from '../../components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
 import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
 import * as moment from 'moment';
 import {TimePeriod} from '../../models/time-period.enum';
@@ -81,11 +83,11 @@ describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
         component.selectedHour = 12;
         component.ngOnChanges(changes);
         const disabledMinutes = component.minutesList.filter(m => m.disabled);
-        expect(disabledMinutes.length).toBe(0)
+        expect(disabledMinutes.length).toBe(0);
     });
 
     it('should not call disableMinutes fn if changes are not have period', () => {
-        const changes: SimpleChanges = {
+        const newChanges: SimpleChanges = {
             minTime: {
                 currentValue: null,
                 previousValue: undefined,
@@ -97,8 +99,8 @@ describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
         component.selectedHour = 12;
         component.minTime = moment().hour(0).minute(35);
 
-        component.ngOnChanges(changes);
+        component.ngOnChanges(newChanges);
         const disabledMinutes = component.minutesList.filter(m => m.disabled);
-        expect(disabledMinutes.length).toBe(0)
+        expect(disabledMinutes.length).toBe(0);
     });
 });

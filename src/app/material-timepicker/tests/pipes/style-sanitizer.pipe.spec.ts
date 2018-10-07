@@ -14,6 +14,6 @@ describe('StyleSanitizerPipe', () => {
     });
 
     it('should return safe style', () => {
-        expect(pipe.transform('height: 20px')).toBeDefined()
+        expect(pipe.transform('height: 20px')).toBeDefined();
     });
 });

@@ -1,4 +1,4 @@
 export enum TimePeriod {
-	AM = 'AM',
-	PM = 'PM'
+    AM = 'AM',
+    PM = 'PM'
 }
