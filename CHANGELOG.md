@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.6.2 (2018-10-07)
+
+### Fixes
+
+* fix(clock hand): change clock hand position if time is not available
+
 ## 2.6.1 (2018-10-07)
 
 ### Fixes
