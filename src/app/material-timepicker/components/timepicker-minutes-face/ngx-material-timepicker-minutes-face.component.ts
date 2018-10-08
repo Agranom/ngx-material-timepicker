@@ -38,15 +38,15 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     private get disabledMinutes(): ClockFaceTime[] {
         if (this.minTime || this.maxTime) {
 
+            let hour = this.period === TimePeriod.AM ? this.selectedHour : this.selectedHour + 12;
+
+            if (this.period === TimePeriod.AM && this.selectedHour === 12) {
+                hour = 0;
+            } else if (this.period === TimePeriod.PM && this.selectedHour === 24) {
+                hour = 12;
+            }
+
             return this.minutesList.map(value => {
-                let hour = this.selectedHour;
-
-                if (this.period === TimePeriod.AM && this.selectedHour === 12) {
-                    hour = 0;
-                } else if (this.period === TimePeriod.PM && this.selectedHour === 24) {
-                    hour = 12;
-                }
-
                 const currentTime = moment().hour(hour).minute(+value.time).format(TimeFormat.TWELVE);
 
                 return {
