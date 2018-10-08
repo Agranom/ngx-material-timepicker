@@ -71,7 +71,7 @@ describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
             expect(disabledMinutes[i].time).toBe(disabledMinute);
         }
 
-        component.selectedHour = 1;
+        component.selectedHour = 13;
         component.ngOnChanges(changes);
         disabledMinutes = component.minutesList.filter(m => m.disabled);
 

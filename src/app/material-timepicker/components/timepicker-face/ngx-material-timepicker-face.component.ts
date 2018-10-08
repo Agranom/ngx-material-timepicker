@@ -1,6 +1,5 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
@@ -28,8 +27,7 @@ const CLOCK_HAND_STYLES = {
 @Component({
     selector: 'ngx-material-timepicker-face',
     templateUrl: './ngx-material-timepicker-face.component.html',
-    styleUrls: ['./ngx-material-timepicker-face.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./ngx-material-timepicker-face.component.scss']
 })
 export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges {
 
@@ -54,15 +52,18 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if ((changes['faceTime'] && changes['faceTime'].currentValue)
-            && (changes['selectedTime'] && changes['selectedTime'].currentValue)) {
+        const faceTimeChanges = changes['faceTime'];
+        const selectedTimeChanges = changes['selectedTime'];
+
+        if ((faceTimeChanges && faceTimeChanges.currentValue)
+            && (selectedTimeChanges && selectedTimeChanges.currentValue)) {
             /* Set time according to passed an input value */
             this.selectedTime = this.faceTime.find(time => time.time === this.selectedTime.time);
         }
-        if (changes['selectedTime'] && changes['selectedTime'].currentValue) {
+        if (selectedTimeChanges && selectedTimeChanges.currentValue) {
             this.setClockHandPosition();
         }
-        if (changes['faceTime'] && changes['faceTime'].currentValue) {
+        if (faceTimeChanges && faceTimeChanges.currentValue) {
             // To avoid an error ExpressionChangedAfterItHasBeenCheckedError
             setTimeout(() => this.selectAvailableTime());
         }
