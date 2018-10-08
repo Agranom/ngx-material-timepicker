@@ -29,10 +29,6 @@ describe('NgxMaterialTimepickerService', () => {
         timepickerService.selectedPeriod.subscribe(period => selectedPeriod = period);
     });
 
-    afterEach(() => {
-        // subscriptions.forEach(s => s.unsubscribe());
-    });
-
     it('should set default hour on startup', () => {
         expect(selectedHour).toEqual(DEFAULT_HOUR);
     });
@@ -60,8 +56,7 @@ describe('NgxMaterialTimepickerService', () => {
 
     it('should return full time as string (hh:mm a or HH:mm)', () => {
         expect(timepickerService.getFullTime(12)).toBe('12:00 am');
-        expect(timepickerService.getFullTime(24)).toBe('00:00');
-        expect(typeof timepickerService.getFullTime(24) === 'string').toBeTruthy();
+        expect(timepickerService.getFullTime(24)).toBe('12:00');
     });
 
     it('should change default time', () => {

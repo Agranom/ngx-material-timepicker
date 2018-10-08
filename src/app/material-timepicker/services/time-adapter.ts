@@ -1,6 +1,7 @@
 import * as _moment from 'moment';
 import {Moment, unitOfTime} from 'moment';
 import {TimeFormat} from '../models/time-format.enum';
+import {TimePeriod} from '../models/time-period.enum';
 
 const moment = _moment;
 
@@ -29,6 +30,23 @@ export class TimeAdapter {
         const isAvailable = !min && !max;
 
         return isAfter || isBefore || isBetween || isAvailable;
+    }
+
+    /***
+     *  Format hour according to time format (12 or 24)
+     */
+    static formatHour(currentHour: number, format: number, period: TimePeriod): number {
+        if (format === 24) {
+            return currentHour;
+        }
+        let hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
+
+        if (period === TimePeriod.AM && hour === 12) {
+            return 0;
+        } else if (period === TimePeriod.PM && hour === 24) {
+            return 12;
+        }
+        return hour;
     }
 
 }
