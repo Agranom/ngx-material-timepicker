@@ -1,4 +1,4 @@
-import {EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {EventEmitter, Input, Output} from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {Moment} from 'moment';
 
@@ -13,24 +13,19 @@ export abstract class NgxMaterialTimepickerHoursFace {
 
     hoursList: ClockFaceTime[] = [];
 
-    constructor(hours: number) {
+    protected constructor(hours: number) {
         this.initHours(hours);
     }
 
     abstract get disabledHours(): ClockFaceTime[]
-
-    @HostListener('touchend')
-    @HostListener('click')
-    onClick() {
-        this.hourSelected.next();
-    }
 
     initHours(hours: number): void {
         const angleStep = 30;
 
         this.hoursList = Array(hours).fill(1).map((v, i) => {
             const time = v + i;
-            return {time: time === 24 ? '00' : time, angle: angleStep * time};
+            const angle = angleStep * time;
+            return {time: time === 24 ? '00' : time, angle};
         });
     }
 }

@@ -41,6 +41,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() unit: TimeUnit;
     @Input() format: number;
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
+    @Output() timeSelected = new EventEmitter<null>();
 
     @ViewChild('clockFace') clockFace: ElementRef;
     @ViewChild('clockHand') clockHand: ElementRef;
@@ -111,6 +112,11 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
         if (selectedTime && !selectedTime.disabled) {
             this.timeChange.next(selectedTime);
+
+            /* To let know whether user ended interaction with clock face */
+            if (!this.isStarted) {
+                this.timeSelected.next();
+            }
         }
 
     }
@@ -162,8 +168,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 }
 
 function roundAngle(angle: number, step: number): number {
-    const roundedAngle = Math.round(angle / step) * step;
-    return roundedAngle === 0 ? 360 : roundedAngle;
+    return Math.round(angle / step) * step;
 }
 
 function countAngleByCords(x0: number, y0: number, x: number, y: number, currentAngle: number): number {

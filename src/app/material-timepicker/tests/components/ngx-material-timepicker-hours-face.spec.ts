@@ -48,10 +48,4 @@ describe('NgxMaterialTimepickerHoursFace', () => {
             expect(hours[i]).toEqual({time: time === 24 ? '00' : time, angle: time * angleStep});
         }
     });
-
-    it('should emit hourSelected on click', () => {
-        let counter = 0;
-        component.hourSelected.subscribe(() => expect(++counter).toBe(1));
-        component.onClick();
-    });
 });
