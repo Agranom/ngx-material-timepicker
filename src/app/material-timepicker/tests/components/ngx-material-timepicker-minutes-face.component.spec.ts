@@ -6,12 +6,24 @@ import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
 import * as moment from 'moment';
 import {TimePeriod} from '../../models/time-period.enum';
 
-describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
+fdescribe('NgxMaterialTimepickerMinutesFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerMinutesFaceComponent>;
     let component: NgxMaterialTimepickerMinutesFaceComponent;
     const changes: SimpleChanges = {
         period: {
             currentValue: TimePeriod.PM,
+            previousValue: undefined,
+            firstChange: true,
+            isFirstChange: () => null
+        },
+        format: {
+            currentValue: 12,
+            previousValue: undefined,
+            firstChange: true,
+            isFirstChange: () => null
+        },
+        selectedHour: {
+            currentValue: 12,
             previousValue: undefined,
             firstChange: true,
             isFirstChange: () => null
