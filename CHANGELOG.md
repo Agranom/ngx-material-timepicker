@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.6.4 (2018-10-10)
+
+### Fixes
+
+* fix(timepicker minutes face): fix bug with wrong disabling minutes, closes [(#44)](https://github.com/Agranom/ngx-material-timepicker/issues/44)
+
+* ref(timepicker clock face): change clock face from hours to minutes only if user stop interacting with clock face (mouseup event) and time was changed
+
+
 ## 2.6.3 (2018-10-08)
 
 ### Fixes
