@@ -6,7 +6,7 @@ import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
 import * as moment from 'moment';
 import {TimePeriod} from '../../models/time-period.enum';
 
-fdescribe('NgxMaterialTimepickerMinutesFaceComponent', () => {
+describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerMinutesFaceComponent>;
     let component: NgxMaterialTimepickerMinutesFaceComponent;
     const changes: SimpleChanges = {
