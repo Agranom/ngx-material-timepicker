@@ -5,6 +5,7 @@ import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {StyleSanitizerPipe} from '../../pipes/style-sanitizer.pipe';
 import {TimeUnit} from '../../models/time-unit.enum';
 
+
 describe('NgxMaterialTimepickerFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerFaceComponent>;
     let component: NgxMaterialTimepickerFaceComponent;
@@ -170,6 +171,11 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
         beforeEach(() => {
             component.onMousedown(mouseClickEvent);
+
+        });
+
+        afterEach(() => {
+            component.onMouseup(mouseClickEvent);
         });
 
         it('should do nothing onMouseUp', fakeAsync(() => {
@@ -182,63 +188,48 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(counter).toBe(0);
         }));
 
-        it('should subtract angle from 180', fakeAsync(() => {
+        it('should return angle from I quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 160, clientY: 220};
+            const mouseCords: MouseEventInit = {clientX: 706, clientY: 20};
 
             component.faceTime = hourFaceTime;
             component.timeChange.subscribe((time) => selectedTime = time);
-
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle > 0 && selectedTime.angle <= 90).toBeTruthy();
         }));
 
-        it('should add 180 to angle', fakeAsync(() => {
+        it('should return angle from II quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 140, clientY: 250};
+            const mouseCords: MouseEventInit = {clientX: 703, clientY: 581};
 
             component.faceTime = hourFaceTime;
             component.timeChange.subscribe((time) => selectedTime = time);
-
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle > 90 && selectedTime.angle <= 180).toBeTruthy();
         }));
 
-        it('should subtract angle from 360', fakeAsync(() => {
+        it('should return angle from III quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 140, clientY: 100};
+            const mouseCords: MouseEventInit = {clientX: 2, clientY: 500};
 
             component.faceTime = hourFaceTime;
             component.timeChange.subscribe((time) => selectedTime = time);
-
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle > 180 && selectedTime.angle <= 270).toBeTruthy();
         }));
 
-        it('should return angle', fakeAsync(() => {
+        it('should return angle from IV quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 160, clientY: 200};
-
-            component.faceTime = hourFaceTime;
-            component.timeChange.subscribe((time) => selectedTime = time);
-
-            component.selectTime(new MouseEvent('mousemove', mouseCords));
-            tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
-        }));
-
-        it('should return 360 angle if it 0', fakeAsync(() => {
-            let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 150, clientY: 200};
+            const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
             component.faceTime = hourFaceTime;
             component.timeChange.subscribe((time) => selectedTime = time);
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle > 270 && selectedTime.angle <= 360).toBeTruthy();
         }));
 
         it('should select hour from inner clock face', fakeAsync(() => {
@@ -251,12 +242,12 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle > 360).toBeTruthy();
         }));
 
         it('should select minute from list', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
-            const mouseCords: MouseEventInit = {clientX: 150, clientY: 200};
+            const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
             component.faceTime = minutesFaceTime;
             component.unit = TimeUnit.MINUTE;
@@ -264,7 +255,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
-            expect(selectedTime.angle).toBe(getAngle(mouseCords));
+            expect(selectedTime.angle).toBeDefined();
         }));
 
         it('should not emit timeChanged', fakeAsync(() => {
@@ -280,51 +271,24 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime).toEqual({time: 1, angle: 5});
         }));
 
-        function getAngle(mouseCords) {
-            const clockFaceCords = component.clockFace.nativeElement.getBoundingClientRect();
+        it('should emit selected time once user stop interaction with clock face', fakeAsync(() => {
+            let counter = 0;
+            const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
-            const centerX = clockFaceCords.left + clockFaceCords.width / 2; // 150
-            const centerY = clockFaceCords.top + clockFaceCords.height / 2; // 216
-            const arctangent = Math.atan(
-                Math.abs(mouseCords.clientX - centerX) / Math.abs(mouseCords.clientY - centerY)) * 180 / Math.PI;
+            component.faceTime = minutesFaceTime;
+            component.unit = TimeUnit.MINUTE;
 
-            const circleAngle = countAngleByCords(centerX, centerY, mouseCords.clientX, mouseCords.clientY, arctangent);
-            const angleStep = component.unit === TimeUnit.MINUTE ? 6 : 30;
-            const isInnerClockChosen = component.format && isInnerClockFace(centerX, centerY, mouseCords.clientX, mouseCords.clientY);
-
-            return isInnerClockChosen
-                ? roundAngle(circleAngle, angleStep) + 360
-                : roundAngle(circleAngle, angleStep);
-
-        }
-
-        function isInnerClockFace(x0: number, y0: number, x: number, y: number): boolean {
-            /*Detect whether time from the inner clock face or not (24 format only)*/
-            return Math.sqrt(Math.pow(x - x0, 2) + Math.pow(y - y0, 2)) < component.innerClockFaceSize;
-        }
+            component.timeSelected.subscribe(() => counter++);
+            component.onMouseup(mouseClickEvent);
+            component.selectTime(new MouseEvent('click', mouseCords));
+            tick();
+            expect(counter).toBe(1);
+        }));
     });
 });
 
 function getStyle(element: ElementRef): (prop: string) => string {
     return (prop: string) => element.nativeElement.style[prop];
 }
-
-function roundAngle(angle: number, step: number): number {
-    const roundedAngle = Math.round(angle / step) * step;
-    return roundedAngle === 0 ? 360 : roundedAngle;
-}
-
-function countAngleByCords(x0: number, y0: number, x: number, y: number, currentAngle: number): number {
-    if (y > y0 && x >= x0) {// II quarter
-        return 180 - currentAngle;
-    } else if (y > y0 && x < x0) {// III quarter
-        return 180 + currentAngle;
-    } else if (y < y0 && x < x0) {// IV quarter
-        return 360 - currentAngle;
-    } else {// I quarter
-        return currentAngle;
-    }
-}
-
 
 

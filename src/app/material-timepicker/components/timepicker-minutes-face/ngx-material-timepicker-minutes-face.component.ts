@@ -20,11 +20,12 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     timeUnit = TimeUnit;
 
     @Input() selectedMinute: ClockFaceTime;
+    @Input() selectedHour: number;
     @Input() period: TimePeriod;
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
+    @Input() format: number;
     @Output() minuteChange = new EventEmitter<ClockFaceTime>();
-    @Input() selectedHour: number;
 
     constructor() {
         const angleStep = 360 / MINUTES;
@@ -38,13 +39,7 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     private get disabledMinutes(): ClockFaceTime[] {
         if (this.minTime || this.maxTime) {
 
-            let hour = this.period === TimePeriod.AM ? this.selectedHour : this.selectedHour + 12;
-
-            if (this.period === TimePeriod.AM && this.selectedHour === 12) {
-                hour = 0;
-            } else if (this.period === TimePeriod.PM && this.selectedHour === 24) {
-                hour = 12;
-            }
+            const hour = TimeAdapter.formatHour(this.selectedHour, this.format, this.period);
 
             return this.minutesList.map(value => {
                 const currentTime = moment().hour(hour).minute(+value.time).format(TimeFormat.TWELVE);
@@ -59,7 +54,9 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['period'] && changes['period'].currentValue) {
+        if ((changes['period'] && changes['period'].currentValue)
+            && (changes['format'] && changes['format'].currentValue)
+            && (changes['selectedHour'] && changes['selectedHour'].currentValue)) {
             this.minutesList = this.disabledMinutes;
         }
     }
