@@ -1,7 +1,6 @@
-// import * as _moment from 'moment';
 import {TimeAdapter} from '../../services/time-adapter';
+import {TimePeriod} from '../../models/time-period.enum';
 
-// const moment = _moment;
 
 describe('TimeAdapter', () => {
 
@@ -82,5 +81,28 @@ describe('TimeAdapter', () => {
 
         const isAvailable = TimeAdapter.isTimeAvailable('12:00 am', min, max);
         expect(isAvailable).toBeFalsy();
+    });
+
+    describe('formatHour', () => {
+        it('should return hour without changes', () => {
+            const hour = 23;
+            expect(TimeAdapter.formatHour(hour, 24, TimePeriod.AM)).toBe(hour);
+        });
+
+        it('should return 10', () => {
+            expect(TimeAdapter.formatHour(10, 12, TimePeriod.AM)).toBe(10);
+        });
+
+        it('should return 22', () => {
+            expect(TimeAdapter.formatHour(10, 12, TimePeriod.PM)).toBe(22);
+        });
+
+        it('should return 0', () => {
+            expect(TimeAdapter.formatHour(12, 12, TimePeriod.AM)).toBe(0);
+        });
+
+        it('should return 12', () => {
+            expect(TimeAdapter.formatHour(12, 12, TimePeriod.PM)).toBe(12);
+        });
     });
 });
