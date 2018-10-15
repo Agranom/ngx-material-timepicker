@@ -15,18 +15,6 @@ describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
             previousValue: undefined,
             firstChange: true,
             isFirstChange: () => null
-        },
-        format: {
-            currentValue: 12,
-            previousValue: undefined,
-            firstChange: true,
-            isFirstChange: () => null
-        },
-        selectedHour: {
-            currentValue: 12,
-            previousValue: undefined,
-            firstChange: true,
-            isFirstChange: () => null
         }
     };
 
@@ -88,6 +76,17 @@ describe('NgxMaterialTimepickerMinutesFaceComponent', () => {
         disabledMinutes = component.minutesList.filter(m => m.disabled);
 
         expect(disabledMinutes.length).toBe(0);
+    });
+
+    it('should disable minutes on minTime and maxTime', () => {
+        component.period = TimePeriod.PM;
+        component.selectedHour = 3;
+        component.minTime = moment().hour(11).minute(15);
+        component.maxTime = moment().hour(15).minute(58);
+        component.ngOnChanges(changes);
+
+        let disabledMinutes = component.minutesList.filter(m => m.disabled);
+        expect(disabledMinutes.length).toBe(1);
     });
 
     it('should not disable minutes with 12 PM', () => {

@@ -54,9 +54,7 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if ((changes['period'] && changes['period'].currentValue)
-            && (changes['format'] && changes['format'].currentValue)
-            && (changes['selectedHour'] && changes['selectedHour'].currentValue)) {
+        if ((changes['period'] && changes['period'].currentValue)) {
             this.minutesList = this.disabledMinutes;
         }
     }
