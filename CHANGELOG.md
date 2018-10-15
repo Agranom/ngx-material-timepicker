@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+
+## 2.6.5 (2018-10-15)
+
+### Fixes
+
+* fix(timepicker minutes face): fix disabling minutes within min and max time range, closes [(#43)](https://github.com/Agranom/ngx-material-timepicker/issues/43)
+
 ## 2.6.4 (2018-10-10)
 
 ### Fixes
