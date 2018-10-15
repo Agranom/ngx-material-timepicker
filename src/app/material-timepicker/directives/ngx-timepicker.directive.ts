@@ -61,7 +61,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._format = value === 24 ? 24 : 12;
     }
 
-    private _format: number;
+    private _format = 12;
 
     get min(): string | Moment {
         return this._min;
