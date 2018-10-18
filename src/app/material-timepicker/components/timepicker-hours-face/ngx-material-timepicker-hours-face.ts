@@ -14,19 +14,9 @@ export abstract class NgxMaterialTimepickerHoursFace {
 
     hoursList: ClockFaceTime[] = [];
 
-    protected constructor(hours: number) {
-        this.hoursList = Time.HOURS.slice(0, hours);
+    protected constructor(format: number) {
+        this.hoursList = Time.generateHours(format);
     }
 
     abstract get disabledHours(): ClockFaceTime[]
-
-    initHours(hours: number): void {
-        const angleStep = 30;
-
-        this.hoursList = Array(hours).fill(1).map((v, i) => {
-            const time = v + i;
-            const angle = angleStep * time;
-            return {time: time === 24 ? '00' : time, angle};
-        });
-    }
 }

@@ -3,9 +3,13 @@
     <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" tabindex="0"
          focusAnchor>
         <header class="timepicker__header">
-            <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time" [minute]="selectedMinute?.time"
-                                          [period]="selectedPeriod" (periodChanged)="changePeriod($event)"
-                                          (timeUnitChanged)="changeTimeUnit($event)"></ngx-material-timepicker-dial>
+            <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time | timeFormatter: timeUnit.HOUR"
+                                          [minute]="selectedMinute?.time | timeFormatter: timeUnit.MINUTE"
+                                          [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
+                                          (periodChanged)="changePeriod($event)"
+                                          (timeUnitChanged)="changeTimeUnit($event)"
+                                          (hourChanged)="onHourChange($event)"
+            ></ngx-material-timepicker-dial>
         </header>
         <div class="timepicker__main-content">
             <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
