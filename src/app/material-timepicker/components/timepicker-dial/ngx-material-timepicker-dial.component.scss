@@ -1,0 +1,61 @@
+@import "../../styles/config";
+
+$item-color: #fff;
+
+.timepicker-dial {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    &__time {
+        line-height: normal;
+        font-size: 50px;
+        color: transparentize($item-color, .5);
+        font-family: $primary-font-family;
+        user-select: none;
+    }
+    &__period {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: $primary-font-family;
+        user-select: none;
+    }
+    &__item {
+        cursor: pointer;
+        color: transparentize($item-color, .5);
+        font-family: 'Roboto', sans-serif;
+        &_active {
+            color: $item-color;
+        }
+    }
+    &__control {
+        border: none;
+        background-color: transparent;
+        font-size: 50px;
+        width: 60px;
+        cursor: pointer;
+        color: transparentize($item-color, .5);
+        font-family: 'Roboto', sans-serif;
+        padding: 0;
+        &:focus {
+            color: $primary-color;
+            background-color: #fff;
+            outline: $primary-color;
+        }
+        &_active {
+            color: $item-color;
+        }
+    }
+}
+
+@media (max-width: 1023px) and (orientation: landscape) {
+    .timepicker-dial {
+        flex-direction: column;
+        &__period {
+            margin-left: 0;
+        }
+    }
+}

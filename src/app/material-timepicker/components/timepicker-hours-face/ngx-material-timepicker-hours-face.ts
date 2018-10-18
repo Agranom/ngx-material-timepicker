@@ -1,6 +1,7 @@
 import {EventEmitter, Input, Output} from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {Moment} from 'moment';
+import {Time} from '../../time.namespace';
 
 
 export abstract class NgxMaterialTimepickerHoursFace {
@@ -14,7 +15,7 @@ export abstract class NgxMaterialTimepickerHoursFace {
     hoursList: ClockFaceTime[] = [];
 
     protected constructor(hours: number) {
-        this.initHours(hours);
+        this.hoursList = Time.HOURS.slice(0, hours);
     }
 
     abstract get disabledHours(): ClockFaceTime[]
