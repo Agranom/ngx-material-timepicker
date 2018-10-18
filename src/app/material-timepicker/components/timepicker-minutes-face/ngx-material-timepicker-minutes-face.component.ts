@@ -6,9 +6,9 @@ import * as _moment from 'moment';
 import {Moment} from 'moment';
 import {TimeFormat} from '../../models/time-format.enum';
 import {TimeAdapter} from '../../services/time-adapter';
+import {TimepickerTime} from '../../time.namespace';
 
 const moment = _moment;
-const MINUTES = 60;
 
 @Component({
     selector: 'ngx-material-timepicker-minutes-face',
@@ -28,12 +28,7 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Output() minuteChange = new EventEmitter<ClockFaceTime>();
 
     constructor() {
-        const angleStep = 360 / MINUTES;
-        this.minutesList = Array(MINUTES).fill(0).map((v, i) => {
-            const index = (v + i);
-            const angle = angleStep * index;
-            return {time: index === 0 ? '00' : index, angle: angle !== 0 ? angle : 360};
-        });
+        this.minutesList = TimepickerTime.getMinutes();
     }
 
     private get disabledMinutes(): ClockFaceTime[] {

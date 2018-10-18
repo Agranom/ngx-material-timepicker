@@ -2,13 +2,13 @@
     <div class="timepicker-dial__time">
         <input class="timepicker-dial__item timepicker-dial__control"
                [ngClass]="{'timepicker-dial__control_active': activeTimeUnit === timeUnit.HOUR}"
-               (click)="changeTimeUnit(timeUnit.HOUR)"
-               [(ngModel)]="hour" (input)="updateHour()" (focus)="savePrevHour()"
+               [(ngModel)]="hour" (input)="updateHour()" (focus)="savePrevTime(timeUnit.HOUR)"
                (blur)="revertHour()">
         <span>:</span>
-        <span class="timepicker-dial__item"
-              [ngClass]="{'timepicker-dial__item_active': activeTimeUnit === timeUnit.MINUTE}"
-              (click)="changeTimeUnit(timeUnit.MINUTE)">{{minute | timeFormatter: timeUnit.MINUTE}}</span>
+        <input class="timepicker-dial__item timepicker-dial__control"
+               [ngClass]="{'timepicker-dial__control_active': activeTimeUnit === timeUnit.MINUTE}"
+               [(ngModel)]="minute" (focus)="savePrevTime(timeUnit.MINUTE)"
+               (input)="updateMinute()" (blur)="revertMinute()">
     </div>
     <div class="timepicker-dial__period" *ngIf="format !== 24">
 			<span class="timepicker-dial__item"

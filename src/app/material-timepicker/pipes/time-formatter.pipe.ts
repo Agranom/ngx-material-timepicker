@@ -8,7 +8,7 @@ import {TimeUnit} from '../models/time-unit.enum';
 export class TimeFormatterPipe implements PipeTransform {
 
     transform(time: number, timeUnit: TimeUnit): any {
-        if (!time) {
+        if (time === undefined) {
             return time;
         }
         switch (timeUnit) {
