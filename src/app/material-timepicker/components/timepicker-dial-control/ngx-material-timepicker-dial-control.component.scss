@@ -1,0 +1,14 @@
+@import "../timepicker-dial/ngx-material-timepicker-dial.component";
+
+.timepicker-dial__control {
+    border: none;
+    background-color: transparent;
+    font-size: 50px;
+    width: 60px;
+    padding: 0;
+    &:focus {
+        color: $primary-color;
+        background-color: #fff;
+        outline: $primary-color;
+    }
+}

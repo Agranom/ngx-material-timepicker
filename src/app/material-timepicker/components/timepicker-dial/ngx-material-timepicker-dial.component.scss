@@ -31,24 +31,6 @@ $item-color: #fff;
             color: $item-color;
         }
     }
-    &__control {
-        border: none;
-        background-color: transparent;
-        font-size: 50px;
-        width: 60px;
-        cursor: pointer;
-        color: transparentize($item-color, .5);
-        font-family: 'Roboto', sans-serif;
-        padding: 0;
-        &:focus {
-            color: $primary-color;
-            background-color: #fff;
-            outline: $primary-color;
-        }
-        &_active {
-            color: $item-color;
-        }
-    }
 }
 
 @media (max-width: 1023px) and (orientation: landscape) {
