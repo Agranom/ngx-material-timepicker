@@ -39,7 +39,7 @@ export class TimeAdapter {
         if (format === 24) {
             return currentHour;
         }
-        let hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
+        const hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
 
         if (period === TimePeriod.AM && hour === 12) {
             return 0;

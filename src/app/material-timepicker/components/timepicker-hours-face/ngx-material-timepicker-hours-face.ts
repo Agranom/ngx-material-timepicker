@@ -9,6 +9,8 @@ export abstract class NgxMaterialTimepickerHoursFace {
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
+    @Input() format: number;
+
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<null>();
 

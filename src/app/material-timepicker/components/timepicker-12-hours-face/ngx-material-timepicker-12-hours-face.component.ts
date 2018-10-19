@@ -26,14 +26,7 @@ export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepi
         if (this.minTime || this.maxTime) {
 
             return this.hoursList.map(value => {
-                const currentHour = this.period === TimePeriod.AM ? +value.time : +value.time + 12;
-                let hour = currentHour;
-
-                if (this.period === TimePeriod.AM && currentHour === 12) {
-                    hour = 0;
-                } else if (this.period === TimePeriod.PM && currentHour === 24) {
-                    hour = 12;
-                }
+                const hour = TimeAdapter.formatHour(+value.time, this.format, this.period);
                 const currentTime = moment().hour(hour).format(TimeFormat.TWELVE);
 
                 return {
