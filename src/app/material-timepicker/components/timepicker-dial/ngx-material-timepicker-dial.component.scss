@@ -8,11 +8,12 @@ $item-color: #fff;
     justify-content: flex-end;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     &__time {
+        display: flex;
+        align-items: baseline;
         line-height: normal;
         font-size: 50px;
         color: transparentize($item-color, .5);
         font-family: $primary-font-family;
-        user-select: none;
     }
     &__period {
         display: flex;
