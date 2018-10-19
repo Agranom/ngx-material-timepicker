@@ -17,9 +17,7 @@ export namespace TimepickerTime {
         });
     }
 
-    export function disableHours(config: DisabledTimeConfig): ClockFaceTime[] {
-        const hours = getHours(config.format);
-
+    export function disableHours(hours: ClockFaceTime[], config: DisabledTimeConfig): ClockFaceTime[] {
         if (config.min || config.max) {
 
             return hours.map(value => {
@@ -44,5 +42,22 @@ export namespace TimepickerTime {
             const angle = angleStep * index;
             return {time: index === 0 ? '00' : index, angle: angle !== 0 ? angle : 360};
         });
+    }
+
+    export function disableMinutes(minutes: ClockFaceTime[], selectedHour: number, config: DisabledTimeConfig) {
+        if (config.min || config.max) {
+
+            const hour = TimeAdapter.formatHour(selectedHour, config.format, config.period);
+
+            return minutes.map(value => {
+                const currentTime = moment().hour(hour).minute(+value.time).format(TimeFormat.TWELVE);
+
+                return {
+                    ...value,
+                    disabled: !TimeAdapter.isTimeAvailable(currentTime, config.min, config.max, 'minutes')
+                };
+            });
+        }
+        return minutes;
     }
 }

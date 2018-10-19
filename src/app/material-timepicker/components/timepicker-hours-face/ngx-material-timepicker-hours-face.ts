@@ -1,7 +1,7 @@
 import {EventEmitter, Input, Output} from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {Moment} from 'moment';
-import {TimepickerTime} from '../../time.namespace';
+import {TimepickerTime} from '../../timepicker-time.namespace';
 
 
 export class NgxMaterialTimepickerHoursFace {
