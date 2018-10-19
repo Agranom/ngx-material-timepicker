@@ -4,7 +4,7 @@ import {Moment} from 'moment';
 import {TimepickerTime} from '../../time.namespace';
 
 
-export abstract class NgxMaterialTimepickerHoursFace {
+export class NgxMaterialTimepickerHoursFace {
 
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: Moment;
@@ -19,6 +19,4 @@ export abstract class NgxMaterialTimepickerHoursFace {
     protected constructor(format: number) {
         this.hoursList = TimepickerTime.getHours(format);
     }
-
-    abstract get disabledHours(): ClockFaceTime[]
 }
