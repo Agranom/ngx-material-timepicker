@@ -22,9 +22,9 @@ export class TimeAdapter {
         }
         const convertedTime = this.convertTimeToMoment(time);
         const isAfter = (min && !max)
-            && convertedTime.isAfter(min);
+            && convertedTime.isSameOrAfter(min, granularity);
         const isBefore = (max && !min)
-            && convertedTime.isBefore(max);
+            && convertedTime.isSameOrBefore(max, granularity);
         const isBetween = (min && max)
             && convertedTime.isBetween(min, max, granularity, '[]');
         const isAvailable = !min && !max;
@@ -39,7 +39,7 @@ export class TimeAdapter {
         if (format === 24) {
             return currentHour;
         }
-        const hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
+        let hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
 
         if (period === TimePeriod.AM && hour === 12) {
             return 0;
