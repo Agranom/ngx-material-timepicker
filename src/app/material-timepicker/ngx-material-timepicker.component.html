@@ -6,6 +6,7 @@
             <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time | timeFormatter: timeUnit.HOUR"
                                           [minute]="selectedMinute?.time | timeFormatter: timeUnit.MINUTE"
                                           [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
+                                          [minTime]="minTime" [maxTime]="maxTime"
                                           (periodChanged)="changePeriod($event)"
                                           (timeUnitChanged)="changeTimeUnit($event)"
                                           (hourChanged)="onHourChange($event)"

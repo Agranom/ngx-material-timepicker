@@ -1,15 +1,26 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import {TimePeriod} from '../../models/time-period.enum';
 import {TimeUnit} from '../../models/time-unit.enum';
 import {TimepickerTime} from '../../time.namespace';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
+import {Moment} from 'moment';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
     templateUrl: 'ngx-material-timepicker-dial.component.html',
-    styleUrls: ['ngx-material-timepicker-dial.component.scss']
+    styleUrls: ['ngx-material-timepicker-dial.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NgxMaterialTimepickerDialComponent implements OnInit {
+export class NgxMaterialTimepickerDialComponent implements OnInit, OnChanges {
 
     timeUnit = TimeUnit;
     timePeriod = TimePeriod;
@@ -22,6 +33,8 @@ export class NgxMaterialTimepickerDialComponent implements OnInit {
     @Input() format: number;
     @Input() period: TimePeriod;
     @Input() activeTimeUnit: TimeUnit;
+    @Input() minTime: Moment;
+    @Input() maxTime: Moment;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
@@ -29,8 +42,21 @@ export class NgxMaterialTimepickerDialComponent implements OnInit {
     @Output() minuteChanged = new EventEmitter<ClockFaceTime>();
 
     ngOnInit() {
-        this.hours = TimepickerTime.getHours(this.format);
         this.minutes = TimepickerTime.getMinutes();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['period'] && changes['period'].currentValue
+            || changes['format'] && changes['format'].currentValue) {
+            const hours = TimepickerTime.getHours(this.format);
+
+            this.hours = TimepickerTime.disableHours(hours, {
+                min: this.minTime,
+                max: this.maxTime,
+                format: this.format,
+                period: this.period
+            });
+        }
     }
 
     changeTimeUnit(unit: TimeUnit): void {

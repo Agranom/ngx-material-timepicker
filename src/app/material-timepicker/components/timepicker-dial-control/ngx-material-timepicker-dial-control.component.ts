@@ -31,7 +31,7 @@ export class NgxMaterialTimepickerDialControlComponent {
 
     updateTime(): void {
         const time = this.selectedTime;
-        if (time) {
+        if (time && !time.disabled) {
             this.timeChanged.next(time);
             this.previousTime = time.time;
         }
@@ -39,7 +39,7 @@ export class NgxMaterialTimepickerDialControlComponent {
 
     revertTime(): void {
         const time = this.selectedTime;
-        if (!time) {
+        if (!time || time.disabled) {
             this.time = this.previousTime;
         }
         this.time = new TimeFormatterPipe().transform(+this.time, this.timeUnit);
