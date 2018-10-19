@@ -19,7 +19,7 @@ export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepi
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue) {
-            this.hoursList = TimepickerTime.disableHours(this.hoursList, {
+            this.hoursList = TimepickerTime.disableHours({
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,

@@ -17,7 +17,9 @@ export namespace TimepickerTime {
         });
     }
 
-    export function disableHours(hours: ClockFaceTime[], config: DisabledTimeConfig): ClockFaceTime[] {
+    export function disableHours(config: DisabledTimeConfig): ClockFaceTime[] {
+        const hours = getHours(config.format);
+
         if (config.min || config.max) {
 
             return hours.map(value => {

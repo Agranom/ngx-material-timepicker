@@ -48,9 +48,7 @@ export class NgxMaterialTimepickerDialComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue
             || changes['format'] && changes['format'].currentValue) {
-            const hours = TimepickerTime.getHours(this.format);
-
-            this.hours = TimepickerTime.disableHours(hours, {
+            this.hours = TimepickerTime.disableHours({
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,

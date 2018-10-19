@@ -14,7 +14,7 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
     }
 
     ngAfterContentInit() {
-        this.hoursList = TimepickerTime.disableHours(this.hoursList, {
+        this.hoursList = TimepickerTime.disableHours({
             min: this.minTime,
             max: this.maxTime,
             format: this.format
