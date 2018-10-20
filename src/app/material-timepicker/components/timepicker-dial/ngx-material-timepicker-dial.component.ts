@@ -26,6 +26,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Input() activeTimeUnit: TimeUnit;
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
+    @Input() isEditable: boolean;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();

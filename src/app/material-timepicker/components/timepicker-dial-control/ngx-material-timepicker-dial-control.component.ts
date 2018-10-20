@@ -16,6 +16,7 @@ export class NgxMaterialTimepickerDialControlComponent {
     @Input() time: number | string;
     @Input() timeUnit: TimeUnit;
     @Input() isActive: boolean;
+    @Input() isEditable: boolean;
 
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();
@@ -24,8 +25,11 @@ export class NgxMaterialTimepickerDialControlComponent {
         return this.timeList.find(t => +t.time === +this.time);
     }
 
-    saveTimeAndChangeUnit(unit: TimeUnit): void {
+    saveTime(): void {
         this.previousTime = this.time;
+    }
+
+    changeTimeUnit(unit: TimeUnit): void {
         this.timeUnitChanged.next(unit);
     }
 

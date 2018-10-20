@@ -7,9 +7,11 @@
     width: 60px;
     padding: 0;
     border-radius: 3px;
-    &:focus, &::selection {
-        color: $primary-color;
-        background-color: #fff;
-        outline: $primary-color;
+    &_editable {
+        &:focus, &::selection {
+            color: $primary-color;
+            background-color: #fff;
+            outline: $primary-color;
+        }
     }
 }

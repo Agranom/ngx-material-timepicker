@@ -7,6 +7,7 @@
                                           [minute]="selectedMinute?.time | timeFormatter: timeUnit.MINUTE"
                                           [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
                                           [minTime]="minTime" [maxTime]="maxTime"
+                                          [isEditable]="enableKeyboardInput"
                                           (periodChanged)="changePeriod($event)"
                                           (timeUnitChanged)="changeTimeUnit($event)"
                                           (hourChanged)="onHourChange($event)"
@@ -44,9 +45,11 @@
             </div>
             <div class="timepicker__actions">
                 <div (click)="close()">
+                    <!--suppress HtmlUnknownAttribute -->
                     <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
                 </div>
                 <div (click)="setTime()">
+                    <!--suppress HtmlUnknownAttribute -->
                     <ng-container
                         *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
                 </div>

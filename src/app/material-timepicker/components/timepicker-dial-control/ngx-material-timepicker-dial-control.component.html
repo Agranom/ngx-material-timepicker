@@ -1,4 +1,5 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 <input class="timepicker-dial__control timepicker-dial__item"
-       [ngClass]="{'timepicker-dial__item_active': isActive}"
-       [(ngModel)]="time" (input)="updateTime()" (focus)="saveTimeAndChangeUnit(timeUnit)"
-       (blur)="revertTime()">
+       [ngClass]="{'timepicker-dial__item_active': isActive, 'timepicker-dial__control_editable': isEditable}"
+       [(ngModel)]="time" (input)="updateTime()" (focus)="saveTime()"
+       (blur)="revertTime()" (click)="changeTimeUnit(timeUnit)" [readonly]="!isEditable">
