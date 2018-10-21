@@ -70,7 +70,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
         this.hourChanged.next(hour);
     }
 
-    minuteChange(minute: ClockFaceTime): void {
+    changeMinute(minute: ClockFaceTime): void {
         this.minuteChanged.next(minute);
     }
 }
