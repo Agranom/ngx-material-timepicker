@@ -80,6 +80,8 @@ Selector: `ngx-material-timepicker`
   confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
 | @Input()
   ESC: boolean | Disable or enable closing timepicker by ESC. |
+| @Input()
+  enableKeyboardInput: boolean | To disable or enable changing time through a keyboard on the timepicker dial without interaction with a clock face. Set `false` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()

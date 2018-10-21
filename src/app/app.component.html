@@ -97,8 +97,10 @@
                         <input placeholder="Toggle button"
                                [ngxTimepicker]="toggleIcon" [disableClick]="true" readonly>
                         <ngx-material-timepicker-toggle [for]="toggleIcon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" ngxMaterialTimepickerToggleIcon>
-                                <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px"
+                                 ngxMaterialTimepickerToggleIcon>
+                                <path
+                                    d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>
                             </svg>
                         </ngx-material-timepicker-toggle>
                         <ngx-material-timepicker #toggleIcon></ngx-material-timepicker>
@@ -107,8 +109,25 @@
                         class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--toggled">
                         <input placeholder="Toggle button (disabled)"
                                [ngxTimepicker]="toggleTimepickerDisabled" [disableClick]="true" readonly>
-                        <ngx-material-timepicker-toggle [for]="toggleTimepickerDisabled" [disabled]="true"></ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker-toggle [for]="toggleTimepickerDisabled"
+                                                        [disabled]="true"></ngx-material-timepicker-toggle>
                         <ngx-material-timepicker #toggleTimepickerDisabled></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="editableDial">Editable dial
+                </app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        You can change time right through the timepicker dial (with a keyboard) without interaction with
+                        a clock face.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Editable dial" aria-label="Editable dial"
+                               [ngxTimepicker]="editableDialPicker" readonly>
+                        <ngx-material-timepicker #editableDialPicker
+                                                 [enableKeyboardInput]="true"></ngx-material-timepicker>
                     </div>
                 </div>
             </section>
@@ -137,7 +156,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 2.6.5</p>
+            <p class="footer__version">Current version 2.7.0</p>
         </div>
     </footer>
 </div>

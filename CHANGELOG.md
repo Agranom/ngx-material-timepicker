@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.7.0 (2018-10-21)
+
+### Features
+
+* feat(ngx-material-timepicker): add flag `enableKeyboardInput` that enables or disables changing time through a keyboard on the timepicker dial without interaction with a clock face.
+
+### Fixes
+
+* fix(timepicker hours): fix bug with wrong disabling hours on min or max ranges.
 
 ## 2.6.5 (2018-10-15)
 

@@ -72,6 +72,14 @@ export class AppComponent {
         </div>
     `;
 
+    editableDial = `
+        <div class="editable-dial-example">
+            <input placeholder="Editable dial" aria-label="Editable dial"
+                [ngxTimepicker]="editableDial" readonly>
+            <ngx-material-timepicker #editableDial [enableKeyboardInput]="true"></ngx-material-timepicker>
+        </div>
+    `;
+
     customSettings = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>
