@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NgxMaterialTimepickerToggleComponent} from '../../components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
+import {NgxMaterialTimepickerToggleComponent} from './ngx-material-timepicker-toggle.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../../ngx-material-timepicker.component';
 

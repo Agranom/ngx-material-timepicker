@@ -25,10 +25,16 @@ import {
 import {
     NgxMaterialTimepicker24HoursFaceComponent
 } from './components/timepicker-24-hours-face/ngx-material-timepicker-24-hours-face.component';
+import {FormsModule} from '@angular/forms';
+import {NgxMaterialTimepickerDialComponent} from './components/timepicker-dial/ngx-material-timepicker-dial.component';
+import {
+    NgxMaterialTimepickerDialControlComponent
+} from './components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     exports: [
         NgxMaterialTimepickerComponent,
@@ -43,9 +49,11 @@ import {
         NgxMaterialTimepickerMinutesFaceComponent,
         NgxMaterialTimepickerFaceComponent,
         NgxMaterialTimepickerToggleComponent,
+        NgxMaterialTimepickerButtonComponent,
+        NgxMaterialTimepickerDialComponent,
+        NgxMaterialTimepickerDialControlComponent,
         StyleSanitizerPipe,
         TimeFormatterPipe,
-        NgxMaterialTimepickerButtonComponent,
         TimepickerDirective,
         OverlayDirective,
         FocusAnchorDirective,

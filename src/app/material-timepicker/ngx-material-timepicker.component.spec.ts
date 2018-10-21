@@ -1,12 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AnimationState, NgxMaterialTimepickerComponent} from '../../ngx-material-timepicker.component';
-import {NgxMaterialTimepickerEventService} from '../../services/ngx-material-timepicker-event.service';
-import {NgxMaterialTimepickerService} from '../../services/ngx-material-timepicker.service';
-import {TimepickerDirective} from '../../directives/ngx-timepicker.directive';
-import {TimeFormatterPipe} from '../../pipes/time-formatter.pipe';
+import {AnimationState, NgxMaterialTimepickerComponent} from './ngx-material-timepicker.component';
+import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
+import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
+import {TimepickerDirective} from './directives/ngx-timepicker.directive';
+import {TimeFormatterPipe} from './pipes/time-formatter.pipe';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimeUnit} from '../../models/time-unit.enum';
+import {TimePeriod} from './models/time-period.enum';
+import {TimeUnit} from './models/time-unit.enum';
 import {AnimationEvent} from '@angular/animations';
 
 describe('NgxMaterialTimepickerComponent', () => {

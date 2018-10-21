@@ -1,0 +1,27 @@
+<div class="timepicker-dial">
+    <div class="timepicker-dial__time">
+        <ngx-material-timepicker-dial-control [timeList]="hours" [time]="hour" [timeUnit]="timeUnit.HOUR"
+                                              [isActive]="activeTimeUnit === timeUnit.HOUR"
+                                              [isEditable]="isEditable"
+                                              (timeUnitChanged)="changeTimeUnit($event)"
+                                              (timeChanged)="changeHour($event)">
+
+        </ngx-material-timepicker-dial-control>
+        <span>:</span>
+        <ngx-material-timepicker-dial-control [timeList]="minutes" [time]="minute" [timeUnit]="timeUnit.MINUTE"
+                                              [isActive]="activeTimeUnit === timeUnit.MINUTE"
+                                              [isEditable]="isEditable"
+                                              (timeUnitChanged)="changeTimeUnit($event)"
+                                              (timeChanged)="changeMinute($event)">
+
+        </ngx-material-timepicker-dial-control>
+    </div>
+    <div class="timepicker-dial__period" *ngIf="format !== 24">
+			<span class="timepicker-dial__item"
+                  [ngClass]="{'timepicker-dial__item_active': period === timePeriod.AM}"
+                  (click)="changePeriod(timePeriod.AM)">AM</span>
+        <span class="timepicker-dial__item"
+              [ngClass]="{'timepicker-dial__item_active': period === timePeriod.PM}"
+              (click)="changePeriod(timePeriod.PM)">PM</span>
+    </div>
+</div>

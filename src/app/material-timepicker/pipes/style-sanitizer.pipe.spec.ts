@@ -1,4 +1,4 @@
-import {StyleSanitizerPipe} from '../../pipes/style-sanitizer.pipe';
+import {StyleSanitizerPipe} from './style-sanitizer.pipe';
 import {TestBed} from '@angular/core/testing';
 import {DomSanitizer} from '@angular/platform-browser';
 

@@ -2,7 +2,7 @@ import {Component, DebugElement} from '@angular/core';
 import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
-import {FocusAnchorDirective} from '../../directives/focus-anchor.directive';
+import {FocusAnchorDirective} from './focus-anchor.directive';
 
 @Component({
     template: `

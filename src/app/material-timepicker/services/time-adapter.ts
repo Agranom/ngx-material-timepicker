@@ -22,9 +22,9 @@ export class TimeAdapter {
         }
         const convertedTime = this.convertTimeToMoment(time);
         const isAfter = (min && !max)
-            && convertedTime.isAfter(min);
+            && convertedTime.isSameOrAfter(min, granularity);
         const isBefore = (max && !min)
-            && convertedTime.isBefore(max);
+            && convertedTime.isSameOrBefore(max, granularity);
         const isBetween = (min && max)
             && convertedTime.isBetween(min, max, granularity, '[]');
         const isAvailable = !min && !max;
