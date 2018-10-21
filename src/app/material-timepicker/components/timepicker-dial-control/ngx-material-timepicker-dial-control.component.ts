@@ -41,7 +41,7 @@ export class NgxMaterialTimepickerDialControlComponent {
         }
     }
 
-    revertTime(): void {
+    revertTimeAndFormat(): void {
         const time = this.selectedTime;
         if (!time || time.disabled) {
             this.time = this.previousTime;
