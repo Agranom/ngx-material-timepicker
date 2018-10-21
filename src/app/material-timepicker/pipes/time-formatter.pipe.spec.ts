@@ -1,5 +1,5 @@
-import {TimeFormatterPipe} from '../../pipes/time-formatter.pipe';
-import {TimeUnit} from '../../models/time-unit.enum';
+import {TimeFormatterPipe} from './time-formatter.pipe';
+import {TimeUnit} from '../models/time-unit.enum';
 
 describe('TimeFormatterPipe', () => {
     let pipe: TimeFormatterPipe;

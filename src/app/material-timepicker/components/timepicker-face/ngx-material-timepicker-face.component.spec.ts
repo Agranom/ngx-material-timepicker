@@ -1,5 +1,5 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {NgxMaterialTimepickerFaceComponent} from '../../components/timepicker-face/ngx-material-timepicker-face.component';
+import {NgxMaterialTimepickerFaceComponent} from './ngx-material-timepicker-face.component';
 import {ElementRef, NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {StyleSanitizerPipe} from '../../pipes/style-sanitizer.pipe';
