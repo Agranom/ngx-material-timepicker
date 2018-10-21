@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file
 
 ### Features
 
-* feat(ngx-material-timepicker): add flag `enableKeyboardInput` that enables or disables changing time through a keyboard on the timepicker dial without interaction with a clock face.
+* feat(ngx-material-timepicker): add flag `enableKeyboardInput` that enables or disables changing time through a keyboard on the timepicker dial without interaction with a clock face, closes [(#49)](https://github.com/Agranom/ngx-material-timepicker/issues/49)
 
 ### Fixes
 
