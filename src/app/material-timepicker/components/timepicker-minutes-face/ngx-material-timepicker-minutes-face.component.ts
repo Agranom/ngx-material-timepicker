@@ -21,15 +21,14 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
     @Input() format: number;
-    @Output() minuteChange = new EventEmitter<ClockFaceTime>();
+    @Input() minutesGap: number;
 
-    constructor() {
-        this.minutesList = TimepickerTime.getMinutes();
-    }
+    @Output() minuteChange = new EventEmitter<ClockFaceTime>();
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue) {
-            this.minutesList = TimepickerTime.disableMinutes(this.minutesList, this.selectedHour, {
+            const minutes = TimepickerTime.getMinutes(this.minutesGap);
+            this.minutesList = TimepickerTime.disableMinutes(minutes, this.selectedHour, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,

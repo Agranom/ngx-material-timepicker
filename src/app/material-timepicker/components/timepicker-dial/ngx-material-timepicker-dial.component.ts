@@ -27,6 +27,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Input() minTime: Moment;
     @Input() maxTime: Moment;
     @Input() isEditable: boolean;
+    @Input() minutesGap: number;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
@@ -47,7 +48,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
         }
         if (changes['period'] && changes['period'].currentValue
             || changes['hour'] && changes['hour'].currentValue) {
-            const minutes = TimepickerTime.getMinutes();
+            const minutes = TimepickerTime.getMinutes(this.minutesGap);
 
             this.minutes = TimepickerTime.disableMinutes(minutes, +this.hour, {
                 min: this.minTime,

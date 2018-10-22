@@ -33,15 +33,18 @@ export namespace TimepickerTime {
         return hours;
     }
 
-    export function getMinutes(): ClockFaceTime[] {
-        const minutes = 60;
-        const angleStep = 360 / minutes;
+    export function getMinutes(gap = 1): ClockFaceTime[] {
+        const minutesCount = 60;
+        const angleStep = 360 / minutesCount;
+        const minutes = [];
 
-        return Array(minutes).fill(0).map((v, i) => {
-            const index = (v + i);
-            const angle = angleStep * index;
-            return {time: index === 0 ? '00' : index, angle: angle !== 0 ? angle : 360};
-        });
+        for (let i = 0; i < minutesCount; i++) {
+            const angle = angleStep * i;
+            if (i % gap === 0) {
+                minutes.push({time: i === 0 ? '00' : i, angle: angle !== 0 ? angle : 360});
+            }
+        }
+        return minutes;
     }
 
     export function disableMinutes(minutes: ClockFaceTime[], selectedHour: number, config: DisabledTimeConfig) {

@@ -40,6 +40,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
     @Input() format: number;
+    @Input() minutesGap: number;
+
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
     @Output() timeSelected = new EventEmitter<null>();
 
