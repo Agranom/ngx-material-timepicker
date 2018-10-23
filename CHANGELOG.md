@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.0 (2018-10-23)
+
+### Features
+
+* feat(ngx-material-timepicker): add option `minutesGap` that defines a gap between minutes, closes [(#51)](https://github.com/Agranom/ngx-material-timepicker/issues/51)
+
 ## 2.7.0 (2018-10-21)
 
 ### Features

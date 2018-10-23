@@ -80,6 +80,20 @@ export class AppComponent {
         </div>
     `;
 
+    minutesGapCode = `
+      <div class="minutes-gap-example">
+        <input placeholder="Default gap"
+            [ngxTimepicker]="defaultGap" readonly>
+        <ngx-material-timepicker #defaultGap></ngx-material-timepicker>
+      </div>
+      
+      <div class="minutes-gap-example">
+        <input placeholder="Gap with 5"
+            [ngxTimepicker]="with5Gap" readonly>
+        <ngx-material-timepicker #with5Gap [minutesGap]="5"></ngx-material-timepicker>
+      </div>  
+    `;
+
     customSettings = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>

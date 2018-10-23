@@ -41,7 +41,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     selectedMinute: ClockFaceTime;
     selectedPeriod: TimePeriod;
 
-    timePeriod = TimePeriod;
     timeUnit = TimeUnit;
     activeTimeUnit = TimeUnit.HOUR;
 
@@ -53,9 +52,20 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;
 
+    @Input()
+    set minutesGap(gap: number) {
+        gap = Math.floor(gap);
+        this._minutesGap = gap <= 59 ? gap : 1;
+    }
+
+    get minutesGap(): number {
+        return this._minutesGap;
+    }
+
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
 
+    private _minutesGap: number;
     private timepickerInput: TimepickerDirective;
     private subscriptions: Subscription[] = [];
 

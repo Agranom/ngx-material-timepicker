@@ -40,6 +40,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() selectedTime: ClockFaceTime;
     @Input() unit: TimeUnit;
     @Input() format: number;
+    @Input() minutesGap: number;
+
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
     @Output() timeSelected = new EventEmitter<null>();
 
@@ -126,6 +128,14 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     onMouseup(e: MouseEvent | TouchEvent) {
         e.preventDefault();
         this.isStarted = false;
+    }
+
+    isHourSelected(hour: number): boolean {
+        return (hour === this.selectedTime.time) && !this.isClockFaceDisabled;
+    }
+
+    isMinuteSelected(minute: number): boolean {
+        return ((this.selectedTime.time === minute) && (minute % (this.minutesGap || 5) === 0)) && !this.isClockFaceDisabled;
     }
 
     private setClockHandPosition(): void {

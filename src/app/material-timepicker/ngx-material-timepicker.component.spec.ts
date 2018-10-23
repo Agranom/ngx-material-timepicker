@@ -161,6 +161,26 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(spy).toHaveBeenCalledTimes(0);
     });
 
+    it('should set minutesGap to 5', () => {
+        expect(component.minutesGap).toBeUndefined();
+        component.minutesGap = 5;
+
+        expect(component.minutesGap).toBe(5);
+    });
+
+    it('should set minutesGap to 1', () => {
+        expect(component.minutesGap).toBeUndefined();
+        component.minutesGap = 65;
+
+        expect(component.minutesGap).toBe(1);
+    });
+
+    it('should convert minutesGap to int', () => {
+        component.minutesGap = 6.5;
+
+        expect(component.minutesGap).toBe(6);
+    });
+
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};
         const minute = {time: 44, angle: 36};

@@ -103,13 +103,29 @@ describe('TimepickerTime', () => {
         const minutes = TimepickerTime.getMinutes();
 
 
-        it('should return array with 60 minutes', () => {
+        it('should return array with 60 minutes by default', () => {
             const angleStep = 360 / 60;
+
+            expect(minutes.length).toBe(60);
 
             for (let i = 0; i < minutes.length; i++) {
                 const angle = i * angleStep;
 
                 expect(minutes[i]).toEqual({time: i === 0 ? '00' : i, angle: angle !== 0 ? angle : 360});
+            }
+        });
+
+        it('should return minutes with gap in 5 minutes', () => {
+            const gap = 5;
+            const minutesWithGap = TimepickerTime.getMinutes(gap);
+            const angleStep = 360 / 60;
+
+            expect(minutesWithGap.length).toBe(12);
+
+            for (let i = 0; i < minutesWithGap.length; i++) {
+                const angle = i * angleStep * gap;
+
+                expect(minutesWithGap[i]).toEqual({time: i === 0 ? '00' : i * gap, angle: angle !== 0 ? angle : 360});
             }
         });
 

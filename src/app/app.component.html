@@ -132,6 +132,25 @@
                 </div>
             </section>
             <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="minutesGapCode">Minutes Gap
+                </app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        You can set up a gap for minutes. It is '1' by default.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Default gap"
+                               [ngxTimepicker]="defaultGap" readonly>
+                        <ngx-material-timepicker #defaultGap></ngx-material-timepicker>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Gap with 5"
+                               [ngxTimepicker]="with5Gap" readonly>
+                        <ngx-material-timepicker #with5Gap [minutesGap]="5"></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
                 <app-example-source-code [sourceCode]="customSettings">Custom settings examples
                 </app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">
@@ -156,7 +175,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 2.7.0</p>
+            <p class="footer__version">Current version 2.8.0</p>
         </div>
     </footer>
 </div>

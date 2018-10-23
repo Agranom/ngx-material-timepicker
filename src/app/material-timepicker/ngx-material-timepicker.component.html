@@ -8,6 +8,7 @@
                                           [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
                                           [minTime]="minTime" [maxTime]="maxTime"
                                           [isEditable]="enableKeyboardInput"
+                                          [minutesGap]="minutesGap"
                                           (periodChanged)="changePeriod($event)"
                                           (timeUnitChanged)="changeTimeUnit($event)"
                                           (hourChanged)="onHourChange($event)"
@@ -41,6 +42,7 @@
                                                       [maxTime]="maxTime"
                                                       [format]="format"
                                                       [period]="selectedPeriod"
+                                                      [minutesGap]="minutesGap"
                                                       (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
             </div>
             <div class="timepicker__actions">

@@ -4,6 +4,7 @@ import {ElementRef, NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {StyleSanitizerPipe} from '../../pipes/style-sanitizer.pipe';
 import {TimeUnit} from '../../models/time-unit.enum';
+import {MinutesFormatterPipe} from '../../pipes/minutes-formatter.pipe';
 
 
 describe('NgxMaterialTimepickerFaceComponent', () => {
@@ -12,7 +13,11 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
-            declarations: [NgxMaterialTimepickerFaceComponent, StyleSanitizerPipe],
+            declarations: [
+                NgxMaterialTimepickerFaceComponent,
+                StyleSanitizerPipe,
+                MinutesFormatterPipe
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerFaceComponent);
 
@@ -284,6 +289,35 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             tick();
             expect(counter).toBe(1);
         }));
+
+        it(`should return 'true' or 'false' whether hour is selected or not`, () => {
+            component.selectedTime = {time: 1, angle: 30};
+            component.isClockFaceDisabled = false;
+
+            expect(component.isHourSelected(1)).toBeTruthy();
+            expect(component.isHourSelected(2)).toBeFalsy();
+
+            component.isClockFaceDisabled = true;
+            expect(component.isHourSelected(1)).toBeFalsy();
+        });
+
+        it(`should return 'true' or 'false' whether minute is selected or not`, () => {
+            const minute = 10;
+            component.selectedTime = {time: minute, angle: 30};
+            component.isClockFaceDisabled = false;
+            component.minutesGap = 10;
+
+            expect(component.isMinuteSelected(minute)).toBeTruthy();
+            expect(component.isMinuteSelected(5)).toBeFalsy();
+
+            component.isClockFaceDisabled = true;
+            expect(component.isMinuteSelected(minute)).toBeFalsy();
+
+            component.isClockFaceDisabled = false;
+            component.minutesGap = undefined;
+            component.selectedTime.time = 5;
+            expect(component.isMinuteSelected(5)).toBeTruthy();
+        });
     });
 });
 
