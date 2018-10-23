@@ -1,8 +1,8 @@
 <div class="timepicker-period">
-			<span class="timepicker-dial__item"
+			<button class="timepicker-dial__item timepicker-period__btn"
                   [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.AM}"
-                  (click)="changePeriod(timePeriod.AM)">AM</span>
-    <span class="timepicker-dial__item"
+                  (click)="changePeriod(timePeriod.AM)">AM</button>
+    <button class="timepicker-dial__item timepicker-period__btn"
           [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.PM}"
-          (click)="changePeriod(timePeriod.PM)">PM</span>
+          (click)="changePeriod(timePeriod.PM)">PM</button>
 </div>

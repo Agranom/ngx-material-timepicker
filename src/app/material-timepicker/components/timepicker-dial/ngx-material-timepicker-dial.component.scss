@@ -15,10 +15,17 @@ $item-color: #fff;
         color: transparentize($item-color, .5);
         font-family: $primary-font-family;
     }
+    &__period {
+        display: block;
+        margin-left: 10px;
+    }
 }
 
 @media (max-width: 1023px) and (orientation: landscape) {
     .timepicker-dial {
         flex-direction: column;
+        &__period {
+            margin-left: 0;
+        }
     }
 }
