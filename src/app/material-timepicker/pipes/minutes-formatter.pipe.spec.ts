@@ -1,6 +1,6 @@
 import {MinutesFormatterPipe} from './minutes-formatter.pipe';
 
-fdescribe('MinutesFormatterPipe', () => {
+describe('MinutesFormatterPipe', () => {
     let pipe: MinutesFormatterPipe;
 
     beforeEach(() => {
