@@ -1,0 +1,12 @@
+$item-color: #fff;
+
+.timepicker-dial {
+    &__item {
+        cursor: pointer;
+        color: transparentize($item-color, .5);
+        font-family: 'Roboto', sans-serif;
+        &_active {
+            color: $item-color;
+        }
+    }
+}

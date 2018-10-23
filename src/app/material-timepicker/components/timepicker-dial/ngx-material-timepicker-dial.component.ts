@@ -14,7 +14,6 @@ import {Moment} from 'moment';
 export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     timeUnit = TimeUnit;
-    timePeriod = TimePeriod;
 
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
