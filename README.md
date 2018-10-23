@@ -83,6 +83,8 @@ Selector: `ngx-material-timepicker`
   ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Input()
   enableKeyboardInput: boolean | To disable or enable changing time through a keyboard on the timepicker dial without interaction with a clock face. Set `false` by default |
+| @Input()
+  minutesGap: number | To define a gap between minutes. Set `1` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
