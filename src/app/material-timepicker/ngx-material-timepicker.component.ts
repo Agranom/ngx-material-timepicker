@@ -55,7 +55,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input()
     set minutesGap(gap: number) {
         gap = Math.floor(gap);
-        this._minutesGap = gap <= 59 ? gap : 0;
+        this._minutesGap = gap <= 59 ? gap : 1;
     }
 
     get minutesGap(): number {
