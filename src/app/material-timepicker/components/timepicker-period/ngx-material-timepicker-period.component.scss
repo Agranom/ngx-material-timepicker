@@ -23,12 +23,7 @@
         position: absolute;
         width: 200px;
         left: -20px;
-        bottom: -40px;
-        transform: scale(0);
-        transition: transform .2s;
-        &_active {
-            transform: scale(1);
-        }
+        top: 40px;
         & > p {
             margin: 0;
             font-size: 12px;

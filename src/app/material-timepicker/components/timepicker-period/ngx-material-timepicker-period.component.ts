@@ -4,11 +4,20 @@ import {TimeUnit} from '../../models/time-unit.enum';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimepickerTime} from '../../timepicker-time.namespace';
 import {Moment} from 'moment';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'ngx-material-timepicker-period',
     templateUrl: 'ngx-material-timepicker-period.component.html',
-    styleUrls: ['ngx-material-timepicker-period.component.scss']
+    styleUrls: ['ngx-material-timepicker-period.component.scss'],
+    animations: [
+        trigger('scaleInOut', [
+            transition(':enter', [
+                style({transform: 'scale(0)'}),
+                animate('.2s', style({transform: 'scale(1)'}))
+            ])
+        ])
+    ]
 })
 export class NgxMaterialTimepickerPeriodComponent {
 
