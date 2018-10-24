@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.1 (2018-10-24)
+
+### Fixes
+
+* fix(timepicker period): disable switching between periods if there are no available time to select, closes [(#44)](https://github.com/Agranom/ngx-material-timepicker/issues/44)
+
+
 ## 2.8.0 (2018-10-23)
 
 ### Features
