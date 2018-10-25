@@ -1,0 +1,11 @@
+<div class="timepicker-period">
+			<button class="timepicker-dial__item timepicker-period__btn"
+                  [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.AM}"
+                  (click)="changePeriod(timePeriod.AM)">AM</button>
+    <button class="timepicker-dial__item timepicker-period__btn"
+          [ngClass]="{'timepicker-dial__item_active': selectedPeriod === timePeriod.PM}"
+          (click)="changePeriod(timePeriod.PM)">PM</button>
+    <div class="timepicker-period__warning" [@scaleInOut] *ngIf="!isPeriodAvailable">
+        <p>There are no available time for this period.</p>
+    </div>
+</div>

@@ -31,6 +31,7 @@ import {
     NgxMaterialTimepickerDialControlComponent
 } from './components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
+import {NgxMaterialTimepickerPeriodComponent} from './components/timepicker-period/ngx-material-timepicker-period.component';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
         NgxMaterialTimepickerButtonComponent,
         NgxMaterialTimepickerDialComponent,
         NgxMaterialTimepickerDialControlComponent,
+        NgxMaterialTimepickerPeriodComponent,
         StyleSanitizerPipe,
         TimeFormatterPipe,
         TimepickerDirective,

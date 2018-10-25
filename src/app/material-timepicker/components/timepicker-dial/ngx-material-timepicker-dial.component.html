@@ -16,12 +16,9 @@
 
         </ngx-material-timepicker-dial-control>
     </div>
-    <div class="timepicker-dial__period" *ngIf="format !== 24">
-			<span class="timepicker-dial__item"
-                  [ngClass]="{'timepicker-dial__item_active': period === timePeriod.AM}"
-                  (click)="changePeriod(timePeriod.AM)">AM</span>
-        <span class="timepicker-dial__item"
-              [ngClass]="{'timepicker-dial__item_active': period === timePeriod.PM}"
-              (click)="changePeriod(timePeriod.PM)">PM</span>
-    </div>
+    <ngx-material-timepicker-period class="timepicker-dial__period" *ngIf="format !== 24"
+                                    [selectedPeriod]="period" [activeTimeUnit]="activeTimeUnit"
+                                    [maxTime]="maxTime" [minTime]="minTime" [format]="format"
+                                    [hours]="hours" [minutes]="minutes" [selectedHour]="hour"
+                                    (periodChanged)="changePeriod($event)"></ngx-material-timepicker-period>
 </div>
