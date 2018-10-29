@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.2 (2018-10-29)
+
+### Fixes
+
+* fix(timepicker period): change text of warning text box and hide it after few seconds, closes [(#44)](https://github.com/Agranom/ngx-material-timepicker/issues/44)
+
 ## 2.8.1 (2018-10-24)
 
 ### Fixes
