@@ -4,7 +4,7 @@ import {TimeUnit} from '../../models/time-unit.enum';
 import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimepickerTime} from '../../timepicker-time.namespace';
 import {Moment} from 'moment';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, sequence, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'ngx-material-timepicker-period',
@@ -14,7 +14,11 @@ import {animate, style, transition, trigger} from '@angular/animations';
         trigger('scaleInOut', [
             transition(':enter', [
                 style({transform: 'scale(0)'}),
-                animate('.2s', style({transform: 'scale(1)'}))
+                animate('.2s', style({transform: 'scale(1)'})),
+                sequence([
+                    animate('3s', style({opacity: 1})),
+                    animate('.3s', style({opacity: 0}))
+                ])
             ])
         ])
     ]
@@ -40,6 +44,10 @@ export class NgxMaterialTimepickerPeriodComponent {
         if (this.isPeriodAvailable) {
             this.periodChanged.next(period);
         }
+    }
+
+    animationDone(): void {
+        this.isPeriodAvailable = true;
     }
 
     private isSwitchPeriodAvailable(period: TimePeriod): boolean {

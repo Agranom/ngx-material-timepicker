@@ -75,4 +75,12 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
         }
 
     });
+
+    it('should set isPeriodAvailable to true', () => {
+        component.isPeriodAvailable = false;
+        expect(component.isPeriodAvailable).toBeFalsy();
+
+        component.animationDone();
+        expect(component.isPeriodAvailable).toBeTruthy();
+    });
 });
