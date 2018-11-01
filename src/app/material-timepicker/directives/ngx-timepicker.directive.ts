@@ -30,6 +30,48 @@ const VALUE_ACCESSOR = {
     },
 })
 export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnChanges {
+
+    @Input()
+    set format(value: number) {
+        this._format = value === 24 ? 24 : 12;
+    }
+
+    get format(): number {
+        return this._format;
+    }
+
+    private _format = 12;
+
+    @Input()
+    set min(value: string | Moment) {
+        if (typeof value === 'string') {
+            this._min = TimeAdapter.convertTimeToMoment(value);
+            return;
+        }
+        this._min = value;
+    }
+
+    get min(): string | Moment {
+        return this._min;
+    }
+
+    private _min: string | Moment;
+
+    @Input()
+    set max(value: string | Moment) {
+        if (typeof value === 'string') {
+            this._max = TimeAdapter.convertTimeToMoment(value);
+            return;
+        }
+        this._max = value;
+    }
+
+    get max(): string | Moment {
+        return this._max;
+    }
+
+    private _max: string | Moment;
+
     @Input()
     set value(value: string) {
         if (!value) {
@@ -51,49 +93,6 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private _value = '';
-
-    get format(): number {
-        return this._format;
-    }
-
-    @Input()
-    set format(value: number) {
-        this._format = value === 24 ? 24 : 12;
-    }
-
-    private _format = 12;
-
-    get min(): string | Moment {
-        return this._min;
-    }
-
-    @Input()
-    set min(value: string | Moment) {
-        if (typeof value === 'string') {
-            this._min = TimeAdapter.convertTimeToMoment(value);
-            return;
-        }
-        this._min = value;
-    }
-
-    private _min: string | Moment;
-
-    get max(): string | Moment {
-        return this._max;
-    }
-
-    @Input()
-    set max(value: string | Moment) {
-        if (typeof value === 'string') {
-            this._max = TimeAdapter.convertTimeToMoment(value);
-            return;
-        }
-        this._max = value;
-    }
-
-    private _max: string | Moment;
-
-
 
     @Input('ngxTimepicker')
     set timepicker(picker: NgxMaterialTimepickerComponent) {
