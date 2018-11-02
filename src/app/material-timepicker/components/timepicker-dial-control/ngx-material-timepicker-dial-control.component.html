@@ -2,4 +2,4 @@
 <input class="timepicker-dial__control timepicker-dial__item"
        [ngClass]="{'timepicker-dial__item_active': isActive, 'timepicker-dial__control_editable': isEditable}"
        [(ngModel)]="time" (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit(timeUnit)"
-       (blur)="revertTimeAndFormat()" [readonly]="!isEditable">
+       (blur)="revertTimeAndFormat()" [readonly]="!isEditable" [timepickerAutofocus]="isActive">

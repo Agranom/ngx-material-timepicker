@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.3 (2018-11-02)
+
+### Fixes
+
+* fix(timepicker output): fix format appearance, closes [(#62)](https://github.com/Agranom/ngx-material-timepicker/issues/62)
+* fix(timepicker clock face): fix touch events, closes [(#61)](https://github.com/Agranom/ngx-material-timepicker/issues/61)
+* fix(timepicker dial): change focus on dial (hour <=> minute)
+
 ## 2.8.2 (2018-10-29)
 
 ### Fixes
