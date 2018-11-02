@@ -6,6 +6,7 @@ import {
     HostListener,
     Input,
     OnChanges,
+    OnDestroy,
     Output,
     SimpleChanges,
     ViewChild
@@ -29,7 +30,7 @@ const CLOCK_HAND_STYLES = {
     templateUrl: './ngx-material-timepicker-face.component.html',
     styleUrls: ['./ngx-material-timepicker-face.component.scss']
 })
-export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges {
+export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     timeUnit = TimeUnit;
 
@@ -49,9 +50,12 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @ViewChild('clockHand') clockHand: ElementRef;
 
     private isStarted: boolean;
+    private touchStartHandler: () => any;
+    private touchEndHandler: () => any;
 
     ngAfterViewInit() {
         this.setClockHandPosition();
+        this.addTouchEvents();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -77,7 +81,6 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         return time.time;
     }
 
-    @HostListener('touchstart', ['$event'])
     @HostListener('mousedown', ['$event'])
     onMousedown(e: MouseEvent | TouchEvent) {
         e.preventDefault();
@@ -123,7 +126,6 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     }
 
-    @HostListener('touchend', ['$event'])
     @HostListener('mouseup', ['$event'])
     onMouseup(e: MouseEvent | TouchEvent) {
         e.preventDefault();
@@ -136,6 +138,23 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     isMinuteSelected(minute: number): boolean {
         return ((this.selectedTime.time === minute) && (minute % (this.minutesGap || 5) === 0)) && !this.isClockFaceDisabled;
+    }
+
+    ngOnDestroy() {
+        this.removeTouchEvents();
+    }
+
+    private addTouchEvents(): void {
+        this.touchStartHandler = this.onMousedown.bind(this);
+        this.touchEndHandler = this.onMouseup.bind(this);
+
+        this.clockFace.nativeElement.addEventListener('touchstart', this.touchStartHandler);
+        this.clockFace.nativeElement.addEventListener('touchend', this.touchEndHandler);
+    }
+
+    private removeTouchEvents(): void {
+        this.clockFace.nativeElement.removeEventListener('touchstart', this.touchStartHandler);
+        this.clockFace.nativeElement.removeEventListener('touchend', this.touchEndHandler);
     }
 
     private setClockHandPosition(): void {
