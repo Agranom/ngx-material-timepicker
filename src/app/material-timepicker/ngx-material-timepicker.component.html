@@ -2,8 +2,8 @@
 <div class="timepicker-overlay" *ngIf="isOpened">
     <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" tabindex="0">
         <header class="timepicker__header">
-            <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time | timeFormatter: timeUnit.HOUR"
-                                          [minute]="selectedMinute?.time | timeFormatter: timeUnit.MINUTE"
+            <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time"
+                                          [minute]="selectedMinute?.time"
                                           [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
                                           [minTime]="minTime" [maxTime]="maxTime"
                                           [isEditable]="enableKeyboardInput"

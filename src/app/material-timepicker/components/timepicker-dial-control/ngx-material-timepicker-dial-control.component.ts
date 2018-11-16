@@ -39,10 +39,30 @@ export class NgxMaterialTimepickerDialControlComponent {
     }
 
     revertTimeAndFormat(): void {
-        const time = this.selectedTime;
-        if (!time || time.disabled) {
-            this.time = this.previousTime;
-        }
         this.time = new TimeFormatterPipe().transform(+this.time, this.timeUnit);
+    }
+
+    onKeyDown(e: KeyboardEvent): void {
+        const char = String.fromCharCode(e.keyCode);
+
+        if ((!e.ctrlKey && isCharInvalid(char)) || isTimeAvailableToChange(this.time.toString(), char, this.timeList)) {
+            e.preventDefault();
+        }
+    }
+
+}
+
+function isCharInvalid(char: string): boolean {
+    const regEx = /[a-zA-Z]/g;
+    return regEx.test(char);
+}
+
+function isTimeAvailableToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
+    const isNumber = /\d/.test(nextTime);
+
+    if (isNumber) {
+        const time = currentTime + nextTime;
+        const selectedTime = timeList.find(value => value.time === +time);
+        return time.length > 2 || !selectedTime;
     }
 }
