@@ -25,7 +25,6 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
         component.saveTimeAndChangeTimeUnit(TimeUnit.MINUTE);
 
-        tick();
         expect(component.previousTime).toBe(10);
         expect(timeUnit).toBe(TimeUnit.MINUTE);
     }));

@@ -88,7 +88,6 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         component.timeUnitChanged.subscribe(unit => timeUnit = unit);
         component.changeTimeUnit(TimeUnit.MINUTE);
 
-        tick();
         expect(timeUnit).toBe(TimeUnit.MINUTE);
     }));
 
