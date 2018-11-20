@@ -83,7 +83,7 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should emit changed time unit', fakeAsync(() => {
-        let timeUnit = TimeUnit.HOUR;
+        let timeUnit = null;
 
         component.timeUnitChanged.subscribe(unit => timeUnit = unit);
         component.changeTimeUnit(TimeUnit.MINUTE);
