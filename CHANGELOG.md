@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.4 (2018-11-20)
+
+### Fixes
+ * fix(ExpressionChangedAfterItHasBeenCheckedError): closes [(#66)](https://github.com/Agranom/ngx-material-timepicker/issues/66)
+ * fix(timepicker dial control): prevent auto showing keyboard on IOS, closes [(#68)](https://github.com/Agranom/ngx-material-timepicker/issues/68)
+
 ## 2.8.3 (2018-11-02)
 
 ### Fixes

@@ -17,15 +17,14 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
     });
 
     it('should set current time to previous time and change time unit', fakeAsync(() => {
-        let timeUnit = TimeUnit.HOUR;
+        let timeUnit = null;
         component.timeUnitChanged.subscribe(unit => timeUnit = unit);
 
         component.time = 10;
         expect(component.previousTime).toBeUndefined();
 
-        component.saveTimeAndChangeTimeUnit(TimeUnit.MINUTE);
+        component.saveTimeAndChangeTimeUnit({preventDefault: () => null} as FocusEvent, TimeUnit.MINUTE);
 
-        tick();
         expect(component.previousTime).toBe(10);
         expect(timeUnit).toBe(TimeUnit.MINUTE);
     }));
