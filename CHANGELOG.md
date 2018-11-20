@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.8.4 (2018-11-20)
+
+### Fixes
+
+* fix(ExpressionChangedAfterItHasBeenCheckedError): closes [(#56)](https://github.com/Agranom/ngx-material-timepicker/issues/56)
+
 ## 2.8.3 (2018-11-02)
 
 ### Fixes
