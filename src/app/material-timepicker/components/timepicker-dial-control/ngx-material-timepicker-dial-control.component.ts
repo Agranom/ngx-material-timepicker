@@ -25,7 +25,8 @@ export class NgxMaterialTimepickerDialControlComponent {
         return this.timeList.find(t => +t.time === +this.time);
     }
 
-    saveTimeAndChangeTimeUnit(unit: TimeUnit): void {
+    saveTimeAndChangeTimeUnit(event: FocusEvent, unit: TimeUnit): void {
+        event.preventDefault();
         this.previousTime = this.time;
         this.timeUnitChanged.next(unit);
     }

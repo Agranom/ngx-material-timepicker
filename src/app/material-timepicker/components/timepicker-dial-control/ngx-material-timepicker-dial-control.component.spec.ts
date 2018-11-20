@@ -23,7 +23,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         component.time = 10;
         expect(component.previousTime).toBeUndefined();
 
-        component.saveTimeAndChangeTimeUnit(TimeUnit.MINUTE);
+        component.saveTimeAndChangeTimeUnit({preventDefault: () => null} as FocusEvent, TimeUnit.MINUTE);
 
         expect(component.previousTime).toBe(10);
         expect(timeUnit).toBe(TimeUnit.MINUTE);
