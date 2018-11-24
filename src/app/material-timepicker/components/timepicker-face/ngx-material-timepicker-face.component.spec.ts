@@ -47,7 +47,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
     });
 
     it('should decrease clock hand with format 24 and time is \'00\' ', () => {
-        component.selectedTime = {time: '00', angle: 30};
+        component.selectedTime = {time: 0, angle: 30};
         component.format = 24;
         component.ngAfterViewInit();
 

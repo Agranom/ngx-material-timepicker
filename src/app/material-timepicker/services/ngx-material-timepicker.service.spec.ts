@@ -9,7 +9,7 @@ describe('NgxMaterialTimepickerService', () => {
         angle: 360
     };
     const DEFAULT_MINUTE: ClockFaceTime = {
-        time: '00',
+        time: 0,
         angle: 360
     };
 
@@ -68,8 +68,8 @@ describe('NgxMaterialTimepickerService', () => {
 
         timepickerService.defaultTime = '00:00';
 
-        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: '00'});
-        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: '00'});
+        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 0});
+        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 0});
     });
 
     it('should reset time if default time is invalid', () => {

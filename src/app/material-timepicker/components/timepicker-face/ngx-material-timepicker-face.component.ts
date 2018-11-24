@@ -159,7 +159,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
 
     private setClockHandPosition(): void {
         if (this.format === 24) {
-            if (this.selectedTime.time > 12 || this.selectedTime.time === '00') {
+            if (this.selectedTime.time > 12 || this.selectedTime.time === 0) {
                 this.decreaseClockHand();
             } else {
                 this.increaseClockHand();
