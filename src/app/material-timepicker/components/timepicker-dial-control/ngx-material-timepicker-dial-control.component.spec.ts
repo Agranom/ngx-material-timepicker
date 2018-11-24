@@ -18,15 +18,14 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
     });
 
     it('should set current time to previous time and change time unit', fakeAsync(() => {
-        let timeUnit = TimeUnit.HOUR;
+        let timeUnit = null;
         component.timeUnitChanged.subscribe(unit => timeUnit = unit);
 
         component.time = '10';
         expect(component.previousTime).toBeUndefined();
 
-        component.saveTimeAndChangeTimeUnit(TimeUnit.MINUTE);
+        component.saveTimeAndChangeTimeUnit({preventDefault: () => null} as FocusEvent, TimeUnit.MINUTE);
 
-        tick();
         expect(component.previousTime).toBe('10');
         expect(timeUnit).toBe(TimeUnit.MINUTE);
     }));
@@ -221,38 +220,4 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             expect(component.time).toBe('10');
         });
     });
-
-
-
-    // it('should revert previous time if no time exists', () => {
-    //     const timeMock = {time: 1, angle: 30, disabled: false};
-    //     component.timeList = [timeMock];
-    //     component.time = '2';
-    //     component.previousTime = 1;
-    //     component.timeUnit = TimeUnit.HOUR;
-    //     component.formatTime();
-    //
-    //     expect(component.time.toString()).toBe('01');
-    // });
-
-    // it('should revert previous time if time is disabled', () => {
-    //     const timeMock = {time: 1, angle: 30, disabled: true};
-    //     component.timeList = [timeMock];
-    //     component.time = '1';
-    //     component.previousTime = 2;
-    //     component.timeUnit = TimeUnit.HOUR;
-    //     component.formatTime();
-    //
-    //     expect(component.time.toString()).toBe('02');
-    // });
-
-    // it(`should format time from '1' to '01'`, () => {
-    //     const timeMock = {time: 1, angle: 30, disabled: false};
-    //     component.timeList = [timeMock];
-    //     component.time = '1';
-    //     component.timeUnit = TimeUnit.HOUR;
-    //     component.formatTime();
-    //
-    //     expect(component.time.toString()).toBe('01');
-    // });
 });

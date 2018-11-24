@@ -36,7 +36,8 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         }
     }
 
-    saveTimeAndChangeTimeUnit(unit: TimeUnit): void {
+    saveTimeAndChangeTimeUnit(event: FocusEvent, unit: TimeUnit): void {
+        event.preventDefault();
         this.previousTime = this.time;
         this.timeUnitChanged.next(unit);
     }
