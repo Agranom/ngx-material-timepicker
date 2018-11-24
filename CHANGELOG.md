@@ -1,6 +1,11 @@
 # Change Log
 
 All notable changes to this project will be documented in this file
+## 2.9.0 (2018-11-24)
+
+### Features
+
+* feat(timepicker dial): add accessibility from keyboard and input restrictions for a dial, closes [(#56)](https://github.com/Agranom/ngx-material-timepicker/issues/56)
 
 ## 2.8.4 (2018-11-20)
 

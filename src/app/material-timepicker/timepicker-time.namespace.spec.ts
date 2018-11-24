@@ -21,7 +21,7 @@ describe('TimepickerTime', () => {
                 const angleStep = 30;
                 const time = i + 1;
 
-                expect(hours[i]).toEqual({time: time === 24 ? '00' : time, angle: time * angleStep});
+                expect(hours[i]).toEqual({time: time === 24 ? 0 : time, angle: time * angleStep});
             }
         });
 
@@ -111,7 +111,7 @@ describe('TimepickerTime', () => {
             for (let i = 0; i < minutes.length; i++) {
                 const angle = i * angleStep;
 
-                expect(minutes[i]).toEqual({time: i === 0 ? '00' : i, angle: angle !== 0 ? angle : 360});
+                expect(minutes[i]).toEqual({time: i, angle: angle !== 0 ? angle : 360});
             }
         });
 
@@ -125,7 +125,7 @@ describe('TimepickerTime', () => {
             for (let i = 0; i < minutesWithGap.length; i++) {
                 const angle = i * angleStep * gap;
 
-                expect(minutesWithGap[i]).toEqual({time: i === 0 ? '00' : i * gap, angle: angle !== 0 ? angle : 360});
+                expect(minutesWithGap[i]).toEqual({time: i * gap, angle: angle !== 0 ? angle : 360});
             }
         });
 
@@ -139,7 +139,7 @@ describe('TimepickerTime', () => {
 
             expect(disabledMinutes.length).toBe(10);
             for (let i = 0; i < disabledMinutes.length; i++) {
-                const time = disabledMinutes[i].time === '00' ? 0 : disabledMinutes[i].time;
+                const time = disabledMinutes[i].time;
                 expect(time).toBe(i);
             }
 

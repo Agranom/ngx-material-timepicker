@@ -14,7 +14,7 @@
                  *ngFor="let time of faceTime.slice(12, 24); trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
                   [ngClass]="{'active': isHourSelected(time.time), 'disabled': time.disabled}">
-                {{time.time}}</span>
+                {{time.time === 0 ? '00' : time.time}}</span>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
              *ngFor="let time of faceTime; trackBy: trackByTime">
 	<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
           [ngClass]="{'active': isMinuteSelected(time.time), 'disabled': time.disabled}">
-	{{time.time | minutesFormatter: minutesGap}}</span>
+	{{time.time === 0 ? '00' : time.time | minutesFormatter: minutesGap}}</span>
         </div>
     </div>
 </ng-template>

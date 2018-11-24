@@ -13,7 +13,7 @@ export namespace TimepickerTime {
             const angleStep = 30;
             const time = v + i;
             const angle = angleStep * time;
-            return {time: time === 24 ? '00' : time, angle};
+            return {time: time === 24 ? 0 : time, angle};
         });
     }
 
@@ -41,7 +41,7 @@ export namespace TimepickerTime {
         for (let i = 0; i < minutesCount; i++) {
             const angle = angleStep * i;
             if (i % gap === 0) {
-                minutes.push({time: i === 0 ? '00' : i, angle: angle !== 0 ? angle : 360});
+                minutes.push({time: i, angle: angle !== 0 ? angle : 360});
             }
         }
         return minutes;
