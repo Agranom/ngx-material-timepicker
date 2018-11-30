@@ -24,8 +24,7 @@
                 <app-example-source-code [sourceCode]="simpleExamples">Simple examples</app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">
                     <p class="ngx-material-timepicker-example__description">
-                        Time Picker shows only 12hr format, but it can convert and return 24hr format time, if you need
-                        that.
+                        Simple timepicker settings
                     </p>
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="12hr format (default settings)" aria-label="12hr format"
@@ -38,9 +37,14 @@
                         <ngx-material-timepicker #fullTime></ngx-material-timepicker>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
-                        <input aria-label="default time"
-                               [ngxTimepicker]="defaultTime" [value]="'05:11 pm'" readonly>
-                        <ngx-material-timepicker #defaultTime></ngx-material-timepicker>
+                        <input aria-label="default value"
+                               [ngxTimepicker]="defaultValue" [value]="'05:11 pm'" readonly>
+                        <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Default time 11:11 pm" aria-label="default time"
+                               [ngxTimepicker]="defaultTime" readonly>
+                        <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'"></ngx-material-timepicker>
                     </div>
                     <div
                         class="ngx-material-timepicker-example__form-group ngx-material-timepicker-example__form-group--disabled">
@@ -175,7 +179,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 2.9.0</p>
+            <p class="footer__version">Current version 2.10.0</p>
         </div>
     </footer>
 </div>

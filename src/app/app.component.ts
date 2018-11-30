@@ -19,9 +19,15 @@ export class AppComponent {
             <ngx-material-timepicker #fullTime></ngx-material-timepicker>
        </div>       
        <div class="default-time-example">
-            <input aria-label="default time" [ngxTimepicker]="defaultTime" [value]="'05:11 pm'"  readonly>
-            <ngx-material-timepicker #defaultTime></ngx-material-timepicker>
+            <input aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'05:11 pm'"  readonly>
+            <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
        </div>
+       
+        <div class="ngx-material-timepicker-example__form-group">
+            <input placeholder="Default time 11:11 pm" aria-label="default time"
+                [ngxTimepicker]="defaultTime" readonly>
+            <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'"></ngx-material-timepicker>
+        </div>
        
        <div class="disabled-example">
             <input placeholder="Disabled Time Picker" aria-label="disabled time picker" [ngxTimepicker]="disabled" [disabled]="true">

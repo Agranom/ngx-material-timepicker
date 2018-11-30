@@ -1,13 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    forwardRef,
-    HostListener,
-    Input,
-    OnChanges,
-    OnDestroy,
-    SimpleChanges
-} from '@angular/core';
+import {Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -110,9 +101,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private set defaultTime(time: string) {
-        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
-            this._timepicker.setDefaultTime(TimeAdapter.formatTime(time, this._format));
-        }
+        this._timepicker.setDefaultTime(time);
     }
 
     onInput(value: string) {

@@ -2,6 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {ClockFaceTime} from '../models/clock-face-time.interface';
 import {NgxMaterialTimepickerService} from './ngx-material-timepicker.service';
 import {TimePeriod} from '../models/time-period.enum';
+import * as moment from 'moment';
 
 describe('NgxMaterialTimepickerService', () => {
     const DEFAULT_HOUR: ClockFaceTime = {
@@ -60,23 +61,47 @@ describe('NgxMaterialTimepickerService', () => {
     });
 
     it('should change default time', () => {
-        timepickerService.defaultTime = '11:15 pm';
+        let time = '11:15 am';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 12);
 
         expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 11});
         expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 15});
-        expect(selectedPeriod).toBe(TimePeriod.PM);
+        expect(selectedPeriod).toBe(TimePeriod.AM);
 
-        timepickerService.defaultTime = '00:00';
+        time = '00:00';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 24);
 
         expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 0});
         expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 0});
     });
 
     it('should reset time if default time is invalid', () => {
-        timepickerService.defaultTime = 'invalid Time';
+        timepickerService.setDefaultTimeIfAvailable('10:10 am', null, null, 12);
+
+        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 10});
+        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 10});
+        expect(selectedPeriod).toBe(TimePeriod.AM);
+
+        timepickerService.setDefaultTimeIfAvailable('invalid time', null, null, 12);
 
         expect(selectedHour).toEqual(DEFAULT_HOUR);
         expect(selectedMinute).toEqual(DEFAULT_MINUTE);
+        expect(selectedPeriod).toBe(TimePeriod.AM);
+    });
+
+    it('should not change time if it is not available', () => {
+        const min = moment().hour(11);
+
+        timepickerService.setDefaultTimeIfAvailable('10:10 am', null, null, 12);
+
+        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 10});
+        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 10});
+        expect(selectedPeriod).toBe(TimePeriod.AM);
+
+        timepickerService.setDefaultTimeIfAvailable('09:15 am', min, null, 12);
+
+        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 10});
+        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 10});
         expect(selectedPeriod).toBe(TimePeriod.AM);
     });
 });
