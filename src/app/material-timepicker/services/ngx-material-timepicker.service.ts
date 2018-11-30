@@ -5,6 +5,7 @@ import {TimePeriod} from '../models/time-period.enum';
 import * as moment_ from 'moment';
 import {TimeFormat} from '../models/time-format.enum';
 import {TimeAdapter} from './time-adapter';
+import {Moment} from 'moment';
 
 const moment = moment_;
 
@@ -23,6 +24,18 @@ export class NgxMaterialTimepickerService {
     private hourSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_HOUR);
     private minuteSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_MINUTE);
     private periodSubject = new BehaviorSubject<TimePeriod>(TimePeriod.AM);
+
+    private set defaultTime(time: string) {
+        const defaultTime = moment(time, TimeFormat.TWENTY_FOUR).toDate();
+
+        if (moment(defaultTime).isValid()) {
+            this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours()};
+            this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
+            this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
+        } else {
+            this.resetTime();
+        }
+    }
 
     set hour(hour: ClockFaceTime) {
         this.hourSubject.next(hour);
@@ -48,15 +61,10 @@ export class NgxMaterialTimepickerService {
         return this.periodSubject.asObservable();
     }
 
-    set defaultTime(time: string) {
-        const defaultTime = moment(time, TimeFormat.TWENTY_FOUR).toDate();
 
-        if (moment(defaultTime).isValid()) {
-            this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours()};
-            this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
-            this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
-        } else {
-            this.resetTime();
+    setDefaultTimeIfAvailable(time: string, min: Moment, max: Moment, format: number) {
+        if (TimeAdapter.isTimeAvailable(time, min, max, 'minutes')) {
+            this.defaultTime = TimeAdapter.formatTime(time, format);
         }
     }
 

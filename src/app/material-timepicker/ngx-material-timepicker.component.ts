@@ -62,6 +62,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         return this._minutesGap;
     }
 
+    @Input()
+    set defaultTime(time: string) {
+        this.setDefaultTime(time);
+    }
+
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
 
@@ -138,7 +143,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     setDefaultTime(time: string): void {
-        this.timepickerService.defaultTime = time;
+        this.timepickerService.setDefaultTimeIfAvailable(time, this.minTime as Moment, this.maxTime as Moment, this.format);
     }
 
     open() {

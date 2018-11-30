@@ -88,6 +88,16 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.selectedPeriod).toBe(TimePeriod.AM);
     });
 
+    it('should update hour, minute and period on defaultTime input set', () => {
+        const time = '01:11 am';
+
+        component.ngOnInit();
+        component.defaultTime = time;
+        expect(component.selectedHour.time).toBe(1);
+        expect(component.selectedMinute.time).toBe(11);
+        expect(component.selectedPeriod).toBe(TimePeriod.AM);
+    });
+
     it(`should set isOpened 'true' and change animationState to 'enter' on open call`, () => {
         component.open();
         expect(component.isOpened).toBeTruthy();

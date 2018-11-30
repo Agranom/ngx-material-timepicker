@@ -68,8 +68,8 @@ describe('TimepickerDirective', () => {
 
     it('should return min time in Moment type if pass moment', () => {
         directive.min = moment().hour(10).minute(11);
-        expect(directive.min.hour()).toBe(10);
-        expect(directive.min.minute()).toBe(11);
+        expect(directive.min['hour']()).toBe(10);
+        expect(directive.min['minute']()).toBe(11);
     });
 
     it('should return max time in Moment type if pass string', () => {
@@ -80,8 +80,8 @@ describe('TimepickerDirective', () => {
 
     it('should return max time in Moment type if pass moment', () => {
         directive.max = moment().hour(10).minute(11);
-        expect(directive.max.hour()).toBe(10);
-        expect(directive.max.minute()).toBe(11);
+        expect(directive.max['hour']()).toBe(10);
+        expect(directive.max['minute']()).toBe(11);
     });
 
     it(`should clear the time if set value undefined, null, '' `, () => {
@@ -117,15 +117,6 @@ describe('TimepickerDirective', () => {
         directive.value = '11:11 am';
         timepickerComponent.closed.next();
         expect(spy).toHaveBeenCalledWith('11:11 am');
-    });
-
-    it('should not set default time once timepicker is closed and time is not available', () => {
-        const spy = spyOn(timepickerComponent, 'setDefaultTime');
-        directive.timepicker = timepickerComponent;
-        directive.min = '11:12 am';
-        directive.value = '11:11 am';
-        timepickerComponent.closed.next();
-        expect(spy).not.toHaveBeenCalled();
     });
 
     it('should set time on timeSet output', () => {

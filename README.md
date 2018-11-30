@@ -1,10 +1,10 @@
-# ngx-material-timepicker
+# Angular Material Timepicker
 
 [![Build Status](https://travis-ci.org/Agranom/ngx-material-timepicker.svg?branch=master)](https://travis-ci.org/Agranom/ngx-material-timepicker)
 [![codecov](https://codecov.io/gh/Agranom/ngx-material-timepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/Agranom/ngx-material-timepicker)
 [![npm version](https://badge.fury.io/js/ngx-material-timepicker.svg)](https://badge.fury.io/js/ngx-material-timepicker)
 
-Handy [material design](https://material.io/guidelines/components/pickers.html#pickers-time-pickers) timepicker for Angular 6.0+
+Handy multifunctional [material design](https://material.io/guidelines/components/pickers.html#pickers-time-pickers) timepicker for Angular 6.0+
 
 ## Demo
 
@@ -53,7 +53,7 @@ Selector: `ngxTimepicker`
 | @Input()
   disabled: boolean | Weather the timepicker popup should be disabled. |
 | @Input()
-  value: string | Set default time for timepicker. |
+  value: string | Set a default value and time for a timepicker. |
 | @Input()
   format: number | `12` or `24` . 12h/24h view for hour selection clock . `12` (AM/PM) format by default. |
 | @Input()
@@ -85,6 +85,8 @@ Selector: `ngx-material-timepicker`
   enableKeyboardInput: boolean | To disable or enable changing time through a keyboard on the timepicker dial without interaction with a clock face. Set `false` by default |
 | @Input()
   minutesGap: number | To define a gap between minutes. Set `1` by default |
+| @Input()
+  defaultTime: string | Set default time for a timepicker. `12:00 AM` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()

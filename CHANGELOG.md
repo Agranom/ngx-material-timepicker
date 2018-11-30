@@ -1,6 +1,13 @@
 # Change Log
 
 All notable changes to this project will be documented in this file
+## 2.10.0 (2018-11-30)
+
+### Features
+
+* feat(ngx-material-timepicker): add `@Input() defaultTime` to set default time for a timepicker dial only, closes [(#64)](https://github.com/Agranom/ngx-material-timepicker/issues/64)
+
+
 ## 2.9.0 (2018-11-24)
 
 ### Features
