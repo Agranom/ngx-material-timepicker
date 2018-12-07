@@ -33,21 +33,30 @@
     z-index: 999;
     pointer-events: auto;
     &__header {
-        background-color: $primary-color;
         padding: 15px 30px;
+        background-color: $dial-background-color;
+        @supports (background-color: var(--dial-background-color)) {
+            background-color: var(--dial-background-color);
+        }
     }
     &__body {
-        background-color: #fff;
         padding: 15px 5px;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: $body-background-color;
+        @supports (background-color: var(--body-background-color)) {
+            background-color: var(--body-background-color)
+        }
     }
     &__actions {
         display: flex;
         justify-content: flex-end;
         padding: 15px;
-        background-color: #ffffff;
+        background-color: $body-background-color;
+        @supports (background-color: var(--body-background-color)) {
+            background-color: var(--body-background-color)
+        }
     }
 }
 

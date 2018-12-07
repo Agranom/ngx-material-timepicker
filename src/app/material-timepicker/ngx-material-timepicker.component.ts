@@ -1,4 +1,16 @@
-import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import {ClockFaceTime} from './models/clock-face-time.interface';
 import {TimePeriod} from './models/time-period.enum';
 import {merge, Subscription} from 'rxjs';
@@ -14,6 +26,8 @@ export enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
+
+
 
 const ESCAPE = 27;
 
@@ -35,7 +49,7 @@ const ESCAPE = 27;
     ],
     providers: [NgxMaterialTimepickerService]
 })
-export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
+export class NgxMaterialTimepickerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     selectedHour: ClockFaceTime;
     selectedMinute: ClockFaceTime;
@@ -67,8 +81,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.setDefaultTime(time);
     }
 
+
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
+
+    @ViewChild('timepickerww') timepickerComponent: ElementRef;
 
     private _minutesGap: number;
     private timepickerInput: TimepickerDirective;
@@ -108,6 +125,15 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
         this.subscriptions.push(this.timepickerService.selectedPeriod
             .subscribe(period => this.selectedPeriod = period));
+    }
+
+    ngAfterViewInit() {
+        // if (this.theme) {
+        if (this.timepickerComponent) {
+
+            console.log(this.timepickerComponent.nativeElement);
+        }
+        // }
     }
 
     /***

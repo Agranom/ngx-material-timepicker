@@ -1,12 +1,19 @@
-$item-color: #fff;
+@import "./config";
 
 .timepicker-dial {
     &__item {
         cursor: pointer;
-        color: transparentize($item-color, .5);
-        font-family: 'Roboto', sans-serif;
+        color: $dial-inactive-color;
+        font-family: $primary-font-family;
+        @supports (font-family: var(--primary-font-family)) {
+            font-family: var(--primary-font-family);
+            color: var(--dial-inactive-color);
+        }
         &_active {
-            color: $item-color;
+            color: $dial-active-color;
+            @supports (color: var(--dial-active-color)) {
+                color: var(--dial-active-color);
+            }
         }
     }
 }

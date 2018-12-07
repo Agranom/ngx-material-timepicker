@@ -1,17 +1,18 @@
 @import "../../styles/config";
 
-$clock-face-number-color: #6c6c6c;
-
 .clock-face {
     width: 290px;
     height: 290px;
     border-radius: 50%;
-    background-color: #f0f0f0;
     position: relative;
     display: flex;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
+    background-color: $clock-face-background-color;
+    @supports (background-color: var(--clock-face-background-color)) {
+        background-color: var(--clock-face-background-color);
+    }
     &__inner {
         position: absolute;
     }
@@ -31,13 +32,19 @@ $clock-face-number-color: #6c6c6c;
         height: calc(290px / 2 - 20px);
         > span {
             font-size: 16px;
-            color: $clock-face-number-color;
+            color: $clock-face-time-inactive-color;
+            @supports (color: var(--clock-face-time-inactive-color)) {
+                color: var(--clock-face-time-inactive-color);
+            }
         }
     }
     &--inner {
         > span {
             font-size: 14px;
-            color: lighten($clock-face-number-color, 15%);
+            color: $clock-face-inner-time-inactive-color;
+            @supports (color: var(--clock-face-inner-time-inactive-color)) {
+                color: var(--clock-face-inner-time-inactive-color);
+            }
         }
     }
     > span {
@@ -51,12 +58,22 @@ $clock-face-number-color: #6c6c6c;
         border-radius: 50%;
         font-weight: 500;
         font-family: $primary-font-family;
+        @supports (font-family: var(--primary-font-family)) {
+            font-family: var(--primary-font-family)
+        }
         &.active {
-            background-color: $primary-color;
-            color: #fff;
+            background-color: $clock-hand-color;
+            color: $clock-face-time-active-color;
+            @supports (background-color: var(--clock-hand-color)) {
+                background-color: var(--clock-hand-color);
+                color: var(--clock-face-time-active-color);
+            }
         }
         &.disabled {
-            color: lighten($clock-face-number-color, 35%);
+            color: $clock-face-time-disabled-color;
+            @supports (color: var(--clock-face-time-disabled-color)) {
+                color: var(--clock-face-time-disabled-color);
+            }
         }
     }
 }
@@ -64,17 +81,20 @@ $clock-face-number-color: #6c6c6c;
 .clock-face__clock-hand {
     height: 103px;
     width: 2px;
-    background-color: $primary-color;
     transform-origin: 0 100%;
     position: absolute;
     top: calc(50% - 103px);
     z-index: 1;
+    background-color: $clock-hand-color;
+    @supports (background-color: var(--clock-hand-color)) {
+        background-color: var(--clock-hand-color);
+    }
     &:after {
         content: '';
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background-color: $primary-color;
+        background-color: inherit;
         position: absolute;
         bottom: -3px;
         left: -3.5px;
@@ -86,12 +106,17 @@ $clock-face-number-color: #6c6c6c;
     width: 7px;
     height: 7px;
     background-color: #fff;
-    border: 4px solid $primary-color;
     border-radius: 50%;
     position: absolute;
     top: -8px;
     left: calc(50% - 8px);
     box-sizing: content-box;
+    border-width: 4px;
+    border-style: solid;
+    border-color: $clock-hand-color;
+    @supports (border-color: var(--clock-hand-color)) {
+        border-color: var(--clock-hand-color);
+    }
 }
 
 @media (max-width: 1023px) and (orientation: landscape) {

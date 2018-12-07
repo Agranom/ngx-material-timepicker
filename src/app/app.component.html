@@ -173,6 +173,11 @@
                             <button>Confirm tmpl</button>
                         </ng-template>
                     </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Custom theme" aria-label="Custom theme"
+                               [ngxTimepicker]="darkPicker" readonly>
+                        <ngx-material-timepicker #darkPicker [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
+                    </div>
                 </div>
             </section>
         </div>
