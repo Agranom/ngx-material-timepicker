@@ -114,6 +114,20 @@ Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
 
 Selector: `[ngxMaterialTimepickerToggleIcon]`
 
+**NgxMaterialTimepickerThemeDirective**
+
+Can be used to override styles of a `NgxMaterialTimepicker`.
+
+Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
+
+**Properties**
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom properties which will override the defaults | 
+ 
+
 ## Development
 
 ### Prepare your environment

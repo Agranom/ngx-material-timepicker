@@ -114,18 +114,42 @@ export class AppComponent {
                 <button>Confirm tmpl</button>
             </ng-template>
          </div>
+         
+         <div class="custom-theme-example">
+            <input placeholder="Custom theme" aria-label="Custom theme"
+                [ngxTimepicker]="darkPicker" readonly>
+            <ngx-material-timepicker #darkPicker [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
+         </div>
+         
+        //...
+        darkTheme: NgxMaterialTimepickerTheme = {
+            container: {
+                bodyBackgroundColor: '#424242',
+                buttonColor: '#fff'
+            },
+            dial: {
+                dialBackgroundColor: '#555',
+            },
+            clockFace: {
+                clockFaceBackgroundColor: '#555',
+                clockHandColor: '#9fbd90',
+                clockFaceTimeInactiveColor: '#fff'
+            }
+        };
     `;
 
     darkTheme: NgxMaterialTimepickerTheme = {
-        mainBackgroundColor: '#424242',
-        buttonColor: '#fff',
+        container: {
+            bodyBackgroundColor: '#424242',
+            buttonColor: '#fff'
+        },
         dial: {
-            backgroundColor: '#555',
+            dialBackgroundColor: '#555',
         },
         clockFace: {
-            backgroundColor: '#555',
-            clockHand: '#9fbd90',
-            inactiveTime: '#fff'
+            clockFaceBackgroundColor: '#555',
+            clockHandColor: '#9fbd90',
+            clockFaceTimeInactiveColor: '#fff'
         }
     };
 }

@@ -49,7 +49,7 @@ const ESCAPE = 27;
     ],
     providers: [NgxMaterialTimepickerService]
 })
-export class NgxMaterialTimepickerComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     selectedHour: ClockFaceTime;
     selectedMinute: ClockFaceTime;
@@ -125,15 +125,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, AfterViewInit, On
 
         this.subscriptions.push(this.timepickerService.selectedPeriod
             .subscribe(period => this.selectedPeriod = period));
-    }
-
-    ngAfterViewInit() {
-        // if (this.theme) {
-        if (this.timepickerComponent) {
-
-            console.log(this.timepickerComponent.nativeElement);
-        }
-        // }
     }
 
     /***

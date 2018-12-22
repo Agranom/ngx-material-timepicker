@@ -1,5 +1,5 @@
 export interface NgxMaterialTimepickerDialTheme {
-    backgroundColor?: string;
-    active?: string;
-    inactive?: string;
+    dialBackgroundColor?: string;
+    dialInactiveColor?: string;
+    dialActiveColor?: string;
 }
