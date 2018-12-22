@@ -1,6 +1,12 @@
 # Change Log
 
 All notable changes to this project will be documented in this file
+## 2.11.0 (2018-12-22)
+
+### Features
+
+* feat(ngx-material-timepicker): add `NgxMaterialTimepickerDirective` for theming, closes [(#71)](https://github.com/Agranom/ngx-material-timepicker/issues/71)
+
 ## 2.10.0 (2018-11-30)
 
 ### Features

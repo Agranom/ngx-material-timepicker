@@ -1,4 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
-
-$primary-font-family: 'Roboto', sans-serif;
+/* Default variables */
 $primary-color: deepskyblue;
+
+/* For ie only */
+$body-background-color: #fff;
+$primary-font-family: 'Roboto', sans-serif;
+$button-color: $primary-color;
+
+$dial-active-color: #fff;
+$dial-inactive-color: transparentize($dial-active-color, 0.5);
+$dial-background-color: $primary-color;
+
+$clock-face-time-active-color: #fff;
+$clock-face-time-inactive-color: #6c6c6c;
+$clock-face-inner-time-inactive-color: #929292;
+$clock-face-time-disabled-color: #c5c5c5;
+$clock-face-background-color: #f0f0f0;
+$clock-hand-color: deepskyblue;
+
+
+
+

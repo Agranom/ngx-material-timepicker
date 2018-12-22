@@ -1,7 +1,5 @@
 @import "../../styles/config";
 
-$item-color: #fff;
-
 .timepicker-dial {
     display: flex;
     align-items: center;
@@ -12,8 +10,12 @@ $item-color: #fff;
         align-items: baseline;
         line-height: normal;
         font-size: 50px;
-        color: transparentize($item-color, .5);
+        color: $dial-inactive-color;
         font-family: $primary-font-family;
+        @supports (font-family: var(--primary-font-family)) {
+            font-family: var(--primary-font-family);
+            color: var(--dial-inactive-color);
+        }
     }
     &__period {
         display: block;

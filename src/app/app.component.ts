@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {NgxMaterialTimepickerTheme} from './material-timepicker/models/ngx-material-timepicker-theme.interface';
 
 @Component({
     selector: 'app-root',
@@ -113,5 +114,42 @@ export class AppComponent {
                 <button>Confirm tmpl</button>
             </ng-template>
          </div>
+         
+         <div class="custom-theme-example">
+            <input placeholder="Custom theme" aria-label="Custom theme"
+                [ngxTimepicker]="darkPicker" readonly>
+            <ngx-material-timepicker #darkPicker [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
+         </div>
+         
+        //...
+        darkTheme: NgxMaterialTimepickerTheme = {
+            container: {
+                bodyBackgroundColor: '#424242',
+                buttonColor: '#fff'
+            },
+            dial: {
+                dialBackgroundColor: '#555',
+            },
+            clockFace: {
+                clockFaceBackgroundColor: '#555',
+                clockHandColor: '#9fbd90',
+                clockFaceTimeInactiveColor: '#fff'
+            }
+        };
     `;
+
+    darkTheme: NgxMaterialTimepickerTheme = {
+        container: {
+            bodyBackgroundColor: '#424242',
+            buttonColor: '#fff'
+        },
+        dial: {
+            dialBackgroundColor: '#555',
+        },
+        clockFace: {
+            clockFaceBackgroundColor: '#555',
+            clockHandColor: '#9fbd90',
+            clockFaceTimeInactiveColor: '#fff'
+        }
+    };
 }
