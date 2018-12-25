@@ -119,7 +119,7 @@
     }
 }
 
-@media (max-width: 1023px) and (orientation: landscape) {
+@media (max-device-width: 1023px) and (orientation: landscape) {
     .clock-face {
         width: 225px;
         height: 225px;
