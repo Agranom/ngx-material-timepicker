@@ -1,8 +1,8 @@
 import {Component, DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {NgxMaterialTimepickerThemDirective} from './ngx-material-timepicker-them.directive';
-import {NgxMaterialTimepickerTheme} from '../models/ngx-material-timepicker-theme.interface';
+import {NgxMaterialTimepickerThemeDirective} from './ngx-material-timepicker-theme.directive';
+import {NgxMaterialTimepickerTheme} from '../models';
 
 @Component({
     template: `
@@ -23,12 +23,12 @@ describe('NgxMaterialTimepickerThemDirective', () => {
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
-            declarations: [TestComponent, NgxMaterialTimepickerThemDirective],
+            declarations: [TestComponent, NgxMaterialTimepickerThemeDirective],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(TestComponent);
 
         component = fixture.componentInstance;
-        debugElement = fixture.debugElement.query(By.directive(NgxMaterialTimepickerThemDirective));
+        debugElement = fixture.debugElement.query(By.directive(NgxMaterialTimepickerThemeDirective));
         fixture.detectChanges();
     });
 

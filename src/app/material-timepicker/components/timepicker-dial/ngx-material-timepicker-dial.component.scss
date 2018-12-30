@@ -20,10 +20,13 @@
     &__period {
         display: block;
         margin-left: 10px;
+        &--hidden {
+            visibility: hidden;
+        }
     }
 }
 
-@media (max-width: 1023px) and (orientation: landscape) {
+@media (max-device-width: 1023px) and (orientation: landscape) {
     .timepicker-dial {
         flex-direction: column;
         &__period {

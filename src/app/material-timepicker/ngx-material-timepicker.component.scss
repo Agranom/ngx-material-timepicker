@@ -61,7 +61,7 @@
     }
 }
 
-@media (max-width: 1023px) and (orientation: landscape) {
+@media (max-device-width: 1023px) and (orientation: landscape) {
     .timepicker {
         display: flex;
         width: 515px;

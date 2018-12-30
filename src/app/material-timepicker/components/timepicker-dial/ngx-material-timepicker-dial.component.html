@@ -16,7 +16,8 @@
 
         </ngx-material-timepicker-dial-control>
     </div>
-    <ngx-material-timepicker-period class="timepicker-dial__period" *ngIf="format !== 24"
+    <ngx-material-timepicker-period class="timepicker-dial__period"
+                                    [ngClass]="{'timepicker-dial__period--hidden': format === 24}"
                                     [selectedPeriod]="period" [activeTimeUnit]="activeTimeUnit"
                                     [maxTime]="maxTime" [minTime]="minTime" [format]="format"
                                     [hours]="hours" [minutes]="minutes" [selectedHour]="hour"

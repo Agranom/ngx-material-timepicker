@@ -1,6 +1,15 @@
 # Change Log
 
 All notable changes to this project will be documented in this file
+
+## 2.11.1 (2018-12-30)
+
+### Fixes
+
+* fix(NgxMaterialTimepickerTheme): add interfaces to public API, closes [(#85)](https://github.com/Agranom/ngx-material-timepicker/issues/85)
+* fix(ngx-material-timepicker-dial): centered time position, closes [(#86)](https://github.com/Agranom/ngx-material-timepicker/issues/86)
+* fix(ngx-material-timepicker): make horizontal position only for mobile devices with landscape orientation, closes [(#87)](https://github.com/Agranom/ngx-material-timepicker/issues/87)
+
 ## 2.11.0 (2018-12-22)
 
 ### Features
