@@ -1,5 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
-import {NgxMaterialTimepickerTheme} from '../models';
+import {NgxMaterialTimepickerTheme} from '../models/ngx-material-timepicker-theme.interface';
 
 @Directive({selector: '[ngxMaterialTimepickerTheme]'})
 export class NgxMaterialTimepickerThemeDirective implements AfterViewInit {
