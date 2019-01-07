@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.11.2 (2019-01-07)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix bug with circular dependencies, closes [(#91)](https://github.com/Agranom/ngx-material-timepicker/issues/91)
+
 ## 2.11.1 (2018-12-30)
 
 ### Fixes

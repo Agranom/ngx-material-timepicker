@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgxMaterialTimepickerTheme} from './material-timepicker/models/ngx-material-timepicker-theme.interface';
+import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 
 @Component({
     selector: 'app-root',
