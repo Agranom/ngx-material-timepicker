@@ -180,6 +180,20 @@
                     </div>
                 </div>
             </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="connectedToInputSettings">Connected To Input examples
+                </app-example-source-code>
+                <div class="ngx-material-timepicker-example__body connected">
+                    <p class="ngx-material-timepicker-example__description">
+                        Has [connectedToInput] timepicker settings
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="connected to input settings" aria-label="connected to input settings"
+                               [ngxTimepicker]="connectedToInput" readonly>
+                        <ngx-material-timepicker [connectedToInput]="true" #connectedToInput></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
     <footer class="footer">

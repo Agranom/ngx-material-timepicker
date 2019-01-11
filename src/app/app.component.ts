@@ -138,6 +138,14 @@ export class AppComponent {
         };
     `;
 
+    connectedToInputSettings = `
+        <div class="connected-to-input-example">
+            <input placeholder="12hr format (connected to input settings)" aria-label="12hr format"
+                    [ngxTimepicker]="default" readonly>
+            <ngx-material-timepicker [connectedToInput]="true" #default></ngx-material-timepicker>
+        </div>
+    `;
+
     darkTheme: NgxMaterialTimepickerTheme = {
         container: {
             bodyBackgroundColor: '#424242',

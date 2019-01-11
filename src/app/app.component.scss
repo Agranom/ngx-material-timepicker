@@ -95,6 +95,10 @@ $border-color: rgba(0, 0, 0, .09);
     overflow: hidden;
     &__body {
         padding: 15px;
+
+        &.connected {
+            min-height: 600px;
+        }
     }
     &__description {
         margin: 0 0 15px;

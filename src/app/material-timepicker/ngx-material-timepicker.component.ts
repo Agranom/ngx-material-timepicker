@@ -64,6 +64,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;
+    @Input() connectedToInput: boolean;
 
     @Input()
     set minutesGap(gap: number) {
