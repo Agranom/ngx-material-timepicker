@@ -52,6 +52,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;
+    @Input() preventOverlayClick: boolean;
 
     @Input()
     set minutesGap(gap: number) {
@@ -70,7 +71,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     set defaultTime(time: string) {
         this.setDefaultTime(time);
     }
-
 
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
