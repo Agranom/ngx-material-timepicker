@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.12.0 (2019-01-26)
+
+### Features
+
+* feat(ngx-material-timepicker): `preventOverlayClick` property was added to prevent closing the timepicker by overlay click,
+closes [(#89)](https://github.com/Agranom/ngx-material-timepicker/issues/89)
+
+### Fixes
+
+* fix(ngx-material-timepicker): add readable error and preventing setting default time if default minute isn't allowed with provided minutesGap,
+ closes [(#81)](https://github.com/Agranom/ngx-material-timepicker/issues/81) and
+ closes [(#97)](https://github.com/Agranom/ngx-material-timepicker/issues/97)
+
+### Improvements
+
+* improvement(minutesGap): prevent setting null or undefined
+* improvement(ngx-material-timepicker): change time by keyboard arrows including minutesGap, 
+closes [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
 ## 2.11.2 (2019-01-07)
 
 ### Fixes

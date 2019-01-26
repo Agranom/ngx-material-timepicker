@@ -87,6 +87,8 @@ Selector: `ngx-material-timepicker`
   minutesGap: number | To define a gap between minutes. Set `1` by default |
 | @Input()
   defaultTime: string | Set default time for a timepicker. `12:00 AM` by default |
+| @Input()
+  preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()

@@ -29,7 +29,7 @@
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="12hr format (default settings)" aria-label="12hr format"
                                [ngxTimepicker]="default" readonly>
-                        <ngx-material-timepicker #default></ngx-material-timepicker>
+                        <ngx-material-timepicker #default [preventOverlayClick]="true"></ngx-material-timepicker>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="24hr format" aria-label="24hr format"
@@ -184,7 +184,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 2.11.2</p>
+            <p class="footer__version">Current version 2.12.0</p>
         </div>
     </footer>
 </div>
