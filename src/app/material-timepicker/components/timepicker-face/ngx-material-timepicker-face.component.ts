@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
@@ -11,8 +12,8 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
 
 const CLOCK_HAND_STYLES = {
     small: {
@@ -28,7 +29,8 @@ const CLOCK_HAND_STYLES = {
 @Component({
     selector: 'ngx-material-timepicker-face',
     templateUrl: './ngx-material-timepicker-face.component.html',
-    styleUrls: ['./ngx-material-timepicker-face.component.scss']
+    styleUrls: ['./ngx-material-timepicker-face.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges, OnDestroy {
 

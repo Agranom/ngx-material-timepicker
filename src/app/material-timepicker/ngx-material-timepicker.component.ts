@@ -1,31 +1,19 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
-import {ClockFaceTime} from './models/clock-face-time.interface';
-import {TimePeriod} from './models/time-period.enum';
-import {merge, Subscription} from 'rxjs';
-import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
-import {TimeUnit} from './models/time-unit.enum';
-import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
-import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
-import {filter} from 'rxjs/operators';
-import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {Moment} from 'moment';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ClockFaceTime } from './models/clock-face-time.interface';
+import { TimePeriod } from './models/time-period.enum';
+import { merge, Subscription } from 'rxjs';
+import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
+import { TimeUnit } from './models/time-unit.enum';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
+import { filter } from 'rxjs/operators';
+import { TimepickerDirective } from './directives/ngx-timepicker.directive';
+import { Moment } from 'moment';
 
 export enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
-
 
 
 const ESCAPE = 27;
@@ -67,6 +55,9 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     @Input()
     set minutesGap(gap: number) {
+        if (gap == null) {
+            return;
+        }
         gap = Math.floor(gap);
         this._minutesGap = gap <= 59 ? gap : 1;
     }
