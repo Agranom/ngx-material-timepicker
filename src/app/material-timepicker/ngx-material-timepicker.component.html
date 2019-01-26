@@ -1,4 +1,4 @@
-<div class="timepicker-backdrop-overlay" *ngIf="isOpened" overlay></div>
+<div class="timepicker-backdrop-overlay" *ngIf="isOpened" [overlay]="preventOverlayClick"></div>
 <div class="timepicker-overlay" *ngIf="isOpened">
     <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" #timepicker>
         <header class="timepicker__header">

@@ -63,6 +63,12 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private _max: string | Moment;
 
+    @Input('ngxTimepicker')
+    set timepicker(picker: NgxMaterialTimepickerComponent) {
+        this.registerTimepicker(picker);
+    }
+    private _timepicker: NgxMaterialTimepickerComponent;
+
     @Input()
     set value(value: string) {
         if (!value) {
@@ -71,7 +77,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             return;
         }
         const time = TimeAdapter.formatTime(value, this._format);
-        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes')) {
+        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes', this._timepicker.minutesGap)) {
             this._value = time;
             this.updateInputValue();
             return;
@@ -84,12 +90,6 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private _value = '';
-
-    @Input('ngxTimepicker')
-    set timepicker(picker: NgxMaterialTimepickerComponent) {
-        this.registerTimepicker(picker);
-    }
-    private _timepicker: NgxMaterialTimepickerComponent;
 
     @Input() disabled: boolean;
     @Input() disableClick: boolean;

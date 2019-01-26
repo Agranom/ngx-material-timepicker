@@ -62,9 +62,14 @@ export class NgxMaterialTimepickerService {
     }
 
 
-    setDefaultTimeIfAvailable(time: string, min: Moment, max: Moment, format: number) {
-        if (TimeAdapter.isTimeAvailable(time, min, max, 'minutes')) {
-            this.defaultTime = TimeAdapter.formatTime(time, format);
+    setDefaultTimeIfAvailable(time: string, min: Moment, max: Moment, format: number, minutesGap?: number) {
+        /* Workaround to double error message*/
+        try {
+            if (TimeAdapter.isTimeAvailable(time, min, max, 'minutes', minutesGap)) {
+                this.defaultTime = TimeAdapter.formatTime(time, format);
+            }
+        } catch (e) {
+            console.error(e);
         }
     }
 

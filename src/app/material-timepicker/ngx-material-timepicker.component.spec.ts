@@ -191,6 +191,14 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.minutesGap).toBe(6);
     });
 
+    it('should not set minutesGap if null or undefined', () => {
+        component.minutesGap = undefined;
+        expect(component.minutesGap).toBeUndefined();
+
+        component.minutesGap = null;
+        expect(component.minutesGap).toBeUndefined();
+    });
+
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};
         const minute = {time: 44, angle: 36};

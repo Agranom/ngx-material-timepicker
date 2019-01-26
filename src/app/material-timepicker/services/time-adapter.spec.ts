@@ -91,6 +91,17 @@ describe('TimeAdapter', () => {
             const isAvailable = TimeAdapter.isTimeAvailable('12:00 am', min, max);
             expect(isAvailable).toBeFalsy();
         });
+
+        it('should throw an Error', function () {
+            const minutesGap = 5;
+            const min = TimeAdapter.convertTimeToMoment('11:00 pm');
+            const max = TimeAdapter.convertTimeToMoment('11:50 pm');
+            try {
+                TimeAdapter.isTimeAvailable('11:43 pm', min, max, 'minutes', minutesGap);
+            } catch (e) {
+                expect(e.message).toBe(`Your minutes - 43 doesn\'t match your minutesGap - ${minutesGap}`);
+            }
+        });
     });
 
     describe('formatHour', () => {
