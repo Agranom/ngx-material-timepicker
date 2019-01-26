@@ -1,8 +1,8 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {NgxMaterialTimepickerDialControlComponent} from './ngx-material-timepicker-dial-control.component';
-import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
+import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimepickerTime } from '../../timepicker-time.namespace';
 
 describe('NgxMaterialTimepickerDialControlComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialControlComponent>;
@@ -125,7 +125,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         let counter = 0;
         const event = {
             keyCode: 0, preventDefault: () => {
-                counter++
+                counter++;
             }
         } as KeyboardEvent;
         const numbers = Array(10).fill(48).map((v, i) => v + i);
@@ -187,7 +187,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             restrictedCodes.forEach((code, index) => {
                 component.onKeyDown({...event, keyCode: code});
                 expect(counter).toBe(index + 1);
-            })
+            });
         });
 
         it('should call preventDefault if no time exist or time disabled', () => {
@@ -201,7 +201,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
             component.time = '';
             component.onKeyDown({...event, keyCode: NUM_1});
-            expect(counter).toBe(2)
+            expect(counter).toBe(2);
         });
 
         it('should up time by 1', () => {
@@ -218,6 +218,24 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
             component.onKeyDown({...event, keyCode: ARROW_DOWN});
             expect(component.time).toBe('10');
+        });
+
+        it('should up time by 7', () => {
+            const ARROW_UP = 38;
+            component.time = '11';
+            component.minutesGap = 7;
+
+            component.onKeyDown({...event, keyCode: ARROW_UP});
+            expect(component.time).toBe('18');
+        });
+
+        it('should down time by 6', () => {
+            const ARROW_DOWN = 40;
+            component.time = '11';
+            component.minutesGap = 6;
+
+            component.onKeyDown({...event, keyCode: ARROW_DOWN});
+            expect(component.time).toBe('5');
         });
     });
 });

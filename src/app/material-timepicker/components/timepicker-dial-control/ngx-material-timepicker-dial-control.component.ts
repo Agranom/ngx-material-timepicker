@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimeFormatterPipe} from '../../pipes/time-formatter.pipe';
+/* tslint:disable:triple-equals */
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
@@ -17,6 +18,7 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
     @Input() time: string;
     @Input() isActive: boolean;
     @Input() isEditable: boolean;
+    @Input() minutesGap: number;
 
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();
@@ -32,7 +34,7 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
             if (this.isEditable && !changes['time'].firstChange) {
                 return;
             }
-            this.time = new TimeFormatterPipe().transform(+changes['time'].currentValue, this.timeUnit)
+            this.time = new TimeFormatterPipe().transform(+changes['time'].currentValue, this.timeUnit);
         }
     }
 
@@ -76,9 +78,9 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         let time: string;
 
         if (keyCode === ARROW_UP) {
-            time = String(+this.time + 1);
+            time = String(+this.time + (this.minutesGap || 1));
         } else if (keyCode === ARROW_DOWN) {
-            time = String(+this.time - 1);
+            time = String(+this.time - (this.minutesGap || 1));
         }
 
         if (!isTimeUnavailable(time, this.timeList)) {
@@ -103,7 +105,7 @@ function isInputAllowed(e: KeyboardEvent): boolean {
 
         return true;
     }
-    return !((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105))
+    return !((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105));
 }
 
 function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
