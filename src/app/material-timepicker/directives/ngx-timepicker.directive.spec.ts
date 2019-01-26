@@ -1,9 +1,9 @@
-import {Component, DebugElement, SimpleChanges} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TimepickerDirective} from './ngx-timepicker.directive';
-import {By} from '@angular/platform-browser';
-import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
-import {NgxMaterialTimepickerModule} from '../ngx-material-timepicker.module';
+import { Component, DebugElement, SimpleChanges } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TimepickerDirective } from './ngx-timepicker.directive';
+import { By } from '@angular/platform-browser';
+import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
+import { NgxMaterialTimepickerModule } from '../ngx-material-timepicker.module';
 import * as _moment from 'moment';
 
 const moment = _moment;
@@ -94,11 +94,13 @@ describe('TimepickerDirective', () => {
     });
 
     it('should return formatted time', () => {
+        directive.timepicker = timepickerComponent;
         directive.value = '11:00';
         expect(directive.value).toBe('11:00 am');
     });
 
     it('should call console.warn if time is not between min and max(inclusively) value', () => {
+        directive.timepicker = timepickerComponent;
         const spy = spyOn(console, 'warn');
         directive.min = '11:00 am';
         directive.value = '10:00 am';
@@ -127,11 +129,13 @@ describe('TimepickerDirective', () => {
     });
 
     it('should change time onInput', () => {
+        directive.timepicker = timepickerComponent;
         directive.onInput('11:12');
         expect(directive.value).toBe('11:12 am');
     });
 
     it('should set Invalid date if time is in inappropriate format', () => {
+        directive.timepicker = timepickerComponent;
         directive.value = 'test';
         expect(directive.value).toBe('Invalid date');
     });
@@ -196,6 +200,7 @@ describe('TimepickerDirective', () => {
     });
 
     it('should set onChange function on registerOnChange', () => {
+        directive.timepicker = timepickerComponent;
         const spy = spyOn(console, 'log');
         const time = '11:12 am';
 

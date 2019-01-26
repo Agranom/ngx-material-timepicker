@@ -159,7 +159,8 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     setDefaultTime(time: string): void {
-        this.timepickerService.setDefaultTimeIfAvailable(time, this.minTime as Moment, this.maxTime as Moment, this.format);
+        this.timepickerService.setDefaultTimeIfAvailable(
+            time, this.minTime as Moment, this.maxTime as Moment, this.format, this.minutesGap);
     }
 
     open() {

@@ -1,7 +1,7 @@
 import * as _moment from 'moment';
-import {Moment, unitOfTime} from 'moment';
-import {TimeFormat} from '../models/time-format.enum';
-import {TimePeriod} from '../models/time-period.enum';
+import { Moment, unitOfTime } from 'moment';
+import { TimeFormat } from '../models/time-format.enum';
+import { TimePeriod } from '../models/time-period.enum';
 
 const moment = _moment;
 
@@ -16,11 +16,17 @@ export class TimeAdapter {
         return moment(time, TimeFormat.TWELVE);
     }
 
-    static isTimeAvailable(time: string, min?: Moment, max?: Moment, granularity?: unitOfTime.StartOf): boolean {
+    static isTimeAvailable(time: string, min?: Moment, max?: Moment, granularity?: unitOfTime.StartOf, minutesGap?: number): boolean {
         if (!time) {
             return;
         }
+
         const convertedTime = this.convertTimeToMoment(time);
+        const minutes = convertedTime.minutes();
+
+        if (minutesGap && (minutes % minutesGap !== 0)) {
+            throw new Error(`Your minutes - ${minutes} doesn\'t match your minutesGap - ${minutesGap}`);
+        }
         const isAfter = (min && !max)
             && convertedTime.isSameOrAfter(min, granularity);
         const isBefore = (max && !min)
@@ -39,7 +45,7 @@ export class TimeAdapter {
         if (format === 24) {
             return currentHour;
         }
-        let hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
+        const hour = period === TimePeriod.AM ? currentHour : currentHour + 12;
 
         if (period === TimePeriod.AM && hour === 12) {
             return 0;

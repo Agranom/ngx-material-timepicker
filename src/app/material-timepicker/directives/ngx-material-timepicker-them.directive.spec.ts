@@ -2,7 +2,7 @@ import {Component, DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NgxMaterialTimepickerThemeDirective} from './ngx-material-timepicker-theme.directive';
-import {NgxMaterialTimepickerTheme} from '../models';
+import { NgxMaterialTimepickerTheme } from '../models/ngx-material-timepicker-theme.interface';
 
 @Component({
     template: `
