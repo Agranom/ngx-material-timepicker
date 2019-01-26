@@ -19,17 +19,17 @@ export class NgxMaterialTimepickerThemeDirective implements AfterViewInit {
     }
 
     private setTheme(theme): void {
-        for (let val in theme) {
+        for (const val in theme) {
             if (theme.hasOwnProperty(val)) {
                 if (typeof theme[val] === 'string') {
-                    for (let prop in theme) {
+                    for (const prop in theme) {
                         if (theme.hasOwnProperty(prop)) {
                             this.element.style.setProperty(`--${camelCaseToDash(prop)}`, theme[prop]);
                         }
                     }
-                    return
+                    return;
                 }
-                this.setTheme(theme[val])
+                this.setTheme(theme[val]);
             }
 
         }

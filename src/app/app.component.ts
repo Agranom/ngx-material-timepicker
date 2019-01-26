@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 import {Component} from '@angular/core';
 import { NgxMaterialTimepickerTheme } from './material-timepicker/models/ngx-material-timepicker-theme.interface';
 
@@ -8,7 +9,6 @@ import { NgxMaterialTimepickerTheme } from './material-timepicker/models/ngx-mat
 })
 export class AppComponent {
 
-
     simpleExamples = `
        <div class="12hr-example">
             <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>
@@ -18,18 +18,18 @@ export class AppComponent {
        <div class="24hr-example">
             <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
             <ngx-material-timepicker #fullTime></ngx-material-timepicker>
-       </div>       
+       </div>
        <div class="default-time-example">
             <input aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'05:11 pm'"  readonly>
             <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
        </div>
-       
+
         <div class="ngx-material-timepicker-example__form-group">
             <input placeholder="Default time 11:11 pm" aria-label="default time"
                 [ngxTimepicker]="defaultTime" readonly>
             <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'"></ngx-material-timepicker>
         </div>
-       
+
        <div class="disabled-example">
             <input placeholder="Disabled Time Picker" aria-label="disabled time picker" [ngxTimepicker]="disabled" [disabled]="true">
             <ngx-material-timepicker #disabled></ngx-material-timepicker>
@@ -42,13 +42,13 @@ export class AppComponent {
                 [ngxTimepicker]="min" [min]="'03:15 am'" readonly>
             <ngx-material-timepicker #min></ngx-material-timepicker>
         </div>
-        
+
         <div class="max-time-example">
             <input placeholder="Max time 06:18 pm"
                 [ngxTimepicker]="max" max="06:18 pm" readonly>
             <ngx-material-timepicker #max></ngx-material-timepicker>
         </div>
-        
+
         <div class="time-range-example">
             <input placeholder="Time range from 12:10 am to 08:11 pm"
                 [ngxTimepicker]="range" min="12:10 am" max="08:11 pm" readonly>
@@ -61,7 +61,7 @@ export class AppComponent {
             <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
             <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
         </div>
-        
+
         <div class="toggle-custom-icon-example">
             <input [ngxTimepicker]="toggleIcon" [disableClick]="true" readonly>
             <ngx-material-timepicker-toggle [for]="toggleIcon">
@@ -71,7 +71,7 @@ export class AppComponent {
             </ngx-material-timepicker-toggle>
             <ngx-material-timepicker #toggleIcon></ngx-material-timepicker>
         </div>
-        
+
         <div class="toggle-disabled-example">
             <input [ngxTimepicker]="toggleTimepickerDisabled" [disableClick]="true" readonly>
             <ngx-material-timepicker-toggle [for]="toggleTimepickerDisabled" [disabled]="true"></ngx-material-timepicker-toggle>
@@ -93,12 +93,12 @@ export class AppComponent {
             [ngxTimepicker]="defaultGap" readonly>
         <ngx-material-timepicker #defaultGap></ngx-material-timepicker>
       </div>
-      
+
       <div class="minutes-gap-example">
         <input placeholder="Gap with 5"
             [ngxTimepicker]="with5Gap" readonly>
         <ngx-material-timepicker #with5Gap [minutesGap]="5"></ngx-material-timepicker>
-      </div>  
+      </div>
     `;
 
     customSettings = `
@@ -106,7 +106,7 @@ export class AppComponent {
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>
             <ngx-material-timepicker #timepickerWithButtons [cancelBtnTmpl]="cancelBtn"
                                              [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
-                                             
+
             <ng-template #cancelBtn>
                 <button style="margin-right: 10px;">Cancel tmpl</button>
             </ng-template>
@@ -114,13 +114,13 @@ export class AppComponent {
                 <button>Confirm tmpl</button>
             </ng-template>
          </div>
-         
+
          <div class="custom-theme-example">
             <input placeholder="Custom theme" aria-label="Custom theme"
                 [ngxTimepicker]="darkPicker" readonly>
             <ngx-material-timepicker #darkPicker [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
          </div>
-         
+
         //...
         darkTheme: NgxMaterialTimepickerTheme = {
             container: {
