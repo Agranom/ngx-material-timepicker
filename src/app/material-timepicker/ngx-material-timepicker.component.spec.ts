@@ -98,11 +98,14 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.selectedPeriod).toBe(TimePeriod.AM);
     });
 
-    it(`should set isOpened 'true' and change animationState to 'enter' on open call`, () => {
+    it(`should set isOpened 'true', change animationState to 'enter' and emit event on open call`, async(() => {
+        let counter = 0;
+
+        component.opened.subscribe(() => expect(++counter).toBe(1));
         component.open();
         expect(component.isOpened).toBeTruthy();
         expect(component.animationState).toBe(AnimationState.ENTER);
-    });
+    }));
 
     it('should change animationState to \'leave\' on close call', () => {
         component.close();

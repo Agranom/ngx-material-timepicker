@@ -73,6 +73,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     @Output() timeSet = new EventEmitter<string>();
+    @Output() opened = new EventEmitter<null>();
     @Output() closed = new EventEmitter<null>();
     @Output() hourSelected = new EventEmitter<number>();
 
@@ -163,6 +164,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     open(): void {
         this.isOpened = true;
         this.animationState = AnimationState.ENTER;
+        this.opened.next();
     }
 
     close(): void {
