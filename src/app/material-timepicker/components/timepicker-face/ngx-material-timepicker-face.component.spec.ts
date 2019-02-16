@@ -1,10 +1,10 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {NgxMaterialTimepickerFaceComponent} from './ngx-material-timepicker-face.component';
-import {ElementRef, NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {StyleSanitizerPipe} from '../../pipes/style-sanitizer.pipe';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {MinutesFormatterPipe} from '../../pipes/minutes-formatter.pipe';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { NgxMaterialTimepickerFaceComponent } from './ngx-material-timepicker-face.component';
+import { ElementRef, NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { StyleSanitizerPipe } from '../../pipes/style-sanitizer.pipe';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { MinutesFormatterPipe } from '../../pipes/minutes-formatter.pipe';
 
 
 describe('NgxMaterialTimepickerFaceComponent', () => {
@@ -276,18 +276,15 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime).toEqual({time: 1, angle: 5});
         }));
 
-        it('should emit selected time once user stop interaction with clock face', fakeAsync(() => {
-            let counter = 0;
+        it('should emit selected time once user stop interaction with clock face', async(() => {
             const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
             component.faceTime = minutesFaceTime;
             component.unit = TimeUnit.MINUTE;
 
-            component.timeSelected.subscribe(() => counter++);
+            component.timeSelected.subscribe((time) => expect(time).toBe(55));
             component.onMouseup(mouseClickEvent);
             component.selectTime(new MouseEvent('click', mouseCords));
-            tick();
-            expect(counter).toBe(1);
         }));
 
         it(`should return 'true' or 'false' whether hour is selected or not`, () => {

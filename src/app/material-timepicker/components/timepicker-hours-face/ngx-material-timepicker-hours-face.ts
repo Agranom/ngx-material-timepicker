@@ -12,11 +12,15 @@ export class NgxMaterialTimepickerHoursFace {
     @Input() format: number;
 
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
-    @Output() hourSelected = new EventEmitter<null>();
+    @Output() hourSelected = new EventEmitter<number>();
 
     hoursList: ClockFaceTime[] = [];
 
     protected constructor(format: number) {
         this.hoursList = TimepickerTime.getHours(format);
+    }
+
+    onTimeSelected(time: number): void {
+        this.hourSelected.next(time);
     }
 }

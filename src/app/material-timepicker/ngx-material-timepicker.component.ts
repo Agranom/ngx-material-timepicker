@@ -74,6 +74,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     @Output() timeSet = new EventEmitter<string>();
     @Output() closed = new EventEmitter<null>();
+    @Output() hourSelected = new EventEmitter<number>();
 
     @ViewChild('timepickerww') timepickerComponent: ElementRef;
 
@@ -132,6 +133,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.timepickerService.hour = hour;
     }
 
+    onHourSelected(hour: number): void {
+        this.changeTimeUnit(TimeUnit.MINUTE);
+        this.hourSelected.next(hour);
+    }
+
     onMinuteChange(minute: ClockFaceTime): void {
         this.timepickerService.minute = minute;
     }
@@ -140,11 +146,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.timepickerService.period = period;
     }
 
-    changeTimeUnit(unit: TimeUnit) {
+    changeTimeUnit(unit: TimeUnit): void {
         this.activeTimeUnit = unit;
     }
 
-    setTime() {
+    setTime(): void {
         this.timeSet.next(this.timepickerService.getFullTime(this.format));
         this.close();
     }
@@ -154,12 +160,12 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
             time, this.minTime as Moment, this.maxTime as Moment, this.format, this.minutesGap);
     }
 
-    open() {
+    open(): void {
         this.isOpened = true;
         this.animationState = AnimationState.ENTER;
     }
 
-    close() {
+    close(): void {
         this.animationState = AnimationState.LEAVE;
     }
 

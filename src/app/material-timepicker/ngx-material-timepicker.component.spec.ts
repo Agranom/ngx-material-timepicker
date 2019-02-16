@@ -1,13 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AnimationState, NgxMaterialTimepickerComponent} from './ngx-material-timepicker.component';
-import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
-import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
-import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {TimeFormatterPipe} from './pipes/time-formatter.pipe';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {TimePeriod} from './models/time-period.enum';
-import {TimeUnit} from './models/time-unit.enum';
-import {AnimationEvent} from '@angular/animations';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AnimationState, NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
+import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
+import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
+import { TimepickerDirective } from './directives/ngx-timepicker.directive';
+import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TimePeriod } from './models/time-period.enum';
+import { TimeUnit } from './models/time-unit.enum';
+import { AnimationEvent } from '@angular/animations';
 
 describe('NgxMaterialTimepickerComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerComponent>;
@@ -198,6 +198,17 @@ describe('NgxMaterialTimepickerComponent', () => {
         component.minutesGap = null;
         expect(component.minutesGap).toBeUndefined();
     });
+
+    it('should change timeUnit to MINUTE and emit selected hour', async(() => {
+        const hour = 10;
+
+        expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+
+        component.hourSelected.subscribe(h => expect(h).toBe(hour));
+        component.onHourSelected(hour);
+
+        expect(component.activeTimeUnit).toBe(TimeUnit.MINUTE);
+    }));
 
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};

@@ -23,7 +23,7 @@
                                                            [minTime]="minTime"
                                                            [maxTime]="maxTime"
                                                            [format]="format"
-                                                           (hourSelected)="changeTimeUnit(timeUnit.MINUTE)"></ngx-material-timepicker-24-hours-face>
+                                                           (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-24-hours-face>
                     <ng-template #ampmHours>
                         <ngx-material-timepicker-12-hours-face
                             (hourChange)="onHourChange($event)"
@@ -31,7 +31,7 @@
                             [period]="selectedPeriod"
                             [minTime]="minTime"
                             [maxTime]="maxTime"
-                            (hourSelected)="changeTimeUnit(timeUnit.MINUTE)"></ngx-material-timepicker-12-hours-face>
+                            (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-12-hours-face>
                     </ng-template>
                 </div>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
