@@ -2,6 +2,7 @@
 
 .timepicker-dial {
     text-align: right;
+
     &__container {
         display: flex;
         align-items: center;
@@ -31,6 +32,12 @@
         }
     }
 
+    &__hint-container {
+        &--hidden {
+            visibility: hidden;
+        }
+    }
+
     &__hint {
         display: inline-block;
         font-size: 10px;
@@ -38,10 +45,12 @@
         @supports (color: var(--dial-active-color)) {
             color: var(--dial-active-color);
         }
+
         span {
             font-size: 14px;
         }
     }
+
 }
 
 @media (max-device-width: 1023px) and (orientation: landscape) {
