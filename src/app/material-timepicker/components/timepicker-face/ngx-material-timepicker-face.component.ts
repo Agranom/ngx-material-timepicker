@@ -114,8 +114,9 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const roundedAngle = isInnerClockChosen
             ? roundAngle(circleAngle, angleStep) + 360
             : roundAngle(circleAngle, angleStep);
+        const angle = roundedAngle === 0 ? 360 : roundedAngle;
 
-        const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
+        const selectedTime = this.faceTime.find(val => val.angle === angle);
 
         if (selectedTime && !selectedTime.disabled) {
             this.timeChange.next(selectedTime);
