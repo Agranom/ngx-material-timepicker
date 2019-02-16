@@ -3,6 +3,7 @@ import {ClockFaceTime} from '../models/clock-face-time.interface';
 import {NgxMaterialTimepickerService} from './ngx-material-timepicker.service';
 import {TimePeriod} from '../models/time-period.enum';
 import * as moment from 'moment';
+import { TimeAdapter } from './time-adapter';
 
 describe('NgxMaterialTimepickerService', () => {
     const DEFAULT_HOUR: ClockFaceTime = {
@@ -103,5 +104,15 @@ describe('NgxMaterialTimepickerService', () => {
         expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 10});
         expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 10});
         expect(selectedPeriod).toBe(TimePeriod.AM);
+    });
+
+    it('should call console error', () => {
+        const minutesGap = 5;
+        const min = TimeAdapter.convertTimeToMoment('11:00 pm');
+        const max = TimeAdapter.convertTimeToMoment('11:50 pm');
+        const spy = spyOn(console, 'error');
+
+        timepickerService.setDefaultTimeIfAvailable('11:43 pm', min, max, 12, minutesGap);
+        expect(spy).toHaveBeenCalled();
     });
 });
