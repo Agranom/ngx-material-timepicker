@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimepickerTime} from '../../timepicker-time.namespace';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {Moment} from 'moment';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimepickerTime } from '../../timepicker-time.namespace';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { Moment } from 'moment';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -17,6 +17,8 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
+
+    isHintVisible: boolean;
 
     @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() hour: number | string;
@@ -73,5 +75,13 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     changeMinute(minute: ClockFaceTime): void {
         this.minuteChanged.next(minute);
+    }
+
+    showHint(): void {
+        this.isHintVisible = true;
+    }
+
+    hideHint(): void {
+        this.isHintVisible = false;
     }
 }

@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file
 
+## 2.13.0 (2019-02-16)
+
+### Features
+
+* feat(ngx-material-timepicker): add `hourSelected` event emitter [(dd43874)](https://github.com/Agranom/ngx-material-timepicker/commit/dd4387407284788438a79283139a9a4f6e4fff44),
+closes [(#108)](https://github.com/Agranom/ngx-material-timepicker/issues/108)
+
+* feat(ngx-material-timepicker): add `opened` event emitter [(5bc9cc0)](https://github.com/Agranom/ngx-material-timepicker/commit/5bc9cc088482ba1aeee32af2c97a0ece86dc1205),
+closes [(#112)](https://github.com/Agranom/ngx-material-timepicker/issues/112)
+
+* feat(ngx-material-timepicker-dial): add possibility to set a custom hint template [(479f311)](https://github.com/Agranom/ngx-material-timepicker/commit/479f311cee74db79372263a19911cf5b0e73b8b8),
+relates to [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
+### Fixes
+
+* fix(clock face): fix bug with dead zone in 12 or 00 time section [(07a8618)](https://github.com/Agranom/ngx-material-timepicker/commit/07a861897842a8e7225a2a9d4613083481587df1),
+ closes [(#109)](https://github.com/Agranom/ngx-material-timepicker/issues/109)
+
+### Improvements
+
+* improvement(ngx-material-timepicker-dial): show/hide dial hint onFocus/onBlur dial control [(c96da39)](https://github.com/Agranom/ngx-material-timepicker/commit/c96da391ef37931947d0db8b65b9a987bb59b4eb),
+ relates to [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
 ## 2.12.0 (2019-01-26)
 
 ### Features

@@ -7,6 +7,7 @@ import {TimeAdapter} from '../services/time-adapter';
 
 const VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
+    // tslint:disable-next-line
     useExisting: forwardRef(() => TimepickerDirective),
     multi: true
 };

@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
@@ -17,9 +17,10 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should set current time to previous time and change time unit', fakeAsync(() => {
-        let timeUnit = null;
-        component.timeUnitChanged.subscribe(unit => timeUnit = unit);
+    it('should set current time to previous time, change time unit and emit focus event', async (() => {
+        let counter = 0;
+        component.timeUnitChanged.subscribe(unit => expect(unit).toBe(TimeUnit.MINUTE));
+        component.focused.subscribe(() => expect(++counter).toBe(1));
 
         component.time = '10';
         expect(component.previousTime).toBeUndefined();
@@ -27,7 +28,6 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         component.saveTimeAndChangeTimeUnit({preventDefault: () => null} as FocusEvent, TimeUnit.MINUTE);
 
         expect(component.previousTime).toBe('10');
-        expect(timeUnit).toBe(TimeUnit.MINUTE);
     }));
 
     it('should emit changed time if it exists and available', fakeAsync(() => {
@@ -102,7 +102,9 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         expect(component.time).toBe('4');
     });
 
-    it('should format time if editable', () => {
+    it('should format time if editable and emit unfocused event', async(() => {
+        let counter = 0;
+
         component.isEditable = true;
         component.time = '2';
         component.previousTime = 4;
@@ -111,15 +113,16 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         component.formatTime();
         expect(component.time).toBe('02');
 
+        component.unfocused.subscribe(() => expect(++counter).toBe(1));
         component.time = '';
         component.formatTime();
-        expect(component.time).toBe('04');
 
+        expect(component.time).toBe('04');
         component.time = '5';
         component.isEditable = false;
         component.formatTime();
         expect(component.time).toBe('5');
-    });
+    }));
 
     describe('onKeyDown', () => {
         let counter = 0;

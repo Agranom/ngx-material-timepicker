@@ -46,7 +46,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() minutesGap: number;
 
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
-    @Output() timeSelected = new EventEmitter<null>();
+    @Output() timeSelected = new EventEmitter<number>();
 
     @ViewChild('clockFace') clockFace: ElementRef;
     @ViewChild('clockHand') clockHand: ElementRef;
@@ -114,15 +114,16 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const roundedAngle = isInnerClockChosen
             ? roundAngle(circleAngle, angleStep) + 360
             : roundAngle(circleAngle, angleStep);
+        const angle = roundedAngle === 0 ? 360 : roundedAngle;
 
-        const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
+        const selectedTime = this.faceTime.find(val => val.angle === angle);
 
         if (selectedTime && !selectedTime.disabled) {
             this.timeChange.next(selectedTime);
 
             /* To let know whether user ended interaction with clock face */
             if (!this.isStarted) {
-                this.timeSelected.next();
+                this.timeSelected.next(selectedTime.time);
             }
         }
 

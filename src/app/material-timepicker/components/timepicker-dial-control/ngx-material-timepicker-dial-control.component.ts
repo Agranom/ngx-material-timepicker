@@ -22,6 +22,8 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
 
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();
+    @Output() focused = new EventEmitter<null>();
+    @Output() unfocused = new EventEmitter<null>();
 
     private get selectedTime(): ClockFaceTime {
         if (!!this.time) {
@@ -42,6 +44,7 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         event.preventDefault();
         this.previousTime = this.time;
         this.timeUnitChanged.next(unit);
+        this.focused.next();
     }
 
     updateTime(): void {
@@ -56,6 +59,7 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         if (this.isEditable) {
             const time = this.time || this.previousTime;
             this.time = new TimeFormatterPipe().transform(+time, this.timeUnit);
+            this.unfocused.next();
         }
     }
 

@@ -1,9 +1,9 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {NgxMaterialTimepickerDialComponent} from './ngx-material-timepicker-dial.component';
-import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
-import {TimepickerTime} from '../../timepicker-time.namespace';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimeUnit} from '../../models/time-unit.enum';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { NgxMaterialTimepickerDialComponent } from './ngx-material-timepicker-dial.component';
+import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { TimepickerTime } from '../../timepicker-time.namespace';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimeUnit } from '../../models/time-unit.enum';
 
 describe('NgxMaterialTimepickerDialComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialComponent>;
@@ -120,5 +120,21 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         tick();
         expect(minute).toEqual({time: 20, angle: 60});
     }));
+
+    it('should set isHintVisible true', () => {
+        expect(component.isHintVisible).toBeFalsy();
+
+        component.showHint();
+
+        expect(component.isHintVisible).toBeTruthy();
+    });
+
+    it('should set isHintVisible false', () => {
+        component.isHintVisible = true;
+
+        component.hideHint();
+
+        expect(component.isHintVisible).toBeFalsy();
+    });
 
 });
