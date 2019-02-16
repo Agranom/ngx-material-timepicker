@@ -49,6 +49,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     animationState: AnimationState;
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
+    @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;

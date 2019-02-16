@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {TimePeriod} from '../../models/time-period.enum';
 import {TimeUnit} from '../../models/time-unit.enum';
 import {TimepickerTime} from '../../timepicker-time.namespace';
@@ -18,6 +18,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
 
+    @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() hour: number | string;
     @Input() minute: number | string;
     @Input() format: number;
