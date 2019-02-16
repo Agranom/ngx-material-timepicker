@@ -25,5 +25,8 @@
                                         [hours]="hours" [minutes]="minutes" [selectedHour]="hour"
                                         (periodChanged)="changePeriod($event)"></ngx-material-timepicker-period>
     </div>
-    <small class="timepicker-dial__hint" *ngIf="isEditable">* use arrows (<span>&#8645;</span>) to change the time</small>
+    <div *ngIf="isEditable">
+        <ng-container *ngTemplateOutlet="editableHintTmpl ? editableHintTmpl : editableHintDefault"></ng-container>
+        <ng-template #editableHintDefault><small class="timepicker-dial__hint"> * use arrows (<span>&#8645;</span>) to change the time</small></ng-template>
+    </div>
 </div>
