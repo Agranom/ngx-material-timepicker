@@ -1,5 +1,5 @@
 /* tslint:disable:max-line-length */
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NgxMaterialTimepickerTheme } from './material-timepicker/models/ngx-material-timepicker-theme.interface';
 
 @Component({
@@ -136,6 +136,16 @@ export class AppComponent {
                 clockFaceTimeInactiveColor: '#fff'
             }
         };
+
+        <div class="custom-hint-example">
+            <input placeholder="Custom hint" aria-label="Custom hint"
+                [ngxTimepicker]="customHint" readonly>
+            <ngx-material-timepicker #customHint [enableKeyboardInput]="true"
+                [editableHintTmpl]="dialHint"></ngx-material-timepicker>
+            <ng-template #dialHint>
+                <p>Custom hint</p>
+            </ng-template>
+        </div>
     `;
 
     darkTheme: NgxMaterialTimepickerTheme = {

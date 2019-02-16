@@ -80,6 +80,8 @@ Selector: `ngx-material-timepicker`
 | @Input()
   confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
 | @Input()
+  editableHintTmpl: TemplateRef<Node> | Set if you want to change dial hint to your custom one. Works only if `enableKeyboardInput = true` |
+| @Input()
   ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Input()
   enableKeyboardInput: boolean | To disable or enable changing time through a keyboard on the timepicker dial without interaction with a clock face. Set `false` by default |
@@ -92,7 +94,11 @@ Selector: `ngx-material-timepicker`
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
+  opened: EventEmitter\<null\> | Emits after timepicker was opened. |
+| @Output()
   closed: EventEmitter\<null\> | Emits after timepicker was closed. |
+| @Output()
+  hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
   
 **NgxMaterialTimepickerToggleComponent**
 
