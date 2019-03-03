@@ -1,13 +1,10 @@
-import {Injectable} from '@angular/core';
-import {ClockFaceTime} from '../models/clock-face-time.interface';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {TimePeriod} from '../models/time-period.enum';
-import * as moment_ from 'moment';
-import {TimeFormat} from '../models/time-format.enum';
-import {TimeAdapter} from './time-adapter';
-import {Moment} from 'moment';
+import { Injectable } from '@angular/core';
+import { ClockFaceTime } from '../models/clock-face-time.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { TimePeriod } from '../models/time-period.enum';
+import { TimeAdapter } from './time-adapter';
+import { DateTime } from 'luxon';
 
-const moment = moment_;
 
 const DEFAULT_HOUR: ClockFaceTime = {
     time: 12,
@@ -26,9 +23,9 @@ export class NgxMaterialTimepickerService {
     private periodSubject = new BehaviorSubject<TimePeriod>(TimePeriod.AM);
 
     private set defaultTime(time: string) {
-        const defaultTime = moment(time, TimeFormat.TWENTY_FOUR).toDate();
+        const defaultTime = TimeAdapter.convertTimeToDateTime(time).toJSDate();
 
-        if (moment(defaultTime).isValid()) {
+        if (DateTime.fromJSDate(defaultTime).isValid) {
             this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours()};
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
             this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
@@ -62,7 +59,7 @@ export class NgxMaterialTimepickerService {
     }
 
 
-    setDefaultTimeIfAvailable(time: string, min: Moment, max: Moment, format: number, minutesGap?: number) {
+    setDefaultTimeIfAvailable(time: string, min: DateTime, max: DateTime, format: number, minutesGap?: number) {
         /* Workaround to double error message*/
         try {
             if (TimeAdapter.isTimeAvailable(time, min, max, 'minutes', minutesGap)) {

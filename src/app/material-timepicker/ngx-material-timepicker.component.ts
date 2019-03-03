@@ -8,7 +8,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
 import { filter } from 'rxjs/operators';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
-import { Moment } from 'moment';
+import { DateTime } from 'luxon';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -93,11 +93,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     }
 
-    get minTime(): string | Moment {
+    get minTime(): string | DateTime {
         return this.timepickerInput && this.timepickerInput.min;
     }
 
-    get maxTime(): string | Moment {
+    get maxTime(): string | DateTime {
         return this.timepickerInput && this.timepickerInput.max;
     }
 
@@ -159,7 +159,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     setDefaultTime(time: string): void {
         this.timepickerService.setDefaultTimeIfAvailable(
-            time, this.minTime as Moment, this.maxTime as Moment, this.format, this.minutesGap);
+            time, this.minTime as DateTime, this.maxTime as DateTime, this.format, this.minutesGap);
     }
 
     open(): void {

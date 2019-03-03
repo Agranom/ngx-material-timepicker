@@ -4,10 +4,7 @@ import { TimepickerDirective } from './ngx-timepicker.directive';
 import { By } from '@angular/platform-browser';
 import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
 import { NgxMaterialTimepickerModule } from '../ngx-material-timepicker.module';
-import * as _moment from 'moment';
-
-const moment = _moment;
-
+import { DateTime } from 'luxon';
 
 @Component({
     template: `
@@ -60,28 +57,28 @@ describe('TimepickerDirective', () => {
         expect(directive.format).toBe(24);
     });
 
-    it('should return min time in Moment type if pass string', () => {
+    it('should return min time in DateTime type if pass string', () => {
         directive.min = '11:00 pm';
-        expect(directive.min['hour']()).toBe(23);
-        expect(directive.min['minute']()).toBe(0);
+        expect(directive.min['hour']).toBe(23);
+        expect(directive.min['minute']).toBe(0);
     });
 
-    it('should return min time in Moment type if pass moment', () => {
-        directive.min = moment().hour(10).minute(11);
-        expect(directive.min['hour']()).toBe(10);
-        expect(directive.min['minute']()).toBe(11);
+    it('should return min time in DateTime type if pass DateTime', () => {
+        directive.min = DateTime.fromObject({hour: 10, minute: 11});
+        expect(directive.min.hour).toBe(10);
+        expect(directive.min.minute).toBe(11);
     });
 
-    it('should return max time in Moment type if pass string', () => {
+    it('should return max time in DateTime type if pass string', () => {
         directive.max = '11:00 pm';
-        expect(directive.max['hour']()).toBe(23);
-        expect(directive.max['minute']()).toBe(0);
+        expect(directive.max['hour']).toBe(23);
+        expect(directive.max['minute']).toBe(0);
     });
 
-    it('should return max time in Moment type if pass moment', () => {
-        directive.max = moment().hour(10).minute(11);
-        expect(directive.max['hour']()).toBe(10);
-        expect(directive.max['minute']()).toBe(11);
+    it('should return max time in DateTime type if pass DateTime', () => {
+        directive.max = DateTime.fromObject({hour: 10, minute: 11});
+        expect(directive.max.hour).toBe(10);
+        expect(directive.max.minute).toBe(11);
     });
 
     it(`should clear the time if set value undefined, null, '' `, () => {
@@ -134,10 +131,10 @@ describe('TimepickerDirective', () => {
         expect(directive.value).toBe('11:12 am');
     });
 
-    it('should set Invalid date if time is in inappropriate format', () => {
+    it('should set invalid datetime if time is in inappropriate format', () => {
         directive.timepicker = timepickerComponent;
         directive.value = 'test';
-        expect(directive.value).toBe('Invalid date');
+        expect(directive.value).toBe('invalid datetime');
     });
 
     it('should set default time if binding value changes', () => {

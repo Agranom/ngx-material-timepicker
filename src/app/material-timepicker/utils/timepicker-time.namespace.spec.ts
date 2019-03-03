@@ -1,11 +1,11 @@
-import {TimepickerTime} from './timepicker-time.namespace';
-import * as moment from 'moment';
-import {TimePeriod} from './models/time-period.enum';
+import { TimepickerTime } from './timepicker-time.namespace';
+import { TimePeriod } from '../models/time-period.enum';
+import { DateTime } from 'luxon';
 
 describe('TimepickerTime', () => {
     describe('Hour', () => {
-        const min = moment().hour(10);
-        const max = moment().hour(15);
+        const min = DateTime.fromObject({hour: 10});
+        const max = DateTime.fromObject({hour: 15});
 
         it('should return 12 hours', () => {
             const hours = TimepickerTime.getHours(12);
@@ -98,8 +98,8 @@ describe('TimepickerTime', () => {
     });
 
     describe('Minute', () => {
-        const min = moment().hour(1).minute(10);
-        const max = moment().hour(3).minute(50);
+        const min = DateTime.fromObject({hour: 1, minute: 10});
+        const max = DateTime.fromObject({hour: 3, minute: 50});
         const minutes = TimepickerTime.getMinutes();
 
 

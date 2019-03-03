@@ -1,6 +1,6 @@
 import {AfterContentInit, Component} from '@angular/core';
 import {NgxMaterialTimepickerHoursFace} from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import {TimepickerTime} from '../../utils/timepicker-time.namespace';
 
 @Component({
     selector: 'ngx-material-timepicker-24-hours-face',

@@ -1,10 +1,8 @@
-import {ClockFaceTime} from './models/clock-face-time.interface';
-import * as _moment from 'moment';
-import {TimeAdapter} from './services/time-adapter';
-import {TimeFormat} from './models/time-format.enum';
-import {DisabledTimeConfig} from './models/disabled-time-config.interface';
-
-const moment = _moment;
+import { ClockFaceTime } from '../models/clock-face-time.interface';
+import { TimeAdapter } from '../services/time-adapter';
+import { TimeFormat } from '../models/time-format.enum';
+import { DisabledTimeConfig } from '../models/disabled-time-config.interface';
+import { DateTime } from 'luxon';
 
 export namespace TimepickerTime {
 
@@ -21,8 +19,8 @@ export namespace TimepickerTime {
         if (config.min || config.max) {
 
             return hours.map(value => {
-                const hour = config.format === 24 ? value.time : TimeAdapter.formatHour(+value.time, config.format, config.period);
-                const currentTime = moment().hour(+hour).format(TimeFormat.TWELVE);
+                const hour = config.format === 24 ? value.time : TimeAdapter.formatHour(value.time, config.format, config.period);
+                const currentTime = DateTime.fromObject({hour}).toFormat(TimeFormat.TWELVE);
 
                 return {
                     ...value,
@@ -53,7 +51,7 @@ export namespace TimepickerTime {
             const hour = TimeAdapter.formatHour(selectedHour, config.format, config.period);
 
             return minutes.map(value => {
-                const currentTime = moment().hour(hour).minute(+value.time).format(TimeFormat.TWELVE);
+                const currentTime = DateTime.fromObject({hour, minute: value.time}).toFormat(TimeFormat.TWELVE);
 
                 return {
                     ...value,

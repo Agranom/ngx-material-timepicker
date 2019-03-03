@@ -1,11 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {
-    NgxMaterialTimepicker12HoursFaceComponent
-} from './ngx-material-timepicker-12-hours-face.component';
-import * as moment from 'moment';
-import {NO_ERRORS_SCHEMA, SimpleChanges} from '@angular/core';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxMaterialTimepicker12HoursFaceComponent } from './ngx-material-timepicker-12-hours-face.component';
+import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepicker12HoursFaceComponent>;
@@ -30,7 +28,7 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
                 isFirstChange: () => null
             }
         };
-        const time = moment();
+        const time = DateTime.fromJSDate(new Date());
         const format = 12;
         const period = TimePeriod.PM;
         const hours = TimepickerTime.getHours(format);

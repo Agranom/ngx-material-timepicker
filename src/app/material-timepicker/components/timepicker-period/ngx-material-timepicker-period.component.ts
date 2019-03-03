@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimepickerTime} from '../../timepicker-time.namespace';
-import {Moment} from 'moment';
-import {animate, sequence, style, transition, trigger} from '@angular/animations';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { animate, sequence, style, transition, trigger } from '@angular/animations';
+import { DateTime } from 'luxon';
 
 @Component({
     selector: 'ngx-material-timepicker-period',
@@ -33,8 +33,8 @@ export class NgxMaterialTimepickerPeriodComponent {
     @Input() activeTimeUnit: TimeUnit;
     @Input() hours: ClockFaceTime[];
     @Input() minutes: ClockFaceTime[];
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() selectedHour: number | string;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();

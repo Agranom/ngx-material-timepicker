@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxMaterialTimepickerDialComponent } from './ngx-material-timepicker-dial.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
-import { TimepickerTime } from '../../timepicker-time.namespace';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
 

@@ -1,9 +1,9 @@
-import {TestBed} from '@angular/core/testing';
-import {ClockFaceTime} from '../models/clock-face-time.interface';
-import {NgxMaterialTimepickerService} from './ngx-material-timepicker.service';
-import {TimePeriod} from '../models/time-period.enum';
-import * as moment from 'moment';
+import { TestBed } from '@angular/core/testing';
+import { ClockFaceTime } from '../models/clock-face-time.interface';
+import { NgxMaterialTimepickerService } from './ngx-material-timepicker.service';
+import { TimePeriod } from '../models/time-period.enum';
 import { TimeAdapter } from './time-adapter';
+import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepickerService', () => {
     const DEFAULT_HOUR: ClockFaceTime = {
@@ -58,7 +58,7 @@ describe('NgxMaterialTimepickerService', () => {
 
     it('should return full time as string (hh:mm a or HH:mm)', () => {
         expect(timepickerService.getFullTime(12)).toBe('12:00 am');
-        expect(timepickerService.getFullTime(24)).toBe('12:00');
+        expect(timepickerService.getFullTime(24)).toBe('00:00');
     });
 
     it('should change default time', () => {
@@ -91,7 +91,7 @@ describe('NgxMaterialTimepickerService', () => {
     });
 
     it('should not change time if it is not available', () => {
-        const min = moment().hour(11);
+        const min = DateTime.fromObject({hour: 11});
 
         timepickerService.setDefaultTimeIfAvailable('10:10 am', null, null, 12);
 
@@ -108,8 +108,8 @@ describe('NgxMaterialTimepickerService', () => {
 
     it('should call console error', () => {
         const minutesGap = 5;
-        const min = TimeAdapter.convertTimeToMoment('11:00 pm');
-        const max = TimeAdapter.convertTimeToMoment('11:50 pm');
+        const min = TimeAdapter.convertTimeToDateTime('11:00 pm');
+        const max = TimeAdapter.convertTimeToDateTime('11:50 pm');
         const spy = spyOn(console, 'error');
 
         timepickerService.setDefaultTimeIfAvailable('11:43 pm', min, max, 12, minutesGap);

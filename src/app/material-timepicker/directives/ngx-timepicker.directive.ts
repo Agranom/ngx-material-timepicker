@@ -1,9 +1,9 @@
-import {Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {Moment} from 'moment';
-import {TimeAdapter} from '../services/time-adapter';
+import { Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { TimeAdapter } from '../services/time-adapter';
+import { DateTime } from 'luxon';
 
 const VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -35,39 +35,40 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     private _format = 12;
 
     @Input()
-    set min(value: string | Moment) {
+    set min(value: string | DateTime) {
         if (typeof value === 'string') {
-            this._min = TimeAdapter.convertTimeToMoment(value);
+            this._min = TimeAdapter.convertTimeToDateTime(value);
             return;
         }
         this._min = value;
     }
 
-    get min(): string | Moment {
+    get min(): string | DateTime {
         return this._min;
     }
 
-    private _min: string | Moment;
+    private _min: string | DateTime;
 
     @Input()
-    set max(value: string | Moment) {
+    set max(value: string | DateTime) {
         if (typeof value === 'string') {
-            this._max = TimeAdapter.convertTimeToMoment(value);
+            this._max = TimeAdapter.convertTimeToDateTime(value);
             return;
         }
         this._max = value;
     }
 
-    get max(): string | Moment {
+    get max(): string | DateTime {
         return this._max;
     }
 
-    private _max: string | Moment;
+    private _max: string | DateTime;
 
     @Input('ngxTimepicker')
     set timepicker(picker: NgxMaterialTimepickerComponent) {
         this.registerTimepicker(picker);
     }
+
     private _timepicker: NgxMaterialTimepickerComponent;
 
     @Input()
@@ -78,7 +79,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             return;
         }
         const time = TimeAdapter.formatTime(value, this._format);
-        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes', this._timepicker.minutesGap)) {
+        if (TimeAdapter.isTimeAvailable(time, <DateTime>this._min, <DateTime>this._max, 'minutes', this._timepicker.minutesGap)) {
             this._value = time;
             this.updateInputValue();
             return;
@@ -94,9 +95,14 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input() disabled: boolean;
     @Input() disableClick: boolean;
+
     private timepickerSubscriptions: Subscription[] = [];
-    onTouched = () => {};
-    private onChange: (value: any) => void = () => {};
+
+    onTouched = () => {
+    }
+
+    private onChange: (value: any) => void = () => {
+    }
 
     constructor(private elementRef: ElementRef) {
     }
