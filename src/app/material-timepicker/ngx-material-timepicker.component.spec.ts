@@ -8,6 +8,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimePeriod } from './models/time-period.enum';
 import { TimeUnit } from './models/time-unit.enum';
 import { AnimationEvent } from '@angular/animations';
+import { Subject } from 'rxjs';
 
 describe('NgxMaterialTimepickerComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerComponent>;
@@ -80,7 +81,9 @@ describe('NgxMaterialTimepickerComponent', () => {
 
     it('should update hour, minute and period on setDefaultTime', () => {
         const time = '11:12 am';
+        const input = {formatChanged: new Subject<void>()} as TimepickerDirective;
 
+        component.registerInput(input);
         component.ngOnInit();
         component.setDefaultTime(time);
         expect(component.selectedHour.time).toBe(11);
@@ -90,7 +93,9 @@ describe('NgxMaterialTimepickerComponent', () => {
 
     it('should update hour, minute and period on defaultTime input set', () => {
         const time = '01:11 am';
+        const input = {formatChanged: new Subject<void>()} as TimepickerDirective;
 
+        component.registerInput(input);
         component.ngOnInit();
         component.defaultTime = time;
         expect(component.selectedHour.time).toBe(1);
@@ -216,8 +221,10 @@ describe('NgxMaterialTimepickerComponent', () => {
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};
         const minute = {time: 44, angle: 36};
+        const input = {formatChanged: new Subject<void>()} as TimepickerDirective;
 
         beforeEach(() => {
+            component.registerInput(input);
             component.ngOnInit(); // subscribe to hour, minute and period
         });
 

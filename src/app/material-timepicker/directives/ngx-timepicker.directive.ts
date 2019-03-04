@@ -1,7 +1,7 @@
 import {Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {NgxMaterialTimepickerComponent} from '../ngx-material-timepicker.component';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject} from 'rxjs';
 import {Moment} from 'moment';
 import {TimeAdapter} from '../services/time-adapter';
 
@@ -26,11 +26,15 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set format(value: number) {
         this._format = value === 24 ? 24 : 12;
+        this.setValue(this.value);
+        this.formatChanged.next();
     }
 
     get format(): number {
         return this._format;
     }
+
+    formatChanged = new Subject<void>();
 
     private _format = 12;
 
@@ -72,18 +76,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set value(value: string) {
-        if (!value) {
-            this._value = '';
-            this.updateInputValue();
-            return;
-        }
-        const time = TimeAdapter.formatTime(value, this._format);
-        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes', this._timepicker.minutesGap)) {
-            this._value = time;
-            this.updateInputValue();
-            return;
-        }
-        console.warn('Selected time doesn\'t match min or max value');
+        this.setValue(value);
     }
 
     get value(): string {
@@ -166,5 +159,19 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this.elementRef.nativeElement.value = this.value;
     }
 
-}
+    private setValue(value: string) {
+        if (!value) {
+            this._value = '';
+            this.updateInputValue();
+            return;
+        }
+        const time = TimeAdapter.formatTime(value, this._format);
+        if (TimeAdapter.isTimeAvailable(time, <Moment>this._min, <Moment>this._max, 'minutes', this._timepicker.minutesGap)) {
+            this._value = time;
+            this.updateInputValue();
+            return;
+        }
+        console.warn('Selected time doesn\'t match min or max value');
+    }
 
+}

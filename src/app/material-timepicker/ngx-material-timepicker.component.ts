@@ -118,6 +118,9 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
         this.subscriptions.push(this.timepickerService.selectedPeriod
             .subscribe(period => this.selectedPeriod = period));
+
+        this.subscriptions.push(this.timepickerInput.formatChanged
+            .subscribe(() => this.onFormatChange()));
     }
 
     /***
@@ -188,5 +191,15 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    private onFormatChange(): void {
+        if (this.format === 12) {
+            this.timepickerService.selectedHour.subscribe(hour => {
+                if (hour && hour.time > 12) {
+                    this.timepickerService.hour = {time: hour.time - 12, angle: hour.angle};
+                }
+            });
+        }
     }
 }

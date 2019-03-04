@@ -162,4 +162,14 @@ export class AppComponent {
             clockFaceTimeInactiveColor: '#fff'
         }
     };
+
+    format: 12 | 24 = 12;
+
+    changeFormat() {
+        if (this.format === 12) {
+            this.format = 24;
+        } else {
+            this.format = 12;
+        }
+    }
 }

@@ -195,6 +195,21 @@
                     </div>
                 </div>
             </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="customSettings">Dynamic format example
+                </app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        You can dynamically change the format.
+                    </p>
+                    <button (click)="changeFormat()">Change format</button> Current format is {{format}}
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="dynamic format" aria-label="dynamic format"
+                               [ngxTimepicker]="dynamicFormat" [format]="format" readonly>
+                        <ngx-material-timepicker #dynamicFormat></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
     <footer class="footer">
