@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ClockFaceTime } from './models/clock-face-time.interface';
 import { TimePeriod } from './models/time-period.enum';
-import { merge, Subscription, combineLatest } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
 import { TimeUnit } from './models/time-unit.enum';
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
