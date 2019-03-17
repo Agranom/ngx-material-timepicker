@@ -4,13 +4,15 @@ All notable changes to this project will be documented in this file
 
 ## BREAKING CHANGES
 
-## 3.0.0 (2019-03-17)
+## 3.0.1 (2019-03-17)
 
 * Decrease package size by changing momentJs to [luxon](https://moment.github.io/luxon/),
  closes [(#78)](https://github.com/Agranom/ngx-material-timepicker/issues/78)
  
 * improvement(NgxMaterialTimepickerModule): remove forRoot() static method and add `provideIn` property to services,
 closes [(#94)](https://github.com/Agranom/ngx-material-timepicker/issues/94) 
+
+* Update peerDependencies
 
 ## 2.13.0 (2019-02-16)
 
