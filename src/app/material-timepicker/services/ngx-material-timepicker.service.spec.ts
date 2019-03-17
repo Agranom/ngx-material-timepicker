@@ -69,6 +69,12 @@ describe('NgxMaterialTimepickerService', () => {
         expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 15});
         expect(selectedPeriod).toBe(TimePeriod.AM);
 
+        time = '11:12 pm';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 12);
+        expect(selectedHour.time).toBe(11);
+        expect(selectedMinute.time).toBe(12);
+        expect(selectedPeriod).toBe(TimePeriod.PM);
+
         time = '00:00';
         timepickerService.setDefaultTimeIfAvailable(time, null, null, 24);
 

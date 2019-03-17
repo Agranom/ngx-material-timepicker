@@ -26,9 +26,11 @@ export class NgxMaterialTimepickerService {
         const defaultTime = TimeAdapter.convertTimeToDateTime(time).toJSDate();
 
         if (DateTime.fromJSDate(defaultTime).isValid) {
-            this.hour = {...DEFAULT_HOUR, time: defaultTime.getHours()};
+            const period = time.substr(time.length - 2).toUpperCase();
+
+            this.hour = {...DEFAULT_HOUR, time: period === TimePeriod.PM ? defaultTime.getHours() - 12 : defaultTime.getHours()};
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
-            this.period = <TimePeriod>time.substr(time.length - 2).toUpperCase();
+            this.period = period as TimePeriod;
         } else {
             this.resetTime();
         }
