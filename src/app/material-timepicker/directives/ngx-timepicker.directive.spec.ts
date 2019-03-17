@@ -28,7 +28,7 @@ describe('TimepickerDirective', () => {
             declarations: [
                 TestComponent
             ],
-            imports: [NgxMaterialTimepickerModule.forRoot()]
+            imports: [NgxMaterialTimepickerModule]
         }).createComponent(TestComponent);
         input = fixture.debugElement.query(By.directive(TimepickerDirective));
         directive = input.injector.get<TimepickerDirective>(TimepickerDirective);
