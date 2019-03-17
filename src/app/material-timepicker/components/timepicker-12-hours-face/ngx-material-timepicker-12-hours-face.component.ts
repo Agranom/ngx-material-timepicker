@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {NgxMaterialTimepickerHoursFace} from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
 import {TimePeriod} from '../../models/time-period.enum';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import {TimepickerTime} from '../../utils/timepicker-time.namespace';
 
 
 @Component({

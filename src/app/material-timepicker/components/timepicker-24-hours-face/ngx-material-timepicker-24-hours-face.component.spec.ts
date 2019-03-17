@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {NgxMaterialTimepicker24HoursFaceComponent} from './ngx-material-timepicker-24-hours-face.component';
-import {TimepickerTime} from '../../timepicker-time.namespace';
-import * as moment from 'moment';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgxMaterialTimepicker24HoursFaceComponent } from './ngx-material-timepicker-24-hours-face.component';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepicker24HoursFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepicker24HoursFaceComponent>;
@@ -19,7 +19,7 @@ describe('NgxMaterialTimepicker24HoursFaceComponent', () => {
 
     it('should call disableHours', () => {
         const spy = spyOn(TimepickerTime, 'disableHours');
-        const time = moment();
+        const time = DateTime.fromJSDate(new Date());
         const format = 24;
         const hours = TimepickerTime.getHours(format);
 

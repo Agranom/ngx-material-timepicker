@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
-import { TimepickerTime } from '../../timepicker-time.namespace';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { Moment } from 'moment';
+import { DateTime } from 'luxon';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -26,8 +26,8 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Input() format: number;
     @Input() period: TimePeriod;
     @Input() activeTimeUnit: TimeUnit;
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() isEditable: boolean;
     @Input() minutesGap: number;
 

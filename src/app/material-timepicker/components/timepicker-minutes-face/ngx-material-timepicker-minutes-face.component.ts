@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimePeriod} from '../../models/time-period.enum';
-import {Moment} from 'moment';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { DateTime } from 'luxon';
 
 
 @Component({
@@ -18,8 +18,8 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Input() selectedMinute: ClockFaceTime;
     @Input() selectedHour: number;
     @Input() period: TimePeriod;
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() format: number;
     @Input() minutesGap: number;
 

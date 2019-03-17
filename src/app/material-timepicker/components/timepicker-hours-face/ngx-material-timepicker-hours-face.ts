@@ -1,14 +1,14 @@
-import {EventEmitter, Input, Output} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {Moment} from 'moment';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { EventEmitter, Input, Output } from '@angular/core';
+import { DateTime } from 'luxon';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
 
 
 export class NgxMaterialTimepickerHoursFace {
 
     @Input() selectedHour: ClockFaceTime;
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() format: number;
 
     @Output() hourChange = new EventEmitter<ClockFaceTime>();

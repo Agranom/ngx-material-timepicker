@@ -1,42 +1,71 @@
-import {TimeAdapter} from './time-adapter';
-import {TimePeriod} from '../models/time-period.enum';
+import { TimeAdapter } from './time-adapter';
+import { TimePeriod } from '../models/time-period.enum';
+import { DateTime } from 'luxon';
 
 
 describe('TimeAdapter', () => {
 
-    describe('convertTimeToMoment', () => {
+    describe('convertTimeToDateTime', () => {
 
 
-        it('shout convert string time  into Moment type time', () => {
-            const stringTime = '11:20 am';
-            const momentTime = TimeAdapter.convertTimeToMoment(stringTime);
+        it('shout convert string time into DateTime format', () => {
+            const stringTime = '23:20';
+            const time = TimeAdapter.convertTimeToDateTime(stringTime);
 
-            expect(momentTime.isValid()).toBeTruthy();
-            expect(momentTime.hour()).toBe(11, 'wrong hours');
-            expect(momentTime.minute()).toBe(20, 'wrong hours');
+            expect(time instanceof DateTime).toBeTruthy();
+            expect(time.isValid).toBeTruthy();
+            expect(time.hour).toBe(23, 'wrong hours');
+            expect(time.minute).toBe(20, 'wrong minutes');
         });
 
         it('should be invalid if pass incorrect value', () => {
             const time = 'time';
-            expect(TimeAdapter.convertTimeToMoment(time).isValid()).toBeFalsy();
+            expect(TimeAdapter.convertTimeToDateTime(time).isValid).toBeFalsy();
+        });
+    });
+
+    describe('parseTime', () => {
+
+        it('should return 11:0 AM', () => {
+            const expected = '11:0 AM';
+
+            expect(TimeAdapter.parseTime('11:00')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:00 Am')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:00 am')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:00am')).toBe(expected);
         });
 
-        it('should return time in am/pm format', () => {
-            expect(TimeAdapter.formatTime('23:00')).toEqual('11:00 pm');
-            expect(TimeAdapter.formatTime('12:20 am')).toEqual('12:20 am');
-            expect(TimeAdapter.formatTime('12:20 am', 33)).toEqual('12:20 am');
+        it('should return 11:11 PM', () => {
+            const expected = '11:11 PM';
+
+            expect(TimeAdapter.parseTime('23:11')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:11 Pm')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:11 pm')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:11pm')).toBe(expected);
+        });
+
+        it('should return Invalid time', () => {
+            const expected = 'Invalid time';
+
+            expect(TimeAdapter.parseTime('11')).toBe(expected);
         });
     });
 
     describe('formatTime', () => {
+
         it('should return time in 24-hours format', () => {
-            expect(TimeAdapter.formatTime('11:00 pm', 24)).toEqual('23:00');
-            expect(TimeAdapter.formatTime('18:10', 24)).toEqual('18:10');
+            expect(TimeAdapter.formatTime('11:00 pm', 24)).toBe('23:00');
+            expect(TimeAdapter.formatTime('18:10', 24)).toBe('18:10');
+        });
+
+        it('should return time in am/pm format', () => {
+            expect(TimeAdapter.formatTime('23:00')).toBe('11:00 pm');
+            expect(TimeAdapter.formatTime('12:20 am')).toBe('12:20 am');
+            expect(TimeAdapter.formatTime('12:20 am', 33)).toBe('12:20 am');
         });
     });
 
     describe('isTimeAvailable', () => {
-
 
         it('should return false if no time provided', () => {
             expect(TimeAdapter.isTimeAvailable('')).toBeFalsy();
@@ -44,8 +73,8 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.isTimeAvailable(undefined)).toBeFalsy();
         });
 
-        it('should return true if time after min value', () => {
-            const min = TimeAdapter.convertTimeToMoment('11:11 am');
+        it('should return true', () => {
+            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
             let isAvailable = TimeAdapter.isTimeAvailable('11:12 am', min);
             expect(isAvailable).toBeTruthy();
 
@@ -53,49 +82,16 @@ describe('TimeAdapter', () => {
             expect(isAvailable).toBeTruthy();
         });
 
-        it('should return false  if time less than min', () => {
-            const min = TimeAdapter.convertTimeToMoment('11:11 am');
+        it('should return false', () => {
+            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
             const isAvailable = TimeAdapter.isTimeAvailable('11:10 am', min);
-            expect(isAvailable).toBeFalsy();
-        });
-
-        it('should return true if time before or equal max value', () => {
-            const max = TimeAdapter.convertTimeToMoment('11:11 am');
-            let isAvailable = TimeAdapter.isTimeAvailable('11:10 am', null, max);
-            expect(isAvailable).toBeTruthy();
-
-            isAvailable = TimeAdapter.isTimeAvailable('11:11 am', null, max);
-            expect(isAvailable).toBeTruthy();
-        });
-
-        it('should return false if time more than max', () => {
-            const max = TimeAdapter.convertTimeToMoment('11:11 am');
-            const isAvailable = TimeAdapter.isTimeAvailable('11:12 am', null, max);
-            expect(isAvailable).toBeFalsy();
-        });
-
-        it('should return true if time between min(inclusively) and max(inclusively) value', () => {
-            const min = TimeAdapter.convertTimeToMoment('09:00 am');
-            const max = TimeAdapter.convertTimeToMoment('03:00 pm');
-            let isAvailable = TimeAdapter.isTimeAvailable('12:12 pm', min, max);
-            expect(isAvailable).toBeTruthy();
-
-            isAvailable = TimeAdapter.isTimeAvailable('09:00 am', min, max);
-            expect(isAvailable).toBeTruthy();
-        });
-
-        it('should return false if time is not between min(inclusively) and max(inclusively) value', () => {
-            const min = TimeAdapter.convertTimeToMoment('09:00 am');
-            const max = TimeAdapter.convertTimeToMoment('03:00 pm');
-
-            const isAvailable = TimeAdapter.isTimeAvailable('12:00 am', min, max);
             expect(isAvailable).toBeFalsy();
         });
 
         it('should throw an Error', function () {
             const minutesGap = 5;
-            const min = TimeAdapter.convertTimeToMoment('11:00 pm');
-            const max = TimeAdapter.convertTimeToMoment('11:50 pm');
+            const min = TimeAdapter.convertTimeToDateTime('11:00 pm');
+            const max = TimeAdapter.convertTimeToDateTime('11:50 pm');
             try {
                 TimeAdapter.isTimeAvailable('11:43 pm', min, max, 'minutes', minutesGap);
             } catch (e) {
@@ -105,6 +101,7 @@ describe('TimeAdapter', () => {
     });
 
     describe('formatHour', () => {
+
         it('should return hour without changes', () => {
             const hour = 23;
             expect(TimeAdapter.formatHour(hour, 24, TimePeriod.AM)).toBe(hour);

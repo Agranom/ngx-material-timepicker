@@ -1,10 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NgxMaterialTimepickerPeriodComponent} from './ngx-material-timepicker-period.component';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimePeriod} from '../../models/time-period.enum';
-import * as moment from 'moment';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxMaterialTimepickerPeriodComponent } from './ngx-material-timepicker-period.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepickerPeriodComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerPeriodComponent>;
@@ -23,8 +23,8 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
     it('should change period for hour unit', () => {
         component.activeTimeUnit = TimeUnit.HOUR;
         component.format = 12;
-        component.minTime = moment().hour(1);
-        component.maxTime = moment().hour(15);
+        component.minTime = DateTime.fromObject({hour: 1});
+        component.maxTime = DateTime.fromObject({hour: 15});
         component.hours = TimepickerTime.getHours(12);
         component.isPeriodAvailable = false;
         component.periodChanged.subscribe(p => component.selectedPeriod = p);
@@ -37,8 +37,8 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
     it('should change period for minute unit', () => {
         component.activeTimeUnit = TimeUnit.MINUTE;
         component.format = 12;
-        component.minTime = moment().hour(1);
-        component.maxTime = moment().hour(5);
+        component.minTime = DateTime.fromObject({hour: 1});
+        component.maxTime = DateTime.fromObject({hour: 5});
         component.minutes = minutes;
         component.selectedHour = 4;
         component.periodChanged.subscribe(p => component.selectedPeriod = p);
@@ -50,8 +50,8 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
     it('should not change period', () => {
         component.activeTimeUnit = TimeUnit.MINUTE;
         component.format = 12;
-        component.minTime = moment().hour(1);
-        component.maxTime = moment().hour(5);
+        component.minTime = DateTime.fromObject({hour: 1});
+        component.maxTime = DateTime.fromObject({hour: 5});
         component.minutes = minutes;
         component.selectedHour = 4;
         component.selectedPeriod = TimePeriod.AM;
@@ -63,8 +63,8 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
 
     it('should throw an error', () => {
         component.format = 12;
-        component.minTime = moment().hour(1);
-        component.maxTime = moment().hour(5);
+        component.minTime = DateTime.fromObject({hour: 1});
+        component.maxTime = DateTime.fromObject({hour: 5});
         component.minutes = minutes;
         component.selectedHour = 4;
         component.selectedPeriod = TimePeriod.AM;
