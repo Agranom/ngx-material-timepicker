@@ -16,13 +16,13 @@ Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker
 ```
-Next import the timepicker module into your apps module:
+Next import the timepicker module into your app's module:
 ```typescript
 import {NgModule} from '@angular/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
-  imports: [NgxMaterialTimepickerModule.forRoot()]
+  imports: [NgxMaterialTimepickerModule]
 })
 export class MyModule {}
 ```

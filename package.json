@@ -1,7 +1,7 @@
 {
     "name": "ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "2.13.0",
+    "version": "3.0.0",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
@@ -63,7 +63,6 @@
         "codecov": "^3.1.0",
         "codelyzer": "^4.0.1",
         "core-js": "^2.4.1",
-        "date-fns": "^1.30.1",
         "jasmine-core": "~2.8.0",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~2.0.0",
