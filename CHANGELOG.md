@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file
  closes [(#78)](https://github.com/Agranom/ngx-material-timepicker/issues/78)
  
 * improvement(NgxMaterialTimepickerModule): remove forRoot() static method and add `provideIn` property to services,
-closes [(#94)](https://github.com/Agranom/ngx-material-timepicker/issues/94) 
+closes [(#83)](https://github.com/Agranom/ngx-material-timepicker/issues/83) 
 
 * Update peerDependencies
 
