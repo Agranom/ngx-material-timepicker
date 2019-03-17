@@ -15,7 +15,9 @@ const DEFAULT_MINUTE: ClockFaceTime = {
     angle: 360
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NgxMaterialTimepickerService {
 
     private hourSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_HOUR);
