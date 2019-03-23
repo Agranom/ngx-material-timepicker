@@ -6,4 +6,5 @@ export * from './src/app/material-timepicker/models/ngx-material-timepicker-face
 export * from './src/app/material-timepicker/directives/ngx-material-timepicker-theme.directive';
 export * from './src/app/material-timepicker/directives/ngx-material-timepicker-toggle-icon.directive';
 export * from './src/app/material-timepicker/directives/ngx-timepicker.directive';
+export * from './src/app/material-timepicker/ngx-material-timepicker.component';
 

@@ -7,15 +7,23 @@ import { TimepickerUtils } from '../utils/timepicker.utils';
 // @dynamic
 export class TimeAdapter {
 
-    static parseTime(time: string): string {
+    static parseTime(time: string, format = 12): string {
         if (time.indexOf(':') === -1) {
             return 'Invalid time';
         }
         let period = time.trim().substr(time.length - 2).toUpperCase();
 
-        const [h, m] = time.split(':');
-        const isPM = +h > 12;
         const isPeriodValid = period === TimePeriod.AM || period === TimePeriod.PM;
+        const [h, m] = time.split(':');
+
+
+
+        if (format === 24) {
+            const formattedHours = isPeriodValid ? this.formatHour(+h, 12, period as TimePeriod) : +h;
+            return `${formattedHours}:${parseInt(m, 10)}`;
+        }
+
+        const isPM = +h > 12;
         const hours = isPM ? +h - 12 : +h;
 
         period = isPeriodValid ? period : isPM ? TimePeriod.PM : TimePeriod.AM;
@@ -24,12 +32,15 @@ export class TimeAdapter {
     }
 
     static formatTime(time: string, format = 12): string {
-        const timeFormat = format === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
-        return DateTime.fromFormat(this.parseTime(time), 'h:m a').toFormat(timeFormat).toLowerCase();
+        const timeFormat = (format === 24) ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+        const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
+
+        return DateTime.fromFormat(this.parseTime(time, format), timeMask).toFormat(timeFormat).toLowerCase();
     }
 
-    static convertTimeToDateTime(time: string): DateTime {
-        return DateTime.fromFormat(this.parseTime(time), 'h:m a');
+    static convertTimeToDateTime(time: string, format = 12): DateTime {
+        const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
+        return DateTime.fromFormat(this.parseTime(time, format), timeMask);
     }
 
     static isTimeAvailable(time: string, min?: DateTime, max?: DateTime, granularity?: 'hours' | 'minutes', minutesGap?: number): boolean {

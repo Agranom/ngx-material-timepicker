@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.0.2 (2019-03-23)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix issues with selecting time [(cf80399)](https://github.com/Agranom/ngx-material-timepicker/commit/cf80399e7d59187918e4ae6ac031c248bbaa2827),
+closes [(#121)](https://github.com/Agranom/ngx-material-timepicker/issues/121), [(#122)](https://github.com/Agranom/ngx-material-timepicker/issues/121)
+
+* fix(ngx-material-timepicker-period): disable to set period if it is not valid [(b7c3626)](https://github.com/Agranom/ngx-material-timepicker/commit/b7c36267a655b6a14bb9ba5b1e9ac0ebe1933cec),
+closes [(#120)](https://github.com/Agranom/ngx-material-timepicker/issues/120)
+
+### Improvements
+
+* improvement(ngx-material-timepicker-component): provide `NgxMaterialTimepickerComponent` as public API [(159167a)](https://github.com/Agranom/ngx-material-timepicker/commit/159167a73975396edf1719befd6920fdae2d7ac2),
+closes [(#119)](https://github.com/Agranom/ngx-material-timepicker/issues/119)
+
 ## BREAKING CHANGES
 
 ## 3.0.1 (2019-03-17)

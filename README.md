@@ -12,6 +12,13 @@ https://agranom.github.io/ngx-material-timepicker/
 
 ## Getting started
 
+Timepicker uses lightweight Date library [luxon](https://moment.github.io/luxon/),
+ so make sure you have installed it:
+ 
+ ```angular2html
+ npm install --save luxon
+ ```
+
 Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker
@@ -57,9 +64,9 @@ Selector: `ngxTimepicker`
 | @Input()
   format: number | `12` or `24` . 12h/24h view for hour selection clock . `12` (AM/PM) format by default. |
 | @Input()
-  min: string or Moment | Set min time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+  min: string or DateTime | Set min time for timepicker (`11:15 pm` ) |
 | @Input()
-  max: string or Moment | Set max time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+  max: string or DateTime | Set max time for timepicker (`11:15 pm` ) |
 | @Input()
   disableClick: boolean | Set `true` to disable opening timepicker by clicking on the input |
 
