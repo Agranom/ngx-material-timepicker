@@ -42,7 +42,11 @@ export class NgxMaterialTimepickerService {
     }
 
     set period(period: TimePeriod) {
-        this.periodSubject.next(period);
+        const isPeriodValid = (period === TimePeriod.AM) || (period === TimePeriod.PM);
+
+        if (isPeriodValid) {
+            this.periodSubject.next(period);
+        }
     }
 
     get selectedPeriod(): Observable<TimePeriod> {
@@ -79,6 +83,7 @@ export class NgxMaterialTimepickerService {
             this.hour = {...DEFAULT_HOUR, time: formatHourByPeriod(hour, period as TimePeriod)};
             this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
             this.period = period as TimePeriod;
+
         } else {
             this.resetTime();
         }
