@@ -9,8 +9,18 @@ describe('TimeAdapter', () => {
 
 
         it('shout convert string time into DateTime format', () => {
-            const stringTime = '23:20';
+            const stringTime = '11:20 pm';
             const time = TimeAdapter.convertTimeToDateTime(stringTime);
+
+            expect(time instanceof DateTime).toBeTruthy();
+            expect(time.isValid).toBeTruthy();
+            expect(time.hour).toBe(23, 'wrong hours');
+            expect(time.minute).toBe(20, 'wrong minutes');
+        });
+
+        it('shout convert string time into DateTime format (24hours format)', () => {
+            const stringTime = '23:20';
+            const time = TimeAdapter.convertTimeToDateTime(stringTime, 24);
 
             expect(time instanceof DateTime).toBeTruthy();
             expect(time.isValid).toBeTruthy();
@@ -35,13 +45,22 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.parseTime('11:00am')).toBe(expected);
         });
 
-        it('should return 11:11 PM', () => {
+        it('should parse time to 12hours format', () => {
             const expected = '11:11 PM';
 
             expect(TimeAdapter.parseTime('23:11')).toBe(expected);
             expect(TimeAdapter.parseTime('11:11 Pm')).toBe(expected);
             expect(TimeAdapter.parseTime('11:11 pm')).toBe(expected);
             expect(TimeAdapter.parseTime('11:11pm')).toBe(expected);
+        });
+
+        it('should parse time to 24hours format', () => {
+            const format = 24;
+
+            expect(TimeAdapter.parseTime('23:00', format)).toBe('23:0');
+            expect(TimeAdapter.parseTime('11:00 pm', format)).toBe('23:0');
+            expect(TimeAdapter.parseTime('11:00', format)).toBe('11:0');
+            expect(TimeAdapter.parseTime('11:00 am', format)).toBe('11:0');
         });
 
         it('should return Invalid time', () => {

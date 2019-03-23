@@ -56,9 +56,9 @@ describe('NgxMaterialTimepickerService', () => {
         expect(selectedPeriod).toEqual(TimePeriod.PM);
     });
 
-    it('should return full time as string (hh:mm a or HH:mm)', () => {
+    it('should return default full time as string (hh:mm a or HH:mm)', () => {
         expect(timepickerService.getFullTime(12)).toBe('12:00 am');
-        expect(timepickerService.getFullTime(24)).toBe('00:00');
+        expect(timepickerService.getFullTime(24)).toBe('12:00');
     });
 
     it('should change default time', () => {
@@ -75,10 +75,28 @@ describe('NgxMaterialTimepickerService', () => {
         expect(selectedMinute.time).toBe(12);
         expect(selectedPeriod).toBe(TimePeriod.PM);
 
+        time = '12:00 pm';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 12);
+        expect(selectedHour.time).toBe(12);
+        expect(selectedMinute.time).toBe(0);
+        expect(selectedPeriod).toBe(TimePeriod.PM);
+
+        time = '12:00 am';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 12);
+        expect(selectedHour.time).toBe(12);
+        expect(selectedMinute.time).toBe(0);
+        expect(selectedPeriod).toBe(TimePeriod.AM);
+
         time = '00:00';
         timepickerService.setDefaultTimeIfAvailable(time, null, null, 24);
 
         expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 0});
+        expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 0});
+
+        time = '15:00';
+        timepickerService.setDefaultTimeIfAvailable(time, null, null, 24);
+
+        expect(selectedHour).toEqual({...DEFAULT_HOUR, time: 15});
         expect(selectedMinute).toEqual({...DEFAULT_MINUTE, time: 0});
     });
 
