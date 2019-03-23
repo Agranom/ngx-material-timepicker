@@ -1,7 +1,7 @@
 {
     "name": "ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
@@ -44,6 +44,7 @@
         "@angular/core": "^7.0.3",
         "@angular/platform-browser": "^7.0.3",
         "@angular/forms": "^7.0.3",
+        "@angular/animations": "^7.0.3",
         "rxjs": "^6.3.3",
         "luxon": "^1.11.3"
     },
