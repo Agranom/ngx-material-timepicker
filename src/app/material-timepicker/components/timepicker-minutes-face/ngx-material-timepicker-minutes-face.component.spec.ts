@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxMaterialTimepickerMinutesFaceComponent } from './ngx-material-timepicker-minutes-face.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
-import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import * as TimepickerTime from '../../utils/timepicker-time.utils';
 import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepickerMinutesFaceComponent', () => {

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
 import { TimePeriod } from '../models/time-period.enum';
-import { TimepickerUtils } from '../utils/timepicker.utils';
+import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
 
 // @dynamic
 export class TimeAdapter {
@@ -62,14 +62,14 @@ export class TimeAdapter {
             throw new Error(`Your minutes - ${minutes} doesn\'t match your minutesGap - ${minutesGap}`);
         }
         const isAfter = (min && !max)
-            && TimepickerUtils.isSameOrAfter(convertedTime, min, granularity);
+            && isSameOrAfter(convertedTime, min, granularity);
         const isBefore = (max && !min)
-            && TimepickerUtils.isSameOrBefore(convertedTime, max, granularity);
-        const isBetween = (min && max)
-            && TimepickerUtils.isBetween(convertedTime, min, max, granularity);
+            && isSameOrBefore(convertedTime, max, granularity);
+        const between = (min && max)
+            && isBetween(convertedTime, min, max, granularity);
         const isAvailable = !min && !max;
 
-        return isAfter || isBefore || isBetween || isAvailable;
+        return isAfter || isBefore || between || isAvailable;
     }
 
     /***

@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
-import { TimepickerTime } from '../../utils/timepicker-time.namespace';
+import { getHours } from '../../utils/timepicker-time.utils';
 
 describe('NgxMaterialTimepickerDialControlComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialControlComponent>;
@@ -138,7 +138,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
         beforeEach(() => {
             counter = 0;
-            component.timeList = TimepickerTime.getHours(24);
+            component.timeList = getHours(24);
         });
 
 

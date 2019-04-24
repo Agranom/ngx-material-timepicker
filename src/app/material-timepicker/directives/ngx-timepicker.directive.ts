@@ -38,7 +38,6 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     set min(value: string | DateTime) {
         if (typeof value === 'string') {
             this._min = TimeAdapter.convertTimeToDateTime(value, this._format);
-            console.log(this._min);
             return;
         }
         this._min = value;
