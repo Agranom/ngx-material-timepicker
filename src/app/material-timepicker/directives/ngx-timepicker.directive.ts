@@ -108,10 +108,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     private timepickerSubscriptions: Subscription[] = [];
 
     onTouched = () => {
-    };
+    }
 
     private onChange: (value: any) => void = () => {
-    };
+    }
 
     constructor(private elementRef: ElementRef) {
     }
