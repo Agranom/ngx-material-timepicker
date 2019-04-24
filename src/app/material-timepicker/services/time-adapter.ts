@@ -17,7 +17,6 @@ export class TimeAdapter {
         const [h, m] = time.split(':');
 
 
-
         if (format === 24) {
             const formattedHours = isPeriodValid ? this.formatHour(+h, 12, period as TimePeriod) : +h;
             return `${formattedHours}:${parseInt(m, 10)}`;
@@ -43,12 +42,20 @@ export class TimeAdapter {
         return DateTime.fromFormat(this.parseTime(time, format), timeMask);
     }
 
-    static isTimeAvailable(time: string, min?: DateTime, max?: DateTime, granularity?: 'hours' | 'minutes', minutesGap?: number): boolean {
+    static isTimeAvailable(
+        time: string,
+        min?: DateTime,
+        max?: DateTime,
+        granularity?: 'hours' | 'minutes',
+        minutesGap?: number,
+        format?: number
+    ): boolean {
+
         if (!time) {
             return;
         }
 
-        const convertedTime = this.convertTimeToDateTime(time);
+        const convertedTime = this.convertTimeToDateTime(time, format);
         const minutes = convertedTime.minute;
 
         if (minutesGap && (minutes % minutesGap !== 0)) {
