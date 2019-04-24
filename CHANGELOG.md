@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.0.3 (2019-04-24)
+
+### Fixes
+
+* fix(ngx-material-timepicker): move functions from namespaces, closes [(#94)](https://github.com/Agranom/ngx-material-timepicker/issues/94)
+
+* fix(ngx-material-timepicker): min/max time validation with 24-hours format,
+closes [(#127)](https://github.com/Agranom/ngx-material-timepicker/issues/127)
+
+* fix(ngx-material-timepicker-facet): set minutes angle step according to minutes gap,
+closes [(#132)](https://github.com/Agranom/ngx-material-timepicker/issues/132)
+
+
 ## 3.0.2 (2019-03-23)
 
 ### Fixes
