@@ -110,7 +110,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         /* Check if selected time from the inner clock face (24 hours format only) */
         const isInnerClockChosen = this.format && this.isInnerClockFace(centerX, centerY, e.clientX, e.clientY);
         /* Round angle according to angle step */
-        const angleStep = this.unit === TimeUnit.MINUTE ? 6 : 30;
+        const angleStep = this.unit === TimeUnit.MINUTE ? (6 * (this.minutesGap || 1)) : 30;
         const roundedAngle = isInnerClockChosen
             ? roundAngle(circleAngle, angleStep) + 360
             : roundAngle(circleAngle, angleStep);
