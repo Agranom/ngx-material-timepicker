@@ -3,13 +3,13 @@ import { NgxMaterialTimepickerPeriodComponent } from './ngx-material-timepicker-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { TimePeriod } from '../../models/time-period.enum';
-import { TimepickerTime } from '../../utils/timepicker-time.namespace';
 import { DateTime } from 'luxon';
+import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
 
 describe('NgxMaterialTimepickerPeriodComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerPeriodComponent>;
     let component: NgxMaterialTimepickerPeriodComponent;
-    const minutes = TimepickerTime.getMinutes();
+    const minutes = getMinutes();
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
@@ -25,7 +25,7 @@ describe('NgxMaterialTimepickerPeriodComponent', () => {
         component.format = 12;
         component.minTime = DateTime.fromObject({hour: 1});
         component.maxTime = DateTime.fromObject({hour: 15});
-        component.hours = TimepickerTime.getHours(12);
+        component.hours = getHours(12);
         component.isPeriodAvailable = false;
         component.periodChanged.subscribe(p => component.selectedPeriod = p);
         component.changePeriod(TimePeriod.PM);

@@ -37,7 +37,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set min(value: string | DateTime) {
         if (typeof value === 'string') {
-            this._min = TimeAdapter.convertTimeToDateTime(value);
+            this._min = TimeAdapter.convertTimeToDateTime(value, this._format);
             return;
         }
         this._min = value;
@@ -52,7 +52,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set max(value: string | DateTime) {
         if (typeof value === 'string') {
-            this._max = TimeAdapter.convertTimeToDateTime(value);
+            this._max = TimeAdapter.convertTimeToDateTime(value, this._format);
             return;
         }
         this._max = value;
@@ -79,7 +79,16 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             return;
         }
         const time = TimeAdapter.formatTime(value, this._format);
-        if (TimeAdapter.isTimeAvailable(time, <DateTime>this._min, <DateTime>this._max, 'minutes', this._timepicker.minutesGap)) {
+        const isAvailable = TimeAdapter.isTimeAvailable(
+            time,
+            <DateTime>this._min,
+            <DateTime>this._max,
+            'minutes',
+            this._timepicker.minutesGap,
+            this._format
+        );
+
+        if (isAvailable) {
             this._value = time;
             this.updateInputValue();
             return;

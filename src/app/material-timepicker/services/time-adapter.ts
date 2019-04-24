@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
 import { TimePeriod } from '../models/time-period.enum';
-import { TimepickerUtils } from '../utils/timepicker.utils';
+import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
 
 // @dynamic
 export class TimeAdapter {
@@ -15,7 +15,6 @@ export class TimeAdapter {
 
         const isPeriodValid = period === TimePeriod.AM || period === TimePeriod.PM;
         const [h, m] = time.split(':');
-
 
 
         if (format === 24) {
@@ -43,26 +42,34 @@ export class TimeAdapter {
         return DateTime.fromFormat(this.parseTime(time, format), timeMask);
     }
 
-    static isTimeAvailable(time: string, min?: DateTime, max?: DateTime, granularity?: 'hours' | 'minutes', minutesGap?: number): boolean {
+    static isTimeAvailable(
+        time: string,
+        min?: DateTime,
+        max?: DateTime,
+        granularity?: 'hours' | 'minutes',
+        minutesGap?: number,
+        format?: number
+    ): boolean {
+
         if (!time) {
             return;
         }
 
-        const convertedTime = this.convertTimeToDateTime(time);
+        const convertedTime = this.convertTimeToDateTime(time, format);
         const minutes = convertedTime.minute;
 
         if (minutesGap && (minutes % minutesGap !== 0)) {
             throw new Error(`Your minutes - ${minutes} doesn\'t match your minutesGap - ${minutesGap}`);
         }
         const isAfter = (min && !max)
-            && TimepickerUtils.isSameOrAfter(convertedTime, min, granularity);
+            && isSameOrAfter(convertedTime, min, granularity);
         const isBefore = (max && !min)
-            && TimepickerUtils.isSameOrBefore(convertedTime, max, granularity);
-        const isBetween = (min && max)
-            && TimepickerUtils.isBetween(convertedTime, min, max, granularity);
+            && isSameOrBefore(convertedTime, max, granularity);
+        const between = (min && max)
+            && isBetween(convertedTime, min, max, granularity);
         const isAvailable = !min && !max;
 
-        return isAfter || isBefore || isBetween || isAvailable;
+        return isAfter || isBefore || between || isAvailable;
     }
 
     /***

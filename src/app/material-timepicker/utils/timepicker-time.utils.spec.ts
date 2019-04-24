@@ -1,6 +1,6 @@
-import { TimepickerTime } from './timepicker-time.namespace';
 import { TimePeriod } from '../models/time-period.enum';
 import { DateTime } from 'luxon';
+import { disableHours, disableMinutes, getHours, getMinutes } from './timepicker-time.utils';
 
 describe('TimepickerTime', () => {
     describe('Hour', () => {
@@ -8,7 +8,7 @@ describe('TimepickerTime', () => {
         const max = DateTime.fromObject({hour: 15});
 
         it('should return 12 hours', () => {
-            const hours = TimepickerTime.getHours(12);
+            const hours = getHours(12);
             for (let i = 0; i < hours.length; i++) {
                 const angleStep = 30;
                 expect(hours[i]).toEqual({time: i + 1, angle: (i + 1) * angleStep});
@@ -16,7 +16,7 @@ describe('TimepickerTime', () => {
         });
 
         it('should return 24 hours', () => {
-            const hours = TimepickerTime.getHours(24);
+            const hours = getHours(24);
             for (let i = 0; i < hours.length; i++) {
                 const angleStep = 30;
                 const time = i + 1;
@@ -26,8 +26,8 @@ describe('TimepickerTime', () => {
         });
 
         it('should disable hours if min time present (12 hours format)', () => {
-            const hours = TimepickerTime.getHours(12);
-            let disabledHours = TimepickerTime.disableHours(hours, {
+            const hours = getHours(12);
+            let disabledHours = disableHours(hours, {
                 min,
                 max: undefined,
                 format: 12,
@@ -39,7 +39,7 @@ describe('TimepickerTime', () => {
                 expect(disabledHours[i].time).toBe(disabledHours[i].time === 12 ? 12 : i + 1);
             }
 
-            disabledHours = TimepickerTime.disableHours(hours, {
+            disabledHours = disableHours(hours, {
                 min,
                 max: undefined,
                 format: 12,
@@ -50,8 +50,8 @@ describe('TimepickerTime', () => {
         });
 
         it('should disable hours if max time present (12 hours format)', () => {
-            const hours = TimepickerTime.getHours(12);
-            let disabledHours = TimepickerTime.disableHours(hours, {
+            const hours = getHours(12);
+            let disabledHours = disableHours(hours, {
                 min: undefined,
                 max,
                 format: 12,
@@ -61,7 +61,7 @@ describe('TimepickerTime', () => {
             expect(disabledHours.length).toBe(0);
 
 
-            disabledHours = TimepickerTime.disableHours(hours, {
+            disabledHours = disableHours(hours, {
                 min: undefined,
                 max,
                 format: 12,
@@ -75,8 +75,8 @@ describe('TimepickerTime', () => {
         });
 
         it('should disable hours if min and max time present (24 hours format)', () => {
-            const hours = TimepickerTime.getHours(24);
-            const disabledHours = TimepickerTime.disableHours(hours, {
+            const hours = getHours(24);
+            const disabledHours = disableHours(hours, {
                 min,
                 max,
                 format: 24,
@@ -86,8 +86,8 @@ describe('TimepickerTime', () => {
         });
 
         it('should return hours without disabling if nor min and max values were provided', () => {
-            const hours = TimepickerTime.getHours(24);
-            const disabledHours = TimepickerTime.disableHours(hours, {
+            const hours = getHours(24);
+            const disabledHours = disableHours(hours, {
                 min: undefined,
                 max: undefined,
                 format: 24,
@@ -100,7 +100,7 @@ describe('TimepickerTime', () => {
     describe('Minute', () => {
         const min = DateTime.fromObject({hour: 1, minute: 10});
         const max = DateTime.fromObject({hour: 3, minute: 50});
-        const minutes = TimepickerTime.getMinutes();
+        const minutes = getMinutes();
 
 
         it('should return array with 60 minutes by default', () => {
@@ -117,7 +117,7 @@ describe('TimepickerTime', () => {
 
         it('should return minutes with gap in 5 minutes', () => {
             const gap = 5;
-            const minutesWithGap = TimepickerTime.getMinutes(gap);
+            const minutesWithGap = getMinutes(gap);
             const angleStep = 360 / 60;
 
             expect(minutesWithGap.length).toBe(12);
@@ -130,7 +130,7 @@ describe('TimepickerTime', () => {
         });
 
         it('should disable minutes with min time', () => {
-            let disabledMinutes = TimepickerTime.disableMinutes(minutes, 1, {
+            let disabledMinutes = disableMinutes(minutes, 1, {
                 min,
                 max: undefined,
                 format: 12,
@@ -143,7 +143,7 @@ describe('TimepickerTime', () => {
                 expect(time).toBe(i);
             }
 
-            disabledMinutes = TimepickerTime.disableMinutes(minutes, 2, {
+            disabledMinutes = disableMinutes(minutes, 2, {
                 min,
                 max: undefined,
                 format: 12,
@@ -152,7 +152,7 @@ describe('TimepickerTime', () => {
 
             expect(disabledMinutes.length).toBe(0);
 
-            disabledMinutes = TimepickerTime.disableMinutes(minutes, 0, {
+            disabledMinutes = disableMinutes(minutes, 0, {
                 min,
                 max: undefined,
                 format: 12,
@@ -163,7 +163,7 @@ describe('TimepickerTime', () => {
         });
 
         it('should disable minutes with max time', () => {
-            let disabledMinutes = TimepickerTime.disableMinutes(minutes, 3, {
+            let disabledMinutes = disableMinutes(minutes, 3, {
                 min: undefined,
                 max,
                 format: 12,
@@ -176,7 +176,7 @@ describe('TimepickerTime', () => {
                 expect(disabledMinutes[i].time).toBe(time);
             }
 
-            disabledMinutes = TimepickerTime.disableMinutes(minutes, 2, {
+            disabledMinutes = disableMinutes(minutes, 2, {
                 min: undefined,
                 max,
                 format: 12,
@@ -185,7 +185,7 @@ describe('TimepickerTime', () => {
 
             expect(disabledMinutes.length).toBe(0);
 
-            disabledMinutes = TimepickerTime.disableMinutes(minutes, 4, {
+            disabledMinutes = disableMinutes(minutes, 4, {
                 min: undefined,
                 max,
                 format: 12,
@@ -196,7 +196,7 @@ describe('TimepickerTime', () => {
         });
 
         it('should return minutes without disabling if nor min and max values were provided', () => {
-            const disabledHours = TimepickerTime.disableMinutes(minutes, 1, {
+            const disabledHours = disableMinutes(minutes, 1, {
                 min: undefined,
                 max: undefined,
                 format: 24,
