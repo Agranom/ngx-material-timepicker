@@ -54,6 +54,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
+    @Input() disableAnimation: boolean;
 
     @Input()
     set minutesGap(gap: number) {
@@ -164,11 +165,19 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     open(): void {
         this.isOpened = true;
-        this.animationState = AnimationState.ENTER;
+        if (!this.disableAnimation) {
+            this.animationState = AnimationState.ENTER;
+        }
         this.opened.next();
     }
 
     close(): void {
+        if (this.disableAnimation) {
+            this.isOpened = false;
+            this.activeTimeUnit = TimeUnit.HOUR;
+            this.closed.next();
+            return;
+        }
         this.animationState = AnimationState.LEAVE;
     }
 
