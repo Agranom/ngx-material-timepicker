@@ -1,6 +1,6 @@
 <div class="timepicker-backdrop-overlay" *ngIf="isOpened" [overlay]="preventOverlayClick"></div>
 <div class="timepicker-overlay" *ngIf="isOpened">
-    <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)" #timepicker>
+    <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)">
         <header class="timepicker__header">
             <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time"
                                           [minute]="selectedMinute?.time"
