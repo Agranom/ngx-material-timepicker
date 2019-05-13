@@ -98,6 +98,8 @@ Selector: `ngx-material-timepicker`
   defaultTime: string | Set default time for a timepicker. `12:00 AM` by default |
 | @Input()
   preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
+  @Input()
+  disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()

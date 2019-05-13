@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.1.0 (2019-05-13)
+
+### Features
+
+* feat(ngx-material-timepicker): add `disableAnimation` input to prevent timepicker animation,
+ closes [(#134)](https://github.com/Agranom/ngx-material-timepicker/issues/134)
+
+
 ## 3.0.3 (2019-04-24)
 
 ### Fixes
