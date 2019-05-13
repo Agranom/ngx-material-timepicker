@@ -213,6 +213,24 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.activeTimeUnit).toBe(TimeUnit.MINUTE);
     }));
 
+    it('should not trigger animation on Open if disableAnimation is true', () => {
+        component.disableAnimation = true;
+
+        expect(component.animationState).toBeUndefined();
+        component.open();
+        expect(component.animationState).toBeUndefined();
+    });
+
+    it('should not trigger animation on Close if disableAnimation is true', async(() => {
+        component.disableAnimation = true;
+        component.closed.subscribe(actual => expect(actual).toBeUndefined());
+
+        component.close();
+        expect(component.isOpened).toBeFalsy();
+        expect(component.animationState).toBeUndefined();
+        expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+    }));
+
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};
         const minute = {time: 44, angle: 36};

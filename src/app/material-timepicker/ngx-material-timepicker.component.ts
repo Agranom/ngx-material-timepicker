@@ -173,9 +173,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     close(): void {
         if (this.disableAnimation) {
-            this.isOpened = false;
-            this.activeTimeUnit = TimeUnit.HOUR;
-            this.closed.next();
+            this.closeTimepicker();
             return;
         }
         this.animationState = AnimationState.LEAVE;
@@ -183,9 +181,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     animationDone(event: AnimationEvent): void {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
-            this.isOpened = false;
-            this.activeTimeUnit = TimeUnit.HOUR;
-            this.closed.next();
+            this.closeTimepicker();
         }
     }
 
@@ -197,5 +193,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    private closeTimepicker(): void {
+        this.isOpened = false;
+        this.activeTimeUnit = TimeUnit.HOUR;
+        this.closed.next();
     }
 }
