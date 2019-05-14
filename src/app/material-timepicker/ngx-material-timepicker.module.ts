@@ -27,6 +27,7 @@ import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
 import { OverlayDirective } from './directives/overlay.directive';
 import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
 import { AutofocusDirective } from './directives/autofocus.directive';
+import { NgxTimepickerComponent } from './components/timepicker/ngx-timepicker.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AutofocusDirective } from './directives/autofocus.directive';
     exports: [
         NgxMaterialTimepickerComponent,
         NgxMaterialTimepickerToggleComponent,
+        NgxTimepickerComponent,
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
         NgxMaterialTimepickerThemeDirective
@@ -59,7 +61,8 @@ import { AutofocusDirective } from './directives/autofocus.directive';
         NgxMaterialTimepickerToggleIconDirective,
         AutofocusDirective,
         MinutesFormatterPipe,
-        NgxMaterialTimepickerThemeDirective
+        NgxMaterialTimepickerThemeDirective,
+        NgxTimepickerComponent
     ]
 })
 export class NgxMaterialTimepickerModule {
