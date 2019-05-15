@@ -1,25 +1,13 @@
 <div class="ngx-timepicker">
-    <div class="ngx-timepicker__group ngx-timepicker-control">
-        <input class="ngx-timepicker-control__input" value="12" placeholder="HH">
-        <div class="ngx-timepicker-control__arrows">
-            <span class="ngx-timepicker-control__arrow-up ngx-timepicker-control__arrow" role="button">
-                &#9650;
-            </span>
-            <span class="ngx-timepicker-control__arrow-down ngx-timepicker-control__arrow" role="button">
-                &#9660;
-            </span>
-        </div>
-    </div>
+    <ngx-timepicker-time-control
+        [placeholder]="'HH'"
+        [time]="(hour$|async)?.time"
+        [min]="minHour"
+        [max]="maxHour"></ngx-timepicker-time-control>
     <span class="ngx-timepicker__time-colon">:</span>
-    <div class="ngx-timepicker__group ngx-timepicker-control">
-        <input class="ngx-timepicker-control__input" value="12" placeholder="MM">
-        <div class="ngx-timepicker-control__arrows">
-            <span class="ngx-timepicker-control__arrow-up ngx-timepicker-control__arrow" role="button">
-                &#9650;
-            </span>
-            <span class="ngx-timepicker-control__arrow-down ngx-timepicker-control__arrow" role="button">
-                &#9660;
-            </span>
-        </div>
-    </div>
+    <ngx-timepicker-time-control
+        [placeholder]="'MM'"
+        [time]="(minute$|async)?.time"
+        [min]="0"
+        [max]="59"></ngx-timepicker-time-control>
 </div>

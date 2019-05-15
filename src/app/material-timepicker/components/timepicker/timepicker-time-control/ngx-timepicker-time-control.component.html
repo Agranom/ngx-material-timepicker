@@ -1,0 +1,15 @@
+<div class="ngx-timepicker-control">
+    <!--suppress HtmlFormInputWithoutLabel -->
+    <input class="ngx-timepicker-control__input"
+           [value]="time"
+           [placeholder]="placeholder"
+           (keydown)="onKeydown($event)">
+    <div class="ngx-timepicker-control__arrows">
+            <span class="ngx-timepicker-control__arrow" role="button" (click)="increase()">
+                &#9650;
+            </span>
+        <span class="ngx-timepicker-control__arrow" role="button" (click)="decrease()">
+                &#9660;
+            </span>
+    </div>
+</div>
