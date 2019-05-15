@@ -60,7 +60,7 @@ Selector: `ngxTimepicker`
 | @Input()
   disabled: boolean | Weather the timepicker popup should be disabled. |
 | @Input()
-  value: string | Set a default value and time for a timepicker. |
+  value: string | Set a default value and time for a timepicker. The format of the time is in 12 hours notation `11:00 PM` or in 24 hours notation `23:00`. A Date string won't work. |
 | @Input()
   format: number | `12` or `24` . 12h/24h view for hour selection clock . `12` (AM/PM) format by default. |
 | @Input()
