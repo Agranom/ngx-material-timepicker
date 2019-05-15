@@ -13,14 +13,12 @@ import {
     NgxMaterialTimepicker12HoursFaceComponent
 } from './components/timepicker-12-hours-face/ngx-material-timepicker-12-hours-face.component';
 import {
-    NgxMaterialTimepickerMinutesFaceComponent
-} from './components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
+    NgxMaterialTimepickerMinutesFaceComponent } from './components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
 import { NgxMaterialTimepickerFaceComponent } from './components/timepicker-face/ngx-material-timepicker-face.component';
 import { NgxMaterialTimepickerButtonComponent } from './components/timepicker-button/ngx-material-timepicker-button.component';
 import { NgxMaterialTimepickerDialComponent } from './components/timepicker-dial/ngx-material-timepicker-dial.component';
 import {
-    NgxMaterialTimepickerDialControlComponent
-} from './components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
+    NgxMaterialTimepickerDialControlComponent } from './components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import { NgxMaterialTimepickerPeriodComponent } from './components/timepicker-period/ngx-material-timepicker-period.component';
 import { StyleSanitizerPipe } from './pipes/style-sanitizer.pipe';
 import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
@@ -29,6 +27,9 @@ import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { NgxTimepickerComponent } from './components/timepicker/ngx-timepicker.component';
 import { NgxTimepickerTimeControlComponent } from './components/timepicker/timepicker-time-control/ngx-timepicker-time-control.component';
+import {
+    NgxTimepickerPeriodSelectorComponent
+} from './components/timepicker/timepicker-period-selector/ngx-timepicker-period-selector.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { NgxTimepickerTimeControlComponent } from './components/timepicker/timep
         NgxTimepickerComponent,
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
-        NgxMaterialTimepickerThemeDirective
+        NgxMaterialTimepickerThemeDirective,
+        NgxTimepickerPeriodSelectorComponent
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
@@ -64,7 +66,8 @@ import { NgxTimepickerTimeControlComponent } from './components/timepicker/timep
         MinutesFormatterPipe,
         NgxMaterialTimepickerThemeDirective,
         NgxTimepickerComponent,
-        NgxTimepickerTimeControlComponent
+        NgxTimepickerTimeControlComponent,
+        NgxTimepickerPeriodSelectorComponent
     ]
 })
 export class NgxMaterialTimepickerModule {

@@ -77,4 +77,8 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         this.onChange = fn;
     }
 
+    selectPeriod(period: TimePeriod): void {
+        this.timepickerService.period = period;
+    }
+
 }

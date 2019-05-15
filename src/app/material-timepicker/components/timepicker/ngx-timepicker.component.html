@@ -10,4 +10,8 @@
         [time]="(minute$|async)?.time"
         [min]="0"
         [max]="59"></ngx-timepicker-time-control>
+    <ngx-timepicker-period-selector
+        [selectedPeriod]="period$|async"
+        (periodSelected)="selectPeriod($event)"
+        *ngIf="format !== 24"></ngx-timepicker-period-selector>
 </div>
