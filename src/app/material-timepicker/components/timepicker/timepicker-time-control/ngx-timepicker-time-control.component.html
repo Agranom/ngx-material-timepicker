@@ -1,9 +1,11 @@
-<div class="ngx-timepicker-control">
+<div class="ngx-timepicker-control" [ngClass]="{'ngx-timepicker-control--active': isFocused}">
     <!--suppress HtmlFormInputWithoutLabel -->
     <input class="ngx-timepicker-control__input"
            [value]="time"
            [placeholder]="placeholder"
-           (keydown)="onKeydown($event)">
+           (keydown)="onKeydown($event)"
+           (focus)="onFocus()"
+           (blur)="onBlur()">
     <div class="ngx-timepicker-control__arrows">
             <span class="ngx-timepicker-control__arrow" role="button" (click)="increase()">
                 &#9650;

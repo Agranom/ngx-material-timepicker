@@ -16,10 +16,24 @@
     position: relative;
 
     &__button {
+        position: relative;
         width: 60px;
         font-size: 1rem;
         color: inherit;
         text-align: center;
+
+        &:focus {
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: deepskyblue;
+            }
+        }
     }
 
     &__arrow {

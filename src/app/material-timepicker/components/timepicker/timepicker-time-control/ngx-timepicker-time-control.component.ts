@@ -16,6 +16,8 @@ export class NgxTimepickerTimeControlComponent {
 
     @Output() timeChanged = new EventEmitter<number>();
 
+    isFocused: boolean;
+
     onKeydown(event: KeyboardEvent): void {
         // TODO allow only digits
         switch (event.key) {
@@ -48,5 +50,13 @@ export class NgxTimepickerTimeControlComponent {
         }
 
         this.timeChanged.emit(previousTime);
+    }
+
+    onFocus(): void {
+        this.isFocused = true;
+    }
+
+    onBlur(): void {
+        this.isFocused = false;
     }
 }
