@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
     templateUrl: './ngx-timepicker-time-control.component.html',
-    styleUrls: ['./ngx-timepicker-time-control.component.scss']
+    styleUrls: ['./ngx-timepicker-time-control.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class NgxTimepickerTimeControlComponent {
@@ -35,7 +36,7 @@ export class NgxTimepickerTimeControlComponent {
             return;
         }
 
-        this.time++;
+        this.timeChanged.emit(nextTime);
     }
 
     decrease(): void {
@@ -46,6 +47,6 @@ export class NgxTimepickerTimeControlComponent {
             return;
         }
 
-        this.time--;
+        this.timeChanged.emit(previousTime);
     }
 }

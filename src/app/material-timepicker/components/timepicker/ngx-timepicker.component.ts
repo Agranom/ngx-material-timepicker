@@ -4,6 +4,7 @@ import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepi
 import { Observable } from 'rxjs';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
+import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
 
 @Component({
     selector: 'ngx-timepicker',
@@ -52,8 +53,10 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
 
     private _defaultTime: string;
 
-    private onChange: (value: string) => void = () => {
-    }
+    private hoursList: ClockFaceTime[];
+    private minutesList: ClockFaceTime[];
+
+    private onChange: (value: string) => void;
 
     constructor(private timepickerService: NgxMaterialTimepickerService) {
     }
@@ -62,6 +65,9 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         this.hour$ = this.timepickerService.selectedHour;
         this.minute$ = this.timepickerService.selectedMinute;
         this.period$ = this.timepickerService.selectedPeriod;
+
+        this.hoursList = getHours(this._format);
+        this.minutesList = getMinutes();
     }
 
     writeValue(val: string): void {
@@ -77,8 +83,15 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         this.onChange = fn;
     }
 
-    selectPeriod(period: TimePeriod): void {
-        this.timepickerService.period = period;
+    changeHour(hour: number): void {
+        this.timepickerService.hour = this.hoursList.find(h => h.time === hour);
     }
 
+    changeMinute(minute: number): void {
+        this.timepickerService.minute = this.minutesList.find(m => m.time === minute);
+    }
+
+    changePeriod(period: TimePeriod): void {
+        this.timepickerService.period = period;
+    }
 }

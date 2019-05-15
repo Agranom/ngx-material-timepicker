@@ -3,15 +3,17 @@
         [placeholder]="'HH'"
         [time]="(hour$|async)?.time"
         [min]="minHour"
-        [max]="maxHour"></ngx-timepicker-time-control>
+        [max]="maxHour"
+        (timeChanged)="changeHour($event)"></ngx-timepicker-time-control>
     <span class="ngx-timepicker__time-colon">:</span>
     <ngx-timepicker-time-control
         [placeholder]="'MM'"
         [time]="(minute$|async)?.time"
         [min]="0"
-        [max]="59"></ngx-timepicker-time-control>
+        [max]="59"
+        (timeChanged)="changeMinute($event)"></ngx-timepicker-time-control>
     <ngx-timepicker-period-selector
         [selectedPeriod]="period$|async"
-        (periodSelected)="selectPeriod($event)"
+        (periodSelected)="changePeriod($event)"
         *ngIf="format !== 24"></ngx-timepicker-period-selector>
 </div>
