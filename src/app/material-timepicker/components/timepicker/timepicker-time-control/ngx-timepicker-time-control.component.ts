@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { isDigit } from '../../../utils/timepicker.utils';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
@@ -18,8 +19,12 @@ export class NgxTimepickerTimeControlComponent {
 
     isFocused: boolean;
 
+
     onKeydown(event: KeyboardEvent): void {
-        // TODO allow only digits
+        if (!isDigit(event)) {
+            event.preventDefault();
+        }
+
         switch (event.key) {
             case 'ArrowUp':
                 this.increase();
@@ -50,6 +55,26 @@ export class NgxTimepickerTimeControlComponent {
         }
 
         this.timeChanged.emit(previousTime);
+    }
+
+    onInput(input: HTMLInputElement) {
+        const value = parseInt(input.value, 10);
+
+        if (!isNaN(value)) {
+            this.time = value;
+
+            if (this.min === 0 && value === 0) {
+                this.time = 0;
+            }
+
+            if (value > this.max) {
+                this.time = +String(value)[0];
+            }
+
+            input.value = String(this.time);
+            this.timeChanged.emit(this.time);
+        }
+
     }
 
     onFocus(): void {
