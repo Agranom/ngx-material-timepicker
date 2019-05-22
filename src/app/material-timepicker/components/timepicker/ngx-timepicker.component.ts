@@ -22,9 +22,6 @@ import { TimeUnit } from '../../models/time-unit.enum';
 })
 export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
 
-    // disabled
-    // readonly
-
     hour$: Observable<ClockFaceTime>;
     minute$: Observable<ClockFaceTime>;
     period$: Observable<TimePeriod>;
