@@ -27,6 +27,10 @@
         color: inherit;
         outline: none;
         text-align: center;
+        
+        &:disabled {
+            background-color: transparent;
+        }
     }
 
     &__arrows {

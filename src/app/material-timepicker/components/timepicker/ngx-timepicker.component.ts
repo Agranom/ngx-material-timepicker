@@ -22,6 +22,9 @@ import { TimeUnit } from '../../models/time-unit.enum';
 })
 export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
 
+    // disabled
+    // readonly
+
     hour$: Observable<ClockFaceTime>;
     minute$: Observable<ClockFaceTime>;
     period$: Observable<TimePeriod>;
@@ -30,6 +33,8 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     maxHour = 12;
 
     timeUnit = TimeUnit;
+
+    @Input() disabled: boolean;
 
     @Input()
     set format(value: number) {
@@ -86,15 +91,27 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         this.onChange = fn;
     }
 
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
     changeHour(hour: number): void {
         this.timepickerService.hour = this.hoursList.find(h => h.time === hour);
+        this.changeTime();
     }
 
     changeMinute(minute: number): void {
         this.timepickerService.minute = this.minutesList.find(m => m.time === minute);
+        this.changeTime();
     }
 
     changePeriod(period: TimePeriod): void {
         this.timepickerService.period = period;
+        this.changeTime();
+    }
+
+    private changeTime(): void {
+        const time = this.timepickerService.getFullTime(this._format);
+        this.onChange(time);
     }
 }

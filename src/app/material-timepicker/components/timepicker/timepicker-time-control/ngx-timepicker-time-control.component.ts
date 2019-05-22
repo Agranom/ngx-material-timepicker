@@ -17,6 +17,7 @@ export class NgxTimepickerTimeControlComponent implements OnInit {
     @Input() max: number;
     @Input() placeholder: string;
     @Input() timeUnit: TimeUnit;
+    @Input() disabled: boolean;
 
     @Output() timeChanged = new EventEmitter<number>();
 
@@ -25,7 +26,6 @@ export class NgxTimepickerTimeControlComponent implements OnInit {
     ngOnInit(): void {
         this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
     }
-
 
     onKeydown(event: KeyboardEvent): void {
         if (!isDigit(event)) {

@@ -24,6 +24,7 @@ export class NgxTimepickerPeriodSelectorComponent {
 
     @Input() selectedPeriod: TimePeriod;
     @Input() isOpened: boolean;
+    @Input() disabled: boolean;
 
     @Output() periodSelected = new EventEmitter<TimePeriod>();
 

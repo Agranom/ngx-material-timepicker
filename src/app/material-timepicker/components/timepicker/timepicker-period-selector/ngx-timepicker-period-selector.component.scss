@@ -13,6 +13,7 @@
 }
 
 .period-control {
+    $this: &;
     position: relative;
 
     &__button {
@@ -22,16 +23,18 @@
         color: inherit;
         text-align: center;
 
-        &:focus {
+        &:not(#{$this}__button--disabled) {
+            &:focus {
 
-            &:after {
-                content: '';
-                position: absolute;
-                bottom: -6px;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background-color: deepskyblue;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -6px;
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background-color: deepskyblue;
+                }
             }
         }
     }

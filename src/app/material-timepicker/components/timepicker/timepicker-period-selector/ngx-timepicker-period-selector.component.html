@@ -1,8 +1,9 @@
 <div class="period">
     <div class="period-control">
         <button class="period-control__button period__btn--default"
+                [ngClass]="{'period-control__button--disabled': disabled}"
                 type="button"
-                (click)="open()">
+                (click)="!disabled && open()">
             <span>{{selectedPeriod}}</span>
             <span class="period-control__arrow">&#9660;</span>
         </button>

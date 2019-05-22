@@ -4,15 +4,16 @@
            maxlength="2"
            [(ngModel)]="time"
            [placeholder]="placeholder"
+           [disabled]="disabled"
            (keydown)="onKeydown($event)"
            (input)="onInput(inputElement)"
            (focus)="onFocus()"
            (blur)="onBlur()" #inputElement>
     <div class="ngx-timepicker-control__arrows">
-            <span class="ngx-timepicker-control__arrow" role="button" (click)="increase()">
+            <span class="ngx-timepicker-control__arrow" role="button" (click)="!disabled && increase()">
                 &#9650;
             </span>
-        <span class="ngx-timepicker-control__arrow" role="button" (click)="decrease()">
+        <span class="ngx-timepicker-control__arrow" role="button" (click)="!disabled && decrease()">
                 &#9660;
             </span>
     </div>
