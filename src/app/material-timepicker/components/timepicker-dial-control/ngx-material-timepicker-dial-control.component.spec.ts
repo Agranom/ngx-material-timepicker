@@ -131,66 +131,10 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
                 counter++;
             }
         } as KeyboardEvent;
-        const numbers = Array(10).fill(48).map((v, i) => v + i);
-        const numpadNumbers = Array(10).fill(96).map((v, i) => v + i);
-        const arrows = Array(6).fill(35).map((v, i) => v + i); // home, end, left, right, up, down
-        const specialKeys = [46, 8, 9, 27, 13]; // backspace, delete, tab, escape, enter
 
         beforeEach(() => {
             counter = 0;
             component.timeList = getHours(24);
-        });
-
-
-        it('should allow numbers', () => {
-
-            const keyCodes = numbers.concat(numpadNumbers);
-            component.time = '';
-
-
-            keyCodes.forEach(code => {
-                component.onKeyDown({...event, keyCode: code});
-                expect(counter).toBe(0);
-            });
-        });
-
-        it('should allow backspace, delete, tab, escape, enter', () => {
-            specialKeys.forEach(code => {
-                component.onKeyDown({...event, keyCode: code});
-                expect(counter).toBe(0);
-            });
-        });
-
-        it('should allow home, end, left, right, up, down', () => {
-            arrows.forEach(code => {
-                component.onKeyDown({...event, keyCode: code});
-                expect(counter).toBe(0);
-            });
-        });
-
-        it('should allow ctrl/cmd+a, ctrl/cmd+c, ctrl/cmd+x', () => {
-            const chars = [65, 67, 88];
-
-            chars.forEach(code => {
-                component.onKeyDown({...event, keyCode: code, ctrlKey: true});
-                expect(counter).toBe(0);
-            });
-
-            chars.forEach(code => {
-                component.onKeyDown({...event, keyCode: code, metaKey: true});
-                expect(counter).toBe(0);
-            });
-        });
-
-        it('should not allow chars but numbers, backspace, delete, tab, escape, enter, home, end, left, right, up, down', () => {
-            const allKeyCodes = Array(114).fill(8).map((v, i) => v + i);
-            const allowedCodes = [...numbers, ...numpadNumbers, ...specialKeys, ...arrows];
-            const restrictedCodes = allKeyCodes.filter(code => !allowedCodes.includes(code));
-
-            restrictedCodes.forEach((code, index) => {
-                component.onKeyDown({...event, keyCode: code});
-                expect(counter).toBe(index + 1);
-            });
         });
 
         it('should call preventDefault if no time exist or time disabled', () => {
