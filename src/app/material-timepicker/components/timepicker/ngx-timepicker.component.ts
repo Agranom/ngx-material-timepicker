@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
 import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
+import { TimeUnit } from '../../models/time-unit.enum';
 
 @Component({
     selector: 'ngx-timepicker',
@@ -27,6 +28,8 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
 
     minHour = 1;
     maxHour = 12;
+
+    timeUnit = TimeUnit;
 
     @Input()
     set format(value: number) {

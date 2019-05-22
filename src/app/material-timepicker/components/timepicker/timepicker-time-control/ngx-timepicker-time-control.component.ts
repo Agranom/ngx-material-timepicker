@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { isDigit } from '../../../utils/timepicker.utils';
+import { TimeFormatterPipe } from '../../../pipes/time-formatter.pipe';
+import { TimeUnit } from '../../../models/time-unit.enum';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
@@ -8,16 +10,21 @@ import { isDigit } from '../../../utils/timepicker.utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class NgxTimepickerTimeControlComponent {
+export class NgxTimepickerTimeControlComponent implements OnInit {
 
     @Input() time: number;
     @Input() min: number;
     @Input() max: number;
     @Input() placeholder: string;
+    @Input() timeUnit: TimeUnit;
 
     @Output() timeChanged = new EventEmitter<number>();
 
     isFocused: boolean;
+
+    ngOnInit(): void {
+        this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
+    }
 
 
     onKeydown(event: KeyboardEvent): void {
@@ -63,12 +70,12 @@ export class NgxTimepickerTimeControlComponent {
         if (!isNaN(value)) {
             this.time = value;
 
-            if (this.min === 0 && value === 0) {
-                this.time = 0;
+            if (this.time > this.max) {
+                this.time = +String(value)[0];
             }
 
-            if (value > this.max) {
-                this.time = +String(value)[0];
+            if (this.time < this.min) {
+                this.time = this.min;
             }
 
             input.value = String(this.time);
@@ -82,6 +89,7 @@ export class NgxTimepickerTimeControlComponent {
     }
 
     onBlur(): void {
+        this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
         this.isFocused = false;
     }
 }
