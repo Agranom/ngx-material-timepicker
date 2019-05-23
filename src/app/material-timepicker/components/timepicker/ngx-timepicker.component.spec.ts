@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 
-fdescribe('TimepickerComponent', () => {
+describe('TimepickerComponent', () => {
     let component: NgxTimepickerComponent;
     let fixture: ComponentFixture<NgxTimepickerComponent>;
     let timer;

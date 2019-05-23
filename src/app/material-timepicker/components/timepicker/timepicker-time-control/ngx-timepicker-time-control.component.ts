@@ -43,25 +43,27 @@ export class NgxTimepickerTimeControlComponent implements OnInit {
     }
 
     increase(): void {
-        const nextTime = this.time + 1;
+        if (!this.disabled) {
+            let nextTime = +this.time + 1;
 
-        if (nextTime > this.max) {
-            this.time = this.min;
-            return;
+            if (nextTime > this.max) {
+                nextTime = this.min;
+            }
+
+            this.timeChanged.emit(nextTime);
         }
-
-        this.timeChanged.emit(nextTime);
     }
 
     decrease(): void {
-        const previousTime = this.time - 1;
+        if (!this.disabled) {
+            let previousTime = +this.time - 1;
 
-        if (previousTime < this.min) {
-            this.time = this.max;
-            return;
+            if (previousTime < this.min) {
+                previousTime = this.max;
+            }
+
+            this.timeChanged.emit(previousTime);
         }
-
-        this.timeChanged.emit(previousTime);
     }
 
     onInput(input: HTMLInputElement) {
