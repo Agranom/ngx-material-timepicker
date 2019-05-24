@@ -31,7 +31,9 @@ export class NgxTimepickerPeriodSelectorComponent {
     period = TimePeriod;
 
     open(): void {
-        this.isOpened = true;
+        if (!this.disabled) {
+            this.isOpened = true;
+        }
     }
 
     select(period: TimePeriod): void {
