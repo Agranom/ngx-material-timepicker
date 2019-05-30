@@ -3,6 +3,9 @@ language: node_js
 node_js:
 - '12'
 
+env:
+- NG_CLI_ANALYTICS=false
+
 script:
 - npm run lint
 - npm run test
@@ -14,9 +17,6 @@ notifications:
 cache:
     directories:
     - node_modules
-
-before_install: 
-  - npm @angular/cli analytics off
 
 after_success:
 - npm run codecov
