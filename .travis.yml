@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-- '10'
+- '12'
 
 script:
 - npm run lint
@@ -14,7 +14,7 @@ notifications:
 cache:
     directories:
     - node_modules
-    
+
 before_install: 
   - npx @angular/cli analytics off
 
