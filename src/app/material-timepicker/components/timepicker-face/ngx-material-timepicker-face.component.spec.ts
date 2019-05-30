@@ -247,6 +247,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
 
             component.selectTime(new MouseEvent('mousemove', mouseCords));
             tick();
+            console.log(selectedTime.angle)
             expect(selectedTime.angle > 360).toBeTruthy();
         }));
 
