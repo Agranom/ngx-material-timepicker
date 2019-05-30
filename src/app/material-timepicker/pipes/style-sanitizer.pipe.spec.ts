@@ -6,7 +6,7 @@ describe('StyleSanitizerPipe', () => {
     let pipe: StyleSanitizerPipe;
 
     beforeEach(() => {
-        pipe = new StyleSanitizerPipe(TestBed.get<any>(DomSanitizer));
+        pipe = new StyleSanitizerPipe(TestBed.get(DomSanitizer));
     });
 
     it('should do nothing if value is undefined', () => {
