@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import * as TimepickerTime from '../../utils/timepicker-time.utils';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
+import { spyOnFunction } from '../../ngx-material-timepicker.component.spec';
 
 describe('NgxMaterialTimepickerDialComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialComponent>;
@@ -19,8 +20,8 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should call disableHours and disableMinutes on period change', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
-        const spyOnMinutes = spyOn(TimepickerTime, 'disableMinutes');
+        const spyOnHours = spyOnFunction(TimepickerTime, 'disableHours');
+        const spyOnMinutes = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             period: {
                 currentValue: TimePeriod.AM,
@@ -36,7 +37,7 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should call disableHours on format change', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
+        const spyOnHours = spyOnFunction(TimepickerTime, 'disableHours');
         const changes: SimpleChanges = {
             format: {
                 currentValue: 24,
@@ -51,7 +52,7 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should call disableMinutes on hour change', () => {
-        const spy = spyOn(TimepickerTime, 'disableMinutes');
+        const spy = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             hour: {
                 currentValue: 24,
@@ -66,8 +67,8 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should not call disableHours and disableMinutes', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
-        const spyOnMinutes = spyOn(TimepickerTime, 'disableMinutes');
+        const spyOnHours = spyOnFunction(TimepickerTime, 'disableHours');
+        const spyOnMinutes = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             minTime: {
                 currentValue: null,
