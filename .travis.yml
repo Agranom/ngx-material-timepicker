@@ -16,7 +16,7 @@ cache:
     - node_modules
 
 before_install: 
-  - npx @angular/cli analytics off
+  - npm @angular/cli analytics off
 
 after_success:
 - npm run codecov
