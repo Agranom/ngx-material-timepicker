@@ -78,7 +78,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Output() closed = new EventEmitter<null>();
     @Output() hourSelected = new EventEmitter<number>();
 
-    @ViewChild('timepickerww') timepickerComponent: ElementRef;
+    @ViewChild('timepickerww', { static: false }) timepickerComponent: ElementRef;
 
     private _minutesGap: number;
     private timepickerInput: TimepickerDirective;
