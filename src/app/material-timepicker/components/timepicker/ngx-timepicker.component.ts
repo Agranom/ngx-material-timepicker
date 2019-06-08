@@ -6,6 +6,7 @@ import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
 import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
 import { TimeUnit } from '../../models/time-unit.enum';
+import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
 
 @Component({
     selector: 'ngx-timepicker',
@@ -35,6 +36,7 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     @Input() disabled: boolean;
     @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
     @Input() buttonAlign: 'right' | 'left' = 'right';
+    @Input() clockTheme: NgxMaterialTimepickerTheme;
 
     @Input()
     set format(value: number) {

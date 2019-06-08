@@ -36,6 +36,7 @@
     </ngx-material-timepicker-toggle>
 </div>
 <ngx-material-timepicker
+    [ngxMaterialTimepickerTheme]="clockTheme"
     [defaultTime]="timepickerTime"
     [format]="format"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
