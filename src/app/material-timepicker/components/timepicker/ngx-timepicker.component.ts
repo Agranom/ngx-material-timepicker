@@ -1,12 +1,14 @@
-import { Component, forwardRef, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
 import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
+import { takeUntil } from 'rxjs/operators';
+import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
 
 @Component({
     selector: 'ngx-timepicker',
@@ -21,11 +23,12 @@ import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker
         }
     ]
 })
-export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
+export class NgxTimepickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-    hour$: Observable<ClockFaceTime>;
-    minute$: Observable<ClockFaceTime>;
     period$: Observable<TimePeriod>;
+
+    hour: number;
+    minute: number;
 
     minHour = 1;
     maxHour = 12;
@@ -67,6 +70,8 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     private hoursList: ClockFaceTime[];
     private minutesList: ClockFaceTime[];
 
+    private unsubscribe$ = new Subject();
+
     private onChange: (value: string) => void = () => {
     }
 
@@ -74,9 +79,13 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit() {
-        this.hour$ = this.timepickerService.selectedHour;
-        this.minute$ = this.timepickerService.selectedMinute;
         this.period$ = this.timepickerService.selectedPeriod;
+
+        this.timepickerService.selectedHour.pipe(takeUntil(this.unsubscribe$))
+            .subscribe(hour => this.hour = hour.time);
+
+        this.timepickerService.selectedMinute.pipe(takeUntil(this.unsubscribe$))
+            .subscribe(minute => this.minute = minute.time);
 
         this.hoursList = getHours(this._format);
         this.minutesList = getMinutes();
@@ -117,11 +126,21 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     onTimeSet(time: string): void {
         this.defaultTime = time;
         this.onChange(time);
+        this.formatTime();
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
     }
 
     private changeTime(): void {
         const time = this.timepickerService.getFullTime(this._format);
         this.timepickerTime = time;
         this.onChange(time);
+    }
+
+    private formatTime(): void {
+        this.hour = new TimeFormatterPipe().transform(this.hour, TimeUnit.HOUR);
+        this.minute = new TimeFormatterPipe().transform(this.minute, TimeUnit.MINUTE);
     }
 }

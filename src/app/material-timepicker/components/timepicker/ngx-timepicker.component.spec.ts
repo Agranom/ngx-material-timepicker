@@ -57,8 +57,8 @@ describe('TimepickerComponent', () => {
 
         tick();
 
-        component.hour$.subscribe(h => expect(h.time).toBe(11));
-        component.minute$.subscribe(m => expect(m.time).toBe(15));
+        expect(component.hour).toBe(11);
+        expect(component.minute).toBe(15);
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
     }));
 
@@ -70,8 +70,8 @@ describe('TimepickerComponent', () => {
 
         tick();
 
-        component.hour$.subscribe(h => expect(h.time).toBe(10));
-        component.minute$.subscribe(m => expect(m.time).toBe(13));
+        expect(component.hour).toBe(10);
+        expect(component.minute).toBe(13);
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.PM));
     }));
 
@@ -82,8 +82,8 @@ describe('TimepickerComponent', () => {
 
         tick();
 
-        component.hour$.subscribe(h => expect(h.time).toBe(12));
-        component.minute$.subscribe(m => expect(m.time).toBe(0));
+        expect(component.hour).toBe(12);
+        expect(component.minute).toBe(0);
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
     }));
 
@@ -103,7 +103,7 @@ describe('TimepickerComponent', () => {
         component.changeHour(1);
 
         tick();
-        component.hour$.subscribe(h => expect(h).toEqual(hour));
+        expect(component.hour).toBe(hour.time);
         expect(timer).toBe('01:00 am');
     }));
 
@@ -115,7 +115,7 @@ describe('TimepickerComponent', () => {
         component.changeMinute(15);
 
         tick();
-        component.minute$.subscribe(m => expect(m).toEqual(minute));
+        expect(component.minute).toBe(minute.time);
         expect(timer).toBe('12:15 am');
     }));
 
@@ -131,5 +131,20 @@ describe('TimepickerComponent', () => {
         component.registerOnTouched(function () {
             console.log();
         });
+    });
+
+    it('should update time when timeSet called', () => {
+        let time = null;
+        const timeMock = '2:5 am';
+        const onChange = (val: string) => time = val;
+        component.registerOnChange(onChange);
+
+        component.onTimeSet(timeMock);
+        expect(component.defaultTime).toBe(timeMock);
+        expect(time).toBe(timeMock);
+        // @ts-ignore
+        expect(component.hour).toBe('02');
+        // @ts-ignore
+        expect(component.minute).toBe('05');
     });
 });

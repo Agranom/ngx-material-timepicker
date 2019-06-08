@@ -2,7 +2,7 @@
     <ngx-timepicker-time-control
         class="ngx-timepicker__control--first"
         [placeholder]="'HH'"
-        [time]="(hour$|async)?.time"
+        [time]="hour"
         [min]="minHour"
         [max]="maxHour"
         [timeUnit]="timeUnit.HOUR"
@@ -12,7 +12,7 @@
     <ngx-timepicker-time-control
         class="ngx-timepicker__control--third"
         [placeholder]="'MM'"
-        [time]="(minute$|async)?.time"
+        [time]="minute"
         [min]="0"
         [max]="59"
         [timeUnit]="timeUnit.MINUTE"
