@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { ClockFaceTime } from './models/clock-face-time.interface';
 import { TimePeriod } from './models/time-period.enum';
 import { merge, Subscription } from 'rxjs';
@@ -48,6 +48,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     isOpened = false;
     animationState: AnimationState;
 
+
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
@@ -55,6 +56,15 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
+
+    @Input()
+    set format(value: number) {
+        this._format = value === 24 ? 24 : 12;
+    }
+
+    get format(): number {
+        return this.timepickerInput ? this.timepickerInput.format : this._format;
+    }
 
     @Input()
     set minutesGap(gap: number) {
@@ -79,9 +89,9 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Output() closed = new EventEmitter<null>();
     @Output() hourSelected = new EventEmitter<number>();
 
-    @ViewChild('timepickerww') timepickerComponent: ElementRef;
 
     private _minutesGap: number;
+    private _format: number;
     private timepickerInput: TimepickerDirective;
     private subscriptions: Subscription[] = [];
 
@@ -104,10 +114,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     get disabled(): boolean {
         return this.timepickerInput && this.timepickerInput.disabled;
-    }
-
-    get format(): number {
-        return this.timepickerInput && this.timepickerInput.format;
     }
 
     ngOnInit() {

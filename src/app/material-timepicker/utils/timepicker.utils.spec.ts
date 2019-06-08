@@ -1,5 +1,5 @@
 import { TimeAdapter } from '../services/time-adapter';
-import { isBetween, isSameOrAfter, isSameOrBefore } from './timepicker.utils';
+import { isBetween, isDigit, isSameOrAfter, isSameOrBefore } from './timepicker.utils';
 
 describe('TimepickerUtils', () => {
     describe('isSameOrAfter', () => {
@@ -86,6 +86,57 @@ describe('TimepickerUtils', () => {
             const time = TimeAdapter.convertTimeToDateTime('04:05 pm');
 
             expect(isBetween(time, min, max, undefined)).toBeFalsy();
+        });
+    });
+
+    describe('isDigit', () => {
+        const numbers = Array(10).fill(48).map((v, i) => v + i);
+        const numpadNumbers = Array(10).fill(96).map((v, i) => v + i);
+        const arrows = Array(6).fill(35).map((v, i) => v + i); // home, end, left, right, up, down
+        const specialKeys = [46, 8, 9, 27, 13]; // backspace, delete, tab, escape, enter
+
+
+        it('should allow numbers', () => {
+
+            const keyCodes = numbers.concat(numpadNumbers);
+
+            keyCodes.forEach(code => {
+                expect(isDigit({keyCode: code} as KeyboardEvent)).toBeTruthy();
+            });
+        });
+
+        it('should allow backspace, delete, tab, escape, enter', () => {
+            specialKeys.forEach(code => {
+                expect(isDigit({keyCode: code} as KeyboardEvent)).toBeTruthy();
+            });
+        });
+
+        it('should allow home, end, left, right, up, down', () => {
+            arrows.forEach(code => {
+                expect(isDigit({keyCode: code} as KeyboardEvent)).toBeTruthy();
+            });
+        });
+
+        it('should allow ctrl/cmd+a, ctrl/cmd+c, ctrl/cmd+x', () => {
+            const chars = [65, 67, 88];
+
+            chars.forEach(code => {
+                expect(isDigit({keyCode: code, ctrlKey: true} as KeyboardEvent)).toBeTruthy();
+            });
+
+            chars.forEach(code => {
+                expect(isDigit({keyCode: code, metaKey: true} as KeyboardEvent)).toBeTruthy();
+            });
+        });
+
+        it('should not allow chars but numbers, backspace, delete, tab, escape, enter, home, end, left, right, up, down', () => {
+            const allKeyCodes = Array(114).fill(8).map((v, i) => v + i);
+            const allowedCodes = [...numbers, ...numpadNumbers, ...specialKeys, ...arrows];
+            const restrictedCodes = allKeyCodes.filter(code => !allowedCodes.includes(code));
+
+            restrictedCodes.forEach((code) => {
+                expect(isDigit({keyCode: code} as KeyboardEvent)).toBeFalsy();
+            });
         });
     });
 });

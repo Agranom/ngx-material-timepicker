@@ -109,6 +109,28 @@ Selector: `ngx-material-timepicker`
 | @Output()
   hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
   
+**NgxTimepickerFieldComponent**
+
+The timepicker as a control.
+
+Selector: `ngx-timepicker-field`
+
+**Properties**
+
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  disabled: boolean |  Whether the timepicker is disabled| 
+| @Input()
+  toggleIcon: TemplateRef\<HTMLObjectElement> | Provide custom `svg` icon for toggle button |
+| @Input()
+  buttonAlign: 'right' or 'left' | Positioning toggle button (`right` by default) |
+| @Input()
+  clockTheme: NgxMaterialTimepickerTheme | Custom css properties which will override timepicker clock |
+| @Input()
+  controlOnly: boolean | Hide or display toggle button with the timepicker clock |
+  
 **NgxMaterialTimepickerToggleComponent**
 
 Component responsible for opening the timepicker.
@@ -142,7 +164,7 @@ Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
 | Name | Description |
 |------|-------------|
 | @Input()
-  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom properties which will override the defaults | 
+  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults | 
  
 
 ## Development

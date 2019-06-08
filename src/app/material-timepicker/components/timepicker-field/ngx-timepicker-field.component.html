@@ -1,0 +1,50 @@
+<div class="ngx-timepicker">
+    <ngx-timepicker-time-control
+        class="ngx-timepicker__control--first"
+        [placeholder]="'HH'"
+        [time]="hour"
+        [min]="minHour"
+        [max]="maxHour"
+        [timeUnit]="timeUnit.HOUR"
+        [disabled]="disabled"
+        (timeChanged)="changeHour($event)"></ngx-timepicker-time-control>
+    <span class="ngx-timepicker__time-colon ngx-timepicker__control--second">:</span>
+    <ngx-timepicker-time-control
+        class="ngx-timepicker__control--third"
+        [placeholder]="'MM'"
+        [time]="minute"
+        [min]="0"
+        [max]="59"
+        [timeUnit]="timeUnit.MINUTE"
+        [disabled]="disabled"
+        (timeChanged)="changeMinute($event)"></ngx-timepicker-time-control>
+    <ngx-timepicker-period-selector
+        class="ngx-timepicker__control--forth"
+        [selectedPeriod]="period$|async"
+        [disabled]="disabled"
+        (periodSelected)="changePeriod($event)"
+        *ngIf="format !== 24"></ngx-timepicker-period-selector>
+    <ngx-material-timepicker-toggle
+        class="ngx-timepicker__toggle"
+        *ngIf="!controlOnly"
+        [ngClass]="{'ngx-timepicker__toggle--left': buttonAlign === 'left'}"
+        [for]="timepicker"
+        [disabled]="disabled">
+        <span ngxMaterialTimepickerToggleIcon>
+            <!--suppress HtmlUnknownAttribute -->
+            <ng-container *ngTemplateOutlet="toggleIcon || defaultIcon"></ng-container>
+        </span>
+    </ngx-material-timepicker-toggle>
+</div>
+<ngx-material-timepicker
+    [ngxMaterialTimepickerTheme]="clockTheme"
+    [defaultTime]="timepickerTime"
+    [format]="format"
+    (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
+
+<ng-template #defaultIcon>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+        <path
+            d="M 12 2 C 6.4889971 2 2 6.4889971 2 12 C 2 17.511003                   6.4889971 22 12 22 C 17.511003 22 22 17.511003 22 12 C 22 6.4889971 17.511003 2 12 2 z M 12 4 C 16.430123 4 20 7.5698774 20 12 C 20 16.430123 16.430123 20 12 20 C 7.5698774 20 4 16.430123 4 12 C 4 7.5698774 7.5698774 4 12 4 z M 11 6 L 11 12.414062 L 15.292969 16.707031 L 16.707031 15.292969 L 13 11.585938 L 13 6 L 11 6 z"/>
+    </svg>
+</ng-template>

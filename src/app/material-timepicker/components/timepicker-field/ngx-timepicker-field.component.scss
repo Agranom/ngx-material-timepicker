@@ -1,0 +1,38 @@
+.ngx-timepicker {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+    &__time-colon {
+        margin-left: 10px;
+    }
+
+    &__control {
+
+        &--first {
+            order: 1;
+        }
+
+        &--second {
+            order: 2;
+        }
+
+        &--third {
+            order: 3;
+        }
+
+        &--forth {
+            order: 4;
+        }
+    }
+
+    &__toggle {
+        order: 4;
+
+        &--left {
+            order: 0;
+        }
+    }
+}
+

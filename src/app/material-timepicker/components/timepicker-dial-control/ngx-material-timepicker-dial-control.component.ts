@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
+import { isDigit } from '../../utils/timepicker.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
@@ -67,11 +68,11 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         const char = String.fromCharCode(e.keyCode);
 
 
-        if ((!isInputAllowed(e)) || isTimeDisabledToChange(this.time, char, this.timeList)) {
+        if ((!isDigit(e)) || isTimeDisabledToChange(this.time, char, this.timeList)) {
             e.preventDefault();
         }
 
-        if (isInputAllowed(e)) {
+        if (isDigit(e)) {
             this.changeTimeByArrow(e.keyCode);
         }
     }
@@ -95,22 +96,6 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
 
 }
 
-function isInputAllowed(e: KeyboardEvent): boolean {
-    // Allow: backspace, delete, tab, escape, enter
-    if ([46, 8, 9, 27, 13].some(n => n === e.keyCode) ||
-        // Allow: Ctrl/cmd+A
-        (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: Ctrl/cmd+C
-        (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: Ctrl/cmd+X
-        (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: home, end, left, right, up, down
-        (e.keyCode >= 35 && e.keyCode <= 40)) {
-
-        return true;
-    }
-    return !((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105));
-}
 
 function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
     const isNumber = /\d/.test(nextTime);
