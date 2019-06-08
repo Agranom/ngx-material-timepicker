@@ -25,11 +25,12 @@ import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
 import { OverlayDirective } from './directives/overlay.directive';
 import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
 import { AutofocusDirective } from './directives/autofocus.directive';
-import { NgxTimepickerComponent } from './components/timepicker/ngx-timepicker.component';
-import { NgxTimepickerTimeControlComponent } from './components/timepicker/timepicker-time-control/ngx-timepicker-time-control.component';
+import { NgxTimepickerFieldComponent } from './components/timepicker-field/ngx-timepicker-field.component';
+import {
+    NgxTimepickerTimeControlComponent } from './components/timepicker-field/timepicker-time-control/ngx-timepicker-time-control.component';
 import {
     NgxTimepickerPeriodSelectorComponent
-} from './components/timepicker/timepicker-period-selector/ngx-timepicker-period-selector.component';
+} from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import {
     exports: [
         NgxMaterialTimepickerComponent,
         NgxMaterialTimepickerToggleComponent,
-        NgxTimepickerComponent,
+        NgxTimepickerFieldComponent,
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
         NgxMaterialTimepickerThemeDirective,
@@ -65,7 +66,7 @@ import {
         AutofocusDirective,
         MinutesFormatterPipe,
         NgxMaterialTimepickerThemeDirective,
-        NgxTimepickerComponent,
+        NgxTimepickerFieldComponent,
         NgxTimepickerTimeControlComponent,
         NgxTimepickerPeriodSelectorComponent
     ]

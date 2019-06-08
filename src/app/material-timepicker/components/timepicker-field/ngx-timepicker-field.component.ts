@@ -11,19 +11,19 @@ import { takeUntil } from 'rxjs/operators';
 import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
 
 @Component({
-    selector: 'ngx-timepicker',
-    templateUrl: './ngx-timepicker.component.html',
-    styleUrls: ['./ngx-timepicker.component.scss'],
+    selector: 'ngx-timepicker-field',
+    templateUrl: './ngx-timepicker-field.component.html',
+    styleUrls: ['./ngx-timepicker-field.component.scss'],
     providers: [
         NgxMaterialTimepickerService,
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NgxTimepickerComponent),
+            useExisting: forwardRef(() => NgxTimepickerFieldComponent),
             multi: true
         }
     ]
 })
-export class NgxTimepickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
     period$: Observable<TimePeriod>;
 

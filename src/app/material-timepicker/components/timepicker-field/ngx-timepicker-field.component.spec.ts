@@ -1,25 +1,25 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { NgxTimepickerComponent } from './ngx-timepicker.component';
+import { NgxTimepickerFieldComponent } from './ngx-timepicker-field.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 
-describe('TimepickerComponent', () => {
-    let component: NgxTimepickerComponent;
-    let fixture: ComponentFixture<NgxTimepickerComponent>;
+describe('NgxTimepickerFieldComponent', () => {
+    let component: NgxTimepickerFieldComponent;
+    let fixture: ComponentFixture<NgxTimepickerFieldComponent>;
     let timer;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [NgxTimepickerComponent],
+            declarations: [NgxTimepickerFieldComponent],
             schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(NgxTimepickerComponent);
+        fixture = TestBed.createComponent(NgxTimepickerFieldComponent);
         component = fixture.componentInstance;
 
         component.registerOnChange(function (time: number) {
