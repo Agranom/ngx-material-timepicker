@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.2.0 (2019-06-08)
+
+### Features
+
+* feat(ngx-timepicker-field): create `ngx-timepicker-field` component,
+ closes [(#55)](https://github.com/Agranom/ngx-material-timepicker/issues/55)
+
 ## 3.1.0 (2019-05-13)
 
 ### Features
