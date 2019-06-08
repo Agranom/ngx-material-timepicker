@@ -10,7 +10,7 @@
         &:after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 100%;
             height: 1px;
@@ -27,7 +27,7 @@
         color: inherit;
         outline: none;
         text-align: center;
-        
+
         &:disabled {
             background-color: transparent;
         }

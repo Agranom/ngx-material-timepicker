@@ -26,6 +26,7 @@
         *ngIf="format !== 24"></ngx-timepicker-period-selector>
     <ngx-material-timepicker-toggle
         class="ngx-timepicker__toggle"
+        *ngIf="!controlOnly"
         [ngClass]="{'ngx-timepicker__toggle--left': buttonAlign === 'left'}"
         [for]="timepicker"
         [disabled]="disabled">

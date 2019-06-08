@@ -1,6 +1,7 @@
 .ngx-timepicker {
     display: flex;
     align-items: center;
+    height: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
     &__time-colon {

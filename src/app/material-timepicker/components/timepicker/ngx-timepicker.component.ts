@@ -40,6 +40,7 @@ export class NgxTimepickerComponent implements OnInit, OnDestroy, ControlValueAc
     @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
     @Input() buttonAlign: 'right' | 'left' = 'right';
     @Input() clockTheme: NgxMaterialTimepickerTheme;
+    @Input() controlOnly: boolean;
 
     @Input()
     set format(value: number) {
