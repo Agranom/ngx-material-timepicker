@@ -64,6 +64,14 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.format).toBe(24);
     });
 
+    it('should set format', () => {
+        component.format = 24;
+        expect(component.format).toBe(24);
+
+        component.format = 10;
+        expect(component.format).toBe(12);
+    });
+
     it('should change time unit from HOUR to MINUTE', () => {
         expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
         component.changeTimeUnit(TimeUnit.MINUTE);
