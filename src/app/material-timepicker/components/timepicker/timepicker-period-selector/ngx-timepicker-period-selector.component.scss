@@ -1,4 +1,5 @@
 .period {
+    position: relative;
 
     &__btn--default {
         padding: 0;
@@ -49,9 +50,9 @@
 .period-selector {
     position: absolute;
     top: calc(50% - 50px);
-    right: calc(-50% + 50px);
+    right: calc(-50% + -50px);
     max-width: 135px;
-    width: 100%;
+    width: 150px;
     padding: 6px 0;
     margin: 0;
     list-style: none;

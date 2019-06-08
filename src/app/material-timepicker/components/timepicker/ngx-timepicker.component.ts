@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable } from 'rxjs';
@@ -30,8 +30,11 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     maxHour = 12;
 
     timeUnit = TimeUnit;
+    timepickerTime: string;
 
     @Input() disabled: boolean;
+    @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
+    @Input() buttonAlign: 'right' | 'left' = 'right';
 
     @Input()
     set format(value: number) {
@@ -44,12 +47,12 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         return this._format;
     }
 
-    private _format = 12;
 
     @Input()
     set defaultTime(val: string) {
         this.timepickerService.setDefaultTimeIfAvailable(val, null, null, this._format);
         this._defaultTime = val;
+        this.timepickerTime = val;
     }
 
     get defaultTime(): string {
@@ -57,11 +60,13 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
     }
 
     private _defaultTime: string;
+    private _format = 12;
 
     private hoursList: ClockFaceTime[];
     private minutesList: ClockFaceTime[];
 
-    private onChange: (value: string) => void;
+    private onChange: (value: string) => void = () => {
+    }
 
     constructor(private timepickerService: NgxMaterialTimepickerService) {
     }
@@ -107,8 +112,14 @@ export class NgxTimepickerComponent implements OnInit, ControlValueAccessor {
         this.changeTime();
     }
 
+    onTimeSet(time: string): void {
+        this.defaultTime = time;
+        this.onChange(time);
+    }
+
     private changeTime(): void {
         const time = this.timepickerService.getFullTime(this._format);
+        this.timepickerTime = time;
         this.onChange(time);
     }
 }
