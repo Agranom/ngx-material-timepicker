@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.2.1 (2019-06-09)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix bug with module resolution,
+ closes [(#152)](https://github.com/Agranom/ngx-material-timepicker/issues/152)
+
 ## 3.2.0 (2019-06-08)
 
 ### Features
