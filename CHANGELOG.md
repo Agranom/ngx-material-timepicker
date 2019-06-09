@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.2.2 (2019-06-09)
+
+### Fixes
+
+* fix(ngx-timepicker-field): add `ngx-timepicker-field`to public API
+
 ## 3.2.1 (2019-06-09)
 
 ### Fixes

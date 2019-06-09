@@ -44,8 +44,7 @@ import {
         NgxTimepickerFieldComponent,
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
-        NgxMaterialTimepickerThemeDirective,
-        NgxTimepickerPeriodSelectorComponent
+        NgxMaterialTimepickerThemeDirective
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
