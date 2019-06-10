@@ -130,6 +130,9 @@ Selector: `ngx-timepicker-field`
   clockTheme: NgxMaterialTimepickerTheme | Custom css properties which will override timepicker clock |
 | @Input()
   controlOnly: boolean | Hide or display toggle button with the timepicker clock |
+| @Input()
+  format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
+
   
 **NgxMaterialTimepickerToggleComponent**
 
