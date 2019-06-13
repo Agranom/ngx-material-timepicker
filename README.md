@@ -12,13 +12,6 @@ https://agranom.github.io/ngx-material-timepicker/
 
 ## Getting started
 
-Timepicker uses lightweight Date library [luxon](https://moment.github.io/luxon/),
- so make sure you have installed it:
- 
- ```angular2html
- npm install --save luxon
- ```
-
 Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.3.0 (2019-06-13)
+
+### Features
+
+* feat(ngx-timepicker): make the timepicker compatible with Angular 8,
+ closes [(#148)](https://github.com/Agranom/ngx-material-timepicker/issues/148)
+ 
+* feat(ngx-timepicker): remove `luxon` from `peerDependencies` and add to `dependencies`,
+ closes [(#147)](https://github.com/Agranom/ngx-material-timepicker/issues/147)
+
 ## 3.2.2 (2019-06-09)
 
 ### Fixes
