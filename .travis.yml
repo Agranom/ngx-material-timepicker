@@ -1,7 +1,10 @@
 language: node_js
 
 node_js:
-- '10'
+- '12'
+
+env:
+- NG_CLI_ANALYTICS=false
 
 script:
 - npm run lint
