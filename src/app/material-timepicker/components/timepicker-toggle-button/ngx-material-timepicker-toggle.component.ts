@@ -23,7 +23,7 @@ export class NgxMaterialTimepickerToggleComponent {
 
     private _disabled: boolean;
 
-    @ContentChild(NgxMaterialTimepickerToggleIconDirective) customIcon: NgxMaterialTimepickerToggleIconDirective;
+    @ContentChild(NgxMaterialTimepickerToggleIconDirective, {static: true}) customIcon: NgxMaterialTimepickerToggleIconDirective;
 
     open(event): void {
         if (this.timepicker) {

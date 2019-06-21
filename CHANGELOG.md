@@ -2,9 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
-## 3.3.1 (2019-06-21)
+## BREAKING CHANGES
 
-### Fixes
+## 4.0.0 (2019-06-21)
+
+Upgrade package to angular 8
+
+## 3.3.1 (2019-06-21)
 
 * fix(ngx-timepicker): downgrade angular to v7 and recompile package to fix warning,
  closes [(#158)](https://github.com/Agranom/ngx-material-timepicker/issues/158)

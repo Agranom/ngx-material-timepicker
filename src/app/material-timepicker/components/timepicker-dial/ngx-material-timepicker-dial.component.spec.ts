@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import * as TimepickerTime from '../../utils/timepicker-time.utils';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
+import { spyOnFunction } from '../../ngx-material-timepicker.component.spec';
 
 describe('NgxMaterialTimepickerDialComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialComponent>;
@@ -19,8 +20,8 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should call disableHours and disableMinutes on period change', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
-        const spyOnMinutes = spyOn(TimepickerTime, 'disableMinutes');
+        const spyOnFunctionHours = spyOnFunction(TimepickerTime, 'disableHours');
+        const spyOnFunctionMinutes = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             period: {
                 currentValue: TimePeriod.AM,
@@ -31,12 +32,12 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         };
 
         component.ngOnChanges(changes);
-        expect(spyOnHours).toHaveBeenCalled();
-        expect(spyOnMinutes).toHaveBeenCalled();
+        expect(spyOnFunctionHours).toHaveBeenCalled();
+        expect(spyOnFunctionMinutes).toHaveBeenCalled();
     });
 
     it('should call disableHours on format change', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
+        const spyOnFunctionHours = spyOnFunction(TimepickerTime, 'disableHours');
         const changes: SimpleChanges = {
             format: {
                 currentValue: 24,
@@ -47,11 +48,11 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         };
 
         component.ngOnChanges(changes);
-        expect(spyOnHours).toHaveBeenCalled();
+        expect(spyOnFunctionHours).toHaveBeenCalled();
     });
 
     it('should call disableMinutes on hour change', () => {
-        const spy = spyOn(TimepickerTime, 'disableMinutes');
+        const spy = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             hour: {
                 currentValue: 24,
@@ -66,8 +67,8 @@ describe('NgxMaterialTimepickerDialComponent', () => {
     });
 
     it('should not call disableHours and disableMinutes', () => {
-        const spyOnHours = spyOn(TimepickerTime, 'disableHours');
-        const spyOnMinutes = spyOn(TimepickerTime, 'disableMinutes');
+        const spyOnFunctionHours = spyOnFunction(TimepickerTime, 'disableHours');
+        const spyOnFunctionMinutes = spyOnFunction(TimepickerTime, 'disableMinutes');
         const changes: SimpleChanges = {
             minTime: {
                 currentValue: null,
@@ -78,8 +79,8 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         };
 
         component.ngOnChanges(changes);
-        expect(spyOnHours).toHaveBeenCalledTimes(0);
-        expect(spyOnMinutes).toHaveBeenCalledTimes(0);
+        expect(spyOnFunctionHours).toHaveBeenCalledTimes(0);
+        expect(spyOnFunctionMinutes).toHaveBeenCalledTimes(0);
     });
 
     it('should emit changed time unit', fakeAsync(() => {
