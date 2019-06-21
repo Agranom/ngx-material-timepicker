@@ -7,15 +7,15 @@ import { DateTime } from 'luxon';
 })
 export class TimeFormatterPipe implements PipeTransform {
 
-    transform(time: number, timeUnit: TimeUnit): any {
-        if (time === undefined) {
+    transform(time: number | string, timeUnit: TimeUnit): any {
+        if (time == null || time === '') {
             return time;
         }
         switch (timeUnit) {
             case TimeUnit.HOUR:
-                return DateTime.fromObject({hour: time}).toFormat('HH');
+                return DateTime.fromObject({hour: +time}).toFormat('HH');
             case TimeUnit.MINUTE:
-                return DateTime.fromObject({minute: time}).toFormat('mm');
+                return DateTime.fromObject({minute: +time}).toFormat('mm');
             default:
                 throw new Error('no such time unit');
         }
