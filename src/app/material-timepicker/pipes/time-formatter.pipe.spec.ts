@@ -10,6 +10,8 @@ describe('TimeFormatterPipe', () => {
 
     it('should do nothing if time undefined', () => {
         expect(pipe.transform(undefined, TimeUnit.HOUR)).toBeUndefined();
+        expect(pipe.transform(null, TimeUnit.HOUR)).toBeNull();
+        expect(pipe.transform('', TimeUnit.HOUR)).toBe('');
     });
 
     it('should transform hour \'5\' to \'05\'', () => {
