@@ -4,7 +4,6 @@ import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { DateTime } from 'luxon';
 import * as TimepickerTime from '../../utils/timepicker-time.utils';
-import { spyOnFunction } from '../../ngx-material-timepicker.component.spec';
 
 describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepicker12HoursFaceComponent>;
@@ -20,7 +19,7 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
     });
 
     it('should call disabledHours once period changed', () => {
-        const spy = spyOnFunction(TimepickerTime, 'disableHours');
+        const spy = spyOn(TimepickerTime, 'disableHours');
         const changes: SimpleChanges = {
             period: {
                 currentValue: TimePeriod.PM,
@@ -44,7 +43,7 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
     });
 
     it('should not call disabledHours', () => {
-        const spy = spyOnFunction(TimepickerTime, 'disableHours');
+        const spy = spyOn(TimepickerTime, 'disableHours');
         const changes: SimpleChanges = {
             minTime: {
                 currentValue: null,
