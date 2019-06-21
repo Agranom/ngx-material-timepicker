@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file
 
+## 3.3.1 (2019-06-21)
+
+### Fixes
+
+* fix(ngx-timepicker): downgrade angular to v7 and recompile package to fix warning,
+ closes [(#158)](https://github.com/Agranom/ngx-material-timepicker/issues/158)
+ 
+ * fix(time-formatter.pipe): handle null or empty input
+  closes [(#160)](https://github.com/Agranom/ngx-material-timepicker/issues/160)
+
 ## 3.3.0 (2019-06-13)
 
 ### Features
