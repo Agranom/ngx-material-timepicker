@@ -47,6 +47,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         this._format = value === 24 ? 24 : 12;
         this.minHour = this._format === 12 ? 1 : 0;
         this.maxHour = this._format === 12 ? 12 : 23;
+        this.hoursList = getHours(this._format);
     }
 
     get format(): number {
