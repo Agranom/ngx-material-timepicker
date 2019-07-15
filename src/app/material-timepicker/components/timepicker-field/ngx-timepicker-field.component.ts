@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable, Subject } from 'rxjs';
@@ -64,6 +64,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     get defaultTime(): string {
         return this._defaultTime;
     }
+    
+    @Output() timeChanged: EventEmitter<string> = new EventEmitter();
 
     private _defaultTime: string;
     private _format = 12;
@@ -72,9 +74,6 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private minutesList: ClockFaceTime[];
 
     private unsubscribe$ = new Subject();
-
-    private onChange: (value: string) => void = () => {
-    }
 
     constructor(private timepickerService: NgxMaterialTimepickerService) {
     }
@@ -101,10 +100,6 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     registerOnTouched(fn: any): void {
     }
 
-    registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
@@ -126,7 +121,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     onTimeSet(time: string): void {
         this.defaultTime = time;
-        this.onChange(time);
+        this.timeChanged(time);
         this.formatTime();
     }
 
@@ -137,7 +132,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private changeTime(): void {
         const time = this.timepickerService.getFullTime(this._format);
         this.timepickerTime = time;
-        this.onChange(time);
+        this.timeChanged(time);
     }
 
     private formatTime(): void {
