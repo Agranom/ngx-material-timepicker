@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 4.0.1 (2019-07-15)
+
+### Fixes
+
+* fix(ngx-timepicker-field): fix bug when dynamically change format,
+closes [(#170)](https://github.com/Agranom/ngx-material-timepicker/issues/170)
+
 ## BREAKING CHANGES
 
 ## 4.0.0 (2019-06-21)
