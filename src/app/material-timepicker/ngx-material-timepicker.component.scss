@@ -47,7 +47,7 @@
         align-items: center;
         background-color: $body-background-color;
         @supports (background-color: var(--body-background-color)) {
-            background-color: var(--body-background-color)
+            background-color: var(--body-background-color);
         }
     }
     &__actions {
@@ -56,7 +56,7 @@
         padding: 15px;
         background-color: $body-background-color;
         @supports (background-color: var(--body-background-color)) {
-            background-color: var(--body-background-color)
+            background-color: var(--body-background-color);
         }
     }
 }
@@ -77,6 +77,18 @@
         &__actions {
             padding: 5px;
             margin-top: -1px;
+        }
+    }
+}
+
+// xs-breakpoint to fit iPhone 6 & 7
+@media (max-width: 599px) and (orientation: portrait) {
+    .timepicker {
+        &__header {
+            padding: 0px 30px;
+        }
+        &__actions {
+            padding: 0 15px 15px 15px;
         }
     }
 }

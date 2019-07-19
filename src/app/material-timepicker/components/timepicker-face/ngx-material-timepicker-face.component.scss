@@ -59,7 +59,7 @@
         font-weight: 500;
         font-family: $primary-font-family;
         @supports (font-family: var(--primary-font-family)) {
-            font-family: var(--primary-font-family)
+            font-family: var(--primary-font-family);
         }
         &.active {
             background-color: $clock-hand-color;
@@ -90,7 +90,7 @@
         background-color: var(--clock-hand-color);
     }
     &:after {
-        content: '';
+        content: "";
         width: 7px;
         height: 7px;
         border-radius: 50%;
@@ -102,7 +102,7 @@
 }
 
 .clock-face__clock-hand_minute:before {
-    content: '';
+    content: "";
     width: 7px;
     height: 7px;
     background-color: #fff;
@@ -133,5 +133,23 @@
 
     .clock-face__clock-hand_minute:before {
         top: 0;
+    }
+}
+
+// xs-breakpoint to fit iPhone 6 & 7
+@media (max-width: 599px) and (orientation: portrait) {
+    .clock-face {
+        width: 240px;
+        height: 240px;
+    }
+    .clock-face__number {
+        &--outer {
+            height: calc(240px / 2 - 20px);
+        }
+    }
+
+    .clock-face__clock-hand {
+        height: 83px;
+        top: calc(50% - 83px);
     }
 }
