@@ -25,12 +25,12 @@ const ESCAPE = 27;
     animations: [
         trigger('timepicker', [
             transition(`* => ${AnimationState.ENTER}`, [
-                style({transform: 'translateY(-30%)'}),
-                animate('0.2s ease-out', style({transform: 'translateY(0)'}))
+                style({ transform: 'translateY(-30%)' }),
+                animate('0.2s ease-out', style({ transform: 'translateY(0)' }))
             ]),
             transition(`${AnimationState.ENTER} => ${AnimationState.LEAVE}`, [
-                style({transform: 'translateY(0)', opacity: 1}),
-                animate('0.2s ease-out', style({transform: 'translateY(-30%)', opacity: 0}))
+                style({ transform: 'translateY(0)', opacity: 1 }),
+                animate('0.2s ease-out', style({ transform: 'translateY(-30%)', opacity: 0 }))
             ])
         ])
     ],
@@ -56,6 +56,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
+    @Input() reverseButtonOrder = false;
 
     @Input()
     set format(value: number) {
@@ -95,7 +96,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService) {
+        private eventService: NgxMaterialTimepickerEventService) {
 
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))

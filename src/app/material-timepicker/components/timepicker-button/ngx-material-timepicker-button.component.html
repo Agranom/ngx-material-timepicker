@@ -1,3 +1,5 @@
-<button class="timepicker-button" type="button">
-  <span><ng-content></ng-content></span>
+<button class="timepicker-button" [ngClass]="'timepicker-button__' + identifier" type="button">
+  <span>
+    <ng-content></ng-content>
+  </span>
 </button>

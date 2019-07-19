@@ -12,8 +12,8 @@
                                           (periodChanged)="changePeriod($event)"
                                           (timeUnitChanged)="changeTimeUnit($event)"
                                           (hourChanged)="onHourChange($event)"
-                                          (minuteChanged)="onMinuteChange($event)"
-            ></ngx-material-timepicker-dial>
+                                          (minuteChanged)="onMinuteChange($event)">
+            </ngx-material-timepicker-dial>
         </header>
         <div class="timepicker__main-content">
             <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
@@ -27,12 +27,12 @@
                                                            (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-24-hours-face>
                     <ng-template #ampmHours>
                         <ngx-material-timepicker-12-hours-face
-                            (hourChange)="onHourChange($event)"
-                            [selectedHour]="selectedHour"
-                            [period]="selectedPeriod"
-                            [minTime]="minTime"
-                            [maxTime]="maxTime"
-                            (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-12-hours-face>
+                                                               (hourChange)="onHourChange($event)"
+                                                               [selectedHour]="selectedHour"
+                                                               [period]="selectedPeriod"
+                                                               [minTime]="minTime"
+                                                               [maxTime]="maxTime"
+                                                               (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-12-hours-face>
                     </ng-template>
                 </div>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
@@ -46,22 +46,25 @@
                                                       (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
             </div>
             <div class="timepicker__actions">
-                <div (click)="close()">
+                <div (click)="close()" *ngIf="!reverseButtonOrder">
                     <!--suppress HtmlUnknownAttribute -->
                     <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
                 </div>
                 <div (click)="setTime()">
                     <!--suppress HtmlUnknownAttribute -->
-                    <ng-container
-                        *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
+                    <ng-container *ngTemplateOutlet="confirmBtnTmpl ? confirmBtnTmpl : confirmBtnDefault"></ng-container>
+                </div>
+                <div (click)="close()" *ngIf="reverseButtonOrder">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <ng-template #cancelBtnDefault>
-    <ngx-material-timepicker-button>Cancel</ngx-material-timepicker-button>
+    <ngx-material-timepicker-button identifier="cancel">Cancel</ngx-material-timepicker-button>
 </ng-template>
 <ng-template #confirmBtnDefault>
-    <ngx-material-timepicker-button>Ok</ngx-material-timepicker-button>
+    <ngx-material-timepicker-button identifier="ok">OK</ngx-material-timepicker-button>
 </ng-template>
