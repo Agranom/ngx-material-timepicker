@@ -35,6 +35,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     timeUnit = TimeUnit;
     timepickerTime: string;
+    isDefaultTime: boolean;
 
     @Input() disabled: boolean;
     @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
@@ -60,6 +61,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         this.timepickerService.setDefaultTimeIfAvailable(val, null, null, this._format);
         this._defaultTime = val;
         this.timepickerTime = val;
+        this.isDefaultTime = !!val;
     }
 
     get defaultTime(): string {
