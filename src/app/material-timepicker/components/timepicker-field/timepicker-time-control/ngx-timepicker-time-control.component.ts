@@ -32,9 +32,9 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const timeChanges = changes['time'];
-        const isTimeProvided = timeChanges && timeChanges.isFirstChange() && !this.isDefaultTimeSet;
+        const isTimeNotProvided = timeChanges && timeChanges.isFirstChange() && !this.isDefaultTimeSet;
 
-        if (isTimeProvided) {
+        if (isTimeNotProvided) {
             this.time = null;
         }
     }
