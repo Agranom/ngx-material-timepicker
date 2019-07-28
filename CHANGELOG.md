@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file
 
+## 4.0.2 (2019-07-28)
+
+### Fixes
+
+* fix(autofocus): provide `{ preventScroll: true }` argument to `.focus()` method ,
+closes [(#177)](https://github.com/Agranom/ngx-material-timepicker/issues/177)
+
+* fix(ngx-timepicker-field): set default time only if it is provided,
+closes [(#174)](https://github.com/Agranom/ngx-material-timepicker/issues/174)
+
+### Improvements
+
+* improvement(ngx-timepicker-field): provide css class for disabled timepicker,
+closes [(#174)](https://github.com/Agranom/ngx-material-timepicker/issues/174)
+
+
 ## 4.0.1 (2019-07-15)
 
 ### Fixes
