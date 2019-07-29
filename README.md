@@ -62,7 +62,8 @@ Selector: `ngxTimepicker`
   max: string or DateTime | Set max time for timepicker (`11:15 pm` ) |
 | @Input()
   disableClick: boolean | Set `true` to disable opening timepicker by clicking on the input |
-
+| @Input()
+  reverseButtonOrder: boolean | Set `true` to reverse the order of the buttons (i.e. OK Cancel) |
   
 **NgxMaterialTimepickerComponent**
 

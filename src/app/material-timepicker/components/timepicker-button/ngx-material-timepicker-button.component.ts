@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ngx-material-timepicker-button',
@@ -6,4 +6,7 @@ import {Component} from '@angular/core';
     styleUrls: ['./ngx-material-timepicker-button.component.scss']
 })
 export class NgxMaterialTimepickerButtonComponent {
+
+    @Input() identifier: string;
+
 }
