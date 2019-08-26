@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {TimePeriod} from '../../models/time-period.enum';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimepickerTime} from '../../timepicker-time.namespace';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {Moment} from 'moment';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { TimePeriod } from '../../models/time-period.enum';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { DateTime } from 'luxon';
+import { disableHours, disableMinutes, getHours, getMinutes } from '../../utils/timepicker-time.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -18,13 +18,16 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
 
+    isHintVisible: boolean;
+
+    @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() hour: number | string;
     @Input() minute: number | string;
     @Input() format: number;
     @Input() period: TimePeriod;
     @Input() activeTimeUnit: TimeUnit;
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() isEditable: boolean;
     @Input() minutesGap: number;
 
@@ -36,9 +39,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue
             || changes['format'] && changes['format'].currentValue) {
-            const hours = TimepickerTime.getHours(this.format);
+            const hours = getHours(this.format);
 
-            this.hours = TimepickerTime.disableHours(hours, {
+            this.hours = disableHours(hours, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
@@ -47,9 +50,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
         }
         if (changes['period'] && changes['period'].currentValue
             || changes['hour'] && changes['hour'].currentValue) {
-            const minutes = TimepickerTime.getMinutes(this.minutesGap);
+            const minutes = getMinutes(this.minutesGap);
 
-            this.minutes = TimepickerTime.disableMinutes(minutes, +this.hour, {
+            this.minutes = disableMinutes(minutes, +this.hour, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
@@ -72,5 +75,13 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     changeMinute(minute: ClockFaceTime): void {
         this.minuteChanged.next(minute);
+    }
+
+    showHint(): void {
+        this.isHintVisible = true;
+    }
+
+    hideHint(): void {
+        this.isHintVisible = false;
     }
 }

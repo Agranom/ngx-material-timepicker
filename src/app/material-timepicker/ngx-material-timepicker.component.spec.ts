@@ -1,13 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AnimationState, NgxMaterialTimepickerComponent} from './ngx-material-timepicker.component';
-import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
-import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
-import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {TimeFormatterPipe} from './pipes/time-formatter.pipe';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {TimePeriod} from './models/time-period.enum';
-import {TimeUnit} from './models/time-unit.enum';
-import {AnimationEvent} from '@angular/animations';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AnimationState, NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
+import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
+import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
+import { TimepickerDirective } from './directives/ngx-timepicker.directive';
+import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TimePeriod } from './models/time-period.enum';
+import { TimeUnit } from './models/time-unit.enum';
+import { AnimationEvent } from '@angular/animations';
 
 describe('NgxMaterialTimepickerComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerComponent>;
@@ -64,6 +64,14 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.format).toBe(24);
     });
 
+    it('should set format', () => {
+        component.format = 24;
+        expect(component.format).toBe(24);
+
+        component.format = 10;
+        expect(component.format).toBe(12);
+    });
+
     it('should change time unit from HOUR to MINUTE', () => {
         expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
         component.changeTimeUnit(TimeUnit.MINUTE);
@@ -98,11 +106,14 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.selectedPeriod).toBe(TimePeriod.AM);
     });
 
-    it(`should set isOpened 'true' and change animationState to 'enter' on open call`, () => {
+    it(`should set isOpened 'true', change animationState to 'enter' and emit event on open call`, async(() => {
+        let counter = 0;
+
+        component.opened.subscribe(() => expect(++counter).toBe(1));
         component.open();
         expect(component.isOpened).toBeTruthy();
         expect(component.animationState).toBe(AnimationState.ENTER);
-    });
+    }));
 
     it('should change animationState to \'leave\' on close call', () => {
         component.close();
@@ -191,6 +202,43 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.minutesGap).toBe(6);
     });
 
+    it('should not set minutesGap if null or undefined', () => {
+        component.minutesGap = undefined;
+        expect(component.minutesGap).toBeUndefined();
+
+        component.minutesGap = null;
+        expect(component.minutesGap).toBeUndefined();
+    });
+
+    it('should change timeUnit to MINUTE and emit selected hour', async(() => {
+        const hour = 10;
+
+        expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+
+        component.hourSelected.subscribe(h => expect(h).toBe(hour));
+        component.onHourSelected(hour);
+
+        expect(component.activeTimeUnit).toBe(TimeUnit.MINUTE);
+    }));
+
+    it('should not trigger animation on Open if disableAnimation is true', () => {
+        component.disableAnimation = true;
+
+        expect(component.animationState).toBeUndefined();
+        component.open();
+        expect(component.animationState).toBeUndefined();
+    });
+
+    it('should not trigger animation on Close if disableAnimation is true', async(() => {
+        component.disableAnimation = true;
+        component.closed.subscribe(actual => expect(actual).toBeUndefined());
+
+        component.close();
+        expect(component.isOpened).toBeFalsy();
+        expect(component.animationState).toBeUndefined();
+        expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+    }));
+
     describe('Timepicker subscriptions', () => {
         const hour = {time: 11, angle: 360};
         const minute = {time: 44, angle: 36};
@@ -232,3 +280,9 @@ describe('NgxMaterialTimepickerComponent', () => {
         });
     });
 });
+
+export const spyOnFunction = <T>(obj: T, func: keyof T) => {
+    const spy = jasmine.createSpy(func as string);
+    spyOnProperty(obj, func, 'get').and.returnValue(spy);
+    return spy;
+};

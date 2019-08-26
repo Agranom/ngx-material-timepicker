@@ -1,0 +1,26 @@
+<div class="period">
+    <div class="period-control">
+        <button class="period-control__button period__btn--default"
+                [ngClass]="{'period-control__button--disabled': disabled}"
+                type="button"
+                (click)="open()">
+            <span>{{selectedPeriod}}</span>
+            <span class="period-control__arrow">&#9660;</span>
+        </button>
+    </div>
+    <ul class="period-selector" @scaleInOut *ngIf="isOpened" [timepickerAutofocus]="true">
+        <li>
+            <button class="period-selector__button period__btn--default"
+                    type="button"
+                    (click)="select(period.AM)"
+                    [ngClass]="{'period-selector__button--active': selectedPeriod === period.AM}">{{period.AM}}</button>
+        </li>
+        <li>
+            <button class="period-selector__button period__btn--default"
+                    type="button"
+                    (click)="select(period.PM)"
+                    [ngClass]="{'period-selector__button--active': selectedPeriod === period.PM}">{{period.PM}}</button>
+        </li>
+    </ul>
+</div>
+<div class="overlay" (click)="backdropClick()" *ngIf="isOpened"></div>

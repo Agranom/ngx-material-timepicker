@@ -1,31 +1,19 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
-import {ClockFaceTime} from './models/clock-face-time.interface';
-import {TimePeriod} from './models/time-period.enum';
-import {merge, Subscription} from 'rxjs';
-import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
-import {TimeUnit} from './models/time-unit.enum';
-import {animate, AnimationEvent, style, transition, trigger} from '@angular/animations';
-import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
-import {filter} from 'rxjs/operators';
-import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {Moment} from 'moment';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ClockFaceTime } from './models/clock-face-time.interface';
+import { TimePeriod } from './models/time-period.enum';
+import { merge, Subscription } from 'rxjs';
+import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
+import { TimeUnit } from './models/time-unit.enum';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
+import { filter } from 'rxjs/operators';
+import { TimepickerDirective } from './directives/ngx-timepicker.directive';
+import { DateTime } from 'luxon';
 
 export enum AnimationState {
     ENTER = 'enter',
     LEAVE = 'leave'
 }
-
 
 
 const ESCAPE = 27;
@@ -60,14 +48,30 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     isOpened = false;
     animationState: AnimationState;
 
+
     @Input() cancelBtnTmpl: TemplateRef<Node>;
+    @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input('ESC') isEsc = true;
     @Input() enableKeyboardInput: boolean;
     @Input() connectedToInput: boolean;
+    @Input() preventOverlayClick: boolean;
+    @Input() disableAnimation: boolean;
+
+    @Input()
+    set format(value: number) {
+        this._format = value === 24 ? 24 : 12;
+    }
+
+    get format(): number {
+        return this.timepickerInput ? this.timepickerInput.format : this._format;
+    }
 
     @Input()
     set minutesGap(gap: number) {
+        if (gap == null) {
+            return;
+        }
         gap = Math.floor(gap);
         this._minutesGap = gap <= 59 ? gap : 1;
     }
@@ -81,13 +85,13 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.setDefaultTime(time);
     }
 
-
     @Output() timeSet = new EventEmitter<string>();
+    @Output() opened = new EventEmitter<null>();
     @Output() closed = new EventEmitter<null>();
-
-    @ViewChild('timepickerww') timepickerComponent: ElementRef;
+    @Output() hourSelected = new EventEmitter<number>();
 
     private _minutesGap: number;
+    private _format: number;
     private timepickerInput: TimepickerDirective;
     private subscriptions: Subscription[] = [];
 
@@ -100,20 +104,16 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     }
 
-    get minTime(): string | Moment {
+    get minTime(): string | DateTime {
         return this.timepickerInput && this.timepickerInput.min;
     }
 
-    get maxTime(): string | Moment {
+    get maxTime(): string | DateTime {
         return this.timepickerInput && this.timepickerInput.max;
     }
 
     get disabled(): boolean {
         return this.timepickerInput && this.timepickerInput.disabled;
-    }
-
-    get format(): number {
-        return this.timepickerInput && this.timepickerInput.format;
     }
 
     ngOnInit() {
@@ -142,6 +142,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.timepickerService.hour = hour;
     }
 
+    onHourSelected(hour: number): void {
+        this.changeTimeUnit(TimeUnit.MINUTE);
+        this.hourSelected.next(hour);
+    }
+
     onMinuteChange(minute: ClockFaceTime): void {
         this.timepickerService.minute = minute;
     }
@@ -150,33 +155,39 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.timepickerService.period = period;
     }
 
-    changeTimeUnit(unit: TimeUnit) {
+    changeTimeUnit(unit: TimeUnit): void {
         this.activeTimeUnit = unit;
     }
 
-    setTime() {
+    setTime(): void {
         this.timeSet.next(this.timepickerService.getFullTime(this.format));
         this.close();
     }
 
     setDefaultTime(time: string): void {
-        this.timepickerService.setDefaultTimeIfAvailable(time, this.minTime as Moment, this.maxTime as Moment, this.format);
+        this.timepickerService.setDefaultTimeIfAvailable(
+            time, this.minTime as DateTime, this.maxTime as DateTime, this.format, this.minutesGap);
     }
 
-    open() {
+    open(): void {
         this.isOpened = true;
-        this.animationState = AnimationState.ENTER;
+        if (!this.disableAnimation) {
+            this.animationState = AnimationState.ENTER;
+        }
+        this.opened.next();
     }
 
-    close() {
+    close(): void {
+        if (this.disableAnimation) {
+            this.closeTimepicker();
+            return;
+        }
         this.animationState = AnimationState.LEAVE;
     }
 
     animationDone(event: AnimationEvent): void {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
-            this.isOpened = false;
-            this.activeTimeUnit = TimeUnit.HOUR;
-            this.closed.next();
+            this.closeTimepicker();
         }
     }
 
@@ -188,5 +199,11 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    private closeTimepicker(): void {
+        this.isOpened = false;
+        this.activeTimeUnit = TimeUnit.HOUR;
+        this.closed.next();
     }
 }

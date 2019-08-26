@@ -17,12 +17,12 @@ export class AutofocusDirective implements OnChanges, OnDestroy {
     ngOnChanges() {
         if (this.isFocusActive) {
             // To avoid ExpressionChangedAfterItHasBeenCheckedError;
-            setTimeout(() => this.element.nativeElement.focus());
+            setTimeout(() => this.element.nativeElement.focus({ preventScroll: true }));
         }
     }
 
     ngOnDestroy() {
         // To avoid ExpressionChangedAfterItHasBeenCheckedError;
-        setTimeout(() => this.activeElement.focus());
+        setTimeout(() => this.activeElement.focus({ preventScroll: true }));
     }
 }

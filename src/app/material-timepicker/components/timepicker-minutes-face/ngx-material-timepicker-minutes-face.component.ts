@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimePeriod} from '../../models/time-period.enum';
-import {Moment} from 'moment';
-import {TimepickerTime} from '../../timepicker-time.namespace';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimePeriod } from '../../models/time-period.enum';
+import { DateTime } from 'luxon';
+import { disableMinutes, getMinutes } from '../../utils/timepicker-time.utils';
 
 
 @Component({
@@ -18,8 +18,8 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Input() selectedMinute: ClockFaceTime;
     @Input() selectedHour: number;
     @Input() period: TimePeriod;
-    @Input() minTime: Moment;
-    @Input() maxTime: Moment;
+    @Input() minTime: DateTime;
+    @Input() maxTime: DateTime;
     @Input() format: number;
     @Input() minutesGap: number;
 
@@ -27,8 +27,8 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue) {
-            const minutes = TimepickerTime.getMinutes(this.minutesGap);
-            this.minutesList = TimepickerTime.disableMinutes(minutes, this.selectedHour, {
+            const minutes = getMinutes(this.minutesGap);
+            this.minutesList = disableMinutes(minutes, this.selectedHour, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,

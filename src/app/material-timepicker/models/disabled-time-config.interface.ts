@@ -1,9 +1,9 @@
-import {Moment} from 'moment';
-import {TimePeriod} from './time-period.enum';
+import { TimePeriod } from './time-period.enum';
+import { DateTime } from 'luxon';
 
-    export interface DisabledTimeConfig {
-    min: Moment;
-    max: Moment;
+export interface DisabledTimeConfig {
+    min: DateTime;
+    max: DateTime;
     format: number;
     period?: TimePeriod;
 }

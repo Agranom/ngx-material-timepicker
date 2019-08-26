@@ -1,5 +1,5 @@
-import {TimeFormatterPipe} from './time-formatter.pipe';
-import {TimeUnit} from '../models/time-unit.enum';
+import { TimeFormatterPipe } from './time-formatter.pipe';
+import { TimeUnit } from '../models/time-unit.enum';
 
 describe('TimeFormatterPipe', () => {
     let pipe: TimeFormatterPipe;
@@ -10,6 +10,8 @@ describe('TimeFormatterPipe', () => {
 
     it('should do nothing if time undefined', () => {
         expect(pipe.transform(undefined, TimeUnit.HOUR)).toBeUndefined();
+        expect(pipe.transform(null, TimeUnit.HOUR)).toBeNull();
+        expect(pipe.transform('', TimeUnit.HOUR)).toBe('');
     });
 
     it('should transform hour \'5\' to \'05\'', () => {

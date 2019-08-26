@@ -1,10 +1,15 @@
 @import "../../styles/config";
 
 .timepicker-dial {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    text-align: right;
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
     &__time {
         display: flex;
         align-items: baseline;
@@ -17,18 +22,43 @@
             color: var(--dial-inactive-color);
         }
     }
+
     &__period {
         display: block;
         margin-left: 10px;
+
         &--hidden {
             visibility: hidden;
         }
     }
+
+    &__hint-container {
+        &--hidden {
+            visibility: hidden;
+        }
+    }
+
+    &__hint {
+        display: inline-block;
+        font-size: 10px;
+        color: $dial-active-color;
+        @supports (color: var(--dial-active-color)) {
+            color: var(--dial-active-color);
+        }
+
+        span {
+            font-size: 14px;
+        }
+    }
+
 }
 
 @media (max-device-width: 1023px) and (orientation: landscape) {
     .timepicker-dial {
-        flex-direction: column;
+        &__container {
+            flex-direction: column;
+        }
+
         &__period {
             margin-left: 0;
         }

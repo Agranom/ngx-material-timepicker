@@ -1,3 +1,3 @@
 <ngx-material-timepicker-face [selectedTime]="selectedHour" [faceTime]="hoursList" [format]="format"
                               (timeChange)="hourChange.next($event)"
-                              (timeSelected)="hourSelected.next()"></ngx-material-timepicker-face>
+                              (timeSelected)="onTimeSelected($event)"></ngx-material-timepicker-face>

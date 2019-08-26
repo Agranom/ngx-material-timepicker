@@ -1,4 +1,4 @@
-import {Directive, HostListener} from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import {NgxMaterialTimepickerEventService} from '../services/ngx-material-timepicker-event.service';
 
 @Directive({
@@ -6,13 +6,17 @@ import {NgxMaterialTimepickerEventService} from '../services/ngx-material-timepi
 })
 export class OverlayDirective {
 
+    @Input('overlay') preventClick: boolean;
+
     constructor(private eventService: NgxMaterialTimepickerEventService) {
     }
 
 
     @HostListener('click', ['$event'])
     onClick(e: MouseEvent) {
-        this.eventService.dispatchEvent(e);
+        if (!this.preventClick) {
+            this.eventService.dispatchEvent(e);
+        }
         e.preventDefault();
     }
 

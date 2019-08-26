@@ -16,13 +16,13 @@ Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker
 ```
-Next import the timepicker module into your apps module:
+Next import the timepicker module into your app's module:
 ```typescript
 import {NgModule} from '@angular/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
-  imports: [NgxMaterialTimepickerModule.forRoot()]
+  imports: [NgxMaterialTimepickerModule]
 })
 export class MyModule {}
 ```
@@ -53,13 +53,13 @@ Selector: `ngxTimepicker`
 | @Input()
   disabled: boolean | Weather the timepicker popup should be disabled. |
 | @Input()
-  value: string | Set a default value and time for a timepicker. |
+  value: string | Set a default value and time for a timepicker. The format of the time is in 12 hours notation `11:00 PM` or in 24 hours notation `23:00`. A Date string won't work. |
 | @Input()
   format: number | `12` or `24` . 12h/24h view for hour selection clock . `12` (AM/PM) format by default. |
 | @Input()
-  min: string or Moment | Set min time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+  min: string or DateTime | Set min time for timepicker (`11:15 pm` ) |
 | @Input()
-  max: string or Moment | Set max time for timepicker (`11:15 pm` or `moment().hour(11).minute(15)` ) |
+  max: string or DateTime | Set max time for timepicker (`11:15 pm` ) |
 | @Input()
   disableClick: boolean | Set `true` to disable opening timepicker by clicking on the input |
 
@@ -80,6 +80,8 @@ Selector: `ngx-material-timepicker`
 | @Input()
   confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button to your custom one. |
 | @Input()
+  editableHintTmpl: TemplateRef<Node> | Set if you want to change dial hint to your custom one. Works only if `enableKeyboardInput = true` |
+| @Input()
   ESC: boolean | Disable or enable closing timepicker by ESC. |
 | @Input()
   enableKeyboardInput: boolean | To disable or enable changing time through a keyboard on the timepicker dial without interaction with a clock face. Set `false` by default |
@@ -87,10 +89,43 @@ Selector: `ngx-material-timepicker`
   minutesGap: number | To define a gap between minutes. Set `1` by default |
 | @Input()
   defaultTime: string | Set default time for a timepicker. `12:00 AM` by default |
+| @Input()
+  preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
+  @Input()
+  disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
+  opened: EventEmitter\<null\> | Emits after timepicker was opened. |
+| @Output()
   closed: EventEmitter\<null\> | Emits after timepicker was closed. |
+| @Output()
+  hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
+  
+**NgxTimepickerFieldComponent**
+
+The timepicker as a control.
+
+Selector: `ngx-timepicker-field`
+
+**Properties**
+
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  disabled: boolean |  Whether the timepicker is disabled| 
+| @Input()
+  toggleIcon: TemplateRef\<HTMLObjectElement> | Provide custom `svg` icon for toggle button |
+| @Input()
+  buttonAlign: 'right' or 'left' | Positioning toggle button (`right` by default) |
+| @Input()
+  clockTheme: NgxMaterialTimepickerTheme | Custom css properties which will override timepicker clock |
+| @Input()
+  controlOnly: boolean | Hide or display toggle button with the timepicker clock |
+| @Input()
+  format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
+
   
 **NgxMaterialTimepickerToggleComponent**
 
@@ -125,7 +160,7 @@ Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
 | Name | Description |
 |------|-------------|
 | @Input()
-  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom properties which will override the defaults | 
+  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults | 
  
 
 ## Development

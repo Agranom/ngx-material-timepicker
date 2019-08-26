@@ -2,6 +2,163 @@
 
 All notable changes to this project will be documented in this file
 
+## 4.0.2 (2019-07-28)
+
+### Fixes
+
+* fix(autofocus): provide `{ preventScroll: true }` argument to `.focus()` method ,
+closes [(#177)](https://github.com/Agranom/ngx-material-timepicker/issues/177)
+
+* fix(ngx-timepicker-field): set default time only if it is provided,
+closes [(#174)](https://github.com/Agranom/ngx-material-timepicker/issues/174)
+
+### Improvements
+
+* improvement(ngx-timepicker-field): provide css class for disabled timepicker,
+closes [(#174)](https://github.com/Agranom/ngx-material-timepicker/issues/174)
+
+
+## 4.0.1 (2019-07-15)
+
+### Fixes
+
+* fix(ngx-timepicker-field): fix bug when dynamically change format,
+closes [(#170)](https://github.com/Agranom/ngx-material-timepicker/issues/170)
+
+## BREAKING CHANGES
+
+## 4.0.0 (2019-06-21)
+
+Upgrade package to angular 8
+
+## 3.3.1 (2019-06-21)
+
+* fix(ngx-timepicker): downgrade angular to v7 and recompile package to fix warning,
+ closes [(#158)](https://github.com/Agranom/ngx-material-timepicker/issues/158)
+ 
+ * fix(time-formatter.pipe): handle null or empty input
+  closes [(#160)](https://github.com/Agranom/ngx-material-timepicker/issues/160)
+
+## 3.3.0 (2019-06-13)
+
+### Features
+
+* feat(ngx-timepicker): make the timepicker compatible with Angular 8,
+ closes [(#148)](https://github.com/Agranom/ngx-material-timepicker/issues/148)
+ 
+* feat(ngx-timepicker): remove `luxon` from `peerDependencies` and add to `dependencies`,
+ closes [(#147)](https://github.com/Agranom/ngx-material-timepicker/issues/147)
+
+## 3.2.2 (2019-06-09)
+
+### Fixes
+
+* fix(ngx-timepicker-field): add `ngx-timepicker-field`to public API
+
+## 3.2.1 (2019-06-09)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix bug with module resolution,
+ closes [(#152)](https://github.com/Agranom/ngx-material-timepicker/issues/152)
+
+## 3.2.0 (2019-06-08)
+
+### Features
+
+* feat(ngx-timepicker-field): create `ngx-timepicker-field` component,
+ closes [(#55)](https://github.com/Agranom/ngx-material-timepicker/issues/55)
+
+## 3.1.0 (2019-05-13)
+
+### Features
+
+* feat(ngx-material-timepicker): add `disableAnimation` input to prevent timepicker animation,
+ closes [(#134)](https://github.com/Agranom/ngx-material-timepicker/issues/134)
+
+
+## 3.0.3 (2019-04-24)
+
+### Fixes
+
+* fix(ngx-material-timepicker): move functions from namespaces, closes [(#94)](https://github.com/Agranom/ngx-material-timepicker/issues/94)
+
+* fix(ngx-material-timepicker): min/max time validation with 24-hours format,
+closes [(#127)](https://github.com/Agranom/ngx-material-timepicker/issues/127)
+
+* fix(ngx-material-timepicker-facet): set minutes angle step according to minutes gap,
+closes [(#132)](https://github.com/Agranom/ngx-material-timepicker/issues/132)
+
+
+## 3.0.2 (2019-03-23)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix issues with selecting time [(cf80399)](https://github.com/Agranom/ngx-material-timepicker/commit/cf80399e7d59187918e4ae6ac031c248bbaa2827),
+closes [(#121)](https://github.com/Agranom/ngx-material-timepicker/issues/121), [(#122)](https://github.com/Agranom/ngx-material-timepicker/issues/121)
+
+* fix(ngx-material-timepicker-period): disable to set period if it is not valid [(b7c3626)](https://github.com/Agranom/ngx-material-timepicker/commit/b7c36267a655b6a14bb9ba5b1e9ac0ebe1933cec),
+closes [(#120)](https://github.com/Agranom/ngx-material-timepicker/issues/120)
+
+### Improvements
+
+* improvement(ngx-material-timepicker-component): provide `NgxMaterialTimepickerComponent` as public API [(159167a)](https://github.com/Agranom/ngx-material-timepicker/commit/159167a73975396edf1719befd6920fdae2d7ac2),
+closes [(#119)](https://github.com/Agranom/ngx-material-timepicker/issues/119)
+
+## BREAKING CHANGES
+
+## 3.0.1 (2019-03-17)
+
+* Decrease package size by changing momentJs to [luxon](https://moment.github.io/luxon/),
+ closes [(#78)](https://github.com/Agranom/ngx-material-timepicker/issues/78)
+ 
+* improvement(NgxMaterialTimepickerModule): remove forRoot() static method and add `provideIn` property to services,
+closes [(#83)](https://github.com/Agranom/ngx-material-timepicker/issues/83) 
+
+* Update peerDependencies
+
+## 2.13.0 (2019-02-16)
+
+### Features
+
+* feat(ngx-material-timepicker): add `hourSelected` event emitter [(dd43874)](https://github.com/Agranom/ngx-material-timepicker/commit/dd4387407284788438a79283139a9a4f6e4fff44),
+closes [(#108)](https://github.com/Agranom/ngx-material-timepicker/issues/108)
+
+* feat(ngx-material-timepicker): add `opened` event emitter [(5bc9cc0)](https://github.com/Agranom/ngx-material-timepicker/commit/5bc9cc088482ba1aeee32af2c97a0ece86dc1205),
+closes [(#112)](https://github.com/Agranom/ngx-material-timepicker/issues/112)
+
+* feat(ngx-material-timepicker-dial): add possibility to set a custom hint template [(479f311)](https://github.com/Agranom/ngx-material-timepicker/commit/479f311cee74db79372263a19911cf5b0e73b8b8),
+relates to [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
+### Fixes
+
+* fix(clock face): fix bug with dead zone in 12 or 00 time section [(07a8618)](https://github.com/Agranom/ngx-material-timepicker/commit/07a861897842a8e7225a2a9d4613083481587df1),
+ closes [(#109)](https://github.com/Agranom/ngx-material-timepicker/issues/109)
+
+### Improvements
+
+* improvement(ngx-material-timepicker-dial): show/hide dial hint onFocus/onBlur dial control [(c96da39)](https://github.com/Agranom/ngx-material-timepicker/commit/c96da391ef37931947d0db8b65b9a987bb59b4eb),
+ relates to [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
+## 2.12.0 (2019-01-26)
+
+### Features
+
+* feat(ngx-material-timepicker): `preventOverlayClick` property was added to prevent closing the timepicker by overlay click,
+closes [(#89)](https://github.com/Agranom/ngx-material-timepicker/issues/89)
+
+### Fixes
+
+* fix(ngx-material-timepicker): add readable error and preventing setting default time if default minute isn't allowed with provided minutesGap,
+ closes [(#81)](https://github.com/Agranom/ngx-material-timepicker/issues/81) and
+ closes [(#97)](https://github.com/Agranom/ngx-material-timepicker/issues/97)
+
+### Improvements
+
+* improvement(minutesGap): prevent setting null or undefined
+* improvement(ngx-material-timepicker): change time by keyboard arrows including minutesGap, 
+closes [(#103)](https://github.com/Agranom/ngx-material-timepicker/issues/103)
+
 ## 2.11.2 (2019-01-07)
 
 ### Fixes

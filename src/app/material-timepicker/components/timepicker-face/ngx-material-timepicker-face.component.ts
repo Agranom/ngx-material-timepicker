@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
@@ -11,8 +12,8 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
 
 const CLOCK_HAND_STYLES = {
     small: {
@@ -28,7 +29,8 @@ const CLOCK_HAND_STYLES = {
 @Component({
     selector: 'ngx-material-timepicker-face',
     templateUrl: './ngx-material-timepicker-face.component.html',
-    styleUrls: ['./ngx-material-timepicker-face.component.scss']
+    styleUrls: ['./ngx-material-timepicker-face.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChanges, OnDestroy {
 
@@ -44,10 +46,10 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @Input() minutesGap: number;
 
     @Output() timeChange = new EventEmitter<ClockFaceTime>();
-    @Output() timeSelected = new EventEmitter<null>();
+    @Output() timeSelected = new EventEmitter<number>();
 
-    @ViewChild('clockFace') clockFace: ElementRef;
-    @ViewChild('clockHand') clockHand: ElementRef;
+    @ViewChild('clockFace', {static: true}) clockFace: ElementRef;
+    @ViewChild('clockHand', {static: true}) clockHand: ElementRef;
 
     private isStarted: boolean;
     private touchStartHandler: () => any;
@@ -108,19 +110,20 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         /* Check if selected time from the inner clock face (24 hours format only) */
         const isInnerClockChosen = this.format && this.isInnerClockFace(centerX, centerY, e.clientX, e.clientY);
         /* Round angle according to angle step */
-        const angleStep = this.unit === TimeUnit.MINUTE ? 6 : 30;
+        const angleStep = this.unit === TimeUnit.MINUTE ? (6 * (this.minutesGap || 1)) : 30;
         const roundedAngle = isInnerClockChosen
             ? roundAngle(circleAngle, angleStep) + 360
             : roundAngle(circleAngle, angleStep);
+        const angle = roundedAngle === 0 ? 360 : roundedAngle;
 
-        const selectedTime = this.faceTime.find(val => val.angle === roundedAngle);
+        const selectedTime = this.faceTime.find(val => val.angle === angle);
 
         if (selectedTime && !selectedTime.disabled) {
             this.timeChange.next(selectedTime);
 
             /* To let know whether user ended interaction with clock face */
             if (!this.isStarted) {
-                this.timeSelected.next();
+                this.timeSelected.next(selectedTime.time);
             }
         }
 
