@@ -2,19 +2,21 @@
     <div *ngIf="unit !== timeUnit.MINUTE;else minutesFace" class="clock-face__container">
         <div class="clock-face__number clock-face__number--outer"
              [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
-             *ngFor="let time of faceTime.slice(0, 12); trackBy: trackByTime">
+             *ngFor="let time of faceTime | slice: 0 : 12; trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
-                  [ngClass]="{'active': isHourSelected(time.time), 'disabled': time.disabled}">{{time.time}}</span>
+                  [ngClass]="{'active': isHourSelected(time.time), 'disabled': time.disabled}">
+                {{time.time | timeLocalizer: timeUnit.HOUR}}
+            </span>
         </div>
         <div class="clock-face__inner" *ngIf="faceTime.length > 12"
              [style.top]="'calc(50% - ' + innerClockFaceSize + 'px)'">
             <div class="clock-face__number clock-face__number--inner"
                  [style.transform]="'rotateZ('+ time.angle +'deg) translateX(-50%)' | styleSanitizer"
                  [style.height.px]="innerClockFaceSize"
-                 *ngFor="let time of faceTime.slice(12, 24); trackBy: trackByTime">
+                 *ngFor="let time of faceTime | slice: 12 : 24; trackBy: trackByTime">
 			<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
                   [ngClass]="{'active': isHourSelected(time.time), 'disabled': time.disabled}">
-                {{time.time === 0 ? '00' : time.time}}</span>
+                {{time.time | timeLocalizer: timeUnit.HOUR}}</span>
             </div>
         </div>
     </div>
@@ -29,7 +31,7 @@
              *ngFor="let time of faceTime; trackBy: trackByTime">
 	<span [style.transform]="'rotateZ(-'+ time.angle +'deg)' | styleSanitizer"
           [ngClass]="{'active': isMinuteSelected(time.time), 'disabled': time.disabled}">
-	{{time.time === 0 ? '00' : time.time | minutesFormatter: minutesGap}}</span>
+	{{time.time | minutesFormatter: minutesGap | timeLocalizer: timeUnit.MINUTE}}</span>
         </div>
     </div>
 </ng-template>

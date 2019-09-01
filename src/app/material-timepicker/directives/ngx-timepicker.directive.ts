@@ -1,9 +1,10 @@
-import { Directive, ElementRef, forwardRef, HostListener, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, forwardRef, HostListener, Inject, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TimeAdapter } from '../services/time-adapter';
 import { DateTime } from 'luxon';
+import { TIME_LOCALE } from '../tokens/time-locale.token';
 
 const VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -100,7 +101,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (!this._value) {
             return '';
         }
-        return TimeAdapter.toLocaleTimeString(this._value, {format: this.format});
+        return TimeAdapter.toLocaleTimeString(this._value, {format: this.format, locale: this.locale});
     }
 
     private _value = '';
@@ -116,7 +117,8 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     private onChange: (value: any) => void = () => {
     }
 
-    constructor(private elementRef: ElementRef) {
+    constructor(private elementRef: ElementRef,
+                @Inject(TIME_LOCALE) private locale: string) {
     }
 
     private set defaultTime(time: string) {

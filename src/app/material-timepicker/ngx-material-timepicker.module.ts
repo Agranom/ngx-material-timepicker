@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +31,9 @@ import {
 import {
     NgxTimepickerPeriodSelectorComponent
 } from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
+import { TimeLocalizerPipe } from './pipes/time-localizer.pipe';
+import { TIME_LOCALE } from './tokens/time-locale.token';
+import { TimeAdapter } from './services/time-adapter';
 
 
 @NgModule({
@@ -67,8 +70,21 @@ import {
         NgxMaterialTimepickerThemeDirective,
         NgxTimepickerFieldComponent,
         NgxTimepickerTimeControlComponent,
-        NgxTimepickerPeriodSelectorComponent
+        NgxTimepickerPeriodSelectorComponent,
+        TimeLocalizerPipe
+    ],
+    providers: [
+        {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
     ]
 })
 export class NgxMaterialTimepickerModule {
+
+    static setLocale(locale: string): ModuleWithProviders {
+        return {
+            ngModule: NgxMaterialTimepickerModule,
+            providers: [
+                {provide: TIME_LOCALE, useValue: locale}
+            ]
+        }
+    }
 }
