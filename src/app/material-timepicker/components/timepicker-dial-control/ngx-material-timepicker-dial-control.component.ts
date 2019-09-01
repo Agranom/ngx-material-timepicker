@@ -20,6 +20,7 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
     @Input() isActive: boolean;
     @Input() isEditable: boolean;
     @Input() minutesGap: number;
+    @Input() locale: string;
 
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();

@@ -2,7 +2,7 @@ import { TimeLocalizerPipe } from './time-localizer.pipe';
 import { TimeUnit } from '../models/time-unit.enum';
 import { DateTime } from 'luxon';
 
-fdescribe('TimeLocalizerPipe', () => {
+describe('TimeLocalizerPipe', () => {
     const defaultLocale = 'en-US';
     const pipe = new TimeLocalizerPipe(defaultLocale);
 
