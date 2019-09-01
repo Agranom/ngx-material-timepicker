@@ -27,6 +27,7 @@
                                         [selectedPeriod]="period" [activeTimeUnit]="activeTimeUnit"
                                         [maxTime]="maxTime" [minTime]="minTime" [format]="format"
                                         [hours]="hours" [minutes]="minutes" [selectedHour]="hour"
+                                        [meridiems]="meridiems"
                                         (periodChanged)="changePeriod($event)"></ngx-material-timepicker-period>
     </div>
     <div *ngIf="isEditable" [ngClass]="{'timepicker-dial__hint-container--hidden': !isHintVisible}">
