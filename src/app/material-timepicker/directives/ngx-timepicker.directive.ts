@@ -78,7 +78,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             this.updateInputValue();
             return;
         }
-        const time = TimeAdapter.formatTime(value, this._format);
+        const time = TimeAdapter.formatTime(value, this.format);
         const isAvailable = TimeAdapter.isTimeAvailable(
             time,
             <DateTime>this._min,
@@ -97,7 +97,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     get value(): string {
-        return this._value;
+        if (!this._value) {
+            return '';
+        }
+        return TimeAdapter.toLocaleTimeString(this._value, {format: this.format});
     }
 
     private _value = '';
@@ -166,7 +169,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             this._timepicker.registerInput(this);
             this.timepickerSubscriptions.push(this._timepicker.timeSet.subscribe((time: string) => {
                 this.value = time;
-                this.onChange(this._value);
+                this.onChange(this.value);
                 this.onTouched();
             }));
             this.timepickerSubscriptions.push(

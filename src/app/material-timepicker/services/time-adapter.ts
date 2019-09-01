@@ -1,11 +1,15 @@
-import { DateTime } from 'luxon';
+import { DateTime, DateTimeFormatOptions } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
 import { TimePeriod } from '../models/time-period.enum';
 import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
+import { TimeOptions } from '../models/time-options.interface';
 
 // @dynamic
 export class TimeAdapter {
+
+    static DEFAULT_FORMAT = 12;
+    static DEFAULT_LOCALE = 'en-US';
 
     static parseTime(time: string, format = 12): string {
         if (time.indexOf(':') === -1) {
@@ -34,7 +38,16 @@ export class TimeAdapter {
         const timeFormat = (format === 24) ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
         const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
 
+
         return DateTime.fromFormat(this.parseTime(time, format), timeMask).toFormat(timeFormat).toLowerCase();
+    }
+
+    static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
+        const {format = TimeAdapter.DEFAULT_FORMAT, locale = TimeAdapter.DEFAULT_LOCALE} = opts;
+        const timeFormat: DateTimeFormatOptions = {...DateTime.TIME_SIMPLE, hour12: format !== 24};
+        const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+
+        return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(timeFormat);
     }
 
     static convertTimeToDateTime(time: string, format = 12): DateTime {
