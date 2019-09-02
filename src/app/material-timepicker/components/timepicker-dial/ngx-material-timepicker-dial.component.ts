@@ -28,8 +28,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
-    locale: string;
-    meridiems = Info.meridiems({locale: this._locale});
+    meridiems = Info.meridiems({locale: this.locale});
 
     isHintVisible: boolean;
 
@@ -49,8 +48,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Output() hourChanged = new EventEmitter<ClockFaceTime>();
     @Output() minuteChanged = new EventEmitter<ClockFaceTime>();
 
-    constructor(@Inject(TIME_LOCALE) private _locale: string) {
-        this.locale = this._locale;
+    constructor(@Inject(TIME_LOCALE) private locale: string) {
     }
 
     ngOnChanges(changes: SimpleChanges) {

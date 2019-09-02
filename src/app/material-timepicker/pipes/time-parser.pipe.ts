@@ -3,6 +3,8 @@ import { TIME_LOCALE } from '../tokens/time-locale.token';
 import { TimeUnit } from '../models/time-unit.enum';
 import { DateTime, NumberingSystem } from 'luxon';
 
+type TimeMeasure = 'hour' | 'minute';
+
 @Pipe({
     name: 'timeParser'
 })
@@ -14,12 +16,27 @@ export class TimeParserPipe implements PipeTransform {
         this.numberingSystem = DateTime.local().setLocale(this.locale).resolvedLocaleOpts().numberingSystem as NumberingSystem;
     }
 
-    transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string {
-        if (time == null || time === '') {
-            return 'Invalid Time';
+    transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string | Error {
+        if (!isNaN(+time)) {
+            return time;
         }
 
-        return DateTime.fromFormat(String(time), 'H', {numberingSystem: this.numberingSystem}).hour;
+        if (timeUnit === TimeUnit.MINUTE) {
+            return this.parseTime(time, 'mm', 'minute');
+        }
+
+        return this.parseTime(time, 'H', 'hour');
+
+    }
+
+    private parseTime(time: string | number, format: string, timeMeasure: TimeMeasure): number | Error {
+        const parsedTime = DateTime.fromFormat(String(time), format, {numberingSystem: this.numberingSystem})[timeMeasure];
+
+        if (!isNaN(parsedTime)) {
+            return parsedTime;
+        }
+
+        throw new Error(`Cannot parse time - ${time}`);
     }
 
 }

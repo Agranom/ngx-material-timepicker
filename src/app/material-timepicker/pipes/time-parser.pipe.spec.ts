@@ -2,7 +2,7 @@ import { TimeParserPipe } from './time-parser.pipe';
 import { TimeUnit } from '../models/time-unit.enum';
 import { DateTime } from 'luxon';
 
-fdescribe('TimeParserPipe', () => {
+describe('TimeParserPipe', () => {
     const locale = 'ar-AE';
     const pipe = new TimeParserPipe(locale);
 
@@ -10,12 +10,10 @@ fdescribe('TimeParserPipe', () => {
         expect(pipe).toBeTruthy();
     });
 
-    it('should return Invalid Time when provide invalid time value', () => {
-        const expected = 'Invalid Time';
+    it('should return unparsed time if number provided', () => {
+        const time = 5;
 
-        expect(pipe.transform(undefined)).toBe(expected);
-        expect(pipe.transform(null)).toBe(expected);
-        expect(pipe.transform('')).toBe(expected);
+        expect(pipe.transform(time)).toBe(time);
     });
 
     it('should parse arabian hour to latin', () => {
@@ -26,6 +24,16 @@ fdescribe('TimeParserPipe', () => {
 
             expect(pipe.transform(unparsedHour, TimeUnit.HOUR)).toBe(hour);
         });
+    });
 
+    it('should throw an error when cannot parse provided time', () => {
+        const time = 's3';
+
+        try {
+            pipe.transform(time);
+        } catch (e) {
+            expect(e instanceof Error).toBeTruthy();
+            expect(e.message).toBe(`Cannot parse time - ${time}`);
+        }
     });
 });

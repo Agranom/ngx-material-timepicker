@@ -5,6 +5,9 @@ import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { StyleSanitizerPipe } from '../../pipes/style-sanitizer.pipe';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { MinutesFormatterPipe } from '../../pipes/minutes-formatter.pipe';
+import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { TimeAdapter } from '../../services/time-adapter';
 
 
 describe('NgxMaterialTimepickerFaceComponent', () => {
@@ -16,7 +19,11 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             declarations: [
                 NgxMaterialTimepickerFaceComponent,
                 StyleSanitizerPipe,
-                MinutesFormatterPipe
+                MinutesFormatterPipe,
+                TimeLocalizerPipe
+            ],
+            providers: [
+                {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerFaceComponent);

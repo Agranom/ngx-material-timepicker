@@ -52,4 +52,15 @@ describe('TimeLocalizerPipe', () => {
             expect(e.message).toBe(`There is no Time Unit with type ${timeUnit}`);
         }
     });
+
+    it('should throw an error when cannot format provided time', () => {
+        const time = 's3';
+
+        try {
+            pipe.transform(time, TimeUnit.HOUR);
+        } catch (e) {
+            expect(e instanceof Error).toBeTruthy();
+            expect(e.message).toBe(`Cannot format provided time - ${time} to locale - ${defaultLocale}`);
+        }
+    });
 });

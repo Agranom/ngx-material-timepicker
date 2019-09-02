@@ -1,7 +1,18 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <input class="timepicker-dial__control timepicker-dial__item"
-       [ngClass]="{'timepicker-dial__item_active': isActive, 'timepicker-dial__control_editable': isEditable}"
-       [ngModel]="time | timeParser | timeLocalizer: timeUnit"
+       [ngClass]="{'timepicker-dial__item_active': isActive}"
+       [ngModel]="time | timeLocalizer: timeUnit"
        (ngModelChange)="time = $event"
        (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
-       (blur)="formatTime()" [readonly]="!isEditable" [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)">
+       (blur)="formatTime()" readonly [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)"
+       *ngIf="!isEditable;else editableTemplate">
+
+<ng-template #editableTemplate>
+    <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
+    <input class="timepicker-dial__control timepicker-dial__item"
+           [ngClass]="{'timepicker-dial__item_active': isActive, 'timepicker-dial__control_editable': isEditable}"
+           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit"
+           (ngModelChange)="onModelChange($event)"
+           (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
+           (blur)="formatTime()" [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)">
+</ng-template>
