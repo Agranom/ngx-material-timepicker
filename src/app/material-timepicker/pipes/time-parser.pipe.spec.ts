@@ -10,6 +10,14 @@ describe('TimeParserPipe', () => {
         expect(pipe).toBeTruthy();
     });
 
+    it('should not parse time when provided invalid value', () => {
+        const expected = '';
+
+        expect(pipe.transform(undefined, TimeUnit.HOUR)).toBe(expected);
+        expect(pipe.transform(null, TimeUnit.HOUR)).toBe(expected);
+        expect(pipe.transform('', TimeUnit.HOUR)).toBe(expected);
+    });
+
     it('should return unparsed time if number provided', () => {
         const time = 5;
 
@@ -23,6 +31,16 @@ describe('TimeParserPipe', () => {
             const unparsedHour = DateTime.fromObject({hour, numberingSystem: 'arab'}).toFormat('H');
 
             expect(pipe.transform(unparsedHour, TimeUnit.HOUR)).toBe(hour);
+        });
+    });
+
+    it('should parse arabian minute to latin', () => {
+        const unparsedMinutes = Array(59).fill(0).map((v, i) => v + i);
+
+        unparsedMinutes.forEach(minute => {
+            const unparsedMinute = DateTime.fromObject({minute, numberingSystem: 'arab'}).toFormat('m');
+
+            expect(pipe.transform(unparsedMinute, TimeUnit.MINUTE)).toBe(minute);
         });
     });
 

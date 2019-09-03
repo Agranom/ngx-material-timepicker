@@ -2,6 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
+import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
+import { TimeLocalizerPipe } from '../../../pipes/time-localizer.pipe';
+import { TIME_LOCALE } from '../../../tokens/time-locale.token';
+import { DateTime } from 'luxon';
 
 describe('NgxTimepickerTimeControlComponent', () => {
     let fixture: ComponentFixture<NgxTimepickerTimeControlComponent>;
@@ -9,7 +13,15 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [NgxTimepickerTimeControlComponent],
+            declarations: [
+                NgxTimepickerTimeControlComponent,
+                TimeParserPipe,
+                TimeLocalizerPipe
+            ],
+            providers: [
+                TimeParserPipe,
+                {provide: TIME_LOCALE, useValue: 'ar-AE'}
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
 
@@ -208,6 +220,20 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.ngOnChanges(changes);
 
             expect(component.time).toBe(7);
+        });
+    });
+
+    describe('onModelChange', () => {
+
+        it('should parse value and set it to time property', () => {
+            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab'}).toFormat('m');
+            component.time = 5;
+            component.timeUnit = TimeUnit.MINUTE;
+
+            component.onModelChange(unparsedTime);
+
+            expect(component.time).toBe(10);
+
         });
     });
 });

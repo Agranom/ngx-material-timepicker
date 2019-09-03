@@ -17,12 +17,16 @@ export class TimeParserPipe implements PipeTransform {
     }
 
     transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string | Error {
+        if (time == null || time === '') {
+            return '';
+        }
+
         if (!isNaN(+time)) {
             return time;
         }
 
         if (timeUnit === TimeUnit.MINUTE) {
-            return this.parseTime(time, 'mm', 'minute');
+            return this.parseTime(time, 'm', 'minute');
         }
 
         return this.parseTime(time, 'H', 'hour');

@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnI
 import { isDigit } from '../../../utils/timepicker.utils';
 import { TimeFormatterPipe } from '../../../pipes/time-formatter.pipe';
 import { TimeUnit } from '../../../models/time-unit.enum';
+import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [TimeParserPipe]
 })
 
 export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
@@ -23,6 +25,9 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
     @Output() timeChanged = new EventEmitter<number>();
 
     isFocused: boolean;
+
+    constructor(private timeParser: TimeParserPipe) {
+    }
 
     ngOnInit(): void {
         if (this.isDefaultTimeSet) {
@@ -105,5 +110,9 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
     onBlur(): void {
         this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
         this.isFocused = false;
+    }
+
+    onModelChange(value: string): void {
+        this.time = +this.timeParser.transform(value, this.timeUnit);
     }
 }
