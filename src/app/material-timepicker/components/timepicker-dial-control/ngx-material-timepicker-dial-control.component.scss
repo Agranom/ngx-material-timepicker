@@ -8,6 +8,7 @@
     width: 60px;
     padding: 0;
     border-radius: 3px;
+    text-align: right;
     &_editable {
         &:focus {
             color: $primary-color;
