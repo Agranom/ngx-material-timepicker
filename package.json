@@ -41,6 +41,7 @@
     "types": ".src/app/material-timepicker/index.d.ts",
     "private": false,
     "dependencies": {
+        "full-icu": "^1.3.0",
         "luxon": "^1.11.3"
     },
     "devDependencies": {

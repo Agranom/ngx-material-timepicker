@@ -4,7 +4,7 @@
                 [ngClass]="{'period-control__button--disabled': disabled}"
                 type="button"
                 (click)="open()">
-            <span>{{selectedPeriod}}</span>
+            <span>{{localizedPeriod}}</span>
             <span class="period-control__arrow">&#9660;</span>
         </button>
     </div>
@@ -13,13 +13,13 @@
             <button class="period-selector__button period__btn--default"
                     type="button"
                     (click)="select(period.AM)"
-                    [ngClass]="{'period-selector__button--active': selectedPeriod === period.AM}">{{period.AM}}</button>
+                    [ngClass]="{'period-selector__button--active': localizedPeriod === meridiems[0]}">{{meridiems[0]}}</button>
         </li>
         <li>
             <button class="period-selector__button period__btn--default"
                     type="button"
                     (click)="select(period.PM)"
-                    [ngClass]="{'period-selector__button--active': selectedPeriod === period.PM}">{{period.PM}}</button>
+                    [ngClass]="{'period-selector__button--active': localizedPeriod === meridiems[1]}">{{meridiems[1]}}</button>
         </li>
     </ul>
 </div>
