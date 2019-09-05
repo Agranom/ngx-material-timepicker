@@ -114,4 +114,21 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.formatHour(12, 12, TimePeriod.PM)).toBe(12);
         });
     });
+
+    describe('toLocaleTimeString', () => {
+
+        it('should convert provided time (en-US) to provided locale (ar-AE) in 12-hours format', () => {
+            const expected = '١١:١١ ص';
+            const actual = '11:11 am';
+
+            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE'})).toBe(expected);
+        });
+
+        it('should convert provided time (en-US) to provided locale (ar-AE) in 24-hours format', () => {
+            const expected = '٢١:١١';
+            const actual = '21:11';
+
+            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE', format: 24})).toBe(expected);
+        });
+    });
 });

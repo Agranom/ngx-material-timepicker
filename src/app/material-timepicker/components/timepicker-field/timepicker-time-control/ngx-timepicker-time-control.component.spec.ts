@@ -3,9 +3,8 @@ import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
-import { TimeLocalizerPipe } from '../../../pipes/time-localizer.pipe';
-import { TIME_LOCALE } from '../../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
+import { NgxMaterialTimepickerModule } from '../../../ngx-material-timepicker.module';
 
 describe('NgxTimepickerTimeControlComponent', () => {
     let fixture: ComponentFixture<NgxTimepickerTimeControlComponent>;
@@ -13,14 +12,9 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                NgxTimepickerTimeControlComponent,
-                TimeParserPipe,
-                TimeLocalizerPipe
-            ],
+            imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')],
             providers: [
-                TimeParserPipe,
-                {provide: TIME_LOCALE, useValue: 'ar-AE'}
+                TimeParserPipe
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
