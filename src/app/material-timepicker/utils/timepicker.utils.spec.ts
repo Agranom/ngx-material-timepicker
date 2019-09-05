@@ -2,28 +2,30 @@ import { TimeAdapter } from '../services/time-adapter';
 import { isBetween, isDigit, isSameOrAfter, isSameOrBefore } from './timepicker.utils';
 
 describe('TimepickerUtils', () => {
+    const locale = 'en-US';
+
     describe('isSameOrAfter', () => {
 
         it('should return true if time the same or more than min value', () => {
-            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
-            let time = TimeAdapter.convertTimeToDateTime('11:12 am');
+            const min = TimeAdapter.parseTime('11:11 am', {locale});
+            let time = TimeAdapter.parseTime('11:12 am', {locale});
             let isSameOrAfterVar = isSameOrAfter(time, min);
             expect(isSameOrAfterVar).toBeTruthy();
 
-            time = TimeAdapter.convertTimeToDateTime('11:11 am');
+            time = TimeAdapter.parseTime('11:11 am', {locale});
             isSameOrAfterVar = isSameOrAfter(time, min);
             expect(isSameOrAfterVar).toBeTruthy();
         });
 
         it('should return false if hour less than min value', () => {
-            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
-            const time = TimeAdapter.convertTimeToDateTime('10:12 am');
+            const min = TimeAdapter.parseTime('11:11 am', {locale});
+            const time = TimeAdapter.parseTime('10:12 am', {locale});
             expect(isSameOrAfter(time, min, 'hours')).toBeFalsy();
         });
 
         it('should return false', () => {
-            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
-            const time = TimeAdapter.convertTimeToDateTime('10:12 am');
+            const min = TimeAdapter.parseTime('11:11 am', {locale});
+            const time = TimeAdapter.parseTime('10:12 am', {locale});
             expect(isSameOrAfter(time, min, undefined)).toBeFalsy();
         });
     });
@@ -31,25 +33,25 @@ describe('TimepickerUtils', () => {
     describe('isSameOrBefore', () => {
 
         it('should return true if time before or equal max value', () => {
-            const max = TimeAdapter.convertTimeToDateTime('11:11 am');
-            let time = TimeAdapter.convertTimeToDateTime('11:10 am');
+            const max = TimeAdapter.parseTime('11:11 am', {locale});
+            let time = TimeAdapter.parseTime('11:10 am', {locale});
             let isSameOrBeforeVar = isSameOrBefore(time, max);
             expect(isSameOrBeforeVar).toBeTruthy();
 
-            time = TimeAdapter.convertTimeToDateTime('11:11 am');
+            time = TimeAdapter.parseTime('11:11 am', {locale});
             isSameOrBeforeVar = isSameOrBefore(time, max);
             expect(isSameOrBeforeVar).toBeTruthy();
         });
 
         it('should return false if hour more than max', () => {
-            const max = TimeAdapter.convertTimeToDateTime('11:11 am');
-            const time = TimeAdapter.convertTimeToDateTime('12:10 pm');
+            const max = TimeAdapter.parseTime('11:11 am', {locale});
+            const time = TimeAdapter.parseTime('12:10 pm', {locale});
             expect(isSameOrBefore(time, max, 'hours')).toBeFalsy();
         });
 
         it('should return false', () => {
-            const max = TimeAdapter.convertTimeToDateTime('11:11 am');
-            const time = TimeAdapter.convertTimeToDateTime('12:10 pm');
+            const max = TimeAdapter.parseTime('11:11 am', {locale});
+            const time = TimeAdapter.parseTime('12:10 pm', {locale});
             expect(isSameOrBefore(time, max, undefined)).toBeFalsy();
         });
     });
@@ -57,33 +59,33 @@ describe('TimepickerUtils', () => {
     describe('isBetween', () => {
 
         it('should return true if time between min(inclusively) and max(inclusively) value', () => {
-            const min = TimeAdapter.convertTimeToDateTime('09:00 am');
-            const max = TimeAdapter.convertTimeToDateTime('03:00 pm');
-            let time = TimeAdapter.convertTimeToDateTime('12:12 pm');
+            const min = TimeAdapter.parseTime('09:00 am', {locale});
+            const max = TimeAdapter.parseTime('03:00 pm', {locale});
+            let time = TimeAdapter.parseTime('12:12 pm', {locale});
             let isBetweenVar = isBetween(time, min, max);
             expect(isBetweenVar).toBeTruthy();
 
-            time = TimeAdapter.convertTimeToDateTime('09:00 am');
+            time = TimeAdapter.parseTime('09:00 am', {locale});
             isBetweenVar = isBetween(time, min, max);
             expect(isBetweenVar).toBeTruthy();
 
-            time = TimeAdapter.convertTimeToDateTime('03:00 pm');
+            time = TimeAdapter.parseTime('03:00 pm', {locale});
             isBetweenVar = isBetween(time, min, max);
             expect(isBetweenVar).toBeTruthy();
         });
 
         it('should return false if hour is not between min(inclusively) and max(inclusively) value', () => {
-            const min = TimeAdapter.convertTimeToDateTime('09:00 am');
-            const max = TimeAdapter.convertTimeToDateTime('03:00 pm');
-            const time = TimeAdapter.convertTimeToDateTime('04:05 pm');
+            const min = TimeAdapter.parseTime('09:00 am', {locale});
+            const max = TimeAdapter.parseTime('03:00 pm', {locale});
+            const time = TimeAdapter.parseTime('04:05 pm', {locale});
 
             expect(isBetween(time, min, max, 'hours')).toBeFalsy();
         });
 
         it('should return false', () => {
-            const min = TimeAdapter.convertTimeToDateTime('09:00 am');
-            const max = TimeAdapter.convertTimeToDateTime('03:00 pm');
-            const time = TimeAdapter.convertTimeToDateTime('04:05 pm');
+            const min = TimeAdapter.parseTime('09:00 am', {locale});
+            const max = TimeAdapter.parseTime('03:00 pm', {locale});
+            const time = TimeAdapter.parseTime('04:05 pm', {locale});
 
             expect(isBetween(time, min, max, undefined)).toBeFalsy();
         });

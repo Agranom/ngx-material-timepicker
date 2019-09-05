@@ -115,7 +115,7 @@ describe('TimepickerDirective', () => {
         directive.timepicker = timepickerComponent;
         directive.value = '11:11 am';
         timepickerComponent.closed.next();
-        expect(spy).toHaveBeenCalledWith('11:11 am');
+        expect(spy).toHaveBeenCalledWith('11:11 AM');
     });
 
     it('should set time on timeSet output', () => {
@@ -150,7 +150,7 @@ describe('TimepickerDirective', () => {
 
         directive.timepicker = timepickerComponent;
         directive.ngOnChanges(changes);
-        expect(spy).toHaveBeenCalledWith('10:00 am');
+        expect(spy).toHaveBeenCalledWith('10:00 AM');
     });
 
     it('should not set default time if binding value does not change ', () => {

@@ -16,7 +16,7 @@ import { NgxMaterialTimepickerModule } from './material-timepicker/ngx-material-
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        NgxMaterialTimepickerModule.setLocale('ar-AE'),
+        NgxMaterialTimepickerModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
