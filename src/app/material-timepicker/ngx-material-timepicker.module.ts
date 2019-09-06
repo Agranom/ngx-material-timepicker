@@ -35,6 +35,8 @@ import { TimeLocalizerPipe } from './pipes/time-localizer.pipe';
 import { TIME_LOCALE } from './tokens/time-locale.token';
 import { TimeAdapter } from './services/time-adapter';
 import { TimeParserPipe } from './pipes/time-parser.pipe';
+import { ActiveHourPipe } from './pipes/active-hour.pipe';
+import { ActiveMinutePipe } from './pipes/active-minute.pipe';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { TimeParserPipe } from './pipes/time-parser.pipe';
         NgxTimepickerTimeControlComponent,
         NgxTimepickerPeriodSelectorComponent,
         TimeLocalizerPipe,
-        TimeParserPipe
+        TimeParserPipe,
+        ActiveHourPipe,
+        ActiveMinutePipe
     ],
     providers: [
         {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
@@ -87,6 +91,6 @@ export class NgxMaterialTimepickerModule {
             providers: [
                 {provide: TIME_LOCALE, useValue: locale}
             ]
-        }
+        };
     }
 }

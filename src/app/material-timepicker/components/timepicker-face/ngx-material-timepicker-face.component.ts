@@ -135,14 +135,6 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         this.isStarted = false;
     }
 
-    isHourSelected(hour: number): boolean {
-        return (hour === this.selectedTime.time) && !this.isClockFaceDisabled;
-    }
-
-    isMinuteSelected(minute: number): boolean {
-        return ((this.selectedTime.time === minute) && (minute % (this.minutesGap || 5) === 0)) && !this.isClockFaceDisabled;
-    }
-
     ngOnDestroy() {
         this.removeTouchEvents();
     }
