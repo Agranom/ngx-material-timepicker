@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file
 
+## BREAKING CHANGES
+
+## 5.0.0 (2019-09-06)
+
+Add internationalization, so that it might affect on time format.
+
+### Features
+
+* feat(ngx-material-timepicker): add internationalization for timepicker. Default locale is set to `en-US`,
+closes [(#154)](https://github.com/Agranom/ngx-material-timepicker/issues/154)
+
+### Fixes
+
+* fix(ngx-material-timepicker): add `@types/luxon` to dependencies, so that it will be installed with `ngx-material-timepicker`,
+closes [(#189)](https://github.com/Agranom/ngx-material-timepicker/issues/189)
+
 ## 4.0.2 (2019-07-28)
 
 ### Fixes

@@ -93,7 +93,7 @@ describe('TimepickerDirective', () => {
     it('should return formatted time', () => {
         directive.timepicker = timepickerComponent;
         directive.value = '11:00';
-        expect(directive.value).toBe('11:00 am');
+        expect(directive.value).toBe('11:00 AM');
     });
 
     it('should call console.warn if time is not between min and max(inclusively) value', () => {
@@ -115,11 +115,11 @@ describe('TimepickerDirective', () => {
         directive.timepicker = timepickerComponent;
         directive.value = '11:11 am';
         timepickerComponent.closed.next();
-        expect(spy).toHaveBeenCalledWith('11:11 am');
+        expect(spy).toHaveBeenCalledWith('11:11 AM');
     });
 
     it('should set time on timeSet output', () => {
-        const time = '12:12 pm';
+        const time = '12:12 PM';
         directive.timepicker = timepickerComponent;
         timepickerComponent.timeSet.next(time);
         expect(directive.value).toBe(time);
@@ -128,13 +128,13 @@ describe('TimepickerDirective', () => {
     it('should change time onInput', () => {
         directive.timepicker = timepickerComponent;
         directive.onInput('11:12');
-        expect(directive.value).toBe('11:12 am');
+        expect(directive.value).toBe('11:12 AM');
     });
 
     it('should set invalid datetime if time is in inappropriate format', () => {
         directive.timepicker = timepickerComponent;
         directive.value = 'test';
-        expect(directive.value).toBe('invalid datetime');
+        expect(directive.value).toBe('Invalid DateTime');
     });
 
     it('should set default time if binding value changes', () => {
@@ -150,7 +150,7 @@ describe('TimepickerDirective', () => {
 
         directive.timepicker = timepickerComponent;
         directive.ngOnChanges(changes);
-        expect(spy).toHaveBeenCalledWith('10:00 am');
+        expect(spy).toHaveBeenCalledWith('10:00 AM');
     });
 
     it('should not set default time if binding value does not change ', () => {
@@ -188,7 +188,7 @@ describe('TimepickerDirective', () => {
 
     it('should update time and default time on writeValue function', () => {
         const spy = spyOn(timepickerComponent, 'setDefaultTime');
-        const time = '11:11 am';
+        const time = '11:11 AM';
         directive.timepicker = timepickerComponent;
 
         directive.writeValue(time);

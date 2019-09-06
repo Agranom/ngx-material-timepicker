@@ -1,16 +1,17 @@
 /* tslint:disable:triple-equals */
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimeUnit } from '../../models/time-unit.enum';
-import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
 import { isDigit } from '../../utils/timepicker.utils';
+import { TimeParserPipe } from '../../pipes/time-parser.pipe';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
     templateUrl: 'ngx-material-timepicker-dial-control.component.html',
-    styleUrls: ['ngx-material-timepicker-dial-control.component.scss']
+    styleUrls: ['ngx-material-timepicker-dial-control.component.scss'],
+    providers: [TimeParserPipe]
 })
-export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
+export class NgxMaterialTimepickerDialControlComponent {
 
     previousTime: number | string;
 
@@ -26,18 +27,12 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
     @Output() focused = new EventEmitter<null>();
     @Output() unfocused = new EventEmitter<null>();
 
+    constructor(private timeParserPipe: TimeParserPipe) {
+    }
+
     private get selectedTime(): ClockFaceTime {
         if (!!this.time) {
             return this.timeList.find(t => t.time === +this.time);
-        }
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes['time'] && (changes['time'].currentValue !== undefined)) {
-            if (this.isEditable && !changes['time'].firstChange) {
-                return;
-            }
-            this.time = new TimeFormatterPipe().transform(+changes['time'].currentValue, this.timeUnit);
         }
     }
 
@@ -56,14 +51,6 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         }
     }
 
-    formatTime(): void {
-        if (this.isEditable) {
-            const time = this.time || this.previousTime;
-            this.time = new TimeFormatterPipe().transform(+time, this.timeUnit);
-            this.unfocused.next();
-        }
-    }
-
     onKeyDown(e: KeyboardEvent): void {
         const char = String.fromCharCode(e.keyCode);
 
@@ -75,6 +62,10 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
         if (isDigit(e)) {
             this.changeTimeByArrow(e.keyCode);
         }
+    }
+
+    onModelChange(value: string): void {
+        this.time = this.timeParserPipe.transform(value, this.timeUnit).toString();
     }
 
     private changeTimeByArrow(keyCode: number): void {
@@ -95,7 +86,6 @@ export class NgxMaterialTimepickerDialControlComponent implements OnChanges {
     }
 
 }
-
 
 function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
     const isNumber = /\d/.test(nextTime);

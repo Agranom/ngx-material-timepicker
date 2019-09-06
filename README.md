@@ -10,6 +10,20 @@ Handy multifunctional [material design](https://material.io/guidelines/component
 
 https://agranom.github.io/ngx-material-timepicker/
 
+## Table of contents
+* [Getting started](#getting-started)
+* [Internationalization](#internationalization)
+* [Documentation](#documentation)
+    * [NgxTimepicker](#ngxtimepicker)
+    * [NgxMaterialTimepickerComponent](#ngxmaterialtimepickercomponent)
+    * [NgxTimepickerFieldComponent](#ngxtimepickerfieldcomponent)
+    * [NgxMaterialTimepickerToggleComponent](#ngxmaterialtimepickertogglecomponent)
+    * [NgxMaterialTimepickerToggleIconDirective](#ngxmaterialtimepickertoggleicondirective)
+    * [NgxMaterialTimepickerThemeDirective](#ngxmaterialtimepickerthemedirective)
+* [Development](#development)
+* [Tests](#tests)
+* [License](#license)
+
 ## Getting started
 
 Install timepicker through npm:
@@ -31,14 +45,29 @@ Finally connect the timepicker to an input via a template property:
 <input [ngxTimepicker]="picker">
 <ngx-material-timepicker #picker></ngx-material-timepicker>
 ```
-The timepicker opens once you click on the input 
+The timepicker opens once you click on the input
+
+## Internationalization
+Timepicker supports locales in format `BCP 47`. It has `en-US` locale by default.
+
+To override default locale:
+```typescript
+import {NgModule} from '@angular/core';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
+@NgModule({
+  imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')]
+})
+export class MyModule {}
+```
+ 
 ## Documentation
 
 #### API reference for Angular Material Timepicker
 ```typescript
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 ```
-**NgxTimepicker**
+#### NgxTimepicker
 
 Directive responsible for managing the timepicker popup and setting value to input
 
@@ -64,7 +93,7 @@ Selector: `ngxTimepicker`
   disableClick: boolean | Set `true` to disable opening timepicker by clicking on the input |
 
   
-**NgxMaterialTimepickerComponent**
+#### NgxMaterialTimepickerComponent
 
 Component responsible for visualisation the timepicker
 
@@ -91,7 +120,7 @@ Selector: `ngx-material-timepicker`
   defaultTime: string | Set default time for a timepicker. `12:00 AM` by default |
 | @Input()
   preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
-  @Input()
+| @Input()
   disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
@@ -102,7 +131,7 @@ Selector: `ngx-material-timepicker`
 | @Output()
   hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
   
-**NgxTimepickerFieldComponent**
+#### NgxTimepickerFieldComponent
 
 The timepicker as a control.
 
@@ -127,7 +156,7 @@ Selector: `ngx-timepicker-field`
   format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
 
   
-**NgxMaterialTimepickerToggleComponent**
+#### NgxMaterialTimepickerToggleComponent
 
 Component responsible for opening the timepicker.
 
@@ -143,13 +172,13 @@ Selector: `ngx-material-timepicker-toggle`
 | @Input()
   disabled: boolean | Whether the toggle button is disabled |
   
-**NgxMaterialTimepickerToggleIconDirective**
+#### NgxMaterialTimepickerToggleIconDirective
 
 Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
 
 Selector: `[ngxMaterialTimepickerToggleIcon]`
 
-**NgxMaterialTimepickerThemeDirective**
+#### NgxMaterialTimepickerThemeDirective
 
 Can be used to override styles of a `NgxMaterialTimepicker`.
 
@@ -161,7 +190,6 @@ Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
 |------|-------------|
 | @Input()
   ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults | 
- 
 
 ## Development
 

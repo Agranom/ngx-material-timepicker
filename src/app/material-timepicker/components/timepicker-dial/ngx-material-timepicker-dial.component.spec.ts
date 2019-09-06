@@ -5,6 +5,8 @@ import * as TimepickerTime from '../../utils/timepicker-time.utils';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { spyOnFunction } from '../../ngx-material-timepicker.component.spec';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { TimeAdapter } from '../../services/time-adapter';
 
 describe('NgxMaterialTimepickerDialComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialComponent>;
@@ -13,6 +15,9 @@ describe('NgxMaterialTimepickerDialComponent', () => {
 
         fixture = TestBed.configureTestingModule({
             declarations: [NgxMaterialTimepickerDialComponent],
+            providers: [
+                {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerDialComponent);
 

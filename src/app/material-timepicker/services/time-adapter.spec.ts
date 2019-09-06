@@ -1,90 +1,62 @@
 import { TimeAdapter } from './time-adapter';
 import { TimePeriod } from '../models/time-period.enum';
-import { DateTime } from 'luxon';
 
 
 describe('TimeAdapter', () => {
 
-    describe('convertTimeToDateTime', () => {
-
-
-        it('shout convert string time into DateTime format', () => {
-            const stringTime = '11:20 pm';
-            const time = TimeAdapter.convertTimeToDateTime(stringTime);
-
-            expect(time instanceof DateTime).toBeTruthy();
-            expect(time.isValid).toBeTruthy();
-            expect(time.hour).toBe(23, 'wrong hours');
-            expect(time.minute).toBe(20, 'wrong minutes');
-        });
-
-        it('shout convert string time into DateTime format (24hours format)', () => {
-            const stringTime = '23:20';
-            const time = TimeAdapter.convertTimeToDateTime(stringTime, 24);
-
-            expect(time instanceof DateTime).toBeTruthy();
-            expect(time.isValid).toBeTruthy();
-            expect(time.hour).toBe(23, 'wrong hours');
-            expect(time.minute).toBe(20, 'wrong minutes');
-        });
-
-        it('should be invalid if pass incorrect value', () => {
-            const time = 'time';
-            expect(TimeAdapter.convertTimeToDateTime(time).isValid).toBeFalsy();
-        });
-    });
-
     describe('parseTime', () => {
+        const locale = 'en-US';
 
-        it('should return 11:0 AM', () => {
-            const expected = '11:0 AM';
+        it('should parse from string and return as DateTime', () => {
+            let expectedHour = 11;
+            const expectedMinute = 0;
 
-            expect(TimeAdapter.parseTime('11:00')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:00 Am')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:00 am')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:00am')).toBe(expected);
+            expect(TimeAdapter.parseTime('11:00', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('11:00', {locale}).minute).toBe(expectedMinute);
+            expect(TimeAdapter.parseTime('11:00 Am', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('11:00 Am', {locale}).minute).toBe(expectedMinute);
+            expect(TimeAdapter.parseTime('11:00 am', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('11:00 am', {locale}).minute).toBe(expectedMinute);
+
+            expectedHour = 23;
+
+            expect(TimeAdapter.parseTime('23:00', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('23:00', {locale}).minute).toBe(expectedMinute);
+            expect(TimeAdapter.parseTime('11:00 Pm', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('11:00 Pm', {locale}).minute).toBe(expectedMinute);
+            expect(TimeAdapter.parseTime('11:00 pm', {locale}).hour).toBe(expectedHour);
+            expect(TimeAdapter.parseTime('11:00 pm', {locale}).minute).toBe(expectedMinute);
         });
 
-        it('should parse time to 12hours format', () => {
-            const expected = '11:11 PM';
+        it('should parse time from latn to arab number', () => {
+            const arabLocale = 'ar-AE';
+            const arabicTime = '١١:١١ ص';
 
-            expect(TimeAdapter.parseTime('23:11')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:11 Pm')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:11 pm')).toBe(expected);
-            expect(TimeAdapter.parseTime('11:11pm')).toBe(expected);
-        });
-
-        it('should parse time to 24hours format', () => {
-            const format = 24;
-
-            expect(TimeAdapter.parseTime('23:00', format)).toBe('23:0');
-            expect(TimeAdapter.parseTime('11:00 pm', format)).toBe('23:0');
-            expect(TimeAdapter.parseTime('11:00', format)).toBe('11:0');
-            expect(TimeAdapter.parseTime('11:00 am', format)).toBe('11:0');
-        });
-
-        it('should return Invalid time', () => {
-            const expected = 'Invalid time';
-
-            expect(TimeAdapter.parseTime('11')).toBe(expected);
+            expect(TimeAdapter.parseTime(arabicTime, {locale: arabLocale, numberingSystem: 'arab'}).hour).toBe(11);
+            expect(TimeAdapter.parseTime(arabicTime, {locale: arabLocale, numberingSystem: 'arab'}).minute).toBe(11);
         });
     });
 
     describe('formatTime', () => {
 
         it('should return time in 24-hours format', () => {
-            expect(TimeAdapter.formatTime('11:00 pm', 24)).toBe('23:00');
-            expect(TimeAdapter.formatTime('18:10', 24)).toBe('18:10');
+            const format = 24;
+
+            expect(TimeAdapter.formatTime('11:00 pm', {format})).toBe('23:00');
+            expect(TimeAdapter.formatTime('18:10', {format})).toBe('18:10');
         });
 
         it('should return time in am/pm format', () => {
-            expect(TimeAdapter.formatTime('23:00')).toBe('11:00 pm');
-            expect(TimeAdapter.formatTime('12:20 am')).toBe('12:20 am');
-            expect(TimeAdapter.formatTime('12:20 am', 33)).toBe('12:20 am');
+            const format = 12;
+
+            expect(TimeAdapter.formatTime('23:00', {format})).toBe('11:00 PM');
+            expect(TimeAdapter.formatTime('12:20 am', {format})).toBe('12:20 AM');
+            expect(TimeAdapter.formatTime('12:20 am', {format: 33})).toBe('12:20 AM');
         });
     });
 
     describe('isTimeAvailable', () => {
+        const locale = 'en-US';
 
         it('should return false if no time provided', () => {
             expect(TimeAdapter.isTimeAvailable('')).toBeFalsy();
@@ -93,7 +65,7 @@ describe('TimeAdapter', () => {
         });
 
         it('should return true', () => {
-            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
+            const min = TimeAdapter.parseTime('11:11 am', {locale});
             let isAvailable = TimeAdapter.isTimeAvailable('11:12 am', min);
             expect(isAvailable).toBeTruthy();
 
@@ -102,15 +74,15 @@ describe('TimeAdapter', () => {
         });
 
         it('should return false', () => {
-            const min = TimeAdapter.convertTimeToDateTime('11:11 am');
+            const min = TimeAdapter.parseTime('11:11 am', {locale});
             const isAvailable = TimeAdapter.isTimeAvailable('11:10 am', min);
             expect(isAvailable).toBeFalsy();
         });
 
         it('should throw an Error', function () {
             const minutesGap = 5;
-            const min = TimeAdapter.convertTimeToDateTime('11:00 pm');
-            const max = TimeAdapter.convertTimeToDateTime('11:50 pm');
+            const min = TimeAdapter.parseTime('11:00 pm', {locale});
+            const max = TimeAdapter.parseTime('11:50 pm', {locale});
             try {
                 TimeAdapter.isTimeAvailable('11:43 pm', min, max, 'minutes', minutesGap);
             } catch (e) {
@@ -140,6 +112,23 @@ describe('TimeAdapter', () => {
 
         it('should return 12', () => {
             expect(TimeAdapter.formatHour(12, 12, TimePeriod.PM)).toBe(12);
+        });
+    });
+
+    describe('toLocaleTimeString', () => {
+
+        it('should convert provided time (en-US) to provided locale (ar-AE) in 12-hours format', () => {
+            const expected = '١١:١١ ص';
+            const actual = '11:11 am';
+
+            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE'})).toBe(expected);
+        });
+
+        it('should convert provided time (en-US) to provided locale (ar-AE) in 24-hours format', () => {
+            const expected = '٢١:١١';
+            const actual = '21:11';
+
+            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE', format: 24})).toBe(expected);
         });
     });
 });

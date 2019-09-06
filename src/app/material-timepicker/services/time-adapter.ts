@@ -1,45 +1,37 @@
-import { DateTime } from 'luxon';
+import { DateTime, DateTimeFormatOptions, LocaleOptions, NumberingSystem } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
 import { TimePeriod } from '../models/time-period.enum';
 import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
+import { TimeOptions } from '../models/time-options.interface';
 
 // @dynamic
 export class TimeAdapter {
 
-    static parseTime(time: string, format = 12): string {
-        if (time.indexOf(':') === -1) {
-            return 'Invalid time';
-        }
-        let period = time.trim().substr(time.length - 2).toUpperCase();
+    static DEFAULT_FORMAT = 12;
+    static DEFAULT_LOCALE = 'en-US';
 
-        const isPeriodValid = period === TimePeriod.AM || period === TimePeriod.PM;
-        const [h, m] = time.split(':');
+    static parseTime(time: string, opts: TimeOptions): DateTime {
+        const {numberingSystem, locale} = TimeAdapter.getLocaleOptionsByTime(time, opts);
+        const isPeriodExist = time.split(' ').length === 2;
+        const timeMask = isPeriodExist ? TimeFormat.TWELVE_SHORT : TimeFormat.TWENTY_FOUR_SHORT;
 
-
-        if (format === 24) {
-            const formattedHours = isPeriodValid ? this.formatHour(+h, 12, period as TimePeriod) : +h;
-            return `${formattedHours}:${parseInt(m, 10)}`;
-        }
-
-        const isPM = +h > 12;
-        const hours = isPM ? +h - 12 : +h;
-
-        period = isPeriodValid ? period : isPM ? TimePeriod.PM : TimePeriod.AM;
-
-        return `${hours}:${parseInt(m, 10)} ${period}`;
+        return DateTime.fromFormat(time, timeMask, {numberingSystem, locale});
     }
 
-    static formatTime(time: string, format = 12): string {
-        const timeFormat = (format === 24) ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
-        const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
+    static formatTime(time: string, opts: TimeOptions): string {
+        const {format} = opts;
 
-        return DateTime.fromFormat(this.parseTime(time, format), timeMask).toFormat(timeFormat).toLowerCase();
+        return TimeAdapter.parseTime(time, opts).setLocale(TimeAdapter.DEFAULT_LOCALE)
+            .toLocaleString({...DateTime.TIME_SIMPLE, hour12: format !== 24, numberingSystem: 'latn'});
     }
 
-    static convertTimeToDateTime(time: string, format = 12): DateTime {
+    static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
+        const {format = TimeAdapter.DEFAULT_FORMAT, locale = TimeAdapter.DEFAULT_LOCALE} = opts;
+        const timeFormat: DateTimeFormatOptions = {...DateTime.TIME_SIMPLE, hour12: format !== 24};
         const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
-        return DateTime.fromFormat(this.parseTime(time, format), timeMask);
+
+        return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(timeFormat);
     }
 
     static isTimeAvailable(
@@ -55,7 +47,7 @@ export class TimeAdapter {
             return;
         }
 
-        const convertedTime = this.convertTimeToDateTime(time, format);
+        const convertedTime = this.parseTime(time, {format});
         const minutes = convertedTime.minute;
 
         if (minutesGap && (minutes % minutesGap !== 0)) {
@@ -87,5 +79,13 @@ export class TimeAdapter {
             return 12;
         }
         return hour;
+    }
+
+    private static getLocaleOptionsByTime(time: string, opts: LocaleOptions): LocaleOptions {
+        const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
+        const localeConfig: LocaleOptions = {numberingSystem: numberingSystem as NumberingSystem, locale};
+        const defaultConfig: LocaleOptions = {numberingSystem: 'latn', locale: TimeAdapter.DEFAULT_LOCALE};
+
+        return isNaN(parseInt(time, 10)) ? localeConfig : defaultConfig;
     }
 }

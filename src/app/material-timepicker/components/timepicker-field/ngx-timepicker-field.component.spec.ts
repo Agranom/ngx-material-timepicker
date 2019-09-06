@@ -104,7 +104,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
         expect(component.hour).toBe(hour.time);
-        expect(timer).toBe('01:00 am');
+        expect(timer).toBe('1:00 AM');
     }));
 
     it('should change minute', fakeAsync(() => {
@@ -116,7 +116,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
         expect(component.minute).toBe(minute.time);
-        expect(timer).toBe('12:15 am');
+        expect(timer).toBe('12:15 AM');
     }));
 
     it('should change period', fakeAsync(() => {
@@ -124,7 +124,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
         component.period$.subscribe(p => expect(p).toEqual(TimePeriod.PM));
-        expect(timer).toBe('12:00 pm');
+        expect(timer).toBe('12:00 PM');
     }));
 
     it('should call touch method', () => {

@@ -1,8 +1,12 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
-import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { getHours } from '../../utils/timepicker-time.utils';
+import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
+import { TimeParserPipe } from '../../pipes/time-parser.pipe';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { DateTime } from 'luxon';
 
 describe('NgxMaterialTimepickerDialControlComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialControlComponent>;
@@ -10,14 +14,22 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
-            declarations: [NgxMaterialTimepickerDialControlComponent],
+            declarations: [
+                NgxMaterialTimepickerDialControlComponent,
+                TimeLocalizerPipe,
+                TimeParserPipe
+            ],
+            providers: [
+                TimeParserPipe,
+                {provide: TIME_LOCALE, useValue: 'ar-AE'}
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerDialControlComponent);
 
         component = fixture.componentInstance;
     });
 
-    it('should set current time to previous time, change time unit and emit focus event', async (() => {
+    it('should set current time to previous time, change time unit and emit focus event', async(() => {
         let counter = 0;
         component.timeUnitChanged.subscribe(unit => expect(unit).toBe(TimeUnit.MINUTE));
         component.focused.subscribe(() => expect(++counter).toBe(1));
@@ -54,74 +66,6 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         tick();
         expect(time).toBeNull();
         expect(component.previousTime).toBeUndefined();
-    }));
-
-    it('should format time once it changes', () => {
-        const changes: SimpleChanges = {
-            time: {
-                previousValue: undefined,
-                currentValue: 1,
-                firstChange: true,
-                isFirstChange: () => null
-            }
-        };
-        component.timeUnit = TimeUnit.HOUR;
-        component.ngOnChanges(changes);
-
-        expect(component.time).toBe('01');
-    });
-
-    it('should not format time if editable and the second change', () => {
-        const changes: SimpleChanges = {
-            time: {
-                previousValue: undefined,
-                currentValue: '1',
-                firstChange: false,
-                isFirstChange: () => null
-            }
-        };
-        component.time = '4';
-        component.timeUnit = TimeUnit.HOUR;
-        component.isEditable = true;
-        component.ngOnChanges(changes);
-
-        expect(component.time).toBe('4');
-    });
-
-    it('should do nothing', () => {
-        const changes: SimpleChanges = {
-            timeUnit: {
-                previousValue: undefined,
-                currentValue: null,
-                firstChange: false,
-                isFirstChange: () => null
-            }
-        };
-        component.time = '4';
-        component.ngOnChanges(changes);
-        expect(component.time).toBe('4');
-    });
-
-    it('should format time if editable and emit unfocused event', async(() => {
-        let counter = 0;
-
-        component.isEditable = true;
-        component.time = '2';
-        component.previousTime = 4;
-        component.timeUnit = TimeUnit.MINUTE;
-
-        component.formatTime();
-        expect(component.time).toBe('02');
-
-        component.unfocused.subscribe(() => expect(++counter).toBe(1));
-        component.time = '';
-        component.formatTime();
-
-        expect(component.time).toBe('04');
-        component.time = '5';
-        component.isEditable = false;
-        component.formatTime();
-        expect(component.time).toBe('5');
     }));
 
     describe('onKeyDown', () => {
@@ -183,6 +127,20 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
             component.onKeyDown({...event, keyCode: ARROW_DOWN});
             expect(component.time).toBe('5');
+        });
+    });
+
+    describe('onModelChange', () => {
+
+        it('should parse value and set it to time property', () => {
+            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab'}).toFormat('m');
+            component.time = '5';
+            component.timeUnit = TimeUnit.MINUTE;
+
+            component.onModelChange(unparsedTime);
+
+            expect(component.time).toBe(String(10));
+
         });
     });
 });

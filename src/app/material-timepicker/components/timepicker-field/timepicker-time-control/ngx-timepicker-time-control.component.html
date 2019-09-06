@@ -2,7 +2,8 @@
     <!--suppress HtmlFormInputWithoutLabel -->
     <input class="ngx-timepicker-control__input"
            maxlength="2"
-           [(ngModel)]="time"
+           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit"
+           (ngModelChange)="onModelChange($event)"
            [placeholder]="placeholder"
            [disabled]="disabled"
            (keydown)="onKeydown($event)"

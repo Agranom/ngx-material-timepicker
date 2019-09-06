@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Inject,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    TemplateRef
+} from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { DateTime } from 'luxon';
+import { DateTime, Info } from 'luxon';
 import { disableHours, disableMinutes, getHours, getMinutes } from '../../utils/timepicker-time.utils';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -17,6 +28,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
+    meridiems = Info.meridiems({locale: this.locale});
 
     isHintVisible: boolean;
 
@@ -35,6 +47,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() hourChanged = new EventEmitter<ClockFaceTime>();
     @Output() minuteChanged = new EventEmitter<ClockFaceTime>();
+
+    constructor(@Inject(TIME_LOCALE) private locale: string) {
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue

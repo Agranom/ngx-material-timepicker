@@ -5,6 +5,11 @@ import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { StyleSanitizerPipe } from '../../pipes/style-sanitizer.pipe';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { MinutesFormatterPipe } from '../../pipes/minutes-formatter.pipe';
+import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { TimeAdapter } from '../../services/time-adapter';
+import { ActiveHourPipe } from '../../pipes/active-hour.pipe';
+import { ActiveMinutePipe } from '../../pipes/active-minute.pipe';
 
 
 describe('NgxMaterialTimepickerFaceComponent', () => {
@@ -16,7 +21,13 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             declarations: [
                 NgxMaterialTimepickerFaceComponent,
                 StyleSanitizerPipe,
-                MinutesFormatterPipe
+                MinutesFormatterPipe,
+                TimeLocalizerPipe,
+                ActiveHourPipe,
+                ActiveMinutePipe
+            ],
+            providers: [
+                {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerFaceComponent);
@@ -287,35 +298,6 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             component.onMouseup(mouseClickEvent);
             component.selectTime(new MouseEvent('click', mouseCords));
         }));
-
-        it(`should return 'true' or 'false' whether hour is selected or not`, () => {
-            component.selectedTime = {time: 1, angle: 30};
-            component.isClockFaceDisabled = false;
-
-            expect(component.isHourSelected(1)).toBeTruthy();
-            expect(component.isHourSelected(2)).toBeFalsy();
-
-            component.isClockFaceDisabled = true;
-            expect(component.isHourSelected(1)).toBeFalsy();
-        });
-
-        it(`should return 'true' or 'false' whether minute is selected or not`, () => {
-            const minute = 10;
-            component.selectedTime = {time: minute, angle: 30};
-            component.isClockFaceDisabled = false;
-            component.minutesGap = 10;
-
-            expect(component.isMinuteSelected(minute)).toBeTruthy();
-            expect(component.isMinuteSelected(5)).toBeFalsy();
-
-            component.isClockFaceDisabled = true;
-            expect(component.isMinuteSelected(minute)).toBeFalsy();
-
-            component.isClockFaceDisabled = false;
-            component.minutesGap = undefined;
-            component.selectedTime.time = 5;
-            expect(component.isMinuteSelected(5)).toBeTruthy();
-        });
     });
 });
 
