@@ -13,7 +13,7 @@ export class TimeLocalizerPipe implements PipeTransform {
     constructor(@Inject(TIME_LOCALE) private locale: string) {
     }
 
-    transform(time: number | string, timeUnit: TimeUnit): string | Error {
+    transform(time: number | string, timeUnit: TimeUnit): string {
         if (time == null || time === '') {
             return '';
         }
@@ -30,7 +30,7 @@ export class TimeLocalizerPipe implements PipeTransform {
         }
     }
 
-    private formatTime(timeMeasure: TimeMeasure, time: string | number, format: string): string | Error {
+    private formatTime(timeMeasure: TimeMeasure, time: string | number, format: string): string {
         try {
             return DateTime.fromObject({[timeMeasure]: +time}).setLocale(this.locale).toFormat(format);
         } catch {

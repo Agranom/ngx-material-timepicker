@@ -16,7 +16,7 @@ export class TimeParserPipe implements PipeTransform {
         this.numberingSystem = DateTime.local().setLocale(this.locale).resolvedLocaleOpts().numberingSystem as NumberingSystem;
     }
 
-    transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string | Error {
+    transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string {
         if (time == null || time === '') {
             return '';
         }
@@ -33,7 +33,7 @@ export class TimeParserPipe implements PipeTransform {
 
     }
 
-    private parseTime(time: string | number, format: string, timeMeasure: TimeMeasure): number | Error {
+    private parseTime(time: string | number, format: string, timeMeasure: TimeMeasure): number {
         const parsedTime = DateTime.fromFormat(String(time), format, {numberingSystem: this.numberingSystem})[timeMeasure];
 
         if (!isNaN(parsedTime)) {
