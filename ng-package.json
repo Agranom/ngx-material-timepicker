@@ -4,6 +4,7 @@
         "entryFile": "public_api.ts"
     },
     "whitelistedNonPeerDependencies": [
-        "luxon"
+        "luxon",
+        "@types/luxon"
     ]
 }
