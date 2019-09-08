@@ -36,7 +36,8 @@
         "codecov": "codecov",
         "packagr": "ng-packagr -p ng-package.json",
         "publish": "run-s packagr && npm publish dist",
-        "gh-publish": "ng build --prod --base-href ngx-material-timepicker && gh-pages -d dist"
+        "gh-publish": "ng build --prod --base-href ngx-material-timepicker && gh-pages -d dist",
+        "prepare": "npm run build"
     },
     "types": ".src/app/material-timepicker/index.d.ts",
     "private": false,
