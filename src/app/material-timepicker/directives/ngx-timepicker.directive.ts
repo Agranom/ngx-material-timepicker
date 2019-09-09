@@ -30,7 +30,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     get format(): number {
-        return this._format;
+        return this.autoFormat ? this.getAutoFormat() : this._format;
     }
 
     private _format = 12;
@@ -108,6 +108,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input() disabled: boolean;
     @Input() disableClick: boolean;
+    @Input() autoFormat: boolean;
 
     private timepickerSubscriptions: Subscription[] = [];
 
@@ -186,6 +187,11 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     private updateInputValue(): void {
         this.elementRef.nativeElement.value = this.value;
+    }
+
+    private getAutoFormat(): number {
+        const regex: RegExp = new RegExp('us|uk|ph|ca|au|nz|in|eg|sa|co|pk|my|sg|za');
+        return  this.locale.toLowerCase().search(regex) !== -1 ?  12 : 24;
     }
 
 }

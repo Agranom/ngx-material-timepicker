@@ -4,6 +4,7 @@ import { NgxTimepickerFieldComponent } from './ngx-timepicker-field.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import {TIME_LOCALE} from '../../tokens/time-locale.token';
 
 describe('NgxTimepickerFieldComponent', () => {
     let component: NgxTimepickerFieldComponent;
@@ -13,7 +14,8 @@ describe('NgxTimepickerFieldComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [NgxTimepickerFieldComponent],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
+            providers: [ {provide: TIME_LOCALE, useValue: 'de-DE'} ],
         })
             .compileComponents();
     }));
@@ -147,4 +149,16 @@ describe('NgxTimepickerFieldComponent', () => {
         // @ts-ignore
         expect(component.minute).toBe('05');
     });
+
+    it('should set autoFormat', () => {
+        component.autoFormat = true;
+        expect(component.autoFormat).toBe(true);
+    });
+
+    it('should return 24h', () => {
+        component.autoFormat = true;
+        component.format = 12;
+        expect(component.format).toBe(24);
+    });
+
 });

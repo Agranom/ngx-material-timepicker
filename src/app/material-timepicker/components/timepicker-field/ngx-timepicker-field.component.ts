@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import {Component, forwardRef, Inject, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable, Subject } from 'rxjs';
@@ -9,6 +9,7 @@ import { TimeUnit } from '../../models/time-unit.enum';
 import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
 import { takeUntil } from 'rxjs/operators';
 import { TimeFormatterPipe } from '../../pipes/time-formatter.pipe';
+import {TIME_LOCALE} from '../../tokens/time-locale.token';
 
 @Component({
     selector: 'ngx-timepicker-field',
@@ -42,6 +43,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     @Input() buttonAlign: 'right' | 'left' = 'right';
     @Input() clockTheme: NgxMaterialTimepickerTheme;
     @Input() controlOnly: boolean;
+    @Input() autoFormat: boolean;
 
     @Input()
     set format(value: number) {
@@ -52,7 +54,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     get format(): number {
-        return this._format;
+        return this.autoFormat ? this.getAutoFormat() : this._format;
     }
 
 
@@ -79,7 +81,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private onChange: (value: string) => void = () => {
     }
 
-    constructor(private timepickerService: NgxMaterialTimepickerService) {
+    constructor(private timepickerService: NgxMaterialTimepickerService,
+                @Inject(TIME_LOCALE) private locale: string) {
     }
 
     ngOnInit() {
@@ -147,4 +150,10 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         this.hour = new TimeFormatterPipe().transform(this.hour, TimeUnit.HOUR);
         this.minute = new TimeFormatterPipe().transform(this.minute, TimeUnit.MINUTE);
     }
+
+    private getAutoFormat(): number {
+        const regex: RegExp = new RegExp('us|uk|ph|ca|au|nz|in|eg|sa|co|pk|my|sg|za');
+        return  this.locale.toLowerCase().search(regex) !== -1 ?  12 : 24;
+    }
+
 }

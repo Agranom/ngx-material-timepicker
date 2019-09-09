@@ -5,6 +5,9 @@ import { By } from '@angular/platform-browser';
 import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
 import { NgxMaterialTimepickerModule } from '../ngx-material-timepicker.module';
 import { DateTime } from 'luxon';
+import {NgxMaterialTimepickerService} from '../services/ngx-material-timepicker.service';
+import {NgxMaterialTimepickerEventService} from '../services/ngx-material-timepicker-event.service';
+import {TIME_LOCALE} from '../tokens/time-locale.token';
 
 @Component({
     template: `
@@ -28,7 +31,8 @@ describe('TimepickerDirective', () => {
             declarations: [
                 TestComponent
             ],
-            imports: [NgxMaterialTimepickerModule]
+            imports: [NgxMaterialTimepickerModule],
+            providers: [ {provide: TIME_LOCALE, useValue: 'de-DE'} ],
         }).createComponent(TestComponent);
         input = fixture.debugElement.query(By.directive(TimepickerDirective));
         directive = input.injector.get<TimepickerDirective>(TimepickerDirective);
@@ -220,5 +224,16 @@ describe('TimepickerDirective', () => {
         expect(directive.disabled).toBeFalsy();
         directive.setDisabledState(true);
         expect(directive.disabled).toBeTruthy();
+    });
+
+    it('should set autoFormat', () => {
+        directive.autoFormat = true;
+        expect(directive.autoFormat).toBe(true);
+    });
+
+    it('should return 24h', () => {
+        directive.autoFormat = true;
+        directive.format = 12;
+        expect(directive.format).toBe(24);
     });
 });

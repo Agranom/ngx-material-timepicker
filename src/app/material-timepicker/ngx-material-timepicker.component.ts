@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, HostListener, Inject, InjectionToken, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
 import { ClockFaceTime } from './models/clock-face-time.interface';
 import { TimePeriod } from './models/time-period.enum';
 import { merge, Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { DateTime } from 'luxon';
 import {TIME_LOCALE} from './tokens/time-locale.token';
+import {TimeAdapter} from './services/time-adapter';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -65,9 +66,6 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     }
 
     get format(): number {
-        if (this.autoFormat) {
-            return this.getAutoFormat();
-        }
         return this.timepickerInput ? this.timepickerInput.format : this._format;
     }
 
@@ -98,13 +96,10 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     private _format: number;
     private timepickerInput: TimepickerDirective;
     private subscriptions: Subscription[] = [];
-    private _locale: string;
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService,
-                @Inject(TIME_LOCALE) private locale: string) {
+                private eventService: NgxMaterialTimepickerEventService) {
 
-        this._locale = locale;
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
             .subscribe(() => this.close()));
@@ -214,8 +209,4 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         this.closed.next();
     }
 
-    private getAutoFormat(): number {
-        const regex: RegExp = new RegExp('us|uk|ph|ca|au|nz|in|eg|sa|co|pk|my|sg|za');
-        return  this._locale.toLowerCase().search(regex) !== -1 ?  12 : 24;
-    }
 }
