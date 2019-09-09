@@ -47,6 +47,17 @@ describe('NgxTimepickerFieldComponent', () => {
             component.format = 14;
             expect(component.format).toBe(12);
         });
+
+        it('should set defaultTime when change format dynamically', () => {
+            const spy = spyOnProperty(component, 'defaultTime', 'set');
+            component.timepickerTime = '23:00';
+            component.format = 24;
+
+            expect(spy).toHaveBeenCalledTimes(0);
+
+            component.format = 12;
+            expect(spy).toHaveBeenCalledWith('23:00');
+        });
     });
 
     it('should change minHour and maxHour when setting format', () => {
