@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.0.1 (2019-09-10)
+
+### Fixes
+
+* fix(ngx-material-timepicker): your minutes (NaN) doesnt match your minutesGap when no time picked.
+
+* fix(ngx-material-timepicker): dynamic format change, 
+fixes [(#104)](https://github.com/Agranom/ngx-material-timepicker/issues/104),
+fixes [(#198)](https://github.com/Agranom/ngx-material-timepicker/issues/198)
+
+* fix(ngx-material-timepicker): incorrect typings, fixes [(#195)](https://github.com/Agranom/ngx-material-timepicker/issues/195)
+
+* fix(ngx-material-timepicker): cutting timepicker when parent container has `overflow: hidden`,
+fixes [(#130)](https://github.com/Agranom/ngx-material-timepicker/issues/130)
+
 ## BREAKING CHANGES
 
 ## 5.0.0 (2019-09-06)
