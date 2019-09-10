@@ -47,14 +47,45 @@ describe('TimepickerDirective', () => {
             ' Please make sure you passed the timepicker to ngxTimepicker directive');
     });
 
-    it('should set 12 format', () => {
-        directive.format = 25;
-        expect(directive.format).toBe(12);
-    });
+    describe('Format', () => {
 
-    it('should set 24 format', () => {
-        directive.format = 24;
-        expect(directive.format).toBe(24);
+        it('should set 12 format', () => {
+            directive.format = 25;
+            expect(directive.format).toBe(12);
+        });
+
+        it('should set 24 format', () => {
+            directive.format = 24;
+            expect(directive.format).toBe(24);
+        });
+
+        it('should set value and defaultTime when format changes dynamically', () => {
+            const spy = spyOn(timepickerComponent, 'setDefaultTime');
+            directive.timepicker = timepickerComponent;
+            directive.value = '11:11 pm';
+            directive.format = 12;
+
+            expect(directive.value.toLowerCase()).toBe('11:11 pm');
+            expect(spy).toHaveBeenCalledTimes(0);
+
+            directive.format = 24;
+
+            expect(directive.value).toBe('23:11');
+            expect(spy).toHaveBeenCalledWith('23:11');
+        });
+
+        it('should not call defaultTime when format the same as before', () => {
+            const spy = spyOn(timepickerComponent, 'setDefaultTime');
+            directive.timepicker = timepickerComponent;
+            directive.format = 12;
+
+            expect(spy).toHaveBeenCalledTimes(0);
+
+            directive.format = 12;
+
+            expect(spy).toHaveBeenCalledTimes(0);
+        });
+
     });
 
     it('should return min time in DateTime type if pass string', () => {

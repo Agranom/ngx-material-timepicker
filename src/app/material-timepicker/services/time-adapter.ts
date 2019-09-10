@@ -7,7 +7,6 @@ import { TimeOptions } from '../models/time-options.interface';
 
 // @dynamic
 export class TimeAdapter {
-
     static DEFAULT_FORMAT = 12;
     static DEFAULT_LOCALE = 'en-US';
 
@@ -42,7 +41,6 @@ export class TimeAdapter {
         minutesGap?: number,
         format?: number
     ): boolean {
-
         if (!time) {
             return;
         }
@@ -50,7 +48,7 @@ export class TimeAdapter {
         const convertedTime = this.parseTime(time, {format});
         const minutes = convertedTime.minute;
 
-        if (minutesGap && (minutes % minutesGap !== 0)) {
+        if (minutesGap && minutes === minutes && minutes % minutesGap !== 0) {
             throw new Error(`Your minutes - ${minutes} doesn\'t match your minutesGap - ${minutesGap}`);
         }
         const isAfter = (min && !max)
