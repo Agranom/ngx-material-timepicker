@@ -14,7 +14,7 @@ import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 
 export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
 
-    @Input() time: number | null;
+    @Input() time: number;
     @Input() min: number;
     @Input() max: number;
     @Input() placeholder: string;
