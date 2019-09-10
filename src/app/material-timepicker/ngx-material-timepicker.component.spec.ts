@@ -44,35 +44,35 @@ describe('NgxMaterialTimepickerComponent', () => {
     it('should throw Error if register one more timepicker input', () => {
         const input = {} as TimepickerDirective;
 
-        component.registerInput(input);
-        expect(() => component.registerInput(input)).toThrowError('A Timepicker can only be associated with a single input.');
+        component.registerInputAndDefineTime(input);
+        expect(() => component.registerInputAndDefineTime(input)).toThrowError('A Timepicker can only be associated with a single input.');
     });
 
     it('should return min time prop of TimepickerDirective', () => {
         const input = {min: null} as TimepickerDirective;
 
-        component.registerInput(input);
+        component.registerInputAndDefineTime(input);
         expect(component.minTime).toBeNull();
     });
 
     it('should return max time prop of TimepickerDirective', () => {
         const input = {max: null} as TimepickerDirective;
 
-        component.registerInput(input);
+        component.registerInputAndDefineTime(input);
         expect(component.maxTime).toBeNull();
     });
 
     it('should return disabled prop of TimepickerDirective', () => {
         const input = {disabled: true} as TimepickerDirective;
 
-        component.registerInput(input);
+        component.registerInputAndDefineTime(input);
         expect(component.disabled).toBeTruthy();
     });
 
     it('should return format prop of TimepickerDirective', () => {
         const input = {format: 24} as TimepickerDirective;
 
-        component.registerInput(input);
+        component.registerInputAndDefineTime(input);
         expect(component.format).toBe(24);
     });
 
