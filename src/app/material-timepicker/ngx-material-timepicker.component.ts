@@ -9,6 +9,7 @@ import { NgxMaterialTimepickerEventService } from './services/ngx-material-timep
 import { filter } from 'rxjs/operators';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { DateTime } from 'luxon';
+import { DomService } from './services/dom.service';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -95,7 +96,8 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService) {
+                private eventService: NgxMaterialTimepickerEventService,
+                private domService: DomService) {
 
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
@@ -173,6 +175,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         if (!this.disableAnimation) {
             this.animationState = AnimationState.ENTER;
         }
+        this.domService.appendTimepickerToBody(NgxMaterialTimepickerComponent);
         this.opened.next();
     }
 
@@ -202,6 +205,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     private closeTimepicker(): void {
         this.isOpened = false;
+        this.domService.destroyTimepicker();
         this.activeTimeUnit = TimeUnit.HOUR;
         this.closed.next();
     }

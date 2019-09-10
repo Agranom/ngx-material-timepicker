@@ -4,14 +4,24 @@ import { NgxMaterialTimepickerEventService } from './services/ngx-material-timep
 import { NgxMaterialTimepickerService } from './services/ngx-material-timepicker.service';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { TimePeriod } from './models/time-period.enum';
 import { TimeUnit } from './models/time-unit.enum';
 import { AnimationEvent } from '@angular/animations';
+import { DomService } from './services/dom.service';
+
+class DomServiceStub {
+    appendTimepickerToBody(picker: Type<NgxMaterialTimepickerComponent>): void {
+    }
+
+    destroyTimepicker(): void {
+    }
+}
 
 describe('NgxMaterialTimepickerComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerComponent>;
     let component: NgxMaterialTimepickerComponent;
+    let domService: DomService;
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
@@ -21,12 +31,14 @@ describe('NgxMaterialTimepickerComponent', () => {
             ],
             providers: [
                 NgxMaterialTimepickerService,
-                NgxMaterialTimepickerEventService
+                NgxMaterialTimepickerEventService,
+                {provide: DomService, useClass: DomServiceStub}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerComponent);
 
         component = fixture.componentInstance;
+        domService = TestBed.get(DomService);
     });
 
     it('should throw Error if register one more timepicker input', () => {
@@ -106,13 +118,16 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.selectedPeriod).toBe(TimePeriod.AM);
     });
 
-    it(`should set isOpened 'true', change animationState to 'enter' and emit event on open call`, async(() => {
+    it(`should set isOpened 'true', change animationState to 'enter', call appendTimepickerToBody
+     and emit event on open call`, async(() => {
         let counter = 0;
+        const spy = spyOn(domService, 'appendTimepickerToBody');
 
         component.opened.subscribe(() => expect(++counter).toBe(1));
         component.open();
         expect(component.isOpened).toBeTruthy();
         expect(component.animationState).toBe(AnimationState.ENTER);
+        expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerComponent);
     }));
 
     it('should change animationState to \'leave\' on close call', () => {
@@ -120,18 +135,21 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.animationState).toBe(AnimationState.LEAVE);
     });
 
-    it(`should change isOpened to 'false', activeTimeUnit to 'HOUR' and emit closed event on animationDone`, () => {
+    it(`should change isOpened to 'false', activeTimeUnit to 'HOUR', call destroyTimepicker fn
+     and emit closed event on animationDone`, () => {
         let counter = 0;
         const event = {
             phaseName: 'done',
             toState: 'leave',
         };
+        const spy = spyOn(domService, 'destroyTimepicker');
 
         component.closed.subscribe(() => expect(++counter).toBe(1));
         component.isOpened = true;
         component.animationDone(event as AnimationEvent);
         expect(component.isOpened).toBeFalsy();
         expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+        expect(spy).toHaveBeenCalled();
     });
 
     it(`should do nothing if animation toState is not 'leave' on animationDone`, () => {
