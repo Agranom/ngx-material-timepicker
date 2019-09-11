@@ -9,6 +9,7 @@ import { TimePeriod } from './models/time-period.enum';
 import { TimeUnit } from './models/time-unit.enum';
 import { AnimationEvent } from '@angular/animations';
 import { DomService } from './services/dom.service';
+import { DateTime } from 'luxon';
 
 class DomServiceStub {
     appendTimepickerToBody(picker: Type<NgxMaterialTimepickerComponent>): void {
@@ -41,39 +42,61 @@ describe('NgxMaterialTimepickerComponent', () => {
         domService = TestBed.get(DomService);
     });
 
-    it('should throw Error if register one more timepicker input', () => {
-        const input = {} as TimepickerDirective;
+    describe('registerInputAndDefineTime', () => {
 
-        component.registerInputAndDefineTime(input);
-        expect(() => component.registerInputAndDefineTime(input)).toThrowError('A Timepicker can only be associated with a single input.');
-    });
+        it('should throw Error if register one more timepicker input', () => {
+            const input = {} as TimepickerDirective;
 
-    it('should return min time prop of TimepickerDirective', () => {
-        const input = {min: null} as TimepickerDirective;
+            component.registerInputAndDefineTime(input);
+            expect(() => component.registerInputAndDefineTime(input))
+                .toThrowError('A Timepicker can only be associated with a single input.');
+        });
 
-        component.registerInputAndDefineTime(input);
-        expect(component.minTime).toBeNull();
-    });
+        it('should return min time prop of TimepickerDirective', () => {
+            const input = {min: null} as TimepickerDirective;
 
-    it('should return max time prop of TimepickerDirective', () => {
-        const input = {max: null} as TimepickerDirective;
+            component.registerInputAndDefineTime(input);
+            expect(component.minTime).toBeNull();
+        });
 
-        component.registerInputAndDefineTime(input);
-        expect(component.maxTime).toBeNull();
-    });
+        it('should return max time prop of TimepickerDirective', () => {
+            const input = {max: null} as TimepickerDirective;
 
-    it('should return disabled prop of TimepickerDirective', () => {
-        const input = {disabled: true} as TimepickerDirective;
+            component.registerInputAndDefineTime(input);
+            expect(component.maxTime).toBeNull();
+        });
 
-        component.registerInputAndDefineTime(input);
-        expect(component.disabled).toBeTruthy();
-    });
+        it('should return disabled prop of TimepickerDirective', () => {
+            const input = {disabled: true} as TimepickerDirective;
 
-    it('should return format prop of TimepickerDirective', () => {
-        const input = {format: 24} as TimepickerDirective;
+            component.registerInputAndDefineTime(input);
+            expect(component.disabled).toBeTruthy();
+        });
 
-        component.registerInputAndDefineTime(input);
-        expect(component.format).toBe(24);
+        it('should return format prop of TimepickerDirective', () => {
+            const input = {format: 24} as TimepickerDirective;
+
+            component.registerInputAndDefineTime(input);
+            expect(component.format).toBe(24);
+        });
+
+        it('should set default time equal to min time', () => {
+            const min = DateTime.fromObject({hour: 23, minute: 15});
+            const input = {min, format: 12, value: undefined} as TimepickerDirective;
+            const spy = spyOn(component, 'setDefaultTime');
+
+            component.registerInputAndDefineTime(input);
+            expect(spy).toHaveBeenCalledWith('11:15 PM');
+        });
+
+        it('should not call setDefaultTime if time set by default', () => {
+            const min = DateTime.fromObject({hour: 23, minute: 15});
+            const input = {min, format: 12, value: '11:11 am'} as TimepickerDirective;
+            const spy = spyOn(component, 'setDefaultTime');
+
+            component.registerInputAndDefineTime(input);
+            expect(spy).toHaveBeenCalledTimes(0);
+        });
     });
 
     it('should set format', () => {
