@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
-## 5.0.1 (2019-09-10)
+## 5.1.0 (2019-09-11)
+
+### Features
+
+* feat(ngx-material-timepicker-theme): add customization for editable dial,
+closes [(#204)](https://github.com/Agranom/ngx-material-timepicker/issues/204)
+
+* feat(ngx-material-field): add custom buttons, closes [(#200)](https://github.com/Agranom/ngx-material-timepicker/issues/200)
 
 ### Fixes
 
@@ -16,6 +23,12 @@ fixes [(#198)](https://github.com/Agranom/ngx-material-timepicker/issues/198)
 
 * fix(ngx-material-timepicker): cutting timepicker when parent container has `overflow: hidden`,
 fixes [(#130)](https://github.com/Agranom/ngx-material-timepicker/issues/130)
+
+### Improvements
+
+* improvement(ngx-material-timepicker): set default time equal to `min` time when `min` time is provided and default time isn't,
+closes [(#203)](https://github.com/Agranom/ngx-material-timepicker/issues/203),
+fixes [(#202)](https://github.com/Agranom/ngx-material-timepicker/issues/202)
 
 ## BREAKING CHANGES
 
