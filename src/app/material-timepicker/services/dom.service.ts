@@ -22,7 +22,7 @@ export class DomService {
     constructor(private cfr: ComponentFactoryResolver,
                 private appRef: ApplicationRef,
                 private injector: Injector,
-                @Optional() @Inject(DOCUMENT) private document: Document) {
+                @Optional() @Inject(DOCUMENT) private document: any) {
     }
 
     appendTimepickerToBody(timepicker: Type<NgxMaterialTimepickerComponent>): void {
