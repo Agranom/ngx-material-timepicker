@@ -42,6 +42,8 @@
     [ngxMaterialTimepickerTheme]="clockTheme"
     [defaultTime]="timepickerTime"
     [format]="format"
+    [cancelBtnTmpl]="cancelBtnTmpl"
+    [confirmBtnTmpl]="confirmBtnTmpl"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
 
 <ng-template #defaultIcon>

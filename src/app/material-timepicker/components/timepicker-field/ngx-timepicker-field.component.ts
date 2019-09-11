@@ -43,6 +43,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     @Input() buttonAlign: 'right' | 'left' = 'right';
     @Input() clockTheme: NgxMaterialTimepickerTheme;
     @Input() controlOnly: boolean;
+    @Input() cancelBtnTmpl: TemplateRef<Node>;
+    @Input() confirmBtnTmpl: TemplateRef<Node>;
 
     @Input()
     set format(value: number) {

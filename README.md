@@ -154,6 +154,10 @@ Selector: `ngx-timepicker-field`
   controlOnly: boolean | Hide or display toggle button with the timepicker clock |
 | @Input()
   format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
+| @Input()
+  cancelBtnTmpl: TemplateRef<Node> |  Set if you want to change cancel button for timepicker to your custom one. | 
+| @Input()
+  confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button for timepicker to your custom one. |
 
   
 #### NgxMaterialTimepickerToggleComponent
