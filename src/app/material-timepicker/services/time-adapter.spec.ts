@@ -1,5 +1,6 @@
 import { TimeAdapter } from './time-adapter';
 import { TimePeriod } from '../models/time-period.enum';
+import { DateTime } from 'luxon';
 
 
 describe('TimeAdapter', () => {
@@ -129,6 +130,30 @@ describe('TimeAdapter', () => {
             const actual = '21:11';
 
             expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE', format: 24})).toBe(expected);
+        });
+    });
+
+    describe('fromDateTimeToString', () => {
+
+        it('should return time as string in 12-hours format', () => {
+            const expected = '11:15 pm';
+            const dateTime = DateTime.fromObject({hour: 23, minute: 15});
+
+            expect(TimeAdapter.fromDateTimeToString(dateTime, 12).toLowerCase()).toBe(expected);
+        });
+
+        it('should return time as string in 24-hours format', () => {
+            const expected = '23:15';
+            const dateTime = DateTime.fromObject({hour: 23, minute: 15});
+
+            expect(TimeAdapter.fromDateTimeToString(dateTime, 24)).toBe(expected);
+        });
+
+        it(`should convert time from 'arab' numbering system to 'latn' and return as string`, () => {
+            const expected = '11:11 am';
+            const dateTime = DateTime.fromObject({hour: 11, minute: 11, numberingSystem: 'arab', locale: 'ar-AE'});
+
+            expect(TimeAdapter.fromDateTimeToString(dateTime, 12).toLowerCase()).toBe(expected);
         });
     });
 });

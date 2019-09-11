@@ -9,6 +9,8 @@ import { NgxMaterialTimepickerEventService } from './services/ngx-material-timep
 import { filter } from 'rxjs/operators';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { DateTime } from 'luxon';
+import { DomService } from './services/dom.service';
+import { TimeAdapter } from './services/time-adapter';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -95,7 +97,8 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService) {
+                private eventService: NgxMaterialTimepickerEventService,
+                private domService: DomService) {
 
         this.subscriptions.push(merge(this.eventService.backdropClick,
             this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
@@ -103,16 +106,20 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     }
 
-    get minTime(): string | DateTime {
-        return this.timepickerInput && this.timepickerInput.min;
+    get minTime(): DateTime {
+        return this.timepickerInput && (this.timepickerInput.min as DateTime);
     }
 
-    get maxTime(): string | DateTime {
-        return this.timepickerInput && this.timepickerInput.max;
+    get maxTime(): DateTime {
+        return this.timepickerInput && (this.timepickerInput.max as DateTime);
     }
 
     get disabled(): boolean {
         return this.timepickerInput && this.timepickerInput.disabled;
+    }
+
+    get time(): string {
+        return this.timepickerInput && this.timepickerInput.value;
     }
 
     ngOnInit() {
@@ -130,11 +137,12 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
      * Register an input with this timepicker.
      * input - The timepicker input to register with this timepicker
      */
-    registerInput(input: TimepickerDirective): void {
+    registerInputAndDefineTime(input: TimepickerDirective): void {
         if (this.timepickerInput) {
             throw Error('A Timepicker can only be associated with a single input.');
         }
         this.timepickerInput = input;
+        this.defineTime();
     }
 
     onHourChange(hour: ClockFaceTime): void {
@@ -173,6 +181,7 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
         if (!this.disableAnimation) {
             this.animationState = AnimationState.ENTER;
         }
+        this.domService.appendTimepickerToBody(NgxMaterialTimepickerComponent);
         this.opened.next();
     }
 
@@ -202,7 +211,18 @@ export class NgxMaterialTimepickerComponent implements OnInit, OnDestroy {
 
     private closeTimepicker(): void {
         this.isOpened = false;
+        this.domService.destroyTimepicker();
         this.activeTimeUnit = TimeUnit.HOUR;
         this.closed.next();
+    }
+
+    private defineTime(): void {
+        const minTime = this.minTime;
+
+        if (minTime && !this.time) {
+            const time = TimeAdapter.fromDateTimeToString(minTime, this.format);
+
+            this.setDefaultTime(time);
+        }
     }
 }

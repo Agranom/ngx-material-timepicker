@@ -178,7 +178,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     private registerTimepicker(picker: NgxMaterialTimepickerComponent): void {
         if (picker) {
             this._timepicker = picker;
-            this._timepicker.registerInput(this);
+            this._timepicker.registerInputAndDefineTime(this);
             this.timepickerSubscriptions.push(this._timepicker.timeSet.subscribe((time: string) => {
                 this.value = time;
                 this.onChange(this.value);

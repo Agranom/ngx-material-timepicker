@@ -81,7 +81,8 @@ import { ActiveMinutePipe } from './pipes/active-minute.pipe';
     ],
     providers: [
         {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
-    ]
+    ],
+    entryComponents: [NgxMaterialTimepickerComponent]
 })
 export class NgxMaterialTimepickerModule {
 
