@@ -11,9 +11,18 @@
     text-align: right;
     &_editable {
         &:focus {
-            color: $primary-color;
-            background-color: #fff;
-            outline: $primary-color;
+            color: $dial-editable-active-color;
+            @supports (color: var(--dial-editable-active-color)) {
+                color: var(--dial-editable-active-color);
+            }
+            background-color: $dial-editable-background-color;
+            @supports (background-color: var(--dial-editable-background-color)) {
+                background-color: var(--dial-editable-background-color);
+            }
+            outline: $dial-editable-active-color;
+            @supports (outline: var(--dial-editable-active-color)) {
+                outline: var(--dial-editable-active-color);
+            }
         }
     }
 }
