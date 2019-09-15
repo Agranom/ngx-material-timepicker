@@ -1,11 +1,13 @@
-<div class="timepicker-backdrop-overlay" *ngIf="isOpened" [overlay]="preventOverlayClick"></div>
-<div class="timepicker-overlay" *ngIf="isOpened">
+<div class="timepicker-backdrop-overlay" [overlay]="preventOverlayClick"></div>
+<div class="timepicker-overlay">
     <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)">
         <header class="timepicker__header">
-            <ngx-material-timepicker-dial [format]="format" [hour]="selectedHour?.time"
-                                          [minute]="selectedMinute?.time"
-                                          [period]="selectedPeriod" [activeTimeUnit]="activeTimeUnit"
-                                          [minTime]="minTime" [maxTime]="maxTime"
+            <ngx-material-timepicker-dial [format]="format" [hour]="(selectedHour | async)?.time"
+                                          [minute]="(selectedMinute | async)?.time"
+                                          [period]="selectedPeriod | async"
+                                          [activeTimeUnit]="activeTimeUnit"
+                                          [minTime]="minTime"
+                                          [maxTime]="maxTime"
                                           [isEditable]="enableKeyboardInput"
                                           [editableHintTmpl]="editableHintTmpl"
                                           [minutesGap]="minutesGap"
@@ -20,7 +22,7 @@
                 <div *ngSwitchCase="timeUnit.HOUR">
                     <ngx-material-timepicker-24-hours-face *ngIf="format === 24;else ampmHours"
                                                            (hourChange)="onHourChange($event)"
-                                                           [selectedHour]="selectedHour"
+                                                           [selectedHour]="selectedHour | async"
                                                            [minTime]="minTime"
                                                            [maxTime]="maxTime"
                                                            [format]="format"
@@ -28,27 +30,28 @@
                     <ng-template #ampmHours>
                         <ngx-material-timepicker-12-hours-face
                             (hourChange)="onHourChange($event)"
-                            [selectedHour]="selectedHour"
-                            [period]="selectedPeriod"
+                            [selectedHour]="selectedHour | async"
+                            [period]="selectedPeriod | async"
                             [minTime]="minTime"
                             [maxTime]="maxTime"
                             (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-12-hours-face>
                     </ng-template>
                 </div>
                 <ngx-material-timepicker-minutes-face *ngSwitchCase="timeUnit.MINUTE"
-                                                      [selectedMinute]="selectedMinute"
-                                                      [selectedHour]="selectedHour?.time"
+                                                      [selectedMinute]="selectedMinute | async"
+                                                      [selectedHour]="(selectedHour | async)?.time"
                                                       [minTime]="minTime"
                                                       [maxTime]="maxTime"
                                                       [format]="format"
-                                                      [period]="selectedPeriod"
+                                                      [period]="selectedPeriod | async"
                                                       [minutesGap]="minutesGap"
                                                       (minuteChange)="onMinuteChange($event)"></ngx-material-timepicker-minutes-face>
             </div>
             <div class="timepicker__actions">
                 <div (click)="close()">
                     <!--suppress HtmlUnknownAttribute -->
-                    <ng-container *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="cancelBtnTmpl ? cancelBtnTmpl : cancelBtnDefault"></ng-container>
                 </div>
                 <div (click)="setTime()">
                     <!--suppress HtmlUnknownAttribute -->

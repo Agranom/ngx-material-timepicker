@@ -31,7 +31,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
         if (isDynamicallyChanged) {
             this.value = this._value;
-            this._timepicker.setDefaultTime(this._value);
+            this._timepicker.updateTime(this._value);
         }
         this.previousFormat = this._format;
     }
@@ -130,9 +130,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     private set defaultTime(time: string) {
-        const formattedTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
-
-        this._timepicker.setDefaultTime(formattedTime);
+        this._timepicker.defaultTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
     }
 
     onInput(value: string) {
@@ -178,7 +176,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     private registerTimepicker(picker: NgxMaterialTimepickerComponent): void {
         if (picker) {
             this._timepicker = picker;
-            this._timepicker.registerInputAndDefineTime(this);
+            this._timepicker.registerInput(this);
             this.timepickerSubscriptions.push(this._timepicker.timeSet.subscribe((time: string) => {
                 this.value = time;
                 this.onChange(this.value);

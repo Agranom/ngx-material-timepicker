@@ -10,14 +10,17 @@ import {
     Type
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
+import {
+    NgxMaterialTimepickerContentComponent
+} from '../components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+import { TimepickerConfig } from '../models/timepicker-config.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DomService {
 
-    private componentRef: ComponentRef<NgxMaterialTimepickerComponent>;
+    private componentRef: ComponentRef<NgxMaterialTimepickerContentComponent>;
 
     constructor(private cfr: ComponentFactoryResolver,
                 private appRef: ApplicationRef,
@@ -25,12 +28,14 @@ export class DomService {
                 @Optional() @Inject(DOCUMENT) private document: any) {
     }
 
-    appendTimepickerToBody(timepicker: Type<NgxMaterialTimepickerComponent>): void {
+    appendTimepickerToBody(timepicker: Type<NgxMaterialTimepickerContentComponent>, config: TimepickerConfig): void {
         this.componentRef = this.cfr.resolveComponentFactory(timepicker).create(this.injector);
+
+        Object.keys(config).forEach(key => this.componentRef.instance[key] = config[key]);
 
         this.appRef.attachView(this.componentRef.hostView);
 
-        const domElement: HTMLElement = (this.componentRef.hostView as EmbeddedViewRef<NgxMaterialTimepickerComponent>)
+        const domElement: HTMLElement = (this.componentRef.hostView as EmbeddedViewRef<NgxMaterialTimepickerContentComponent>)
             .rootNodes[0];
 
         this.document.body.appendChild(domElement);
