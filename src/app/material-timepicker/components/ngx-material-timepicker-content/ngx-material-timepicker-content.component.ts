@@ -135,11 +135,6 @@ export class NgxMaterialTimepickerContentComponent implements OnInit, OnDestroy,
         this.animationState = AnimationState.LEAVE;
     }
 
-    setDefaultTime(time: string): void {
-        this.timepickerService.setDefaultTimeIfAvailable(
-            time, this.minTime, this.maxTime, this.format, this.minutesGap);
-    }
-
     animationDone(event: AnimationEvent): void {
         if (event.phaseName === 'done' && event.toState === AnimationState.LEAVE) {
             this.timepickerBaseRef.close();
@@ -149,6 +144,11 @@ export class NgxMaterialTimepickerContentComponent implements OnInit, OnDestroy,
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
+    }
+
+    private setDefaultTime(time: string): void {
+        this.timepickerService.setDefaultTimeIfAvailable(
+            time, this.minTime, this.maxTime, this.format, this.minutesGap);
     }
 
     private defineTime(): void {
