@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.1.1 (2019-09-17)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix appending an empty component to body,
+fixes [(#130)](https://github.com/Agranom/ngx-material-timepicker/issues/130)
+
+
 ## 5.1.0 (2019-09-11)
 
 ### Features
