@@ -27,7 +27,8 @@ import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { NgxTimepickerFieldComponent } from './components/timepicker-field/ngx-timepicker-field.component';
 import {
-    NgxTimepickerTimeControlComponent } from './components/timepicker-field/timepicker-time-control/ngx-timepicker-time-control.component';
+    NgxTimepickerTimeControlComponent
+} from './components/timepicker-field/timepicker-time-control/ngx-timepicker-time-control.component';
 import {
     NgxTimepickerPeriodSelectorComponent
 } from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
@@ -37,7 +38,9 @@ import { TimeAdapter } from './services/time-adapter';
 import { TimeParserPipe } from './pipes/time-parser.pipe';
 import { ActiveHourPipe } from './pipes/active-hour.pipe';
 import { ActiveMinutePipe } from './pipes/active-minute.pipe';
-import { NgxMaterialTimepickerContentComponent } from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+import {
+    NgxMaterialTimepickerContentComponent
+} from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
 
 
 @NgModule({

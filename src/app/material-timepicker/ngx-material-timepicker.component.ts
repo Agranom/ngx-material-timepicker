@@ -5,7 +5,9 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { DateTime } from 'luxon';
 import { DomService } from './services/dom.service';
-import { NgxMaterialTimepickerContentComponent } from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+import {
+    NgxMaterialTimepickerContentComponent
+} from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
 import { TimepickerRef } from './models/timepicker-ref.interface';
 
 
