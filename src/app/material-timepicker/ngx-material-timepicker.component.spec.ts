@@ -6,8 +6,8 @@ import { NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { DomService } from './services/dom.service';
 import { TimepickerConfig } from './models/timepicker-config.interface';
 import {
-    NgxMaterialTimepickerContentComponent
-} from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+    NgxMaterialTimepickerContainerComponent
+} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
 
 class DomServiceStub {
     appendTimepickerToBody(picker: Type<NgxMaterialTimepickerComponent>): void {
@@ -27,7 +27,7 @@ describe('NgxMaterialTimepickerComponent', () => {
         fixture = TestBed.configureTestingModule({
             declarations: [
                 NgxMaterialTimepickerComponent,
-                NgxMaterialTimepickerContentComponent,
+                NgxMaterialTimepickerContainerComponent,
             ],
             providers: [
                 NgxMaterialTimepickerEventService,
@@ -128,7 +128,7 @@ describe('NgxMaterialTimepickerComponent', () => {
 
             component.opened.subscribe(() => expect(++counter).toBe(1));
             component.open();
-            expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerContentComponent, expectedConfig);
+            expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerContainerComponent, expectedConfig);
         }));
     });
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -6,8 +6,8 @@ import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { DateTime } from 'luxon';
 import { DomService } from './services/dom.service';
 import {
-    NgxMaterialTimepickerContentComponent
-} from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+    NgxMaterialTimepickerContainerComponent
+} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
 import { TimepickerRef } from './models/timepicker-ref.interface';
 
 
@@ -17,7 +17,7 @@ const ESCAPE = 27;
     selector: 'ngx-material-timepicker',
     template: '',
 })
-export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef {
+export class NgxMaterialTimepickerComponent implements TimepickerRef {
 
     timeUpdated = new Subject<string>();
 
@@ -28,6 +28,7 @@ export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef 
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
+    @Input() appendToInput: boolean;
     @Input() defaultTime: string;
 
     @Input()
@@ -64,12 +65,6 @@ export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef 
 
     constructor(private eventService: NgxMaterialTimepickerEventService,
                 private domService: DomService) {
-
-        merge(this.eventService.backdropClick,
-            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(() => this.close());
-
     }
 
     get minTime(): DateTime {
@@ -88,6 +83,10 @@ export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef 
         return this.timepickerInput && this.timepickerInput.value;
     }
 
+    get inputElement(): HTMLInputElement {
+        return this.timepickerInput && this.timepickerInput.element;
+    }
+
     /***
      * Register an input with this timepicker.
      * input - The timepicker input to register with this timepicker
@@ -100,7 +99,7 @@ export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef 
     }
 
     open(): void {
-        this.domService.appendTimepickerToBody(NgxMaterialTimepickerContentComponent, {
+        this.domService.appendTimepickerToBody(NgxMaterialTimepickerContainerComponent, {
             timepickerBaseRef: this,
             time: this.time,
             defaultTime: this.defaultTime,
@@ -114,23 +113,33 @@ export class NgxMaterialTimepickerComponent implements OnDestroy, TimepickerRef 
             editableHintTmpl: this.editableHintTmpl,
             disabled: this.disabled,
             enableKeyboardInput: this.enableKeyboardInput,
-            preventOverlayClick: this.preventOverlayClick
+            preventOverlayClick: this.preventOverlayClick,
+            appendToInput: this.appendToInput,
+            inputElement: this.inputElement
         });
         this.opened.next();
+        this.subscribeToEvents();
     }
 
     close(): void {
         this.domService.destroyTimepicker();
         this.closed.next();
+        this.unsubscribeFromEvents();
     }
 
     updateTime(time: string): void {
         this.timeUpdated.next(time);
     }
 
-    ngOnDestroy(): void {
+    private subscribeToEvents(): void {
+        merge(this.eventService.backdropClick,
+            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.close());
+    }
+
+    private unsubscribeFromEvents(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-
 }

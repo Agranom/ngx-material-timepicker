@@ -6,10 +6,12 @@ export interface TimepickerConfig {
     cancelBtnTmpl: TemplateRef<Node>;
     editableHintTmpl: TemplateRef<Node>;
     confirmBtnTmpl: TemplateRef<Node>;
+    inputElement: HTMLInputElement;
     enableKeyboardInput: boolean;
     preventOverlayClick: boolean;
     disableAnimation: boolean;
     disabled: boolean;
+    appendToInput: boolean;
     format: number;
     minutesGap: number;
     minTime: DateTime;

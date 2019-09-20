@@ -129,6 +129,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
                 @Inject(TIME_LOCALE) private locale: string) {
     }
 
+    get element(): HTMLInputElement {
+        return this.elementRef && this.elementRef.nativeElement;
+    }
+
     private set defaultTime(time: string) {
         this._timepicker.defaultTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
     }

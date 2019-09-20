@@ -2,16 +2,6 @@
 
 $border-color: rgba(0, 0, 0, .09);
 
-:host {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
 
 * {
     box-sizing: border-box;
@@ -64,7 +54,6 @@ $border-color: rgba(0, 0, 0, .09);
 .ngx-material-timepicker {
     padding-top: 50px;
     height: 100vh;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }

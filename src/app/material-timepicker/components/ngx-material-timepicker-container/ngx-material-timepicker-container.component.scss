@@ -10,6 +10,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 999;
     pointer-events: auto;
+
+    &--transparent {
+        background-color: transparent;
+    }
 }
 
 .timepicker-overlay {
