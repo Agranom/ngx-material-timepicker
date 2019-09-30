@@ -107,14 +107,17 @@ describe('NgxMaterialTimepickerComponent', () => {
                 maxTime: undefined,
                 minTime: undefined,
                 minutesGap: 6,
-                time: '11:15 pm'
+                time: '11:15 pm',
+                appendToInput: false,
+                inputElement: undefined
             };
             const directive = {
                 disabled: expectedConfig.disabled,
                 format: expectedConfig.format,
                 min: expectedConfig.minTime,
                 max: expectedConfig.maxTime,
-                value: expectedConfig.time
+                value: expectedConfig.time,
+                element: undefined
             };
             component.preventOverlayClick = expectedConfig.preventOverlayClick;
             component.enableKeyboardInput = expectedConfig.enableKeyboardInput;
@@ -123,6 +126,7 @@ describe('NgxMaterialTimepickerComponent', () => {
             component.cancelBtnTmpl = expectedConfig.cancelBtnTmpl;
             component.defaultTime = expectedConfig.defaultTime;
             component.disableAnimation = expectedConfig.disableAnimation;
+            component.appendToInput = false;
             component.minutesGap = expectedConfig.minutesGap;
             component.registerInput(directive as TimepickerDirective);
 
@@ -152,6 +156,7 @@ describe('NgxMaterialTimepickerComponent', () => {
                 stopPropagation: () => null,
                 type: 'keydown'
             };
+            component.open();
 
             eventService.dispatchEvent(event as KeyboardEvent);
 
