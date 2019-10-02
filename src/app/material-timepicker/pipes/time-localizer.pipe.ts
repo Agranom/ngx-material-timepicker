@@ -24,7 +24,8 @@ export class TimeLocalizerPipe implements PipeTransform {
                 return this.formatTime('hour', time, format);
             }
             case TimeUnit.MINUTE:
-                return this.formatTime('minute', time, 'mm');
+                const minuteFormat = String(time).length === 2 ? 'mm' : 'm';
+                return this.formatTime('minute', time, minuteFormat);
             default:
                 throw new Error(`There is no Time Unit with type ${timeUnit}`);
         }

@@ -5,6 +5,7 @@ import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 import { DateTime } from 'luxon';
 import { NgxMaterialTimepickerModule } from '../../../ngx-material-timepicker.module';
+import { TimeFormatterPipe } from '../../../pipes/time-formatter.pipe';
 
 describe('NgxTimepickerTimeControlComponent', () => {
     let fixture: ComponentFixture<NgxTimepickerTimeControlComponent>;
@@ -14,7 +15,8 @@ describe('NgxTimepickerTimeControlComponent', () => {
         TestBed.configureTestingModule({
             imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')],
             providers: [
-                TimeParserPipe
+                TimeParserPipe,
+                TimeFormatterPipe
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();

@@ -34,12 +34,21 @@ describe('TimeLocalizerPipe', () => {
         expect(pipe.transform(hour, TimeUnit.HOUR)).toBe(expected);
     });
 
+    it('should return minute in numeric format', () => {
+        const minutes = Array(59).fill(0).map((v, i) => v + i);
+
+        minutes.forEach(minute => {
+            const expected = DateTime.fromObject({minute: minute}).setLocale(defaultLocale).toFormat('m');
+            expect(pipe.transform(minute, TimeUnit.MINUTE)).toBe(expected);
+        });
+    });
+
     it('should return minute in 2-digit format', () => {
         const minutes = Array(59).fill(0).map((v, i) => v + i);
 
         minutes.forEach(minute => {
             const expected = DateTime.fromObject({minute: minute}).setLocale(defaultLocale).toFormat('mm');
-            expect(pipe.transform(minute, TimeUnit.MINUTE)).toBe(expected);
+            expect(pipe.transform(String(minute).padStart(2, '0'), TimeUnit.MINUTE)).toBe(expected);
         });
     });
 
