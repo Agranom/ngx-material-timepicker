@@ -223,6 +223,14 @@ describe('TimepickerDirective', () => {
         expect(timepickerComponent.defaultTime).toBe(time);
     });
 
+    it('should not change default time when writeValue called with undefined', () => {
+        directive.timepicker = timepickerComponent;
+
+        directive.writeValue(undefined);
+        expect(directive.value).toBe('');
+        expect(timepickerComponent.defaultTime).toBeUndefined();
+    });
+
     it('should set onChange function on registerOnChange', () => {
         directive.timepicker = timepickerComponent;
         const spy = spyOn(console, 'log');

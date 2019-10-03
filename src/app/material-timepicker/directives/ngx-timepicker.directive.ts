@@ -158,7 +158,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     writeValue(value: string): void {
         this.value = value;
-        this.defaultTime = value;
+        if (value) {
+            this.defaultTime = value;
+        }
     }
 
     registerOnChange(fn: (value: any) => void): void {
