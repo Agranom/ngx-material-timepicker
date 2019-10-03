@@ -9,6 +9,7 @@ import {
     NgxMaterialTimepickerContainerComponent
 } from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
 import { TimepickerRef } from './models/timepicker-ref.interface';
+import { NgxMaterialTimepickerTheme } from './models/ngx-material-timepicker-theme.interface';
 
 
 const ESCAPE = 27;
@@ -30,6 +31,15 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() disableAnimation: boolean;
     @Input() appendToInput: boolean;
     @Input() defaultTime: string;
+    /**
+     * @deprecated Since version 5.1.1. Will be deleted on version 6.0.0. Use @Input() theme instead
+     */
+    @Input()
+    set ngxMaterialTimepickerTheme(theme: NgxMaterialTimepickerTheme) {
+        console.warn(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
+        this._ngxMaterialTimepickerTheme = theme;
+    }
+    @Input() theme: NgxMaterialTimepickerTheme;
 
     @Input()
     set format(value: number) {
@@ -60,6 +70,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
 
     private _minutesGap: number;
     private _format: number;
+    private _ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme;
     private timepickerInput: TimepickerDirective;
     private unsubscribe = new Subject();
 
@@ -115,6 +126,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
             enableKeyboardInput: this.enableKeyboardInput,
             preventOverlayClick: this.preventOverlayClick,
             appendToInput: this.appendToInput,
+            theme: this.theme || this._ngxMaterialTimepickerTheme,
             inputElement: this.inputElement
         });
         this.opened.next();

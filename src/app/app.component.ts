@@ -118,7 +118,7 @@ export class AppComponent {
          <div class="custom-theme-example">
             <input placeholder="Custom theme" aria-label="Custom theme"
                 [ngxTimepicker]="darkPicker" readonly>
-            <ngx-material-timepicker #darkPicker [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
+            <ngx-material-timepicker #darkPicker [theme]="darkTheme"></ngx-material-timepicker>
          </div>
 
         //...

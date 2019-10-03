@@ -1,7 +1,9 @@
 <div class="timepicker-backdrop-overlay" [overlay]="preventOverlayClick"
      [ngClass]="{'timepicker-backdrop-overlay--transparent': appendToInput}"></div>
 <div class="timepicker-overlay">
-    <ngx-material-timepicker-content [appendToInput]="appendToInput" [inputElement]="inputElement">
+    <ngx-material-timepicker-content [appendToInput]="appendToInput"
+                                     [inputElement]="inputElement"
+                                     [ngxMaterialTimepickerTheme]="theme">
         <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)">
             <header class="timepicker__header">
                 <ngx-material-timepicker-dial [format]="format" [hour]="(selectedHour | async)?.time"

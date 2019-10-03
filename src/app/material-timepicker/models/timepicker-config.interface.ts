@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import { DateTime } from 'luxon';
 import { TimepickerRef } from './timepicker-ref.interface';
+import { NgxMaterialTimepickerTheme } from './ngx-material-timepicker-theme.interface';
 
 export interface TimepickerConfig {
     cancelBtnTmpl: TemplateRef<Node>;
@@ -18,5 +19,6 @@ export interface TimepickerConfig {
     maxTime: DateTime;
     defaultTime: string;
     time: string;
+    theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
 }

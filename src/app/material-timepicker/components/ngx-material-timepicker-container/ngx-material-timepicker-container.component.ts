@@ -11,6 +11,7 @@ import { TimeAdapter } from '../../services/time-adapter';
 import { TimepickerRef } from '../../models/timepicker-ref.interface';
 import { TimepickerConfig } from '../../models/timepicker-config.interface';
 import { NgxMaterialTimepickerEventService } from '../../services/ngx-material-timepicker-event.service';
+import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -64,6 +65,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     maxTime: DateTime;
     time: string;
 
+    theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
 
     @Input()
