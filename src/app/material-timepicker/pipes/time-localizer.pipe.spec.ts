@@ -39,7 +39,7 @@ describe('TimeLocalizerPipe', () => {
 
         minutes.forEach(minute => {
             const expected = DateTime.fromObject({minute: minute}).setLocale(defaultLocale).toFormat('m');
-            expect(pipe.transform(minute, TimeUnit.MINUTE)).toBe(expected);
+            expect(pipe.transform(minute, TimeUnit.MINUTE, true)).toBe(expected);
         });
     });
 

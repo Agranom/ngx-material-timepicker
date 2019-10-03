@@ -235,6 +235,16 @@ describe('NgxMaterialTimepickerComponent', () => {
             component.updateTime(expectedTime);
         }));
     });
+
+    describe('ngxMaterialTimepickerTheme', () => {
+
+        it('should display warning message when setting value', () => {
+            const spy = spyOn(console, 'warn');
+
+            component.ngxMaterialTimepickerTheme = {};
+            expect(spy).toHaveBeenCalledWith(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
+        });
+    });
 });
 
 export const spyOnFunction = <T>(obj: T, func: keyof T) => {
