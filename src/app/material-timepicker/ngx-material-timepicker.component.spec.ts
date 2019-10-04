@@ -111,6 +111,7 @@ describe('NgxMaterialTimepickerComponent', () => {
                 appendToInput: false,
                 theme: undefined,
                 hoursOnly: false,
+                timepickerClass: undefined,
                 inputElement: undefined
             };
             const directive = {
