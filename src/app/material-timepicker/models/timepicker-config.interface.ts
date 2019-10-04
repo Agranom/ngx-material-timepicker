@@ -13,6 +13,7 @@ export interface TimepickerConfig {
     disableAnimation: boolean;
     disabled: boolean;
     appendToInput: boolean;
+    hoursOnly: boolean;
     format: number;
     minutesGap: number;
     minTime: DateTime;

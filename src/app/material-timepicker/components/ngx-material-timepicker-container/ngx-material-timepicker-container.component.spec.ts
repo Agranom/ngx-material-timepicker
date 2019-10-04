@@ -190,6 +190,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
         it('should change timeUnit to MINUTE and emit selected hour', async(() => {
             const hour = 10;
+            component.hoursOnly = true;
 
             expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
 
@@ -197,6 +198,18 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             component.onHourSelected(hour);
 
             expect(component.activeTimeUnit).toBe(TimeUnit.MINUTE);
+        }));
+
+        it('should not change timeUnit and emit selected hour', async(() => {
+            const hour = 10;
+            component.hoursOnly = false;
+
+            expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
+
+            component.timepickerBaseRef.hourSelected.subscribe(h => expect(h).toBe(hour));
+            component.onHourSelected(hour);
+
+            expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
         }));
     });
 

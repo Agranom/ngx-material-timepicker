@@ -57,6 +57,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     disableAnimation: boolean;
     disabled: boolean;
     appendToInput: boolean;
+    hoursOnly: boolean;
 
     format: number;
     minutesGap: number;
@@ -109,7 +110,9 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     }
 
     onHourSelected(hour: number): void {
-        this.changeTimeUnit(TimeUnit.MINUTE);
+        if (this.hoursOnly) {
+            this.changeTimeUnit(TimeUnit.MINUTE);
+        }
         this.timepickerBaseRef.hourSelected.next(hour);
     }
 

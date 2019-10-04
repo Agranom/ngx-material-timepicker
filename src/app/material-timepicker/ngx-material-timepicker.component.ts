@@ -30,7 +30,9 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
     @Input() appendToInput: boolean;
+    @Input() hoursOnly = false;
     @Input() defaultTime: string;
+    @Input() theme: NgxMaterialTimepickerTheme;
     /**
      * @deprecated Since version 5.1.1. Will be deleted on version 6.0.0. Use @Input() theme instead
      */
@@ -39,7 +41,6 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
         console.warn(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
         this._ngxMaterialTimepickerTheme = theme;
     }
-    @Input() theme: NgxMaterialTimepickerTheme;
 
     @Input()
     set format(value: number) {
@@ -126,6 +127,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
             enableKeyboardInput: this.enableKeyboardInput,
             preventOverlayClick: this.preventOverlayClick,
             appendToInput: this.appendToInput,
+            hoursOnly: this.hoursOnly,
             theme: this.theme || this._ngxMaterialTimepickerTheme,
             inputElement: this.inputElement
         });

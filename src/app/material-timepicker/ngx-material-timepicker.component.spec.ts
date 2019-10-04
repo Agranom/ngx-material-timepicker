@@ -110,6 +110,7 @@ describe('NgxMaterialTimepickerComponent', () => {
                 time: '11:15 pm',
                 appendToInput: false,
                 theme: undefined,
+                hoursOnly: false,
                 inputElement: undefined
             };
             const directive = {

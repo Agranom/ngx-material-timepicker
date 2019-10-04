@@ -121,6 +121,10 @@ Selector: `ngx-material-timepicker`
   preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
 | @Input()
   disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
+| @Input()
+  hoursOnly: boolean | Set `true` to prevent switching to minutes automatically once hour is selected. Uses `false` by default |
+| @Input()
+  theme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
@@ -129,8 +133,6 @@ Selector: `ngx-material-timepicker`
   closed: EventEmitter\<null\> | Emits after timepicker was closed. |
 | @Output()
   hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
-|  @Input()
-   theme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults |
   
 #### NgxTimepickerFieldComponent
 
