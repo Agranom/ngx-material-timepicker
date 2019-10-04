@@ -32,6 +32,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() appendToInput: boolean;
     @Input() hoursOnly = false;
     @Input() defaultTime: string;
+    @Input() timepickerClass: string;
     @Input() theme: NgxMaterialTimepickerTheme;
     /**
      * @deprecated Since version 5.1.1. Will be deleted on version 6.0.0. Use @Input() theme instead
@@ -129,6 +130,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
             appendToInput: this.appendToInput,
             hoursOnly: this.hoursOnly,
             theme: this.theme || this._ngxMaterialTimepickerTheme,
+            timepickerClass: this.timepickerClass,
             inputElement: this.inputElement
         });
         this.opened.next();

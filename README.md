@@ -125,6 +125,8 @@ Selector: `ngx-material-timepicker`
   hoursOnly: boolean | Set `true` to prevent switching to minutes automatically once hour is selected. Uses `false` by default |
 | @Input()
   theme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults |
+| @Input()
+  timepickerClass: string |  To provide a custom css class for the timepicker |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()

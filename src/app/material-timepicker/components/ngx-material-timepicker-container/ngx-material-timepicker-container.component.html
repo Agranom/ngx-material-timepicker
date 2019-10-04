@@ -4,7 +4,10 @@
     <ngx-material-timepicker-content [appendToInput]="appendToInput"
                                      [inputElement]="inputElement"
                                      [ngxMaterialTimepickerTheme]="theme">
-        <div class="timepicker" [@timepicker]="animationState" (@timepicker.done)="animationDone($event)">
+        <div class="timepicker"
+             [@timepicker]="animationState"
+             (@timepicker.done)="animationDone($event)"
+             [ngClass]="timepickerClass">
             <header class="timepicker__header">
                 <ngx-material-timepicker-dial [format]="format" [hour]="(selectedHour | async)?.time"
                                               [minute]="(selectedMinute | async)?.time"

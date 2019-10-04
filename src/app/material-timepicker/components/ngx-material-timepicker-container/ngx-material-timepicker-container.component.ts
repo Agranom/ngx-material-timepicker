@@ -66,6 +66,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     maxTime: DateTime;
     time: string;
 
+    timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
 

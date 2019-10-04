@@ -20,6 +20,7 @@ export interface TimepickerConfig {
     maxTime: DateTime;
     defaultTime: string;
     time: string;
+    timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
 }
