@@ -6,8 +6,8 @@ import { NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { DomService } from './services/dom.service';
 import { TimepickerConfig } from './models/timepicker-config.interface';
 import {
-    NgxMaterialTimepickerContentComponent
-} from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+    NgxMaterialTimepickerContainerComponent
+} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
 
 class DomServiceStub {
     appendTimepickerToBody(picker: Type<NgxMaterialTimepickerComponent>): void {
@@ -27,7 +27,7 @@ describe('NgxMaterialTimepickerComponent', () => {
         fixture = TestBed.configureTestingModule({
             declarations: [
                 NgxMaterialTimepickerComponent,
-                NgxMaterialTimepickerContentComponent,
+                NgxMaterialTimepickerContainerComponent,
             ],
             providers: [
                 NgxMaterialTimepickerEventService,
@@ -107,14 +107,20 @@ describe('NgxMaterialTimepickerComponent', () => {
                 maxTime: undefined,
                 minTime: undefined,
                 minutesGap: 6,
-                time: '11:15 pm'
+                time: '11:15 pm',
+                appendToInput: false,
+                theme: undefined,
+                hoursOnly: false,
+                timepickerClass: undefined,
+                inputElement: undefined
             };
             const directive = {
                 disabled: expectedConfig.disabled,
                 format: expectedConfig.format,
                 min: expectedConfig.minTime,
                 max: expectedConfig.maxTime,
-                value: expectedConfig.time
+                value: expectedConfig.time,
+                element: undefined
             };
             component.preventOverlayClick = expectedConfig.preventOverlayClick;
             component.enableKeyboardInput = expectedConfig.enableKeyboardInput;
@@ -123,12 +129,13 @@ describe('NgxMaterialTimepickerComponent', () => {
             component.cancelBtnTmpl = expectedConfig.cancelBtnTmpl;
             component.defaultTime = expectedConfig.defaultTime;
             component.disableAnimation = expectedConfig.disableAnimation;
+            component.appendToInput = false;
             component.minutesGap = expectedConfig.minutesGap;
             component.registerInput(directive as TimepickerDirective);
 
             component.opened.subscribe(() => expect(++counter).toBe(1));
             component.open();
-            expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerContentComponent, expectedConfig);
+            expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerContainerComponent, expectedConfig);
         }));
     });
 
@@ -152,6 +159,7 @@ describe('NgxMaterialTimepickerComponent', () => {
                 stopPropagation: () => null,
                 type: 'keydown'
             };
+            component.open();
 
             eventService.dispatchEvent(event as KeyboardEvent);
 
@@ -228,6 +236,16 @@ describe('NgxMaterialTimepickerComponent', () => {
 
             component.updateTime(expectedTime);
         }));
+    });
+
+    describe('ngxMaterialTimepickerTheme', () => {
+
+        it('should display warning message when setting value', () => {
+            const spy = spyOn(console, 'warn');
+
+            component.ngxMaterialTimepickerTheme = {};
+            expect(spy).toHaveBeenCalledWith(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
+        });
     });
 });
 

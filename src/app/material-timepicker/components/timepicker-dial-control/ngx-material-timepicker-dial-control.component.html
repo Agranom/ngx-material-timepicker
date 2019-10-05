@@ -11,7 +11,7 @@
     <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
     <input class="timepicker-dial__control timepicker-dial__item timepicker-dial__control_editable"
            [ngClass]="{'timepicker-dial__item_active': isActive}"
-           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit"
+           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit : true"
            (ngModelChange)="onModelChange($event)"
            (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
            [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)">

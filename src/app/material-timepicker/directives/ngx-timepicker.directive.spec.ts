@@ -256,4 +256,11 @@ describe('TimepickerDirective', () => {
         directive.setDisabledState(true);
         expect(directive.disabled).toBeTruthy();
     });
+
+    describe('element getter', () => {
+
+        it('should return current HTMLInputElement', () => {
+            expect(directive.element).toEqual(input.nativeElement);
+        });
+    });
 });

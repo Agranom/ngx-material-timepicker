@@ -13,7 +13,7 @@ export class TimeLocalizerPipe implements PipeTransform {
     constructor(@Inject(TIME_LOCALE) private locale: string) {
     }
 
-    transform(time: number | string, timeUnit: TimeUnit): string {
+    transform(time: number | string, timeUnit: TimeUnit, isKeyboardEnabled = false): string {
         if (time == null || time === '') {
             return '';
         }
@@ -24,7 +24,9 @@ export class TimeLocalizerPipe implements PipeTransform {
                 return this.formatTime('hour', time, format);
             }
             case TimeUnit.MINUTE:
-                return this.formatTime('minute', time, 'mm');
+                const is2Digit = !isKeyboardEnabled || String(time).length === 2;
+                const minuteFormat = is2Digit ? 'mm' : 'm';
+                return this.formatTime('minute', time, minuteFormat);
             default:
                 throw new Error(`There is no Time Unit with type ${timeUnit}`);
         }

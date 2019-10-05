@@ -9,7 +9,7 @@ import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TimeParserPipe]
+    providers: [TimeParserPipe, TimeFormatterPipe]
 })
 
 export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
@@ -26,12 +26,13 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
 
     isFocused: boolean;
 
-    constructor(private timeParser: TimeParserPipe) {
+    constructor(private timeParser: TimeParserPipe,
+                private timeFormatter: TimeFormatterPipe) {
     }
 
     ngOnInit(): void {
         if (this.isDefaultTimeSet) {
-            this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
+            this.time = this.timeFormatter.transform(this.time, this.timeUnit);
         }
     }
 
@@ -108,7 +109,7 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
     }
 
     onBlur(): void {
-        this.time = new TimeFormatterPipe().transform(this.time, this.timeUnit);
+        this.time = this.timeFormatter.transform(this.time, this.timeUnit);
         this.isFocused = false;
     }
 

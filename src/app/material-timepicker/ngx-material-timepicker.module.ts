@@ -39,8 +39,12 @@ import { TimeParserPipe } from './pipes/time-parser.pipe';
 import { ActiveHourPipe } from './pipes/active-hour.pipe';
 import { ActiveMinutePipe } from './pipes/active-minute.pipe';
 import {
+    NgxMaterialTimepickerContainerComponent
+} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
+import {
     NgxMaterialTimepickerContentComponent
 } from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
+import { AppendToInputDirective } from './directives/append-to-input.directive';
 
 
 @NgModule({
@@ -82,12 +86,14 @@ import {
         TimeParserPipe,
         ActiveHourPipe,
         ActiveMinutePipe,
-        NgxMaterialTimepickerContentComponent
+        NgxMaterialTimepickerContainerComponent,
+        NgxMaterialTimepickerContentComponent,
+        AppendToInputDirective
     ],
     providers: [
         {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
     ],
-    entryComponents: [NgxMaterialTimepickerContentComponent]
+    entryComponents: [NgxMaterialTimepickerContainerComponent]
 })
 export class NgxMaterialTimepickerModule {
 

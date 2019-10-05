@@ -19,7 +19,6 @@ https://agranom.github.io/ngx-material-timepicker/
     * [NgxTimepickerFieldComponent](#ngxtimepickerfieldcomponent)
     * [NgxMaterialTimepickerToggleComponent](#ngxmaterialtimepickertogglecomponent)
     * [NgxMaterialTimepickerToggleIconDirective](#ngxmaterialtimepickertoggleicondirective)
-    * [NgxMaterialTimepickerThemeDirective](#ngxmaterialtimepickerthemedirective)
 * [Development](#development)
 * [Tests](#tests)
 * [License](#license)
@@ -122,6 +121,12 @@ Selector: `ngx-material-timepicker`
   preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
 | @Input()
   disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
+| @Input()
+  hoursOnly: boolean | Set `true` to prevent switching to minutes automatically once hour is selected. Uses `false` by default |
+| @Input()
+  theme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults |
+| @Input()
+  timepickerClass: string |  To provide a custom css class for the timepicker |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
@@ -181,19 +186,6 @@ Selector: `ngx-material-timepicker-toggle`
 Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
 
 Selector: `[ngxMaterialTimepickerToggleIcon]`
-
-#### NgxMaterialTimepickerThemeDirective
-
-Can be used to override styles of a `NgxMaterialTimepicker`.
-
-Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
-
-**Properties**
-
-| Name | Description |
-|------|-------------|
-| @Input()
-  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults | 
 
 ## Development
 
