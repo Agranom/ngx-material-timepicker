@@ -45,7 +45,7 @@ export class AppendToInputDirective implements AfterViewInit {
     }
 
     @HostListener('window:scroll')
-    private changePosition(): void {
+    changePosition(): void {
         const {bottom, top} = this.inputCords;
         const y = this.defineElementYByDirection(top, bottom);
         this.setStyle('top', `${y}px`);
