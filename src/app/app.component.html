@@ -195,6 +195,20 @@
                     </div>
                 </div>
             </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="appendToInput">Append to input</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Timepicker appends to input.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Append to input" aria-label="Append to input"
+                               [ngxTimepicker]="appendedToInput" readonly>
+                        <ngx-material-timepicker #appendedToInput
+                                                 [appendToInput]="true"></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
         </div>
         <div class="ngx-material-timepicker-heading">
             <h2 class="ngx-material-timepicker-heading__title">ngx-timepicker-field</h2>

@@ -194,4 +194,13 @@ export class AppComponent {
             <ngx-timepicker-field [controlOnly]="true"></ngx-timepicker-field>
         </div>
     `;
+
+    appendToInput = `
+        <div class="ngx-timepicker-field-example">
+            <input placeholder="Append to input" aria-label="Append to input"
+                [ngxTimepicker]="appendedToInput" readonly>
+            <ngx-material-timepicker #appendedToInput
+                [appendToInput]="true"></ngx-material-timepicker>
+        </div>
+    `;
 }
