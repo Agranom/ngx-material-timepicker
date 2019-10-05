@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.2.0 (2019-10-05)
+
+### Features
+
+* feat(ngx-material-timepicker): add `timepickerClass` property to set custom class for the timepicker,
+closes [(#227)](https://github.com/Agranom/ngx-material-timepicker/issues/227)
+
+* feat(ngx-material-timepicker): add `hoursOnly` property to prevent switching to minutes automatically,
+closes [(#208)](https://github.com/Agranom/ngx-material-timepicker/issues/208)
+
+* feat(ngx-material-timepicker): add `appendToInput` property that allows append timepicker to input (without modal),
+closes [(#185)](https://github.com/Agranom/ngx-material-timepicker/issues/185)
+
+### Fixes
+
+* fix(ngx-timepicker-field): bug with changing minutes via input field,
+fixes [(#229)](https://github.com/Agranom/ngx-material-timepicker/issues/229)
+
+* fix(ngx-material-timepicker): bug with theming,
+fixes [(#218)](https://github.com/Agranom/ngx-material-timepicker/issues/218)
+
+* fix(ngx-material-timepicker): fix error `Cannot read property 'split' of null` when setting time as `null` or `undefined`,
+fixes [(#215)](https://github.com/Agranom/ngx-material-timepicker/issues/215)
+
+* fix(ngx-material-timepicker): clicking area for 00 and 12 in 24 format,
+fixes [(#114)](https://github.com/Agranom/ngx-material-timepicker/issues/114)
+
+
 ## 5.1.1 (2019-09-17)
 
 ### Fixes
