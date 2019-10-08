@@ -18,7 +18,7 @@ const VALUE_ACCESSOR = {
     providers: [VALUE_ACCESSOR],
     host: {
         '[disabled]': 'disabled',
-        '(input)': 'onInput($event.target.value)',
+        '(change)': 'updateValue($event.target.value)',
         '(blur)': 'onTouched()',
     },
 })
@@ -137,7 +137,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this._timepicker.defaultTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
     }
 
-    onInput(value: string) {
+    updateValue(value: string) {
         this.value = value;
         this.onChange(value);
     }
