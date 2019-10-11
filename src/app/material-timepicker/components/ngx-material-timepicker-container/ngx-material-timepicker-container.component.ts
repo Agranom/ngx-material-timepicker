@@ -111,7 +111,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     }
 
     onHourSelected(hour: number): void {
-        if (this.hoursOnly) {
+        if (!this.hoursOnly) {
             this.changeTimeUnit(TimeUnit.MINUTE);
         }
         this.timepickerBaseRef.hourSelected.next(hour);

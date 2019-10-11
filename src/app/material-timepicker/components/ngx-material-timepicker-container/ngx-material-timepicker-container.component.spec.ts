@@ -40,7 +40,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             providers: [
                 {
                     provide: NgxMaterialTimepickerEventService, useValue: {
-                        dispatchEvent: (e) => null
+                        dispatchEvent: () => null
                     }
                 }
             ],
@@ -190,7 +190,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
         it('should change timeUnit to MINUTE and emit selected hour', async(() => {
             const hour = 10;
-            component.hoursOnly = true;
+            component.hoursOnly = false;
 
             expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
 
@@ -202,7 +202,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
         it('should not change timeUnit and emit selected hour', async(() => {
             const hour = 10;
-            component.hoursOnly = false;
+            component.hoursOnly = true;
 
             expect(component.activeTimeUnit).toBe(TimeUnit.HOUR);
 

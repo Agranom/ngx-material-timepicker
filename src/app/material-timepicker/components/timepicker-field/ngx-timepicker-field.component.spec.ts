@@ -77,8 +77,8 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
 
-        expect(component.hour).toBe(11);
-        expect(component.minute).toBe(15);
+        component.hour$.subscribe(hour => expect(hour.time).toBe(11));
+        component.minute$.subscribe(minute => expect(minute.time).toBe(15));
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
     }));
 
@@ -90,8 +90,8 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
 
-        expect(component.hour).toBe(10);
-        expect(component.minute).toBe(13);
+        component.hour$.subscribe(hour => expect(hour.time).toBe(10));
+        component.minute$.subscribe(minute => expect(minute.time).toBe(13));
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.PM));
     }));
 
@@ -102,8 +102,8 @@ describe('NgxTimepickerFieldComponent', () => {
 
         tick();
 
-        expect(component.hour).toBe(12);
-        expect(component.minute).toBe(0);
+        component.hour$.subscribe(hour => expect(hour.time).toBe(12));
+        component.minute$.subscribe(minute => expect(minute.time).toBe(0));
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
     }));
 
@@ -123,7 +123,7 @@ describe('NgxTimepickerFieldComponent', () => {
         component.changeHour(1);
 
         tick();
-        expect(component.hour).toBe(hour.time);
+        component.hour$.subscribe(selectedHour => expect(selectedHour.time).toBe(hour.time));
         expect(timer).toBe('1:00 AM');
     }));
 
@@ -135,7 +135,7 @@ describe('NgxTimepickerFieldComponent', () => {
         component.changeMinute(15);
 
         tick();
-        expect(component.minute).toBe(minute.time);
+        component.minute$.subscribe(selectedMinute => expect(selectedMinute.time).toBe(minute.time));
         expect(timer).toBe('12:15 AM');
     }));
 
@@ -153,7 +153,7 @@ describe('NgxTimepickerFieldComponent', () => {
         });
     });
 
-    it('should update time when timeSet called', () => {
+    it('should update time when timeSet called', async(() => {
         let time: string | null = null;
         const timeMock = '2:5 am';
         const expectedTime = '2:05 am';
@@ -164,7 +164,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
         expect(component.defaultTime.toLowerCase()).toBe(expectedTime);
         expect(time.toLowerCase()).toBe(expectedTime);
-        expect(component.hour).toBe(2);
-        expect(component.minute).toBe(5);
-    });
+        component.hour$.subscribe(hour => expect(hour.time).toBe(2));
+        component.minute$.subscribe(minute => expect(minute.time).toBe(5));
+    }));
 });
