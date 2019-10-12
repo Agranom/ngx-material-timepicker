@@ -7,7 +7,6 @@ import { TimePeriod } from '../../models/time-period.enum';
 import { getHours, getMinutes } from '../../utils/timepicker-time.utils';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
-import { takeUntil } from 'rxjs/operators';
 import { TimeAdapter } from '../../services/time-adapter';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 
@@ -27,9 +26,8 @@ import { TIME_LOCALE } from '../../tokens/time-locale.token';
 export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
     period$: Observable<TimePeriod>;
-
-    hour: number;
-    minute: number;
+    hour$: Observable<ClockFaceTime>;
+    minute$: Observable<ClockFaceTime>;
 
     minHour = 1;
     maxHour = 12;
@@ -96,12 +94,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     ngOnInit() {
         this.period$ = this.timepickerService.selectedPeriod;
-
-        this.timepickerService.selectedHour.pipe(takeUntil(this.unsubscribe$))
-            .subscribe(hour => this.hour = hour.time);
-
-        this.timepickerService.selectedMinute.pipe(takeUntil(this.unsubscribe$))
-            .subscribe(minute => this.minute = minute.time);
+        this.hour$ = this.timepickerService.selectedHour;
+        this.minute$ = this.timepickerService.selectedMinute;
 
         this.hoursList = getHours(this._format);
         this.minutesList = getMinutes();
