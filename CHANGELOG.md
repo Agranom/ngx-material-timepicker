@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.2.1 (2019-10-12)
+
+### Fixes
+
+* fix(ngx-material-timepicker): bug with formatting time while typing,
+fixes [(#233)](https://github.com/Agranom/ngx-material-timepicker/issues/233)
+
+* fix(ngx-material-timepicker-field): bug with setting time without interaction with a clock face,
+fixes [(#211)](https://github.com/Agranom/ngx-material-timepicker/issues/211)
+
+
 ## 5.2.0 (2019-10-05)
 
 ### Features
