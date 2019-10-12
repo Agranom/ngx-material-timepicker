@@ -155,9 +155,9 @@ describe('TimepickerDirective', () => {
         expect(directive.value).toBe(time);
     });
 
-    it('should change time onInput', () => {
+    it('should change time onChange', () => {
         directive.timepicker = timepickerComponent;
-        directive.onInput('11:12');
+        directive.updateValue('11:12');
         expect(directive.value).toBe('11:12 AM');
     });
 
@@ -237,7 +237,7 @@ describe('TimepickerDirective', () => {
         const time = '11:12 am';
 
         directive.registerOnChange(console.log);
-        directive.onInput(time);
+        directive.updateValue(time);
 
         expect(spy).toHaveBeenCalledWith(time);
     });
