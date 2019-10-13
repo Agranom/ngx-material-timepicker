@@ -13,7 +13,7 @@ export class OverlayDirective {
 
 
     @HostListener('click', ['$event'])
-    onClick(e: MouseEvent) {
+    onClick(e: any) {
         if (!this.preventClick) {
             this.eventService.dispatchEvent(e);
         }

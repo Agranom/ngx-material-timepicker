@@ -51,7 +51,7 @@ export class NgxMaterialTimepickerDialControlComponent {
         }
     }
 
-    onKeyDown(e: KeyboardEvent): void {
+    onKeyDown(e: any): void {
         const char = String.fromCharCode(e.keyCode);
 
 
