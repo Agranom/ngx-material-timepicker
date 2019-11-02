@@ -7,9 +7,8 @@
            [placeholder]="placeholder"
            [disabled]="disabled"
            (keydown)="onKeydown($event)"
-           (input)="onInput(inputElement)"
            (focus)="onFocus()"
-           (blur)="onBlur()" #inputElement>
+           (blur)="onBlur()">
     <div class="ngx-timepicker-control__arrows">
             <span class="ngx-timepicker-control__arrow" role="button" (click)="increase()">
                 &#9650;

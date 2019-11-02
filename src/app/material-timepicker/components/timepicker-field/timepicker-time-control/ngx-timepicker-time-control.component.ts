@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { isDigit } from '../../../utils/timepicker.utils';
-import { TimeFormatterPipe } from '../../../pipes/time-formatter.pipe';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 
@@ -9,10 +8,10 @@ import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TimeParserPipe, TimeFormatterPipe]
+    providers: [TimeParserPipe]
 })
 
-export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
+export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     @Input() time: number;
     @Input() min: number;
@@ -26,15 +25,11 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
 
     isFocused: boolean;
 
-    constructor(private timeParser: TimeParserPipe,
-                private timeFormatter: TimeFormatterPipe) {
+    private previousTime: number;
+
+    constructor(private timeParser: TimeParserPipe) {
     }
 
-    ngOnInit(): void {
-        if (this.isDefaultTimeSet) {
-            this.time = this.timeFormatter.transform(this.time, this.timeUnit);
-        }
-    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const timeChanges = changes['time'];
@@ -49,6 +44,10 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
         if (!isDigit(event)) {
             event.preventDefault();
         }
+        const char = String.fromCharCode(event.keyCode);
+        const time = concatTime(String(this.time), char);
+
+        this.changeTimeIfValid(time);
 
         switch (event.key) {
             case 'ArrowUp':
@@ -84,9 +83,24 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
         }
     }
 
-    onInput(input: HTMLInputElement) {
-        const value = parseInt(input.value, 10);
+    onFocus(): void {
+        this.isFocused = true;
+        this.previousTime = this.time;
+    }
 
+    onBlur(): void {
+        this.isFocused = false;
+
+        if (this.previousTime !== this.time) {
+            this.changeTimeIfValid(+this.time);
+        }
+    }
+
+    onModelChange(value: string): void {
+        this.time = +this.timeParser.transform(value, this.timeUnit);
+    }
+
+    private changeTimeIfValid(value: number | undefined) {
         if (!isNaN(value)) {
             this.time = value;
 
@@ -98,22 +112,17 @@ export class NgxTimepickerTimeControlComponent implements OnInit, OnChanges {
                 this.time = this.min;
             }
 
-            input.value = String(this.time);
             this.timeChanged.emit(this.time);
         }
-
-    }
-
-    onFocus(): void {
-        this.isFocused = true;
-    }
-
-    onBlur(): void {
-        this.time = this.timeFormatter.transform(this.time, this.timeUnit);
-        this.isFocused = false;
-    }
-
-    onModelChange(value: string): void {
-        this.time = +this.timeParser.transform(value, this.timeUnit);
     }
 }
+
+function concatTime(currentTime: string, nextTime: string): number {
+    const isNumber = /\d/.test(nextTime);
+
+    if (isNumber) {
+        const time = currentTime + nextTime;
+        return +time;
+    }
+}
+
