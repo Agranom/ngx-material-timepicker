@@ -19,6 +19,7 @@ https://agranom.github.io/ngx-material-timepicker/
     * [NgxTimepickerFieldComponent](#ngxtimepickerfieldcomponent)
     * [NgxMaterialTimepickerToggleComponent](#ngxmaterialtimepickertogglecomponent)
     * [NgxMaterialTimepickerToggleIconDirective](#ngxmaterialtimepickertoggleicondirective)
+    * [NgxMaterialTimepickerThemeDirective (deprecated)](#ngxmaterialtimepickerthemedirective)
 * [Development](#development)
 * [Tests](#tests)
 * [License](#license)
@@ -186,6 +187,19 @@ Selector: `ngx-material-timepicker-toggle`
 Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
 
 Selector: `[ngxMaterialTimepickerToggleIcon]`
+
+#### NgxMaterialTimepickerThemeDirective (deprecated)
+
+Can be used to override styles of a `NgxMaterialTimepicker`.
+
+Selector: `ngx-material-timepicker[ngxMaterialTimepickerTheme]`
+
+**Properties**
+
+| Name | Description |
+|------|-------------|
+| @Input()
+  ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults | 
 
 ## Development
 
