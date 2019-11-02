@@ -84,7 +84,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     @HostListener('mousedown', ['$event'])
-    onMousedown(e: MouseEvent | TouchEvent) {
+    onMousedown(e: any) {
         e.preventDefault();
         this.isStarted = true;
     }
@@ -93,7 +93,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @HostListener('touchmove', ['$event.changedTouches[0]'])
     @HostListener('touchend', ['$event.changedTouches[0]'])
     @HostListener('mousemove', ['$event'])
-    selectTime(e: MouseEvent | Touch): void {
+    selectTime(e: any): void {
 
         if (!this.isStarted && (e instanceof MouseEvent && e.type !== 'click')) {
             return;
@@ -128,7 +128,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     @HostListener('mouseup', ['$event'])
-    onMouseup(e: MouseEvent | TouchEvent) {
+    onMouseup(e: any) {
         e.preventDefault();
         this.isStarted = false;
     }
