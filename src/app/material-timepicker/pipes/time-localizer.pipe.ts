@@ -20,13 +20,11 @@ export class TimeLocalizerPipe implements PipeTransform {
 
         switch (timeUnit) {
             case TimeUnit.HOUR: {
-                const format = time === 0 ? 'HH' : 'H';
+                const format = (time === 0 || isKeyboardEnabled) ? 'HH' : 'H';
                 return this.formatTime('hour', time, format);
             }
             case TimeUnit.MINUTE:
-                const is2Digit = !isKeyboardEnabled || String(time).length === 2;
-                const minuteFormat = is2Digit ? 'mm' : 'm';
-                return this.formatTime('minute', time, minuteFormat);
+                return this.formatTime('minute', time, 'mm');
             default:
                 throw new Error(`There is no Time Unit with type ${timeUnit}`);
         }

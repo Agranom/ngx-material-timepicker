@@ -142,6 +142,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     ngOnDestroy(): void {
         this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 
     private changeTime(): void {
