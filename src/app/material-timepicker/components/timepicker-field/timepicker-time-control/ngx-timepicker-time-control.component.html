@@ -2,14 +2,13 @@
     <!--suppress HtmlFormInputWithoutLabel -->
     <input class="ngx-timepicker-control__input"
            maxlength="2"
-           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit"
+           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit : true"
            (ngModelChange)="onModelChange($event)"
            [placeholder]="placeholder"
            [disabled]="disabled"
            (keydown)="onKeydown($event)"
-           (input)="onInput(inputElement)"
            (focus)="onFocus()"
-           (blur)="onBlur()" #inputElement>
+           (blur)="onBlur()">
     <div class="ngx-timepicker-control__arrows">
             <span class="ngx-timepicker-control__arrow" role="button" (click)="increase()">
                 &#9650;

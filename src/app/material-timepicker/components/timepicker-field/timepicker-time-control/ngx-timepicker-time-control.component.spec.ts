@@ -1,10 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 import { DateTime } from 'luxon';
 import { NgxMaterialTimepickerModule } from '../../../ngx-material-timepicker.module';
+import { TimeFormatterPipe } from '../../../pipes/time-formatter.pipe';
 
 describe('NgxTimepickerTimeControlComponent', () => {
     let fixture: ComponentFixture<NgxTimepickerTimeControlComponent>;
@@ -14,7 +15,8 @@ describe('NgxTimepickerTimeControlComponent', () => {
         TestBed.configureTestingModule({
             imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')],
             providers: [
-                TimeParserPipe
+                TimeParserPipe,
+                TimeFormatterPipe
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
@@ -24,24 +26,6 @@ describe('NgxTimepickerTimeControlComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should format time when onInit', () => {
-        component.time = 1;
-        component.timeUnit = TimeUnit.HOUR;
-        component.isDefaultTimeSet = true;
-        component.ngOnInit();
-
-        // @ts-ignore
-        expect(component.time).toBe('01');
-    });
-
-    it('should not format time when onInit', () => {
-        component.time = 1;
-        component.isDefaultTimeSet = false;
-        component.ngOnInit();
-
-        // @ts-ignore
-        expect(component.time).toBe(1);
-    });
 
     it('should increase time', async(() => {
         component.time = 1;
@@ -98,23 +82,6 @@ describe('NgxTimepickerTimeControlComponent', () => {
         expect(component.time).toBe(1);
     });
 
-    it('should change focus flag to true when focus event fires', () => {
-        component.isFocused = false;
-        component.onFocus();
-
-        expect(component.isFocused).toBeTruthy();
-    });
-
-    it('should change focus flag to false and format time when blur event fires', () => {
-        component.isFocused = true;
-        component.time = 1;
-        component.timeUnit = TimeUnit.HOUR;
-
-        component.onBlur();
-        expect(component.isFocused).toBeFalsy();
-        // @ts-ignore
-        expect(component.time).toBe('01');
-    });
 
     describe('onKeydown', () => {
 
@@ -140,50 +107,52 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.onKeydown(event as KeyboardEvent);
             expect(counter).toBe(1);
         });
-    });
 
-    describe('onInput', () => {
+        it('should set time to 14 when onKeydown event fires with keycode 52', async(() => {
+            const event = {keyCode: 52}; // 4
+            const expectedTime = 14;
 
-        beforeEach(() => {
-            component.time = 4;
-            component.min = 1;
-            component.max = 12;
-        });
-
-        it('should set time to 10 when input event fires', async(() => {
-            const input: HTMLInputElement = {value: '10'} as HTMLInputElement;
-            const expectedTime = 10;
+            component.time = 1;
+            component.min = 0;
+            component.max = 59;
             component.timeChanged.subscribe(time => expect(time).toBe(expectedTime));
 
-            component.onInput(input);
+            component.onKeydown(event as KeyboardEvent);
             expect(component.time).toBe(expectedTime);
-            expect(input.value).toBe(String(expectedTime));
         }));
 
-        it('should set time to 2 when input value more than max', () => {
-            const input: HTMLInputElement = {value: '22'} as HTMLInputElement;
+        it('should set time to 4 when provided value more than max', () => {
+            const event = {keyCode: 52}; // 4
+            component.time = 4;
+            component.min = 1;
+            component.max = 23;
 
-            component.onInput(input);
-            expect(component.time).toBe(2);
-            expect(input.value).toBe('2');
-        });
+            component.onKeydown(event as KeyboardEvent);
 
-        it('should set time to 1 when input value less than min', () => {
-            const input: HTMLInputElement = {value: '0'} as HTMLInputElement;
-
-            component.onInput(input);
-            expect(component.time).toBe(1);
-            expect(input.value).toBe('1');
-        });
-
-        it('should not change input and time if value is NaN', () => {
-            const input: HTMLInputElement = {value: 'ef'} as HTMLInputElement;
-
-            component.onInput(input);
             expect(component.time).toBe(4);
-            expect(input.value).toBe('ef');
+        });
+
+        it('should set time to 22 when provided value less than min', () => {
+            const event = {keyCode: 48}; // 0
+            component.time = 1;
+            component.min = 22;
+            component.max = 23;
+
+            component.onKeydown(event as KeyboardEvent);
+            expect(component.time).toBe(22);
+        });
+
+        it('should not change time if value is NaN', () => {
+            const event = {keyCode: 83, preventDefault: () => null}; // s
+            component.time = 1;
+            component.min = 1;
+            component.max = 23;
+
+            component.onKeydown(event as KeyboardEvent);
+            expect(component.time).toBe(1);
         });
     });
+
 
     describe('ngOnChanges', () => {
         const changes: SimpleChanges = {
@@ -229,5 +198,48 @@ describe('NgxTimepickerTimeControlComponent', () => {
             expect(component.time).toBe(10);
 
         });
+    });
+
+    describe('onFocus', () => {
+
+        it('should change focus flag to true and set previousTime when focus event fires', () => {
+            component.isFocused = false;
+            component.onFocus();
+
+            expect(component.isFocused).toBeTruthy();
+        });
+    });
+
+    describe('onBlur', () => {
+
+        it('should change focus flag to false when blur event fires', () => {
+            component.isFocused = true;
+
+            component.onBlur();
+            expect(component.isFocused).toBeFalsy();
+        });
+
+        it('should emit time when blur event fires and time was changed', async(() => {
+            const expectedTime = 10;
+            component.time = expectedTime;
+
+            component.timeChanged.subscribe(time => expect(time).toBe(expectedTime));
+
+            component.onBlur();
+        }));
+
+        it('should not emit time when blur event fires and time was not changed', fakeAsync(() => {
+            let counter = 0;
+            component.time = 10;
+
+            component.timeChanged.subscribe(() => ++counter);
+
+            component.onFocus();
+            component.onBlur();
+
+            tick();
+
+            expect(counter).toBe(0);
+        }));
     });
 });

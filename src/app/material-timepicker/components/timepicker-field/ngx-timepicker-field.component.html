@@ -2,7 +2,7 @@
     <ngx-timepicker-time-control
         class="ngx-timepicker__control--first"
         [placeholder]="'HH'"
-        [time]="hour"
+        [time]="(hour$ | async)?.time"
         [min]="minHour"
         [max]="maxHour"
         [timeUnit]="timeUnit.HOUR"
@@ -13,7 +13,7 @@
     <ngx-timepicker-time-control
         class="ngx-timepicker__control--third"
         [placeholder]="'MM'"
-        [time]="minute"
+        [time]="(minute$ | async)?.time"
         [min]="0"
         [max]="59"
         [timeUnit]="timeUnit.MINUTE"
@@ -39,9 +39,11 @@
     </ngx-material-timepicker-toggle>
 </div>
 <ngx-material-timepicker
-    [ngxMaterialTimepickerTheme]="clockTheme"
+    [theme]="clockTheme"
     [defaultTime]="timepickerTime"
     [format]="format"
+    [cancelBtnTmpl]="cancelBtnTmpl"
+    [confirmBtnTmpl]="confirmBtnTmpl"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
 
 <ng-template #defaultIcon>

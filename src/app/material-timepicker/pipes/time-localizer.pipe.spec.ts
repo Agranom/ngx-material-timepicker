@@ -34,12 +34,20 @@ describe('TimeLocalizerPipe', () => {
         expect(pipe.transform(hour, TimeUnit.HOUR)).toBe(expected);
     });
 
+    it('should return hour in 2-digit format when isKeyboardEnabled is true', () => {
+        const hour = 1;
+        const expected = DateTime.fromObject({hour: hour}).setLocale(defaultLocale).toFormat('HH');
+
+        expect(pipe.transform(hour, TimeUnit.HOUR, true)).toBe(expected);
+    });
+
+
     it('should return minute in 2-digit format', () => {
         const minutes = Array(59).fill(0).map((v, i) => v + i);
 
         minutes.forEach(minute => {
             const expected = DateTime.fromObject({minute: minute}).setLocale(defaultLocale).toFormat('mm');
-            expect(pipe.transform(minute, TimeUnit.MINUTE)).toBe(expected);
+            expect(pipe.transform(String(minute).padStart(2, '0'), TimeUnit.MINUTE)).toBe(expected);
         });
     });
 

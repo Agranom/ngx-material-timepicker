@@ -18,7 +18,7 @@ const VALUE_ACCESSOR = {
     providers: [VALUE_ACCESSOR],
     host: {
         '[disabled]': 'disabled',
-        '(input)': 'onInput($event.target.value)',
+        '(change)': 'updateValue($event.target.value)',
         '(blur)': 'onTouched()',
     },
 })
@@ -27,6 +27,13 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input()
     set format(value: number) {
         this._format = value === 24 ? 24 : 12;
+        const isDynamicallyChanged = value && (this.previousFormat && this.previousFormat !== this._format);
+
+        if (isDynamicallyChanged) {
+            this.value = this._value;
+            this._timepicker.updateTime(this._value);
+        }
+        this.previousFormat = this._format;
     }
 
     get format(): number {
@@ -110,6 +117,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input() disableClick: boolean;
 
     private timepickerSubscriptions: Subscription[] = [];
+    private previousFormat: number;
 
     onTouched = () => {
     }
@@ -121,13 +129,15 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
                 @Inject(TIME_LOCALE) private locale: string) {
     }
 
-    private set defaultTime(time: string) {
-        const formattedTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
-
-        this._timepicker.setDefaultTime(formattedTime);
+    get element(): HTMLInputElement {
+        return this.elementRef && this.elementRef.nativeElement;
     }
 
-    onInput(value: string) {
+    private set defaultTime(time: string) {
+        this._timepicker.defaultTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
+    }
+
+    updateValue(value: string) {
         this.value = value;
         this.onChange(value);
     }
@@ -148,7 +158,9 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     writeValue(value: string): void {
         this.value = value;
-        this.defaultTime = value;
+        if (value) {
+            this.defaultTime = value;
+        }
     }
 
     registerOnChange(fn: (value: any) => void): void {

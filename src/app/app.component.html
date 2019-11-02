@@ -182,7 +182,7 @@
                         <input placeholder="Custom theme" aria-label="Custom theme"
                                [ngxTimepicker]="darkPicker" readonly>
                         <ngx-material-timepicker #darkPicker
-                                                 [ngxMaterialTimepickerTheme]="darkTheme"></ngx-material-timepicker>
+                                                 [theme]="darkTheme"></ngx-material-timepicker>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="Custom hint" aria-label="Custom hint"
@@ -192,6 +192,20 @@
                         <ng-template #dialHint>
                             <p>Custom hint</p>
                         </ng-template>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="appendToInput">Append to input</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Timepicker appends to input.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Append to input" aria-label="Append to input"
+                               [ngxTimepicker]="appendedToInput" readonly>
+                        <ngx-material-timepicker #appendedToInput
+                                                 [appendToInput]="true"></ngx-material-timepicker>
                     </div>
                 </div>
             </section>
@@ -211,7 +225,7 @@
                         <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
-                        <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+                        <ngx-timepicker-field [format]="24" [defaultTime]="'07:00'"></ngx-timepicker-field>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
                         <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
@@ -247,7 +261,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 5.0.0</p>
+            <p class="footer__version">Current version 5.2.2</p>
         </div>
     </footer>
 </div>

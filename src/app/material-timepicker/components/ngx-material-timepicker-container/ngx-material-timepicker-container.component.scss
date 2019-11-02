@@ -1,5 +1,5 @@
-@import "styles/config";
-@import "styles/theme";
+@import "../../styles/config";
+@import "../../styles/theme";
 
 .timepicker-backdrop-overlay {
     position: fixed;
@@ -10,6 +10,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 999;
     pointer-events: auto;
+
+    &--transparent {
+        background-color: transparent;
+    }
 }
 
 .timepicker-overlay {

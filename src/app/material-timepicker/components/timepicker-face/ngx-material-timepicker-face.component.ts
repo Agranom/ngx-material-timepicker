@@ -84,7 +84,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     @HostListener('mousedown', ['$event'])
-    onMousedown(e: MouseEvent | TouchEvent) {
+    onMousedown(e: any) {
         e.preventDefault();
         this.isStarted = true;
     }
@@ -93,7 +93,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     @HostListener('touchmove', ['$event.changedTouches[0]'])
     @HostListener('touchend', ['$event.changedTouches[0]'])
     @HostListener('mousemove', ['$event'])
-    selectTime(e: MouseEvent | Touch): void {
+    selectTime(e: any): void {
 
         if (!this.isStarted && (e instanceof MouseEvent && e.type !== 'click')) {
             return;
@@ -111,10 +111,8 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
         const isInnerClockChosen = this.format && this.isInnerClockFace(centerX, centerY, e.clientX, e.clientY);
         /* Round angle according to angle step */
         const angleStep = this.unit === TimeUnit.MINUTE ? (6 * (this.minutesGap || 1)) : 30;
-        const roundedAngle = isInnerClockChosen
-            ? roundAngle(circleAngle, angleStep) + 360
-            : roundAngle(circleAngle, angleStep);
-        const angle = roundedAngle === 0 ? 360 : roundedAngle;
+        const roundedAngle = roundAngle(circleAngle, angleStep);
+        const angle = (roundedAngle || 360) + (isInnerClockChosen ? 360 : 0);
 
         const selectedTime = this.faceTime.find(val => val.angle === angle);
 
@@ -130,7 +128,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     }
 
     @HostListener('mouseup', ['$event'])
-    onMouseup(e: MouseEvent | TouchEvent) {
+    onMouseup(e: any) {
         e.preventDefault();
         this.isStarted = false;
     }

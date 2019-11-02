@@ -9,6 +9,7 @@ import { TimeOptions } from '../models/time-options.interface';
 export class TimeAdapter {
     static DEFAULT_FORMAT = 12;
     static DEFAULT_LOCALE = 'en-US';
+    static DEFAULT_NUMBERING_SYSTEM: NumberingSystem = 'latn';
 
     static parseTime(time: string, opts: TimeOptions): DateTime {
         const {numberingSystem, locale} = TimeAdapter.getLocaleOptionsByTime(time, opts);
@@ -22,7 +23,11 @@ export class TimeAdapter {
         const {format} = opts;
 
         return TimeAdapter.parseTime(time, opts).setLocale(TimeAdapter.DEFAULT_LOCALE)
-            .toLocaleString({...DateTime.TIME_SIMPLE, hour12: format !== 24, numberingSystem: 'latn'});
+            .toLocaleString({
+                ...DateTime.TIME_SIMPLE,
+                hour12: format !== 24,
+                numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM
+            });
     }
 
     static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
@@ -79,10 +84,19 @@ export class TimeAdapter {
         return hour;
     }
 
+    static fromDateTimeToString(time: DateTime, format: number): string {
+        const timeFormat = format === 24 ? TimeFormat.TWENTY_FOUR : TimeFormat.TWELVE;
+
+        return time.reconfigure({
+            numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM,
+            locale: TimeAdapter.DEFAULT_LOCALE
+        }).toFormat(timeFormat);
+    }
+
     private static getLocaleOptionsByTime(time: string, opts: LocaleOptions): LocaleOptions {
         const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
         const localeConfig: LocaleOptions = {numberingSystem: numberingSystem as NumberingSystem, locale};
-        const defaultConfig: LocaleOptions = {numberingSystem: 'latn', locale: TimeAdapter.DEFAULT_LOCALE};
+        const defaultConfig: LocaleOptions = {numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM, locale: TimeAdapter.DEFAULT_LOCALE};
 
         return isNaN(parseInt(time, 10)) ? localeConfig : defaultConfig;
     }

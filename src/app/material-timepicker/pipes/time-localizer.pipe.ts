@@ -13,14 +13,14 @@ export class TimeLocalizerPipe implements PipeTransform {
     constructor(@Inject(TIME_LOCALE) private locale: string) {
     }
 
-    transform(time: number | string, timeUnit: TimeUnit): string {
+    transform(time: number | string, timeUnit: TimeUnit, isKeyboardEnabled = false): string {
         if (time == null || time === '') {
             return '';
         }
 
         switch (timeUnit) {
             case TimeUnit.HOUR: {
-                const format = time === 0 ? 'HH' : 'H';
+                const format = (time === 0 || isKeyboardEnabled) ? 'HH' : 'H';
                 return this.formatTime('hour', time, format);
             }
             case TimeUnit.MINUTE:

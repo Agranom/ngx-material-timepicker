@@ -19,7 +19,7 @@ https://agranom.github.io/ngx-material-timepicker/
     * [NgxTimepickerFieldComponent](#ngxtimepickerfieldcomponent)
     * [NgxMaterialTimepickerToggleComponent](#ngxmaterialtimepickertogglecomponent)
     * [NgxMaterialTimepickerToggleIconDirective](#ngxmaterialtimepickertoggleicondirective)
-    * [NgxMaterialTimepickerThemeDirective](#ngxmaterialtimepickerthemedirective)
+    * [NgxMaterialTimepickerThemeDirective (deprecated)](#ngxmaterialtimepickerthemedirective)
 * [Development](#development)
 * [Tests](#tests)
 * [License](#license)
@@ -122,6 +122,12 @@ Selector: `ngx-material-timepicker`
   preventOverlayClick: boolean | Set `true` to prevent closing the timepicker by overlay click. Uses `false` by default |
 | @Input()
   disableAnimation: boolean | Set `true` to prevent opening and closing timepicker animation. Uses `false` by default |
+| @Input()
+  hoursOnly: boolean | Set `true` to prevent switching to minutes automatically once hour is selected. Uses `false` by default |
+| @Input()
+  theme: NgxMaterialTimepickerTheme |  Custom css properties which will override the defaults |
+| @Input()
+  timepickerClass: string |  To provide a custom css class for the timepicker |
 | @Output()
   timeSet: EventEmitter\<string\> | Emits time when that was set. |
 | @Output()
@@ -154,6 +160,10 @@ Selector: `ngx-timepicker-field`
   controlOnly: boolean | Hide or display toggle button with the timepicker clock |
 | @Input()
   format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
+| @Input()
+  cancelBtnTmpl: TemplateRef<Node> |  Set if you want to change cancel button for timepicker to your custom one. | 
+| @Input()
+  confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button for timepicker to your custom one. |
 
   
 #### NgxMaterialTimepickerToggleComponent
@@ -178,7 +188,7 @@ Can be used to override the icon of a `NgxMaterialTimepickerToggleComponent`.
 
 Selector: `[ngxMaterialTimepickerToggleIcon]`
 
-#### NgxMaterialTimepickerThemeDirective
+#### NgxMaterialTimepickerThemeDirective (deprecated)
 
 Can be used to override styles of a `NgxMaterialTimepicker`.
 

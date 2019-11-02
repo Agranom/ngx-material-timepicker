@@ -9,6 +9,8 @@ $button-color: $primary-color;
 $dial-active-color: #fff;
 $dial-inactive-color: transparentize($dial-active-color, 0.5);
 $dial-background-color: $primary-color;
+$dial-editable-active-color: $primary-color;
+$dial-editable-background-color: #fff;
 
 $clock-face-time-active-color: #fff;
 $clock-face-time-inactive-color: #6c6c6c;
