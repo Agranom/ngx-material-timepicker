@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+
+## 5.2.2 (2019-11-02)
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): display hours and minutes in 2-digit format,
+fixes [(#241)](https://github.com/Agranom/ngx-material-timepicker/issues/241), [(#243)](https://github.com/Agranom/ngx-material-timepicker/issues/243)
+
+* fix(ngx-material-timepicker): SSR support (changing window event types to `any`)
+
+
 ## 5.2.1 (2019-10-12)
 
 ### Fixes
