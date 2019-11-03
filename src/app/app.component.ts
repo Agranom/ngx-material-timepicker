@@ -1,14 +1,14 @@
 /* tslint:disable:max-line-length */
-import { Component } from '@angular/core';
-import { NgxMaterialTimepickerTheme } from './material-timepicker/models/ngx-material-timepicker-theme.interface';
+import { Component } from "@angular/core";
+import { NgxMaterialTimepickerTheme } from "./material-timepicker/models/ngx-material-timepicker-theme.interface";
+import { DateTime } from "luxon";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-
     simpleExamples = `
        <div class="12hr-example">
             <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>
@@ -101,6 +101,31 @@ export class AppComponent {
       </div>
     `;
 
+    filterCode = `
+        <div class="filter-example">
+            <input placeholder="Only even Hours"
+                [ngxTimepicker]="onlyEvenHours" readonly>
+            <ngx-material-timepicker #onlyEvenHours [filter]="filterEvenHours"></ngx-material-timepicker>
+        </div>
+
+        filterEvenHours: (
+            time: DateTime,
+            granularity?: "hours" | "minutes"
+        ) => boolean = (time: DateTime, granularity?: "hours" | "minutes") => {
+            if (granularity === "minutes") {
+                return true;
+            }
+
+            return !(time.hour % 2);
+        }
+
+        <div class="filter-example">
+            <input placeholder="Only even hours between 4 AM and 4 PM"
+                [ngxTimepicker]="filterWithMinMax" min="4:00 AM" max="4:00 PM" readonly>
+            <ngx-material-timepicker #filterWithMinMax [filter]="filterEvenHours"></ngx-material-timepicker>
+        </div>
+    `;
+
     customSettings = `
         <div class="custom-buttons-example">
             <input placeholder="Custom buttons" aria-label="Custom buttons" [ngxTimepicker]="timepickerWithButtons" readonly>
@@ -150,16 +175,16 @@ export class AppComponent {
 
     darkTheme: NgxMaterialTimepickerTheme = {
         container: {
-            bodyBackgroundColor: '#424242',
-            buttonColor: '#fff'
+            bodyBackgroundColor: "#424242",
+            buttonColor: "#fff"
         },
         dial: {
-            dialBackgroundColor: '#555',
+            dialBackgroundColor: "#555"
         },
         clockFace: {
-            clockFaceBackgroundColor: '#555',
-            clockHandColor: '#9fbd90',
-            clockFaceTimeInactiveColor: '#fff'
+            clockFaceBackgroundColor: "#555",
+            clockHandColor: "#9fbd90",
+            clockFaceTimeInactiveColor: "#fff"
         }
     };
 
@@ -203,4 +228,15 @@ export class AppComponent {
                 [appendToInput]="true"></ngx-material-timepicker>
         </div>
     `;
+
+    filterEvenHours: (
+        time: DateTime,
+        granularity?: "hours" | "minutes"
+    ) => boolean = (time: DateTime, granularity?: "hours" | "minutes") => {
+        if (granularity === "minutes") {
+            return true;
+        }
+
+        return !(time.hour % 2);
+    };
 }
