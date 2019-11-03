@@ -83,6 +83,25 @@
                 </div>
             </section>
             <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="filterCode">Filter</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Filter hours / minutes by passing a filtering function.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Only even hours"
+                               [ngxTimepicker]="filter" readonly>
+
+                        <ngx-material-timepicker #filter [filter]="filterEvenHours"></ngx-material-timepicker>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <input placeholder="Only even hours between 4 AM and 4 PM"
+                               [ngxTimepicker]="filterWithMinMax" min="4:00 AM" max="4:00 PM" readonly>
+                        <ngx-material-timepicker #filterWithMinMax [filter]="filterEvenHours"></ngx-material-timepicker>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
                 <app-example-source-code [sourceCode]="toggleExamples">Timepicker toggle button
                 </app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">

@@ -1,31 +1,33 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { merge, Subject } from 'rxjs';
-import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
-import { filter, takeUntil } from 'rxjs/operators';
-import { TimepickerDirective } from './directives/ngx-timepicker.directive';
-import { DateTime } from 'luxon';
-import { DomService } from './services/dom.service';
 import {
-    NgxMaterialTimepickerContainerComponent
-} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
-import { TimepickerRef } from './models/timepicker-ref.interface';
-import { NgxMaterialTimepickerTheme } from './models/ngx-material-timepicker-theme.interface';
-
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    TemplateRef
+} from "@angular/core";
+import { merge, Subject } from "rxjs";
+import { NgxMaterialTimepickerEventService } from "./services/ngx-material-timepicker-event.service";
+import { filter, takeUntil } from "rxjs/operators";
+import { TimepickerDirective } from "./directives/ngx-timepicker.directive";
+import { DateTime } from "luxon";
+import { DomService } from "./services/dom.service";
+import { NgxMaterialTimepickerContainerComponent } from "./components/ngx-material-timepicker-container/ngx-material-timepicker-container.component";
+import { TimepickerRef } from "./models/timepicker-ref.interface";
+import { NgxMaterialTimepickerTheme } from "./models/ngx-material-timepicker-theme.interface";
 
 const ESCAPE = 27;
 
 @Component({
-    selector: 'ngx-material-timepicker',
-    template: '',
+    selector: "ngx-material-timepicker",
+    template: ""
 })
 export class NgxMaterialTimepickerComponent implements TimepickerRef {
-
     timeUpdated = new Subject<string>();
 
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
-    @Input('ESC') isEsc = true;
+    @Input("ESC") isEsc = true;
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
@@ -39,7 +41,9 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
      */
     @Input()
     set ngxMaterialTimepickerTheme(theme: NgxMaterialTimepickerTheme) {
-        console.warn(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
+        console.warn(
+            `'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`
+        );
         this._ngxMaterialTimepickerTheme = theme;
     }
 
@@ -49,7 +53,9 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     }
 
     get format(): number {
-        return this.timepickerInput ? this.timepickerInput.format : this._format;
+        return this.timepickerInput
+            ? this.timepickerInput.format
+            : this._format;
     }
 
     @Input()
@@ -65,6 +71,20 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
         return this._minutesGap;
     }
 
+    @Input()
+    set filter(
+        fn: (time: DateTime, granularity?: "hours" | "minutes") => boolean
+    ) {
+        this._filter = fn;
+    }
+
+    get filter(): (
+        time: DateTime,
+        granularity?: "hours" | "minutes"
+    ) => boolean {
+        return this._filter;
+    }
+
     @Output() timeSet = new EventEmitter<string>();
     @Output() opened = new EventEmitter<null>();
     @Output() closed = new EventEmitter<null>();
@@ -73,12 +93,17 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     private _minutesGap: number;
     private _format: number;
     private _ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme;
+    private _filter: (
+        time: DateTime,
+        granularity?: "hours" | "minutes"
+    ) => boolean;
     private timepickerInput: TimepickerDirective;
     private unsubscribe = new Subject();
 
-    constructor(private eventService: NgxMaterialTimepickerEventService,
-                private domService: DomService) {
-    }
+    constructor(
+        private eventService: NgxMaterialTimepickerEventService,
+        private domService: DomService
+    ) {}
 
     get minTime(): DateTime {
         return this.timepickerInput && (this.timepickerInput.min as DateTime);
@@ -106,33 +131,39 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
      */
     registerInput(input: TimepickerDirective): void {
         if (this.timepickerInput) {
-            throw Error('A Timepicker can only be associated with a single input.');
+            throw Error(
+                "A Timepicker can only be associated with a single input."
+            );
         }
         this.timepickerInput = input;
     }
 
     open(): void {
-        this.domService.appendTimepickerToBody(NgxMaterialTimepickerContainerComponent, {
-            timepickerBaseRef: this,
-            time: this.time,
-            defaultTime: this.defaultTime,
-            maxTime: this.maxTime,
-            minTime: this.minTime,
-            format: this.format,
-            minutesGap: this.minutesGap,
-            disableAnimation: this.disableAnimation,
-            cancelBtnTmpl: this.cancelBtnTmpl,
-            confirmBtnTmpl: this.confirmBtnTmpl,
-            editableHintTmpl: this.editableHintTmpl,
-            disabled: this.disabled,
-            enableKeyboardInput: this.enableKeyboardInput,
-            preventOverlayClick: this.preventOverlayClick,
-            appendToInput: this.appendToInput,
-            hoursOnly: this.hoursOnly,
-            theme: this.theme || this._ngxMaterialTimepickerTheme,
-            timepickerClass: this.timepickerClass,
-            inputElement: this.inputElement
-        });
+        this.domService.appendTimepickerToBody(
+            NgxMaterialTimepickerContainerComponent,
+            {
+                timepickerBaseRef: this,
+                time: this.time,
+                defaultTime: this.defaultTime,
+                maxTime: this.maxTime,
+                minTime: this.minTime,
+                format: this.format,
+                minutesGap: this.minutesGap,
+                disableAnimation: this.disableAnimation,
+                cancelBtnTmpl: this.cancelBtnTmpl,
+                confirmBtnTmpl: this.confirmBtnTmpl,
+                editableHintTmpl: this.editableHintTmpl,
+                disabled: this.disabled,
+                enableKeyboardInput: this.enableKeyboardInput,
+                preventOverlayClick: this.preventOverlayClick,
+                appendToInput: this.appendToInput,
+                hoursOnly: this.hoursOnly,
+                theme: this.theme || this._ngxMaterialTimepickerTheme,
+                timepickerClass: this.timepickerClass,
+                inputElement: this.inputElement,
+                filter: this.filter
+            }
+        );
         this.opened.next();
         this.subscribeToEvents();
     }
@@ -148,8 +179,12 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     }
 
     private subscribeToEvents(): void {
-        merge(this.eventService.backdropClick,
-            this.eventService.keydownEvent.pipe(filter(e => e.keyCode === ESCAPE && this.isEsc)))
+        merge(
+            this.eventService.backdropClick,
+            this.eventService.keydownEvent.pipe(
+                filter(e => e.keyCode === ESCAPE && this.isEsc)
+            )
+        )
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(() => this.close());
     }

@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxMaterialTimepicker12HoursFaceComponent } from './ngx-material-timepicker-12-hours-face.component';
-import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
-import { TimePeriod } from '../../models/time-period.enum';
-import { DateTime } from 'luxon';
-import * as TimepickerTime from '../../utils/timepicker-time.utils';
-import { spyOnFunction } from '../../ngx-material-timepicker.component.spec';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { NgxMaterialTimepicker12HoursFaceComponent } from "./ngx-material-timepicker-12-hours-face.component";
+import { NO_ERRORS_SCHEMA, SimpleChanges } from "@angular/core";
+import { TimePeriod } from "../../models/time-period.enum";
+import { DateTime } from "luxon";
+import * as TimepickerTime from "../../utils/timepicker-time.utils";
+import { spyOnFunction } from "../../ngx-material-timepicker.component.spec";
 
-describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
+describe("NgxMaterialTimepicker12HoursFaceComponent", () => {
     let fixture: ComponentFixture<NgxMaterialTimepicker12HoursFaceComponent>;
     let component: NgxMaterialTimepicker12HoursFaceComponent;
 
@@ -19,8 +19,8 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should call disabledHours once period changed', () => {
-        const spy = spyOnFunction(TimepickerTime, 'disableHours');
+    it("should call disabledHours once period changed", () => {
+        const spy = spyOnFunction(TimepickerTime, "disableHours");
         const changes: SimpleChanges = {
             period: {
                 currentValue: TimePeriod.PM,
@@ -33,18 +33,26 @@ describe('NgxMaterialTimepicker12HoursFaceComponent', () => {
         const format = 12;
         const period = TimePeriod.PM;
         const hours = TimepickerTime.getHours(format);
+        const filter = () => true;
         component.minTime = time;
         component.maxTime = time;
         component.format = format;
         component.period = period;
         component.hoursList = hours;
+        component.filter = filter;
 
         component.ngOnChanges(changes);
-        expect(spy).toHaveBeenCalledWith(hours, {min: time, max: time, format, period});
+        expect(spy).toHaveBeenCalledWith(hours, {
+            min: time,
+            max: time,
+            format,
+            period,
+            filter
+        });
     });
 
-    it('should not call disabledHours', () => {
-        const spy = spyOnFunction(TimepickerTime, 'disableHours');
+    it("should not call disabledHours", () => {
+        const spy = spyOnFunction(TimepickerTime, "disableHours");
         const changes: SimpleChanges = {
             minTime: {
                 currentValue: null,
