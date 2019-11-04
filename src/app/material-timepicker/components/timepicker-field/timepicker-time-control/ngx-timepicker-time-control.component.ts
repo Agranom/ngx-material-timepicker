@@ -105,7 +105,8 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
             this.time = value;
 
             if (this.time > this.max) {
-                this.time = +String(value)[0];
+                const timeString = String(value);
+                this.time = +timeString[timeString.length - 1];
             }
 
             if (this.time < this.min) {
