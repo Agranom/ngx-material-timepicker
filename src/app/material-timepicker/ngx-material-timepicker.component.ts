@@ -36,6 +36,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() defaultTime: string;
     @Input() timepickerClass: string;
     @Input() theme: NgxMaterialTimepickerTheme;
+    @Input() filter: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean;
     /**
      * @deprecated Since version 5.1.1. Will be deleted on version 6.0.0. Use @Input() theme instead
      */
@@ -71,20 +72,6 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
         return this._minutesGap;
     }
 
-    @Input()
-    set filter(
-        fn: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean
-    ) {
-        this._filter = fn;
-    }
-
-    get filter(): (
-        time: DateTime,
-        granularity?: 'hours' | 'minutes'
-    ) => boolean {
-        return this._filter;
-    }
-
     @Output() timeSet = new EventEmitter<string>();
     @Output() opened = new EventEmitter<null>();
     @Output() closed = new EventEmitter<null>();
@@ -93,10 +80,6 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     private _minutesGap: number;
     private _format: number;
     private _ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme;
-    private _filter: (
-        time: DateTime,
-        granularity?: 'hours' | 'minutes'
-    ) => boolean;
     private timepickerInput: TimepickerDirective;
     private unsubscribe = new Subject();
 
