@@ -29,7 +29,7 @@ export class NgxMaterialTimepickerMinutesFaceComponent implements OnChanges {
     @Input() minutesGap: number;
     @Input() filter: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean;
 
     @Output() minuteChange = new EventEmitter<ClockFaceTime>();

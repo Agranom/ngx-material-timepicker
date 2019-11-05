@@ -90,9 +90,8 @@
                     </p>
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="Only even hours"
-                               [ngxTimepicker]="filter" readonly>
-
-                        <ngx-material-timepicker #filter [filter]="filterEvenHours"></ngx-material-timepicker>
+                               [ngxTimepicker]="filterSimple" readonly>
+                        <ngx-material-timepicker #filterSimple [filter]="filterEvenHours"></ngx-material-timepicker>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group">
                         <input placeholder="Only even hours between 4 AM and 4 PM"

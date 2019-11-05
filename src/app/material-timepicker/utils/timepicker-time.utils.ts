@@ -15,11 +15,9 @@ export function getHours(format: number): ClockFaceTime[] {
         });
 }
 
-export function disableHours(
-    hours: ClockFaceTime[],
-    config: DisabledTimeConfig
-): ClockFaceTime[] {
+export function disableHours(hours: ClockFaceTime[], config: DisabledTimeConfig): ClockFaceTime[] {
     if (config.min || config.max || config.filter) {
+
         return hours.map(value => {
             const hour =
                 config.format === 24
@@ -35,15 +33,7 @@ export function disableHours(
 
             return {
                 ...value,
-                disabled: !TimeAdapter.isTimeAvailable(
-                    currentTime,
-                    config.min,
-                    config.max,
-                    "hours",
-                    null,
-                    null,
-                    config.filter
-                )
+                disabled: !TimeAdapter.isTimeAvailable(currentTime, config.min, config.max, 'hours', null, null, config.filter)
             };
         });
     }
@@ -64,17 +54,8 @@ export function getMinutes(gap = 1): ClockFaceTime[] {
     return minutes;
 }
 
-export function disableMinutes(
-    minutes: ClockFaceTime[],
-    selectedHour: number,
-    config: DisabledTimeConfig
-) {
-    if (config.min || config.max) {
-        const hour = TimeAdapter.formatHour(
-            selectedHour,
-            config.format,
-            config.period
-        );
+export function disableMinutes(minutes: ClockFaceTime[], selectedHour: number, config: DisabledTimeConfig) {
+    if (config.min || config.max || config.filter) {
 
         return minutes.map(value => {
             const currentTime = DateTime.fromObject({
@@ -84,15 +65,7 @@ export function disableMinutes(
 
             return {
                 ...value,
-                disabled: !TimeAdapter.isTimeAvailable(
-                    currentTime,
-                    config.min,
-                    config.max,
-                    "minutes",
-                    null,
-                    null,
-                    config.filter
-                )
+                disabled: !TimeAdapter.isTimeAvailable(currentTime, config.min, config.max, 'minutes', null, null, config.filter)
             };
         });
     }

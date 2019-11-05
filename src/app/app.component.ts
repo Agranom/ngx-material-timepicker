@@ -1,7 +1,7 @@
 /* tslint:disable:max-line-length */
-import { Component } from "@angular/core";
-import { NgxMaterialTimepickerTheme } from "./material-timepicker/models/ngx-material-timepicker-theme.interface";
-import { DateTime } from "luxon";
+import { Component } from '@angular/core';
+import { NgxMaterialTimepickerTheme } from './material-timepicker/models/ngx-material-timepicker-theme.interface';
+import { DateTime } from 'luxon';
 
 @Component({
     selector: "app-root",
@@ -110,9 +110,9 @@ export class AppComponent {
 
         filterEvenHours: (
             time: DateTime,
-            granularity?: "hours" | "minutes"
-        ) => boolean = (time: DateTime, granularity?: "hours" | "minutes") => {
-            if (granularity === "minutes") {
+            granularity?: 'hours' | 'minutes'
+        ) => boolean = (time: DateTime, granularity?: 'hours' | 'minutes') => {
+            if (granularity === 'minutes') {
                 return true;
             }
 
@@ -231,9 +231,9 @@ export class AppComponent {
 
     filterEvenHours: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
-    ) => boolean = (time: DateTime, granularity?: "hours" | "minutes") => {
-        if (granularity === "minutes") {
+        granularity?: 'hours' | 'minutes'
+    ) => boolean = (time: DateTime, granularity?: 'hours' | 'minutes') => {
+        if (granularity === 'minutes') {
             return true;
         }
 

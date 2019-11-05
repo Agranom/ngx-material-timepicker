@@ -32,11 +32,6 @@ describe("NgxMaterialTimepicker24HoursFaceComponent", () => {
         component.filter = filter;
 
         component.ngAfterContentInit();
-        expect(spy).toHaveBeenCalledWith(hours, {
-            min: time,
-            max: time,
-            format,
-            filter
-        });
+        expect(spy).toHaveBeenCalledWith(hours, {min: time, max: time, format, filter});
     });
 });

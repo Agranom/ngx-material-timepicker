@@ -71,7 +71,7 @@ export class TimeAdapter {
         granularity?: "hours" | "minutes",
         minutesGap?: number,
         format?: number,
-        filter?: (time: DateTime, granularity?: "hours" | "minutes") => boolean
+        filter?: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean
     ): boolean {
         if (!time) {
             return;
@@ -85,19 +85,16 @@ export class TimeAdapter {
                 `Your minutes - ${minutes} doesn\'t match your minutesGap - ${minutesGap}`
             );
         }
-
-        const isAfter =
-            min && !max && isSameOrAfter(convertedTime, min, granularity);
-        const isBefore =
-            max && !min && isSameOrBefore(convertedTime, max, granularity);
-        const between =
-            min && max && isBetween(convertedTime, min, max, granularity);
+        const isAfter = (min && !max)
+            && isSameOrAfter(convertedTime, min, granularity);
+        const isBefore = (max && !min)
+            && isSameOrBefore(convertedTime, max, granularity);
+        const between = (min && max)
+            && isBetween(convertedTime, min, max, granularity);
         const isNotBounded = !min && !max;
         const hasPassedFilter = !filter || filter(convertedTime, granularity);
 
-        return (
-            (isAfter || isBefore || between || isNotBounded) && hasPassedFilter
-        );
+        return (isAfter || isBefore || between || isNotBounded) && hasPassedFilter;
     }
 
     /***

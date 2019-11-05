@@ -47,7 +47,7 @@ export class NgxMaterialTimepickerPeriodComponent {
     @Input() meridiems: string[];
     @Input() filter: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();

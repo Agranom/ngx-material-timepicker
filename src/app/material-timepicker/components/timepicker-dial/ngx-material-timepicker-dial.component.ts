@@ -48,7 +48,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Input() minutesGap: number;
     @Input() filter: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean;
 
     @Output() periodChanged = new EventEmitter<TimePeriod>();
