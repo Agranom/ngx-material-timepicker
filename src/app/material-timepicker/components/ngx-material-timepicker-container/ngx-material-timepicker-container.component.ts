@@ -74,7 +74,7 @@ export class NgxMaterialTimepickerContainerComponent
     disabled: boolean;
     appendToInput: boolean;
     hoursOnly: boolean;
-    filter: (time: DateTime, granularity?: "hours" | "minutes") => boolean;
+    filter: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean;
 
     format: number;
     minutesGap: number;

@@ -6,5 +6,5 @@ export interface DisabledTimeConfig {
     max: DateTime;
     format: number;
     period?: TimePeriod;
-    filter?: (time: DateTime, granularity?: "hours" | "minutes") => boolean;
+    filter?: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean;
 }

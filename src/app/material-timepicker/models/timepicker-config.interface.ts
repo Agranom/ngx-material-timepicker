@@ -23,5 +23,5 @@ export interface TimepickerConfig {
     timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
-    filter: (time: DateTime, granularity?: "hours" | "minutes") => boolean;
+    filter: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean;
 }

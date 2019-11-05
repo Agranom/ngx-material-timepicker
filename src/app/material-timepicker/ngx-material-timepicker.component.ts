@@ -73,14 +73,14 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
 
     @Input()
     set filter(
-        fn: (time: DateTime, granularity?: "hours" | "minutes") => boolean
+        fn: (time: DateTime, granularity?: 'hours' | 'minutes') => boolean
     ) {
         this._filter = fn;
     }
 
     get filter(): (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean {
         return this._filter;
     }
@@ -95,7 +95,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     private _ngxMaterialTimepickerTheme: NgxMaterialTimepickerTheme;
     private _filter: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean;
     private timepickerInput: TimepickerDirective;
     private unsubscribe = new Subject();
@@ -139,31 +139,28 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     }
 
     open(): void {
-        this.domService.appendTimepickerToBody(
-            NgxMaterialTimepickerContainerComponent,
-            {
-                timepickerBaseRef: this,
-                time: this.time,
-                defaultTime: this.defaultTime,
-                maxTime: this.maxTime,
-                minTime: this.minTime,
-                format: this.format,
-                minutesGap: this.minutesGap,
-                disableAnimation: this.disableAnimation,
-                cancelBtnTmpl: this.cancelBtnTmpl,
-                confirmBtnTmpl: this.confirmBtnTmpl,
-                editableHintTmpl: this.editableHintTmpl,
-                disabled: this.disabled,
-                enableKeyboardInput: this.enableKeyboardInput,
-                preventOverlayClick: this.preventOverlayClick,
-                appendToInput: this.appendToInput,
-                hoursOnly: this.hoursOnly,
-                theme: this.theme || this._ngxMaterialTimepickerTheme,
-                timepickerClass: this.timepickerClass,
-                inputElement: this.inputElement,
-                filter: this.filter
-            }
-        );
+        this.domService.appendTimepickerToBody(NgxMaterialTimepickerContainerComponent, {
+            timepickerBaseRef: this,
+            time: this.time,
+            defaultTime: this.defaultTime,
+            maxTime: this.maxTime,
+            minTime: this.minTime,
+            format: this.format,
+            minutesGap: this.minutesGap,
+            disableAnimation: this.disableAnimation,
+            cancelBtnTmpl: this.cancelBtnTmpl,
+            confirmBtnTmpl: this.confirmBtnTmpl,
+            editableHintTmpl: this.editableHintTmpl,
+            disabled: this.disabled,
+            enableKeyboardInput: this.enableKeyboardInput,
+            preventOverlayClick: this.preventOverlayClick,
+            appendToInput: this.appendToInput,
+            hoursOnly: this.hoursOnly,
+            theme: this.theme || this._ngxMaterialTimepickerTheme,
+            timepickerClass: this.timepickerClass,
+            inputElement: this.inputElement,
+            filter: this.filter
+        });
         this.opened.next();
         this.subscribeToEvents();
     }
