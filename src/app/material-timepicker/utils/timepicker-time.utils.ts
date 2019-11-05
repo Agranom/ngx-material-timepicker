@@ -19,14 +19,7 @@ export function disableHours(hours: ClockFaceTime[], config: DisabledTimeConfig)
     if (config.min || config.max || config.filter) {
 
         return hours.map(value => {
-            const hour =
-                config.format === 24
-                    ? value.time
-                    : TimeAdapter.formatHour(
-                          value.time,
-                          config.format,
-                          config.period
-                      );
+            const hour = config.format === 24 ? value.time : TimeAdapter.formatHour(value.time, config.format, config.period);
             const currentTime = DateTime.fromObject({ hour }).toFormat(
                 TimeFormat.TWELVE
             );
@@ -56,6 +49,8 @@ export function getMinutes(gap = 1): ClockFaceTime[] {
 
 export function disableMinutes(minutes: ClockFaceTime[], selectedHour: number, config: DisabledTimeConfig) {
     if (config.min || config.max || config.filter) {
+
+        const hour = TimeAdapter.formatHour(selectedHour, config.format, config.period);
 
         return minutes.map(value => {
             const currentTime = DateTime.fromObject({
