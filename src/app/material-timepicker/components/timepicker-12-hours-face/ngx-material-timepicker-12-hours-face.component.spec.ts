@@ -42,13 +42,7 @@ describe("NgxMaterialTimepicker12HoursFaceComponent", () => {
         component.filter = filter;
 
         component.ngOnChanges(changes);
-        expect(spy).toHaveBeenCalledWith(hours, {
-            min: time,
-            max: time,
-            format,
-            period,
-            filter
-        });
+        expect(spy).toHaveBeenCalledWith(hours, {min: time, max: time, format, period, filter});
     });
 
     it("should not call disabledHours", () => {

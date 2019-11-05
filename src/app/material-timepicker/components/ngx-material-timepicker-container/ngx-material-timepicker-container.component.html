@@ -16,37 +16,33 @@
             [ngClass]="timepickerClass"
         >
             <header class="timepicker__header">
-                <ngx-material-timepicker-dial
-                    [format]="format"
-                    [hour]="(selectedHour | async)?.time"
-                    [minute]="(selectedMinute | async)?.time"
-                    [period]="selectedPeriod | async"
-                    [activeTimeUnit]="activeTimeUnit"
-                    [minTime]="minTime"
-                    [maxTime]="maxTime"
-                    [isEditable]="enableKeyboardInput"
-                    [editableHintTmpl]="editableHintTmpl"
-                    [minutesGap]="minutesGap"
-                    [filter]="filter"
-                    (periodChanged)="changePeriod($event)"
-                    (timeUnitChanged)="changeTimeUnit($event)"
-                    (hourChanged)="onHourChange($event)"
-                    (minuteChanged)="onMinuteChange($event)"
+                <ngx-material-timepicker-dial [format]="format" [hour]="(selectedHour | async)?.time"
+                                              [minute]="(selectedMinute | async)?.time"
+                                              [period]="selectedPeriod | async"
+                                              [activeTimeUnit]="activeTimeUnit"
+                                              [minTime]="minTime"
+                                              [maxTime]="maxTime"
+                                              [isEditable]="enableKeyboardInput"
+                                              [editableHintTmpl]="editableHintTmpl"
+                                              [minutesGap]="minutesGap"
+                                              [filter]="filter"
+                                              (periodChanged)="changePeriod($event)"
+                                              (timeUnitChanged)="changeTimeUnit($event)"
+                                              (hourChanged)="onHourChange($event)"
+                                              (minuteChanged)="onMinuteChange($event)"
                 ></ngx-material-timepicker-dial>
             </header>
             <div class="timepicker__main-content">
                 <div class="timepicker__body" [ngSwitch]="activeTimeUnit">
                     <div *ngSwitchCase="timeUnit.HOUR">
-                        <ngx-material-timepicker-24-hours-face
-                            *ngIf="format === 24; else ampmHours"
-                            (hourChange)="onHourChange($event)"
-                            [selectedHour]="selectedHour | async"
-                            [minTime]="minTime"
-                            [maxTime]="maxTime"
-                            [format]="format"
-                            [filter]="filter"
-                            (hourSelected)="onHourSelected($event)"
-                        ></ngx-material-timepicker-24-hours-face>
+                        <ngx-material-timepicker-24-hours-face *ngIf="format === 24;else ampmHours"
+                                                               (hourChange)="onHourChange($event)"
+                                                               [selectedHour]="selectedHour | async"
+                                                               [minTime]="minTime"
+                                                               [maxTime]="maxTime"
+                                                               [format]="format"
+                                                               [filter]="filter"
+                                                               (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-24-hours-face>
                         <ng-template #ampmHours>
                             <ngx-material-timepicker-12-hours-face
                                 (hourChange)="onHourChange($event)"
@@ -55,8 +51,7 @@
                                 [minTime]="minTime"
                                 [maxTime]="maxTime"
                                 [filter]="filter"
-                                (hourSelected)="onHourSelected($event)"
-                            ></ngx-material-timepicker-12-hours-face>
+                                (hourSelected)="onHourSelected($event)"></ngx-material-timepicker-12-hours-face>
                         </ng-template>
                     </div>
                     <ngx-material-timepicker-minutes-face

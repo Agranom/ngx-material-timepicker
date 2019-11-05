@@ -43,13 +43,7 @@ describe("NgxMaterialTimepickerMinutesFaceComponent", () => {
         component.filter = filter;
 
         component.ngOnChanges(changes);
-        expect(spy).toHaveBeenCalledWith(minutes, 1, {
-            min: time,
-            max: time,
-            format,
-            period,
-            filter
-        });
+        expect(spy).toHaveBeenCalledWith(minutes, 1, {min: time, max: time, format, period, filter});
     });
 
     it("should not call disableMinutes", () => {

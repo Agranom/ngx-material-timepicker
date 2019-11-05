@@ -10,7 +10,7 @@ export class NgxMaterialTimepickerHoursFace {
     @Input() format: number;
     @Input() filter: (
         time: DateTime,
-        granularity?: "hours" | "minutes"
+        granularity?: 'hours' | 'minutes'
     ) => boolean;
 
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
