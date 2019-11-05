@@ -151,7 +151,7 @@ describe("TimeAdapter", () => {
             expect(isAvailable).toBeTruthy();
         });
 
-        it('should return false since time passes filter.', function() {
+        it('should return false since time does not pass filter.', function() {
             const isAvailable = TimeAdapter.isTimeAvailable(
                 "11:43 pm",
                 null,
