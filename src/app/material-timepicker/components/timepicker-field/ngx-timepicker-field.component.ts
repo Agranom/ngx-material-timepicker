@@ -104,6 +104,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     writeValue(val: string): void {
         if (val) {
             this.defaultTime = val;
+        } else {
+            this.resetTime();
         }
     }
 
@@ -149,5 +151,10 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         const time = this.timepickerService.getFullTime(this._format);
         this.timepickerTime = time;
         this.onChange(time);
+    }
+
+    private resetTime(): void {
+        this.timepickerService.hour = {angle: 0, time: null};
+        this.timepickerService.minute = {angle: 0, time: null};
     }
 }
