@@ -20,7 +20,6 @@ import { NgxMaterialTimepickerDialComponent } from './components/timepicker-dial
 import {
     NgxMaterialTimepickerDialControlComponent } from './components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import { NgxMaterialTimepickerPeriodComponent } from './components/timepicker-period/ngx-material-timepicker-period.component';
-import { StyleSanitizerPipe } from './pipes/style-sanitizer.pipe';
 import { TimeFormatterPipe } from './pipes/time-formatter.pipe';
 import { OverlayDirective } from './directives/overlay.directive';
 import { MinutesFormatterPipe } from './pipes/minutes-formatter.pipe';
@@ -71,7 +70,6 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         NgxMaterialTimepickerDialComponent,
         NgxMaterialTimepickerDialControlComponent,
         NgxMaterialTimepickerPeriodComponent,
-        StyleSanitizerPipe,
         TimeFormatterPipe,
         TimepickerDirective,
         OverlayDirective,
