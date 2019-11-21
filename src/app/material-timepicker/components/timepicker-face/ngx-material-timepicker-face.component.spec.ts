@@ -2,7 +2,6 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NgxMaterialTimepickerFaceComponent } from './ngx-material-timepicker-face.component';
 import { ElementRef, NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { StyleSanitizerPipe } from '../../pipes/style-sanitizer.pipe';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { MinutesFormatterPipe } from '../../pipes/minutes-formatter.pipe';
 import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
@@ -20,7 +19,6 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
         fixture = TestBed.configureTestingModule({
             declarations: [
                 NgxMaterialTimepickerFaceComponent,
-                StyleSanitizerPipe,
                 MinutesFormatterPipe,
                 TimeLocalizerPipe,
                 ActiveHourPipe,
