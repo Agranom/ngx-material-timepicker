@@ -82,30 +82,32 @@ describe('NgxTimepickerFieldComponent', () => {
         component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
     }));
 
-    it('should change default time when writeValue called ', fakeAsync(() => {
-        const time = '10:13 pm';
-        component.writeValue(time);
+    describe('writeValue', () => {
 
-        expect(component.defaultTime.toLowerCase()).toBe(time);
+        it('should change default time when writeValue called ', fakeAsync(() => {
+            const time = '10:13 pm';
+            component.writeValue(time);
 
-        tick();
+            expect(component.defaultTime.toLowerCase()).toBe(time);
 
-        component.hour$.subscribe(hour => expect(hour.time).toBe(10));
-        component.minute$.subscribe(minute => expect(minute.time).toBe(13));
-        component.period$.subscribe(p => expect(p).toBe(TimePeriod.PM));
-    }));
+            tick();
 
-    it('should not change default time when writeValue called with undefined', fakeAsync(() => {
-        component.writeValue(undefined);
+            component.hour$.subscribe(hour => expect(hour.time).toBe(10));
+            component.minute$.subscribe(minute => expect(minute.time).toBe(13));
+            component.period$.subscribe(p => expect(p).toBe(TimePeriod.PM));
+        }));
 
-        expect(component.defaultTime).toBeUndefined();
+        it('should set hour and minute value to null', fakeAsync(() => {
+            component.writeValue(null);
 
-        tick();
+            expect(component.defaultTime).toBeUndefined();
 
-        component.hour$.subscribe(hour => expect(hour.time).toBe(12));
-        component.minute$.subscribe(minute => expect(minute.time).toBe(0));
-        component.period$.subscribe(p => expect(p).toBe(TimePeriod.AM));
-    }));
+            tick();
+
+            component.hour$.subscribe(hour => expect(hour.time).toBeNull());
+            component.minute$.subscribe(minute => expect(minute.time).toBeNull());
+        }));
+    });
 
     it('should change disabled prop', () => {
         expect(component.disabled).toBeFalsy();
