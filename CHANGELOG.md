@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.2.3 (2019-11-21)
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): bug with setting time to null,
+fixes [(#252)](https://github.com/Agranom/ngx-material-timepicker/issues/252)
+
+* fix(ngx-material-timepicker-field): bug with changing time via keyboard,
+fixes [(#243)](https://github.com/Agranom/ngx-material-timepicker/issues/243)
+
+* fix(ngx-material-timepicker): fix bugs which occur when Ivy is enabled,
+fixes [(#247)](https://github.com/Agranom/ngx-material-timepicker/issues/247)
+
 
 ## 5.2.2 (2019-11-02)
 
