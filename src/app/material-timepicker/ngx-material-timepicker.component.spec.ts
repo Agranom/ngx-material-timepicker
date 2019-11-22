@@ -1,23 +1,27 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
-import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
-import { TimepickerDirective } from './directives/ngx-timepicker.directive';
-import { NO_ERRORS_SCHEMA, Type } from '@angular/core';
-import { DomService } from './services/dom.service';
-import { TimepickerConfig } from './models/timepicker-config.interface';
 import {
-    NgxMaterialTimepickerContainerComponent
-} from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
+    async,
+    ComponentFixture,
+    fakeAsync,
+    TestBed,
+    tick
+} from "@angular/core/testing";
+import { NgxMaterialTimepickerComponent } from "./ngx-material-timepicker.component";
+import { NgxMaterialTimepickerEventService } from "./services/ngx-material-timepicker-event.service";
+import { TimepickerDirective } from "./directives/ngx-timepicker.directive";
+import { NO_ERRORS_SCHEMA, Type } from "@angular/core";
+import { DomService } from "./services/dom.service";
+import { TimepickerConfig } from "./models/timepicker-config.interface";
+import { NgxMaterialTimepickerContainerComponent } from "./components/ngx-material-timepicker-container/ngx-material-timepicker-container.component";
 
 class DomServiceStub {
-    appendTimepickerToBody(picker: Type<NgxMaterialTimepickerComponent>): void {
-    }
+    appendTimepickerToBody(
+        picker: Type<NgxMaterialTimepickerComponent>
+    ): void {}
 
-    destroyTimepicker(): void {
-    }
+    destroyTimepicker(): void {}
 }
 
-describe('NgxMaterialTimepickerComponent', () => {
+describe("NgxMaterialTimepickerComponent", () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerComponent>;
     let component: NgxMaterialTimepickerComponent;
     let domService: DomService;
@@ -27,11 +31,11 @@ describe('NgxMaterialTimepickerComponent', () => {
         fixture = TestBed.configureTestingModule({
             declarations: [
                 NgxMaterialTimepickerComponent,
-                NgxMaterialTimepickerContainerComponent,
+                NgxMaterialTimepickerContainerComponent
             ],
             providers: [
                 NgxMaterialTimepickerEventService,
-                {provide: DomService, useClass: DomServiceStub}
+                { provide: DomService, useClass: DomServiceStub }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerComponent);
@@ -41,46 +45,46 @@ describe('NgxMaterialTimepickerComponent', () => {
         eventService = TestBed.get(NgxMaterialTimepickerEventService);
     });
 
-    describe('registerInput', () => {
-
-        it('should throw Error if register one more timepicker input', () => {
+    describe("registerInput", () => {
+        it("should throw Error if register one more timepicker input", () => {
             const input = {} as TimepickerDirective;
 
             component.registerInput(input);
-            expect(() => component.registerInput(input))
-                .toThrowError('A Timepicker can only be associated with a single input.');
+            expect(() => component.registerInput(input)).toThrowError(
+                "A Timepicker can only be associated with a single input."
+            );
         });
 
-        it('should return min time prop of TimepickerDirective', () => {
-            const input = {min: null} as TimepickerDirective;
+        it("should return min time prop of TimepickerDirective", () => {
+            const input = { min: null } as TimepickerDirective;
 
             component.registerInput(input);
             expect(component.minTime).toBeNull();
         });
 
-        it('should return max time prop of TimepickerDirective', () => {
-            const input = {max: null} as TimepickerDirective;
+        it("should return max time prop of TimepickerDirective", () => {
+            const input = { max: null } as TimepickerDirective;
 
             component.registerInput(input);
             expect(component.maxTime).toBeNull();
         });
 
-        it('should return disabled prop of TimepickerDirective', () => {
-            const input = {disabled: true} as TimepickerDirective;
+        it("should return disabled prop of TimepickerDirective", () => {
+            const input = { disabled: true } as TimepickerDirective;
 
             component.registerInput(input);
             expect(component.disabled).toBeTruthy();
         });
 
-        it('should return format prop of TimepickerDirective', () => {
-            const input = {format: 24} as TimepickerDirective;
+        it("should return format prop of TimepickerDirective", () => {
+            const input = { format: 24 } as TimepickerDirective;
 
             component.registerInput(input);
             expect(component.format).toBe(24);
         });
     });
 
-    it('should set format', () => {
+    it("should set format", () => {
         component.format = 24;
         expect(component.format).toBe(24);
 
@@ -88,11 +92,10 @@ describe('NgxMaterialTimepickerComponent', () => {
         expect(component.format).toBe(12);
     });
 
-    describe('open', () => {
-
+    describe("open", () => {
         it(`should call appendTimepickerToBody with config and emit event on open call`, async(() => {
             let counter = 0;
-            const spy = spyOn(domService, 'appendTimepickerToBody');
+            const spy = spyOn(domService, "appendTimepickerToBody");
             const expectedConfig: TimepickerConfig = {
                 preventOverlayClick: false,
                 enableKeyboardInput: false,
@@ -107,12 +110,13 @@ describe('NgxMaterialTimepickerComponent', () => {
                 maxTime: undefined,
                 minTime: undefined,
                 minutesGap: 6,
-                time: '11:15 pm',
+                time: "11:15 pm",
                 appendToInput: false,
                 theme: undefined,
                 hoursOnly: false,
                 timepickerClass: undefined,
-                inputElement: undefined
+                inputElement: undefined,
+                filter: undefined
             };
             const directive = {
                 disabled: expectedConfig.disabled,
@@ -135,15 +139,17 @@ describe('NgxMaterialTimepickerComponent', () => {
 
             component.opened.subscribe(() => expect(++counter).toBe(1));
             component.open();
-            expect(spy).toHaveBeenCalledWith(NgxMaterialTimepickerContainerComponent, expectedConfig);
+            expect(spy).toHaveBeenCalledWith(
+                NgxMaterialTimepickerContainerComponent,
+                expectedConfig
+            );
         }));
     });
 
-    describe('close', () => {
-
+    describe("close", () => {
         it(`should call destroyTimepicker fn and emit closed event`, () => {
             let counter = 0;
-            const spy = spyOn(domService, 'destroyTimepicker');
+            const spy = spyOn(domService, "destroyTimepicker");
 
             component.closed.subscribe(() => expect(++counter).toBe(1));
             component.close();
@@ -151,13 +157,12 @@ describe('NgxMaterialTimepickerComponent', () => {
             expect(spy).toHaveBeenCalled();
         });
 
-
-        it('should call close method if ESC key was pushed', fakeAsync(() => {
-            const spy = spyOn(component, 'close');
+        it("should call close method if ESC key was pushed", fakeAsync(() => {
+            const spy = spyOn(component, "close");
             const event = {
                 keyCode: 27,
                 stopPropagation: () => null,
-                type: 'keydown'
+                type: "keydown"
             };
             component.open();
 
@@ -167,12 +172,12 @@ describe('NgxMaterialTimepickerComponent', () => {
             expect(spy).toHaveBeenCalled();
         }));
 
-        it('should not call close method if any key, but ESC was pushed', fakeAsync(() => {
-            const spy = spyOn(component, 'close');
+        it("should not call close method if any key, but ESC was pushed", fakeAsync(() => {
+            const spy = spyOn(component, "close");
             const event = {
                 keyCode: 28,
                 stopPropagation: () => null,
-                type: 'keydown'
+                type: "keydown"
             };
 
             eventService.dispatchEvent(event as KeyboardEvent);
@@ -181,12 +186,12 @@ describe('NgxMaterialTimepickerComponent', () => {
             expect(spy).toHaveBeenCalledTimes(0);
         }));
 
-        it('should not call close method if ESC was pushed and isEsc is \'false\' ', fakeAsync(() => {
-            const spy = spyOn(component, 'close');
+        it("should not call close method if ESC was pushed and isEsc is 'false' ", fakeAsync(() => {
+            const spy = spyOn(component, "close");
             const event = {
                 keyCode: 27,
                 stopPropagation: () => null,
-                type: 'keydown'
+                type: "keydown"
             };
 
             component.isEsc = false;
@@ -197,29 +202,28 @@ describe('NgxMaterialTimepickerComponent', () => {
         }));
     });
 
-    describe('minutesGap', () => {
-
-        it('should set minutesGap to 5', () => {
+    describe("minutesGap", () => {
+        it("should set minutesGap to 5", () => {
             expect(component.minutesGap).toBeUndefined();
             component.minutesGap = 5;
 
             expect(component.minutesGap).toBe(5);
         });
 
-        it('should set minutesGap to 1', () => {
+        it("should set minutesGap to 1", () => {
             expect(component.minutesGap).toBeUndefined();
             component.minutesGap = 65;
 
             expect(component.minutesGap).toBe(1);
         });
 
-        it('should convert minutesGap to int', () => {
+        it("should convert minutesGap to int", () => {
             component.minutesGap = 6.5;
 
             expect(component.minutesGap).toBe(6);
         });
 
-        it('should not set minutesGap if null or undefined', () => {
+        it("should not set minutesGap if null or undefined", () => {
             component.minutesGap = undefined;
             expect(component.minutesGap).toBeUndefined();
 
@@ -228,29 +232,31 @@ describe('NgxMaterialTimepickerComponent', () => {
         });
     });
 
-    describe('updateTime', () => {
-
-        it('should emit time when method is called', async(() => {
-            const expectedTime = '14:20';
-            component.timeUpdated.subscribe(time => expect(time).toBe(expectedTime));
+    describe("updateTime", () => {
+        it("should emit time when method is called", async(() => {
+            const expectedTime = "14:20";
+            component.timeUpdated.subscribe(time =>
+                expect(time).toBe(expectedTime)
+            );
 
             component.updateTime(expectedTime);
         }));
     });
 
-    describe('ngxMaterialTimepickerTheme', () => {
-
-        it('should display warning message when setting value', () => {
-            const spy = spyOn(console, 'warn');
+    describe("ngxMaterialTimepickerTheme", () => {
+        it("should display warning message when setting value", () => {
+            const spy = spyOn(console, "warn");
 
             component.ngxMaterialTimepickerTheme = {};
-            expect(spy).toHaveBeenCalledWith(`'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`);
+            expect(spy).toHaveBeenCalledWith(
+                `'ngxMaterialTimepickerTheme' is deprecated. Use 'theme' instead`
+            );
         });
     });
 });
 
 export const spyOnFunction = <T>(obj: T, func: keyof T) => {
     const spy = jasmine.createSpy(func as string);
-    spyOnProperty(obj, func, 'get').and.returnValue(spy);
+    spyOnProperty(obj, func, "get").and.returnValue(spy);
     return spy;
 };
