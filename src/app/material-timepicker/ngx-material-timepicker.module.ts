@@ -44,6 +44,7 @@ import {
     NgxMaterialTimepickerContentComponent
 } from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
 import { AppendToInputDirective } from './directives/append-to-input.directive';
+import {NgxMaterialTimepickerService} from './services/ngx-material-timepicker.service';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         AppendToInputDirective
     ],
     providers: [
-        {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE}
+        {provide: TIME_LOCALE, useValue: TimeAdapter.DEFAULT_LOCALE},
+        NgxMaterialTimepickerService
     ],
     entryComponents: [NgxMaterialTimepickerContainerComponent]
 })

@@ -108,6 +108,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
     onHourChange(hour: ClockFaceTime): void {
         this.timepickerService.hour = hour;
+        this.timepickerBaseRef.timeChanged.next(this.timepickerService.getFullTime(this.format));
     }
 
     onHourSelected(hour: number): void {
@@ -119,10 +120,12 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
     onMinuteChange(minute: ClockFaceTime): void {
         this.timepickerService.minute = minute;
+        this.timepickerBaseRef.timeChanged.next(this.timepickerService.getFullTime(this.format));
     }
 
     changePeriod(period: TimePeriod): void {
         this.timepickerService.period = period;
+        this.timepickerBaseRef.timeChanged.next(this.timepickerService.getFullTime(this.format));
     }
 
     changeTimeUnit(unit: TimeUnit): void {
