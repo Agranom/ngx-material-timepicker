@@ -1,15 +1,15 @@
-import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
-import {merge, Subject} from 'rxjs';
-import {NgxMaterialTimepickerEventService} from './services/ngx-material-timepicker-event.service';
-import {filter, takeUntil} from 'rxjs/operators';
-import {TimepickerDirective} from './directives/ngx-timepicker.directive';
-import {DateTime} from 'luxon';
-import {DomService} from './services/dom.service';
+import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { merge, Subject } from 'rxjs';
+import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
+import { filter, takeUntil } from 'rxjs/operators';
+import { TimepickerDirective } from './directives/ngx-timepicker.directive';
+import { DateTime } from 'luxon';
+import { DomService } from './services/dom.service';
 import {
     NgxMaterialTimepickerContainerComponent
 } from './components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
-import {TimepickerRef} from './models/timepicker-ref.interface';
-import {NgxMaterialTimepickerTheme} from './models/ngx-material-timepicker-theme.interface';
+import { TimepickerRef } from './models/timepicker-ref.interface';
+import { NgxMaterialTimepickerTheme } from './models/ngx-material-timepicker-theme.interface';
 
 const ESCAPE = 27;
 

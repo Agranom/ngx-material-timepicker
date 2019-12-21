@@ -1,15 +1,15 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import {AnimationState, NgxMaterialTimepickerContainerComponent} from './ngx-material-timepicker-container.component';
-import {Component, EventEmitter, NO_ERRORS_SCHEMA, Output} from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TimepickerRef} from '../../models/timepicker-ref.interface';
-import {of, Subject} from 'rxjs';
-import {DateTime} from 'luxon';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {TimePeriod} from '../../models/time-period.enum';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {NgxMaterialTimepickerEventService} from '../../services/ngx-material-timepicker-event.service';
+import { AnimationState, NgxMaterialTimepickerContainerComponent } from './ngx-material-timepicker-container.component';
+import { Component, EventEmitter, NO_ERRORS_SCHEMA, Output } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TimepickerRef } from '../../models/timepicker-ref.interface';
+import { of, Subject } from 'rxjs';
+import { DateTime } from 'luxon';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimePeriod } from '../../models/time-period.enum';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { NgxMaterialTimepickerEventService } from '../../services/ngx-material-timepicker-event.service';
 
 @Component({
     template: ''
