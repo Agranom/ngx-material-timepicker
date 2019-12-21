@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable, Subject } from 'rxjs';
@@ -18,7 +18,7 @@ import { TIME_LOCALE } from '../../tokens/time-locale.token';
         NgxMaterialTimepickerService,
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NgxTimepickerFieldComponent),
+            useExisting: () => NgxTimepickerFieldComponent,
             multi: true
         }
     ]
@@ -75,6 +75,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     get defaultTime(): string {
         return this._defaultTime;
     }
+
+    @Output() timeChanged = new EventEmitter<string>();
 
     private _defaultTime: string;
     private _format = 12;
@@ -136,10 +138,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     onTimeSet(time: string): void {
-        const localeTime = TimeAdapter.toLocaleTimeString(time, {format: this.format, locale: this.locale});
-
         this.defaultTime = time;
-        this.onChange(localeTime);
+        this.emitLocalTimeChange(time);
     }
 
     ngOnDestroy(): void {
@@ -150,11 +150,19 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private changeTime(): void {
         const time = this.timepickerService.getFullTime(this._format);
         this.timepickerTime = time;
-        this.onChange(time);
+
+        this.emitLocalTimeChange(time);
     }
 
     private resetTime(): void {
         this.timepickerService.hour = {angle: 0, time: null};
         this.timepickerService.minute = {angle: 0, time: null};
+    }
+
+    private emitLocalTimeChange(time: string): void {
+        const localTime = TimeAdapter.toLocaleTimeString(time, {format: this.format, locale: this.locale});
+
+        this.onChange(localTime);
+        this.timeChanged.emit(localTime);
     }
 }
