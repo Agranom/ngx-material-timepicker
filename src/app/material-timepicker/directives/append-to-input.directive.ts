@@ -7,7 +7,7 @@ type TimepickerDirection = 'top' | 'center' | 'bottom';
 })
 export class AppendToInputDirective implements AfterViewInit {
 
-    @Input('ngxAppendToInput') inputElement: HTMLInputElement;
+    @Input('ngxAppendToInput') inputElement: any;
 
     private _direction: TimepickerDirection;
     private _inputCords: ClientRect;
