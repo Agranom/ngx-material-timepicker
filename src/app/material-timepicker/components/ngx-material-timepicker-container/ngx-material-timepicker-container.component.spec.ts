@@ -19,6 +19,7 @@ class TimepickerBaseRefStub implements TimepickerRef {
 
     @Output() hourSelected = new EventEmitter<number>();
     @Output() timeSet = new EventEmitter<string>();
+    @Output() timeChanged = new EventEmitter<string>();
 
     close(): void {
     }
@@ -160,6 +161,15 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             tick();
         }));
+
+        it('should update timeChanged when hour is changed', fakeAsync(() => {
+            const expectedHour: ClockFaceTime = {time: 10, angle: 130};
+
+            component.timepickerBaseRef.timeChanged.subscribe(time => expect(time).toEqual('10:00 AM'));
+            component.onHourChange(expectedHour);
+
+            tick();
+        }));
     });
 
     describe('onMinuteChange', () => {
@@ -169,6 +179,15 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             component.onMinuteChange(expectedMinute);
             component.selectedMinute.subscribe(minute => expect(minute).toEqual(expectedMinute));
+
+            tick();
+        }));
+
+        it('should update timeChanged when minute is changed', fakeAsync(() => {
+            const expectedMinute: ClockFaceTime = {time: 10, angle: 130};
+
+            component.timepickerBaseRef.timeChanged.subscribe(time => expect(time).toEqual('12:10 PM'));
+            component.onMinuteChange(expectedMinute);
 
             tick();
         }));
@@ -184,6 +203,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             tick();
         }));
+
     });
 
     describe('onHourSelected', () => {
