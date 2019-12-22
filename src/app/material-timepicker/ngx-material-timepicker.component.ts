@@ -96,7 +96,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
         return this.timepickerInput && this.timepickerInput.value;
     }
 
-    get inputElement(): HTMLInputElement {
+    get inputElement(): any {
         return this.timepickerInput && this.timepickerInput.element;
     }
 
