@@ -7,6 +7,7 @@ import {
 } from '../components/ngx-material-timepicker-container/ngx-material-timepicker-container.component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TIME_LOCALE } from '../tokens/time-locale.token';
 
 describe('DomService', () => {
     let service: DomService;
@@ -15,6 +16,9 @@ describe('DomService', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
             declarations: [NgxMaterialTimepickerContainerComponent],
+            providers: [
+                {provide: TIME_LOCALE, useValue: 'en-US'}
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         }).overrideModule(BrowserDynamicTestingModule, {
             set: {

@@ -10,6 +10,7 @@ import { TimeUnit } from '../../models/time-unit.enum';
 import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { NgxMaterialTimepickerEventService } from '../../services/ngx-material-timepicker-event.service';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
 
 @Component({
     template: ''
@@ -42,8 +43,9 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
                 {
                     provide: NgxMaterialTimepickerEventService, useValue: {
                         dispatchEvent: () => null
-                    }
-                }
+                    },
+                },
+                {provide: TIME_LOCALE, useValue: 'en-US'}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
