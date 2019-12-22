@@ -18,7 +18,7 @@ import { TIME_LOCALE } from '../../tokens/time-locale.token';
         NgxMaterialTimepickerService,
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: () => NgxTimepickerFieldComponent,
+            useExisting: NgxTimepickerFieldComponent,
             multi: true
         }
     ]
