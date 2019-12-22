@@ -117,36 +117,42 @@ describe('NgxTimepickerFieldComponent', () => {
         expect(component.disabled).toBeTruthy();
     });
 
-    it('should change hour', fakeAsync(() => {
+    it('should change hour and emit timeChanged event', fakeAsync(() => {
         const hour: ClockFaceTime = {
             time: 1,
             angle: 30
         };
+        const expected = '1:00 AM';
+        component.timeChanged.subscribe(time => expect(time).toBe(expected));
         component.changeHour(1);
 
         tick();
         component.hour$.subscribe(selectedHour => expect(selectedHour.time).toBe(hour.time));
-        expect(timer).toBe('1:00 AM');
+        expect(timer).toBe(expected);
     }));
 
-    it('should change minute', fakeAsync(() => {
+    it('should change minute and emit timeChanged event', fakeAsync(() => {
         const minute: ClockFaceTime = {
             time: 15,
             angle: 90
         };
+        const expected = '12:15 AM';
+        component.timeChanged.subscribe(time => expect(time).toBe(expected));
         component.changeMinute(15);
 
         tick();
         component.minute$.subscribe(selectedMinute => expect(selectedMinute.time).toBe(minute.time));
-        expect(timer).toBe('12:15 AM');
+        expect(timer).toBe(expected);
     }));
 
-    it('should change period', fakeAsync(() => {
+    it('should change period end emit timeChanged event', fakeAsync(() => {
+        const expected = '12:00 PM';
+        component.timeChanged.subscribe(time => expect(time).toBe(expected));
         component.changePeriod(TimePeriod.PM);
 
         tick();
         component.period$.subscribe(p => expect(p).toEqual(TimePeriod.PM));
-        expect(timer).toBe('12:00 PM');
+        expect(timer).toBe(expected);
     }));
 
     it('should call touch method', () => {
@@ -155,11 +161,12 @@ describe('NgxTimepickerFieldComponent', () => {
         });
     });
 
-    it('should update time when timeSet called', async(() => {
+    it('should update time and emit timeChanged event when timeSet called', async(() => {
         let time: string | null = null;
         const timeMock = '2:5 am';
         const expectedTime = '2:05 am';
         const onChange = (val: string) => time = val;
+        component.timeChanged.subscribe(changedTime => expect(changedTime.toLowerCase()).toBe(expectedTime));
         component.registerOnChange(onChange);
 
         component.onTimeSet(timeMock);
