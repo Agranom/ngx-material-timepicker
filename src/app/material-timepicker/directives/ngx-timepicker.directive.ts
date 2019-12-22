@@ -129,7 +129,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
                 @Inject(TIME_LOCALE) private locale: string) {
     }
 
-    get element(): HTMLInputElement {
+    get element(): any {
         return this.elementRef && this.elementRef.nativeElement;
     }
 

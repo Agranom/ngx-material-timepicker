@@ -7,7 +7,7 @@ export interface TimepickerConfig {
     cancelBtnTmpl: TemplateRef<Node>;
     editableHintTmpl: TemplateRef<Node>;
     confirmBtnTmpl: TemplateRef<Node>;
-    inputElement: HTMLInputElement;
+    inputElement: any;
     enableKeyboardInput: boolean;
     preventOverlayClick: boolean;
     disableAnimation: boolean;
