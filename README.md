@@ -136,6 +136,8 @@ Selector: `ngx-material-timepicker`
   closed: EventEmitter\<null\> | Emits after timepicker was closed. |
 | @Output()
   hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
+| @Output()
+  timeChanged: EventEmitter\<string\> | Emits once time was changed. |
   
 #### NgxTimepickerFieldComponent
 
