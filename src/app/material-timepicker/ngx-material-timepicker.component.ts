@@ -11,7 +11,6 @@ import {
 import { TimepickerRef } from './models/timepicker-ref.interface';
 import { NgxMaterialTimepickerTheme } from './models/ngx-material-timepicker-theme.interface';
 
-
 const ESCAPE = 27;
 
 @Component({
@@ -69,6 +68,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Output() opened = new EventEmitter<null>();
     @Output() closed = new EventEmitter<null>();
     @Output() hourSelected = new EventEmitter<number>();
+    @Output() timeChanged = new EventEmitter<string>();
 
     private _minutesGap: number;
     private _format: number;
@@ -96,7 +96,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
         return this.timepickerInput && this.timepickerInput.value;
     }
 
-    get inputElement(): HTMLInputElement {
+    get inputElement(): any {
         return this.timepickerInput && this.timepickerInput.element;
     }
 

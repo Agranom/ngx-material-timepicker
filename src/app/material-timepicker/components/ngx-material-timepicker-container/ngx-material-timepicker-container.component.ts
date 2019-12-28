@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
@@ -12,6 +12,7 @@ import { TimepickerRef } from '../../models/timepicker-ref.interface';
 import { TimepickerConfig } from '../../models/timepicker-config.interface';
 import { NgxMaterialTimepickerEventService } from '../../services/ngx-material-timepicker-event.service';
 import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker-theme.interface';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
 
 export enum AnimationState {
     ENTER = 'enter',
@@ -50,7 +51,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     cancelBtnTmpl: TemplateRef<Node>;
     editableHintTmpl: TemplateRef<Node>;
     confirmBtnTmpl: TemplateRef<Node>;
-    inputElement: HTMLInputElement;
+    inputElement: any;
 
     enableKeyboardInput: boolean;
     preventOverlayClick: boolean;
@@ -78,7 +79,8 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     private unsubscribe = new Subject();
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
-                private eventService: NgxMaterialTimepickerEventService) {
+                private eventService: NgxMaterialTimepickerEventService,
+                @Inject(TIME_LOCALE) private locale: string) {
     }
 
     @HostListener('keydown', ['$event'])
@@ -108,6 +110,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
     onHourChange(hour: ClockFaceTime): void {
         this.timepickerService.hour = hour;
+        this.onTimeChange();
     }
 
     onHourSelected(hour: number): void {
@@ -119,10 +122,12 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
     onMinuteChange(minute: ClockFaceTime): void {
         this.timepickerService.minute = minute;
+        this.onTimeChange();
     }
 
     changePeriod(period: TimePeriod): void {
         this.timepickerService.period = period;
+        this.onTimeChange();
     }
 
     changeTimeUnit(unit: TimeUnit): void {
@@ -167,6 +172,15 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
             this.setDefaultTime(time);
         }
+    }
+
+    private onTimeChange(): void {
+        const time = TimeAdapter.toLocaleTimeString(this.timepickerService.getFullTime(this.format), {
+            locale: this.locale,
+            format: this.format
+        });
+
+        this.timepickerBaseRef.timeChanged.emit(time);
     }
 
 }

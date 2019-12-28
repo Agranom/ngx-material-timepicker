@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.3.0 (2019-12-22)
+
+### Fixes
+
+* fix(SSR): change HTMLInputElement types to any
+
+### Features
+
+* feat(ngx-material-timepicker): add export of standalone components,
+closes [(#151)](https://github.com/Agranom/ngx-material-timepicker/issues/151)
+
+* feat(ngx-material-timepicker-field): add `timeChanged` @Output event, that emits once time changes,
+closes [(#207)](https://github.com/Agranom/ngx-material-timepicker/issues/207)
+
+* feat(ngx-material-timepicker): add `timeChanged` @Output event, that emits once time changes
+
+
 ## 5.2.3 (2019-11-21)
 
 ### Fixes

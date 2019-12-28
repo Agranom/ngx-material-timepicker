@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class NgxMaterialTimepickerContentComponent {
     @Input() appendToInput: boolean;
-    @Input() inputElement: HTMLInputElement;
+    @Input() inputElement: any;
 }
