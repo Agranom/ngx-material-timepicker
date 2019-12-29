@@ -90,6 +90,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private onChange: (value: string) => void = () => {
     }
 
+    private onTouched: () => void = () => {}
+
     constructor(private timepickerService: NgxMaterialTimepickerService,
                 @Inject(TIME_LOCALE) private locale: string) {
     }
@@ -112,6 +114,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     registerOnTouched(fn: any): void {
+        this.onTouched = fn;
     }
 
     registerOnChange(fn: any): void {
