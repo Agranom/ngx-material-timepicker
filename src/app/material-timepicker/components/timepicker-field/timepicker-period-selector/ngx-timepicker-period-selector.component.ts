@@ -35,6 +35,7 @@ export class NgxTimepickerPeriodSelectorComponent {
     }
 
     @Output() periodSelected = new EventEmitter<TimePeriod>();
+    @Output() onTouched = new EventEmitter();
 
     period = TimePeriod;
     meridiems = Info.meridiems({locale: this.locale});
@@ -51,10 +52,11 @@ export class NgxTimepickerPeriodSelectorComponent {
 
     select(period: TimePeriod): void {
         this.periodSelected.next(period);
-        this.isOpened = false;
+        this.backdropClick();
     }
 
     backdropClick(): void {
         this.isOpened = false;
+        this.onTouched.emit();
     }
 }

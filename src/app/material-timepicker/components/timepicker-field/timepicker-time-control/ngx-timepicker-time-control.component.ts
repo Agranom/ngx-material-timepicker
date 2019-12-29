@@ -22,6 +22,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     @Input() isDefaultTimeSet: boolean;
 
     @Output() timeChanged = new EventEmitter<number>();
+    @Output() onTouched = new EventEmitter();
 
     isFocused: boolean;
 
@@ -90,7 +91,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     onBlur(): void {
         this.isFocused = false;
-
+        this.onTouched.emit();
         if (this.previousTime !== this.time) {
             this.changeTimeIfValid(+this.time);
         }
