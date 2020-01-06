@@ -31,7 +31,7 @@
                                         [meridiems]="meridiems"
                                         (periodChanged)="changePeriod($event)"></ngx-material-timepicker-period>
     </div>
-    <div *ngIf="isEditable" [ngClass]="{'timepicker-dial__hint-container--hidden': !isHintVisible}">
+    <div *ngIf="isEditable || editableHintTmpl" [ngClass]="{'timepicker-dial__hint-container--hidden': !isHintVisible}">
         <!--suppress HtmlUnknownAttribute -->
         <ng-container *ngTemplateOutlet="editableHintTmpl ? editableHintTmpl : editableHintDefault"></ng-container>
         <ng-template #editableHintDefault>
