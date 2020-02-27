@@ -1,9 +1,9 @@
 import { DateTime, DateTimeFormatOptions, LocaleOptions, NumberingSystem } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
+import { TimeOptions } from '../models/time-options.interface';
 import { TimePeriod } from '../models/time-period.enum';
 import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
-import { TimeOptions } from '../models/time-options.interface';
 
 // @dynamic
 export class TimeAdapter {
@@ -20,13 +20,13 @@ export class TimeAdapter {
     }
 
     static formatTime(time: string, opts: TimeOptions): string {
-        const {format} = opts;
+        const {format, locale} = opts;
 
-        return TimeAdapter.parseTime(time, opts).setLocale(TimeAdapter.DEFAULT_LOCALE)
+        return TimeAdapter.parseTime(time, opts).setLocale(locale ? locale : TimeAdapter.DEFAULT_LOCALE)
             .toLocaleString({
                 ...DateTime.TIME_SIMPLE,
                 hour12: format !== 24,
-                numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM
+                numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM,
             });
     }
 
@@ -44,7 +44,7 @@ export class TimeAdapter {
         max?: DateTime,
         granularity?: 'hours' | 'minutes',
         minutesGap?: number,
-        format?: number
+        format?: number,
     ): boolean {
         if (!time) {
             return;
@@ -89,7 +89,7 @@ export class TimeAdapter {
 
         return time.reconfigure({
             numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM,
-            locale: TimeAdapter.DEFAULT_LOCALE
+            locale: TimeAdapter.DEFAULT_LOCALE,
         }).toFormat(timeFormat);
     }
 
