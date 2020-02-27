@@ -4,9 +4,11 @@ import { DateTime } from 'luxon';
 
 
 describe('TimeAdapter', () => {
+    const locale_pl_PL = 'pl-PL';
 
     describe('parseTime', () => {
         const locale = 'en-US';
+
 
         it('should parse from string and return as DateTime', () => {
             let expectedHour = 11;
@@ -27,6 +29,11 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.parseTime('11:00 Pm', {locale}).minute).toBe(expectedMinute);
             expect(TimeAdapter.parseTime('11:00 pm', {locale}).hour).toBe(expectedHour);
             expect(TimeAdapter.parseTime('11:00 pm', {locale}).minute).toBe(expectedMinute);
+        });
+
+        it('should parse from string for locale pl-PL and return as DateTime', () => {
+            expect(TimeAdapter.parseTime('00:10', {locale: locale_pl_PL}).hour).toBe(0);
+            expect(TimeAdapter.parseTime('00:10', {locale: locale_pl_PL}).minute).toBe(10);
         });
 
         it('should parse time from latn to arab number', () => {
@@ -53,6 +60,13 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.formatTime('23:00', {format})).toBe('11:00 PM');
             expect(TimeAdapter.formatTime('12:20 am', {format})).toBe('12:20 AM');
             expect(TimeAdapter.formatTime('12:20 am', {format: 33})).toBe('12:20 AM');
+        });
+
+        it('should convert provided time (en-US) to provided locale (pl-PL) in 24-hours format', () => {
+            const expected = '0:11';
+            const actual = '00:11';
+
+            expect(TimeAdapter.formatTime(actual, {locale: locale_pl_PL, format: 24})).toBe(expected);
         });
     });
 
@@ -131,6 +145,7 @@ describe('TimeAdapter', () => {
 
             expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE', format: 24})).toBe(expected);
         });
+
     });
 
     describe('fromDateTimeToString', () => {
