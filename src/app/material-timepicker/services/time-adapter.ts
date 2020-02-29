@@ -103,7 +103,6 @@ export class TimeAdapter {
     private static getLocaleOptionsByTime(time: string, opts: TimeOptions): LocaleOptions {
         const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
         const localeConfig: LocaleOptions = {numberingSystem: numberingSystem as NumberingSystem, locale};
-        // const defaulutLocale = opts.format !== 24 ? 'en-US' : 'uk-UA';
         const defaultConfig: LocaleOptions = {numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM, locale: TimeAdapter.DEFAULT_LOCALE};
 
         return isNaN(parseInt(time, 10)) ? localeConfig : defaultConfig;
