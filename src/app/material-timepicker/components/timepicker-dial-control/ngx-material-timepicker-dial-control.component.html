@@ -3,6 +3,7 @@
        [ngClass]="{'timepicker-dial__item_active': isActive}"
        [ngModel]="time | timeLocalizer: timeUnit"
        (ngModelChange)="time = $event"
+       [disabled]="disabled"
        (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
        readonly [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)"
        *ngIf="!isEditable;else editableTemplate">
@@ -13,6 +14,7 @@
            [ngClass]="{'timepicker-dial__item_active': isActive}"
            [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit : true"
            (ngModelChange)="onModelChange($event)"
+           [disabled]="disabled"
            (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
            [timepickerAutofocus]="isActive" (keydown)="onKeyDown($event)">
 </ng-template>

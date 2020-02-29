@@ -1,9 +1,9 @@
 /* tslint:disable:triple-equals */
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { TimeUnit } from '../../models/time-unit.enum';
-import { isDigit } from '../../utils/timepicker.utils';
-import { TimeParserPipe } from '../../pipes/time-parser.pipe';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ClockFaceTime} from '../../models/clock-face-time.interface';
+import {TimeUnit} from '../../models/time-unit.enum';
+import {isDigit} from '../../utils/timepicker.utils';
+import {TimeParserPipe} from '../../pipes/time-parser.pipe';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
@@ -21,6 +21,7 @@ export class NgxMaterialTimepickerDialControlComponent {
     @Input() isActive: boolean;
     @Input() isEditable: boolean;
     @Input() minutesGap: number;
+    @Input() disabled: boolean;
 
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();
