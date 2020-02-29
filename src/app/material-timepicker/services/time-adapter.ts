@@ -28,13 +28,13 @@ export class TimeAdapter {
                 ...DateTime.TIME_SIMPLE,
                 hour12: format !== 24,
                 numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM
-            });
+            }).replace(/\u200E/g, '');
         }
         return parsedTime.toISOTime({
             includeOffset: false,
             suppressMilliseconds: true,
             suppressSeconds: true
-        });
+        }).replace(/\u200E/g, '');
     }
 
     static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
