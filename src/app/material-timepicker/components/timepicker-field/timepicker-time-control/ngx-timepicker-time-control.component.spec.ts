@@ -89,14 +89,14 @@ describe('NgxTimepickerTimeControlComponent', () => {
             const event: KeyboardEvent = {key: 'ArrowUp'} as KeyboardEvent;
             component.time = 1;
             component.timeChanged.subscribe(time => expect(time).toBe(2));
-            component.onKeydown(event);
+            component.changeTime(event);
         }));
 
         it('should decrease time by 1 when key down arrow down', async(() => {
             const event: KeyboardEvent = {key: 'ArrowDown'} as KeyboardEvent;
             component.time = 5;
             component.timeChanged.subscribe(time => expect(time).toBe(4));
-            component.onKeydown(event);
+            component.changeTime(event);
         }));
 
         it('should call preventDefault and not change time', () => {
@@ -104,7 +104,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             const event = {keyCode: 70, preventDefault: () => counter++};
             component.time = 1;
             // @ts-ignore
-            component.onKeydown(event as KeyboardEvent);
+            component.changeTime(event as KeyboardEvent);
             expect(counter).toBe(1);
         });
 
@@ -117,7 +117,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.max = 59;
             component.timeChanged.subscribe(time => expect(time).toBe(expectedTime));
 
-            component.onKeydown(event as KeyboardEvent);
+            component.changeTime(event as KeyboardEvent);
             expect(component.time).toBe(expectedTime);
         }));
 
@@ -127,7 +127,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.min = 1;
             component.max = 23;
 
-            component.onKeydown(event as KeyboardEvent);
+            component.changeTime(event as KeyboardEvent);
 
             expect(component.time).toBe(4);
         });
@@ -138,7 +138,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.min = 22;
             component.max = 23;
 
-            component.onKeydown(event as KeyboardEvent);
+            component.changeTime(event as KeyboardEvent);
             expect(component.time).toBe(22);
         });
 
@@ -148,7 +148,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.min = 1;
             component.max = 23;
 
-            component.onKeydown(event as KeyboardEvent);
+            component.changeTime(event as KeyboardEvent);
             expect(component.time).toBe(1);
         });
     });

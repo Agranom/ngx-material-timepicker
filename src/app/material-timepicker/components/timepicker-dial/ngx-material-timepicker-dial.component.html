@@ -15,6 +15,7 @@
                                                   [isActive]="activeTimeUnit === timeUnit.MINUTE"
                                                   [isEditable]="isEditable"
                                                   [minutesGap]="minutesGap"
+                                                  [disabled]="hoursOnly"
                                                   (timeUnitChanged)="changeTimeUnit($event)"
                                                   (timeChanged)="changeMinute($event)"
                                                   (focused)="showHint()"
