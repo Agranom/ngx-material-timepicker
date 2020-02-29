@@ -40,7 +40,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
         }
     }
 
-    onKeydown(event: any): void {
+    changeTime(event: any): void {
         if (!isDigit(event)) {
             event.preventDefault();
         }
