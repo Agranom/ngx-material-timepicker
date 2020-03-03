@@ -136,6 +136,8 @@ Selector: `ngx-material-timepicker`
   closed: EventEmitter\<null\> | Emits after timepicker was closed. |
 | @Output()
   hourSelected: EventEmitter\<number\> | Emits after hour was selected. |
+| @Output()
+  timeChanged: EventEmitter\<string\> | Emits once time was changed. |
   
 #### NgxTimepickerFieldComponent
 
@@ -151,7 +153,7 @@ Selector: `ngx-timepicker-field`
 | @Input()
   disabled: boolean |  Whether the timepicker is disabled| 
 | @Input()
-  toggleIcon: TemplateRef\<HTMLObjectElement> | Provide custom `svg` icon for toggle button |
+  toggleIcon: TemplateRef\<HTMLObjectElement\> | Provide custom `svg` icon for toggle button |
 | @Input()
   buttonAlign: 'right' or 'left' | Positioning toggle button (`right` by default) |
 | @Input()
@@ -161,9 +163,11 @@ Selector: `ngx-timepicker-field`
 | @Input()
   format: number | `12` or `24` . Set format for timepicker. `12` (AM/PM) format by default. |
 | @Input()
-  cancelBtnTmpl: TemplateRef<Node> |  Set if you want to change cancel button for timepicker to your custom one. | 
+  cancelBtnTmpl: TemplateRef\<Node\> |  Set if you want to change cancel button for timepicker to your custom one. | 
 | @Input()
-  confirmBtnTmpl: TemplateRef<Node> | Set if you want to change confirm button for timepicker to your custom one. |
+  confirmBtnTmpl: TemplateRef\<Node\> | Set if you want to change confirm button for timepicker to your custom one. |
+| @Output()
+  timeChanged: EventEmitter\<string\> | Emit a new time once it is changed. |
 
   
 #### NgxMaterialTimepickerToggleComponent

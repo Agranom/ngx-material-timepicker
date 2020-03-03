@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.4.0 (2020-02-29)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix setting time from keyboard,
+fixes [(#243)](https://github.com/Agranom/ngx-material-timepicker/issues/243),
+[(#266)](https://github.com/Agranom/ngx-material-timepicker/issues/266)
+
+* fix(ngx-material-timepicker-dial): + prevent selecting minutes when hoursOnly is true,
+fixes [(#281)](https://github.com/Agranom/ngx-material-timepicker/issues/281)
+
+* fix(ngx-material-timepicker): ! fix invalid DateTime in IE 11,
+fixes [(#222)](https://github.com/Agranom/ngx-material-timepicker/issues/222)
+
+* fix(ngx-material-timepicker): ! fix invalid DateTime when setting 00:++,
+fixes [(#285)](https://github.com/Agranom/ngx-material-timepicker/issues/285)
+
+## 5.3.0 (2019-12-22)
+
+### Fixes
+
+* fix(SSR): change HTMLInputElement types to any
+
+### Features
+
+* feat(ngx-material-timepicker): add export of standalone components,
+closes [(#151)](https://github.com/Agranom/ngx-material-timepicker/issues/151)
+
+* feat(ngx-material-timepicker-field): add `timeChanged` @Output event, that emits once time changes,
+closes [(#207)](https://github.com/Agranom/ngx-material-timepicker/issues/207)
+
+* feat(ngx-material-timepicker): add `timeChanged` @Output event, that emits once time changes
+
+
 ## 5.2.3 (2019-11-21)
 
 ### Fixes

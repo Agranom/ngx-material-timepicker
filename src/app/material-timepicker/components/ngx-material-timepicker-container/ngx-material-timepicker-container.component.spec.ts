@@ -10,6 +10,7 @@ import { TimeUnit } from '../../models/time-unit.enum';
 import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { NgxMaterialTimepickerEventService } from '../../services/ngx-material-timepicker-event.service';
+import { TIME_LOCALE } from '../../tokens/time-locale.token';
 
 @Component({
     template: ''
@@ -19,6 +20,7 @@ class TimepickerBaseRefStub implements TimepickerRef {
 
     @Output() hourSelected = new EventEmitter<number>();
     @Output() timeSet = new EventEmitter<string>();
+    @Output() timeChanged = new EventEmitter<string>();
 
     close(): void {
     }
@@ -41,8 +43,9 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
                 {
                     provide: NgxMaterialTimepickerEventService, useValue: {
                         dispatchEvent: () => null
-                    }
-                }
+                    },
+                },
+                {provide: TIME_LOCALE, useValue: 'en-US'}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
@@ -160,6 +163,15 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             tick();
         }));
+
+        it('should update timeChanged when hour is changed', fakeAsync(() => {
+            const expectedHour: ClockFaceTime = {time: 10, angle: 130};
+
+            component.timepickerBaseRef.timeChanged.subscribe(time => expect(time).toEqual('10:00 AM'));
+            component.onHourChange(expectedHour);
+
+            tick();
+        }));
     });
 
     describe('onMinuteChange', () => {
@@ -169,6 +181,15 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             component.onMinuteChange(expectedMinute);
             component.selectedMinute.subscribe(minute => expect(minute).toEqual(expectedMinute));
+
+            tick();
+        }));
+
+        it('should update timeChanged when minute is changed', fakeAsync(() => {
+            const expectedMinute: ClockFaceTime = {time: 10, angle: 130};
+
+            component.timepickerBaseRef.timeChanged.subscribe(time => expect(time).toEqual('12:10 PM'));
+            component.onMinuteChange(expectedMinute);
 
             tick();
         }));
@@ -184,6 +205,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
             tick();
         }));
+
     });
 
     describe('onHourSelected', () => {
