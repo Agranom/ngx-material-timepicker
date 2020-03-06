@@ -61,6 +61,13 @@ describe('NgxMaterialTimepickerService', () => {
         expect(timepickerService.getFullTime(24)).toBe('12:00');
     });
 
+    it('should return default full time if time is not valid', () => {
+        timepickerService.hour = {angle: 0, time: null};
+        timepickerService.minute = {angle: 0, time: null};
+        expect(timepickerService.getFullTime(12)).toBe('12:00 AM');
+        expect(timepickerService.getFullTime(24)).toBe('12:00');
+    });
+
     it('should change default time', () => {
         let time = '11:15 am';
         timepickerService.setDefaultTimeIfAvailable(time, null, null, 12);
