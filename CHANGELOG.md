@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.4.1 (2020-03-07)
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): fix bug cannot read property 'replace' of null,
+fixes [(#295)](https://github.com/Agranom/ngx-material-timepicker/issues/295)
+
 ## 5.4.0 (2020-02-29)
 
 ### Fixes
