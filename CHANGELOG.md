@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.4.2 (2020-03-11)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix setting time between interval 00:00 - 00:59,
+fixes [(#301)](https://github.com/Agranom/ngx-material-timepicker/issues/301)
+
+
 ## 5.4.1 (2020-03-07)
 
 ### Fixes

@@ -66,8 +66,10 @@ export class NgxMaterialTimepickerService {
     }
 
     getFullTime(format: number): string {
-        const hour = this.hourSubject.getValue().time || DEFAULT_HOUR.time;
-        const minute = this.minuteSubject.getValue().time || DEFAULT_MINUTE.time;
+        const selectedHour = this.hourSubject.getValue().time;
+        const selectedMinute = this.minuteSubject.getValue().time;
+        const hour = selectedHour != null ? selectedHour : DEFAULT_HOUR.time;
+        const minute = selectedMinute != null ? selectedMinute : DEFAULT_MINUTE.time;
         const period = format === 12 ? this.periodSubject.getValue() : '';
         const time = `${hour}:${minute} ${period}`.trim();
 
