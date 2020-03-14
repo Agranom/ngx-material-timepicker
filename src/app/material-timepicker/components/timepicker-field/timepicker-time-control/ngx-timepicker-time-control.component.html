@@ -6,6 +6,7 @@
            (ngModelChange)="onModelChange($event)"
            [placeholder]="placeholder"
            [disabled]="disabled"
+           (keydown)="onKeydown($event)"
            (keypress)="changeTime($event)"
            (focus)="onFocus()"
            (blur)="onBlur()">

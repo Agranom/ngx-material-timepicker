@@ -55,11 +55,15 @@ export class NgxMaterialTimepickerDialControlComponent {
     changeTimeByKeyboard(e: any): void {
         const char = String.fromCharCode(e.keyCode);
 
-        if ((!isDigit(e)) || isTimeDisabledToChange(this.time, char, this.timeList)) {
+        if (isTimeDisabledToChange(this.time, char, this.timeList)) {
             e.preventDefault();
         }
+    }
 
-        if (isDigit(e)) {
+    onKeydown(e: any): void {
+        if (!isDigit(e)) {
+            e.preventDefault();
+        } else {
             this.changeTimeByArrow(e.keyCode);
         }
     }
