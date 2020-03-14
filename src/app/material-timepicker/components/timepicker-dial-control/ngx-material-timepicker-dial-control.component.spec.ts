@@ -68,12 +68,14 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         expect(component.previousTime).toBeUndefined();
     }));
 
-    describe('onKeyDown', () => {
+    describe('changeTimeByKeyboard', () => {
         let counter = 0;
         const event = {
-            keyCode: 0, preventDefault: () => {
+            keyCode: 0,
+            preventDefault: () => {
                 counter++;
-            }
+            },
+            type: 'keypress'
         } as KeyboardEvent;
 
         beforeEach(() => {
@@ -94,12 +96,38 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             component.changeTimeByKeyboard({...event, keyCode: NUM_1});
             expect(counter).toBe(2);
         });
+    });
+
+    describe('onKeyDown', () => {
+        let counter = 0;
+        const event = {
+            keyCode: 0,
+            preventDefault: () => {
+                counter++;
+            },
+            type: 'keydown'
+        } as KeyboardEvent;
+
+        beforeEach(() => {
+            counter = 0;
+            component.timeList = getHours(24);
+        });
+
+
+        it('should call preventDefault when trying to write not a number', () => {
+            const CHAR_A = 65; // a
+            component.time = '1';
+
+            component.onKeydown({...event, keyCode: CHAR_A});
+            expect(counter).toBe(1);
+            expect(component.time).toBe('1');
+        });
 
         it('should up time by 1', () => {
             const ARROW_UP = 38;
             component.time = '11';
 
-            component.changeTimeByKeyboard({...event, keyCode: ARROW_UP});
+            component.onKeydown({...event, keyCode: ARROW_UP});
             expect(component.time).toBe('12');
         });
 
@@ -107,7 +135,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             const ARROW_DOWN = 40;
             component.time = '11';
 
-            component.changeTimeByKeyboard({...event, keyCode: ARROW_DOWN});
+            component.onKeydown({...event, keyCode: ARROW_DOWN});
             expect(component.time).toBe('10');
         });
 
@@ -116,7 +144,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             component.time = '11';
             component.minutesGap = 7;
 
-            component.changeTimeByKeyboard({...event, keyCode: ARROW_UP});
+            component.onKeydown({...event, keyCode: ARROW_UP});
             expect(component.time).toBe('18');
         });
 
@@ -125,7 +153,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             component.time = '11';
             component.minutesGap = 6;
 
-            component.changeTimeByKeyboard({...event, keyCode: ARROW_DOWN});
+            component.onKeydown({...event, keyCode: ARROW_DOWN});
             expect(component.time).toBe('5');
         });
     });

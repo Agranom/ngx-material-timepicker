@@ -41,13 +41,16 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     changeTime(event: any): void {
-        if (!isDigit(event)) {
-            event.preventDefault();
-        }
         const char = String.fromCharCode(event.keyCode);
         const time = concatTime(String(this.time), char);
 
         this.changeTimeIfValid(time);
+    }
+
+    onKeydown(event: any): void {
+        if (!isDigit(event)) {
+            event.preventDefault();
+        }
 
         switch (event.key) {
             case 'ArrowUp':
