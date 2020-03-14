@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.4.3 (2020-03-14)
+
+### Fixes
+
+* fix(ngx-material-timepicker): prevent typing numbers in editable dial,
+fixes [(#305)](https://github.com/Agranom/ngx-material-timepicker/issues/305)
+
+
 ## 5.4.2 (2020-03-11)
 
 ### Fixes

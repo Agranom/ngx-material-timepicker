@@ -82,34 +82,9 @@ describe('NgxTimepickerTimeControlComponent', () => {
         expect(component.time).toBe(1);
     });
 
-
-    describe('onKeydown', () => {
-
-        it('should increase time by 1 when key down arrow up', async(() => {
-            const event: KeyboardEvent = {key: 'ArrowUp'} as KeyboardEvent;
-            component.time = 1;
-            component.timeChanged.subscribe(time => expect(time).toBe(2));
-            component.changeTime(event);
-        }));
-
-        it('should decrease time by 1 when key down arrow down', async(() => {
-            const event: KeyboardEvent = {key: 'ArrowDown'} as KeyboardEvent;
-            component.time = 5;
-            component.timeChanged.subscribe(time => expect(time).toBe(4));
-            component.changeTime(event);
-        }));
-
-        it('should call preventDefault and not change time', () => {
-            let counter = 0;
-            const event = {keyCode: 70, preventDefault: () => counter++};
-            component.time = 1;
-            // @ts-ignore
-            component.changeTime(event as KeyboardEvent);
-            expect(counter).toBe(1);
-        });
-
-        it('should set time to 14 when onKeydown event fires with keycode 52', async(() => {
-            const event = {keyCode: 52}; // 4
+    describe('changeTime', () => {
+        it('should set time to 14 when event fires with keycode 52', async(() => {
+            const event = {keyCode: 52, type: 'keypress'}; // 4
             const expectedTime = 14;
 
             component.time = 1;
@@ -122,7 +97,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
         }));
 
         it('should set time to 4 when provided value more than max', () => {
-            const event = {keyCode: 52}; // 4
+            const event = {keyCode: 52, type: 'keypress'}; // 4
             component.time = 4;
             component.min = 1;
             component.max = 23;
@@ -133,7 +108,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
         });
 
         it('should set time to 22 when provided value less than min', () => {
-            const event = {keyCode: 48}; // 0
+            const event = {keyCode: 48, type: 'keypress'}; // 0
             component.time = 1;
             component.min = 22;
             component.max = 23;
@@ -143,13 +118,39 @@ describe('NgxTimepickerTimeControlComponent', () => {
         });
 
         it('should not change time if value is NaN', () => {
-            const event = {keyCode: 83, preventDefault: () => null}; // s
+            const event = {keyCode: 83, preventDefault: () => null, type: 'keypress'}; // s
             component.time = 1;
             component.min = 1;
             component.max = 23;
 
             component.changeTime(event as KeyboardEvent);
             expect(component.time).toBe(1);
+        });
+    });
+
+    describe('onKeydown', () => {
+
+        it('should increase time by 1 when key down arrow up', async(() => {
+            const event: KeyboardEvent = {key: 'ArrowUp', type: 'keydown'} as KeyboardEvent;
+            component.time = 1;
+            component.timeChanged.subscribe(time => expect(time).toBe(2));
+            component.onKeydown(event);
+        }));
+
+        it('should decrease time by 1 when key down arrow down', async(() => {
+            const event: KeyboardEvent = {key: 'ArrowDown', type: 'keydown'} as KeyboardEvent;
+            component.time = 5;
+            component.timeChanged.subscribe(time => expect(time).toBe(4));
+            component.onKeydown(event);
+        }));
+
+        it('should call preventDefault and not change time', () => {
+            let counter = 0;
+            const event = {keyCode: 70, preventDefault: () => counter++, type: 'keydown'};
+            component.time = 1;
+            // @ts-ignore
+            component.onKeydown(event as KeyboardEvent);
+            expect(counter).toBe(1);
         });
     });
 

@@ -16,5 +16,5 @@
            (ngModelChange)="onModelChange($event)"
            [disabled]="disabled"
            (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
-           [timepickerAutofocus]="isActive" (keypress)="changeTimeByKeyboard($event)">
+           [timepickerAutofocus]="isActive" (keydown)="onKeydown($event)" (keypress)="changeTimeByKeyboard($event)">
 </ng-template>
