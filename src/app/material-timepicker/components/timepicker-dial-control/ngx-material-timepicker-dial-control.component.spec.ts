@@ -96,6 +96,13 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             component.changeTimeByKeyboard({...event, keyCode: NUM_1});
             expect(counter).toBe(2);
         });
+
+        it('should not call preventDefault if provided value is not a number', () => {
+            const CHAR_A = 65; // a
+            component.time = '1';
+
+            component.changeTimeByKeyboard({...event, keyCode: CHAR_A});
+        });
     });
 
     describe('onKeyDown', () => {
@@ -120,6 +127,15 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
             component.onKeydown({...event, keyCode: CHAR_A});
             expect(counter).toBe(1);
+            expect(component.time).toBe('1');
+        });
+
+        it('should do not change time if value other than number and letter is provided', () => {
+            const ARROW_LEFT = 37; // arrow_left
+            component.time = '1';
+
+            component.onKeydown({...event, keyCode: ARROW_LEFT});
+            expect(counter).toBe(0);
             expect(component.time).toBe('1');
         });
 

@@ -61,7 +61,6 @@ export class NgxMaterialTimepickerDialControlComponent {
     }
 
     onKeydown(e: any): void {
-        console.log(e);
         if (!isDigit(e)) {
             e.preventDefault();
         } else {
