@@ -248,9 +248,3 @@ describe('NgxMaterialTimepickerComponent', () => {
         });
     });
 });
-
-export const spyOnFunction = <T>(obj: T, func: keyof T) => {
-    const spy = jasmine.createSpy(func as string);
-    spyOnProperty(obj, func, 'get').and.returnValue(spy);
-    return spy;
-};

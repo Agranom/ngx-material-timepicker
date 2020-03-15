@@ -1,7 +1,7 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { DateTime } from 'luxon';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { getHours } from '../../utils/timepicker-time.utils';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 
 export class NgxMaterialTimepickerHoursFace {
@@ -17,7 +17,7 @@ export class NgxMaterialTimepickerHoursFace {
     hoursList: ClockFaceTime[] = [];
 
     protected constructor(format: number) {
-        this.hoursList = getHours(format);
+        this.hoursList = TimepickerTimeUtils.getHours(format);
     }
 
     onTimeSelected(time: number): void {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgxMaterialTimepickerHoursFace } from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
 import { TimePeriod } from '../../models/time-period.enum';
-import { disableHours } from '../../utils/timepicker-time.utils';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NgxMaterialTimepicker12HoursFaceComponent extends NgxMaterialTimepi
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue) {
-            this.hoursList = disableHours(this.hoursList, {
+            this.hoursList = TimepickerTimeUtils.disableHours(this.hoursList, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
