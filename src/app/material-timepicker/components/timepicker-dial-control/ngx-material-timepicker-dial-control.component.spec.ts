@@ -2,11 +2,11 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
-import { getHours } from '../../utils/timepicker-time.utils';
 import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
 import { TimeParserPipe } from '../../pipes/time-parser.pipe';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 describe('NgxMaterialTimepickerDialControlComponent', () => {
     let fixture: ComponentFixture<NgxMaterialTimepickerDialControlComponent>;
@@ -80,7 +80,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
         beforeEach(() => {
             counter = 0;
-            component.timeList = getHours(24);
+            component.timeList = TimepickerTimeUtils.getHours(24);
         });
 
         it('should call preventDefault if no time exist or time disabled', () => {
@@ -117,7 +117,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
 
         beforeEach(() => {
             counter = 0;
-            component.timeList = getHours(24);
+            component.timeList = TimepickerTimeUtils.getHours(24);
         });
 
 

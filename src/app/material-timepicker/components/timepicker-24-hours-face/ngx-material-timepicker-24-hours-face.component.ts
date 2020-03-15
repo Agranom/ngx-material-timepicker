@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgxMaterialTimepickerHoursFace } from '../timepicker-hours-face/ngx-material-timepicker-hours-face';
-import { disableHours } from '../../utils/timepicker-time.utils';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-24-hours-face',
@@ -15,7 +15,7 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
     }
 
     ngAfterContentInit() {
-        this.hoursList = disableHours(this.hoursList, {
+        this.hoursList = TimepickerTimeUtils.disableHours(this.hoursList, {
             min: this.minTime,
             max: this.maxTime,
             format: this.format
