@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, HostListener, Inject, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -6,16 +6,15 @@ import { TimeAdapter } from '../services/time-adapter';
 import { DateTime } from 'luxon';
 import { TIME_LOCALE } from '../tokens/time-locale.token';
 
-const VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    // tslint:disable-next-line
-    useExisting: forwardRef(() => TimepickerDirective),
-    multi: true
-};
-
 @Directive({
     selector: '[ngxTimepicker]',
-    providers: [VALUE_ACCESSOR],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: TimepickerDirective,
+            multi: true
+        }
+    ],
     host: {
         '[disabled]': 'disabled',
         '(change)': 'updateValue($event.target.value)',
