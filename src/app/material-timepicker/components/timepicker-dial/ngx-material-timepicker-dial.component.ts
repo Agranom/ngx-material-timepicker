@@ -13,8 +13,8 @@ import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { DateTime, Info } from 'luxon';
-import { disableHours, disableMinutes, getHours, getMinutes } from '../../utils/timepicker-time.utils';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -55,9 +55,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['period'] && changes['period'].currentValue
             || changes['format'] && changes['format'].currentValue) {
-            const hours = getHours(this.format);
+            const hours = TimepickerTimeUtils.getHours(this.format);
 
-            this.hours = disableHours(hours, {
+            this.hours = TimepickerTimeUtils.disableHours(hours, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
@@ -66,9 +66,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
         }
         if (changes['period'] && changes['period'].currentValue
             || changes['hour'] && changes['hour'].currentValue) {
-            const minutes = getMinutes(this.minutesGap);
+            const minutes = TimepickerTimeUtils.getMinutes(this.minutesGap);
 
-            this.minutes = disableMinutes(minutes, +this.hour, {
+            this.minutes = TimepickerTimeUtils.disableMinutes(minutes, +this.hour, {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,

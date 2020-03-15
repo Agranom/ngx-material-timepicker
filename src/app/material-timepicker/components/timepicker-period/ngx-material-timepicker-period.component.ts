@@ -4,7 +4,7 @@ import { TimeUnit } from '../../models/time-unit.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { animate, sequence, style, transition, trigger } from '@angular/animations';
 import { DateTime } from 'luxon';
-import { disableHours, disableMinutes } from '../../utils/timepicker-time.utils';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-period',
@@ -59,14 +59,14 @@ export class NgxMaterialTimepickerPeriodComponent {
     private getDisabledTimeByPeriod(period: TimePeriod): ClockFaceTime[] {
         switch (this.activeTimeUnit) {
             case TimeUnit.HOUR:
-                return disableHours(this.hours, {
+                return TimepickerTimeUtils.disableHours(this.hours, {
                     min: this.minTime,
                     max: this.maxTime,
                     format: this.format,
                     period
                 });
             case TimeUnit.MINUTE:
-                return disableMinutes(this.minutes, +this.selectedHour, {
+                return TimepickerTimeUtils.disableMinutes(this.minutes, +this.selectedHour, {
                     min: this.minTime,
                     max: this.maxTime,
                     format: this.format,
