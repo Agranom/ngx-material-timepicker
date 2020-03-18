@@ -7,6 +7,7 @@
         [max]="maxHour"
         [timeUnit]="timeUnit.HOUR"
         [disabled]="disabled"
+        (onTouched)="onTouched()"
         [isDefaultTimeSet]="isDefaultTime"
         (timeChanged)="changeHour($event)"></ngx-timepicker-time-control>
     <span class="ngx-timepicker__time-colon ngx-timepicker__control--second">:</span>
@@ -19,11 +20,13 @@
         [timeUnit]="timeUnit.MINUTE"
         [disabled]="disabled"
         [isDefaultTimeSet]="isDefaultTime"
+        (onTouched)="onTouched()"
         (timeChanged)="changeMinute($event)"></ngx-timepicker-time-control>
     <ngx-timepicker-period-selector
         class="ngx-timepicker__control--forth"
         [selectedPeriod]="period$|async"
         [disabled]="disabled"
+        (onTouched)="onTouched()"
         (periodSelected)="changePeriod($event)"
         *ngIf="format !== 24"></ngx-timepicker-period-selector>
     <ngx-material-timepicker-toggle
@@ -44,6 +47,7 @@
     [format]="format"
     [cancelBtnTmpl]="cancelBtnTmpl"
     [confirmBtnTmpl]="confirmBtnTmpl"
+    (closed)="onTouched()"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
 
 <ng-template #defaultIcon>
