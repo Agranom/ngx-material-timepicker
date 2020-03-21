@@ -9,6 +9,8 @@ import { NgxMaterialTimepickerTheme } from '../../models/ngx-material-timepicker
 import { TimeAdapter } from '../../services/time-adapter';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
+import { DateTime } from 'luxon';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'ngx-timepicker-field',
@@ -34,7 +36,6 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     timeUnit = TimeUnit;
     timepickerTime: string;
-    isDefaultTime: boolean;
 
     @Input() disabled: boolean;
     @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
@@ -66,7 +67,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     @Input()
     set defaultTime(val: string) {
         const time = TimeAdapter.formatTime(val, {locale: this.locale, format: this._format});
-        this.timepickerService.setDefaultTimeIfAvailable(time, null, null, this._format);
+        this.timepickerService.setDefaultTimeIfAvailable(time, this.min as DateTime, this.max as DateTime, this._format);
         this._defaultTime = time;
         this.timepickerTime = time;
         this.isDefaultTime = !!time;
@@ -75,6 +76,36 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     get defaultTime(): string {
         return this._defaultTime;
     }
+
+    @Input()
+    set min(value: string | DateTime) {
+        if (typeof value === 'string') {
+            this._min = TimeAdapter.parseTime(value, {locale: this.locale, format: this.format});
+            return;
+        }
+        this._min = value;
+    }
+
+    get min(): string | DateTime {
+        return this._min;
+    }
+
+    private _min: string | DateTime;
+
+    @Input()
+    set max(value: string | DateTime) {
+        if (typeof value === 'string') {
+            this._max = TimeAdapter.parseTime(value, {locale: this.locale, format: this.format});
+            return;
+        }
+        this._max = value;
+    }
+
+    get max(): string | DateTime {
+        return this._max;
+    }
+
+    private _max: string | DateTime;
 
     @Output() timeChanged = new EventEmitter<string>();
 
@@ -87,6 +118,9 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     private unsubscribe$ = new Subject();
 
+    private isFirstTimeChange = true;
+    private isDefaultTime: boolean;
+
     private onChange: (value: string) => void = () => {
     }
 
@@ -96,8 +130,11 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     ngOnInit() {
         this.period$ = this.timepickerService.selectedPeriod;
-        this.hour$ = this.timepickerService.selectedHour;
-        this.minute$ = this.timepickerService.selectedMinute;
+        this.hour$ = this.timepickerService.selectedHour.pipe(map(this.changeDefaultTimeValue.bind(this)));
+        this.minute$ = this.timepickerService.selectedMinute.pipe(
+            map(this.changeDefaultTimeValue.bind(this)),
+            tap(() => this.isFirstTimeChange = false)
+        ) as Observable<ClockFaceTime>;
 
         this.hoursList = TimepickerTimeUtils.getHours(this._format);
         this.minutesList = TimepickerTimeUtils.getMinutes();
@@ -164,5 +201,12 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
         this.onChange(localTime);
         this.timeChanged.emit(localTime);
+    }
+
+    private changeDefaultTimeValue(clockFaceTime: ClockFaceTime): ClockFaceTime {
+        if (!this.isDefaultTime && this.isFirstTimeChange) {
+            return {...clockFaceTime, time: null};
+        }
+        return clockFaceTime;
     }
 }

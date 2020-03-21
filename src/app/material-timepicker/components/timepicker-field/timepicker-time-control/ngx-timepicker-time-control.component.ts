@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { isDigit } from '../../../utils/timepicker.utils';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
@@ -11,7 +11,7 @@ import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
     providers: [TimeParserPipe]
 })
 
-export class NgxTimepickerTimeControlComponent implements OnChanges {
+export class NgxTimepickerTimeControlComponent  {
 
     @Input() time: number;
     @Input() min: number;
@@ -19,7 +19,6 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     @Input() placeholder: string;
     @Input() timeUnit: TimeUnit;
     @Input() disabled: boolean;
-    @Input() isDefaultTimeSet: boolean;
 
     @Output() timeChanged = new EventEmitter<number>();
 
@@ -28,16 +27,6 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     private previousTime: number;
 
     constructor(private timeParser: TimeParserPipe) {
-    }
-
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const timeChanges = changes['time'];
-        const isTimeNotProvided = timeChanges && timeChanges.isFirstChange() && !this.isDefaultTimeSet;
-
-        if (isTimeNotProvided) {
-            this.time = null;
-        }
     }
 
     changeTime(event: any): void {
