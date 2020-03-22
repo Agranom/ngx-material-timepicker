@@ -60,27 +60,13 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         const isDynamicallyChanged = value && (this.previousFormat && this.previousFormat !== this._format);
 
         if (isDynamicallyChanged) {
-            this.defaultTime = this.timepickerTime;
+            this.updateTime(this.timepickerTime);
         }
         this.previousFormat = this._format;
     }
 
     get format(): number {
         return this._format;
-    }
-
-
-    @Input()
-    set defaultTime(val: string) {
-        const time = TimeAdapter.formatTime(val, {locale: this.locale, format: this._format});
-        this.timepickerService.setDefaultTimeIfAvailable(time, this.min as DateTime, this.max as DateTime, this._format);
-        this._defaultTime = time;
-        this.timepickerTime = time;
-        this.isDefaultTime = !!time;
-    }
-
-    get defaultTime(): string {
-        return this._defaultTime;
     }
 
     @Input()
@@ -109,6 +95,16 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         return this._max;
     }
 
+    @Input()
+    set defaultTime(val: string) {
+        this._defaultTime = val;
+        this.isDefaultTime = !!val;
+    }
+
+    get defaultTime(): string {
+        return this._defaultTime;
+    }
+
     @Output() timeChanged = new EventEmitter<string>();
 
     private _defaultTime: string;
@@ -131,6 +127,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     ngOnInit() {
+        this.updateTime(this.defaultTime);
+
         this.hoursList = TimepickerTimeUtils.getHours(this._format);
         this.minutesList = TimepickerTimeUtils.getMinutes();
 
@@ -144,7 +142,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
             tap(() => this.isFirstTimeChange = false)
         ) as Observable<ClockFaceTime>;
         this.timepickerService.selectedPeriod.pipe(
-            distinctUntilChanged(),
+            distinctUntilChanged<TimePeriod>(),
             tap((period: TimePeriod) => this.period = period),
             takeUntil(this.unsubscribe$)
         ).subscribe(() => this.updateAvailableTime());
@@ -154,7 +152,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     writeValue(val: string): void {
         if (val) {
-            this.defaultTime = val;
+            this.updateTime(val);
         } else {
             this.resetTime();
         }
@@ -187,7 +185,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     onTimeSet(time: string): void {
-        this.defaultTime = time;
+        this.updateTime(time);
         this.emitLocalTimeChange(time);
     }
 
@@ -243,6 +241,14 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     private updateAvailableTime(): void {
         this.updateAvailableHours();
         this.updateAvailableMinutes();
+    }
+
+    private updateTime(time: string): void {
+        if (time) {
+            const formattedTime = TimeAdapter.formatTime(time, {locale: this.locale, format: this.format});
+            this.timepickerService.setDefaultTimeIfAvailable(formattedTime, this.min as DateTime, this.max as DateTime, this.format);
+            this.timepickerTime = formattedTime;
+        }
     }
 
 }

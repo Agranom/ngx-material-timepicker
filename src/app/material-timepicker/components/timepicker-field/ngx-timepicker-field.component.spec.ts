@@ -6,6 +6,7 @@ import { TimePeriod } from '../../models/time-period.enum';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
+import { TimeAdapter } from '../../services/time-adapter';
 
 describe('NgxTimepickerFieldComponent', () => {
     let component: NgxTimepickerFieldComponent;
@@ -37,6 +38,15 @@ describe('NgxTimepickerFieldComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('should update time if defaultTime is provided', () => {
+        component.timepickerTime = '';
+        component.defaultTime = '11:12 am';
+        component.format = 12;
+
+        component.ngOnInit();
+        expect(component.timepickerTime.toLowerCase()).toBe('11:12 am');
+    });
+
     describe('Format', () => {
 
         it('should set 24-hours format', () => {
@@ -49,15 +59,15 @@ describe('NgxTimepickerFieldComponent', () => {
             expect(component.format).toBe(12);
         });
 
-        it('should set defaultTime when change format dynamically', () => {
-            const spy = spyOnProperty(component, 'defaultTime', 'set');
+        it('should update defaultTime when change format dynamically', () => {
+            const spy = spyOn(TimeAdapter, 'formatTime');
             component.timepickerTime = '23:00';
             component.format = 24;
 
             expect(spy).toHaveBeenCalledTimes(0);
 
             component.format = 12;
-            expect(spy).toHaveBeenCalledWith('23:00');
+            expect(spy).toHaveBeenCalledWith('23:00', {locale: TimeAdapter.DEFAULT_LOCALE, format: 12});
         });
     });
 
@@ -70,26 +80,13 @@ describe('NgxTimepickerFieldComponent', () => {
         expect(component.maxHour).toBe(23);
     });
 
-    it('should change default time', fakeAsync(() => {
-        const time = '11:15 am';
-        component.defaultTime = time;
-
-        expect(component.defaultTime.toLowerCase()).toBe(time);
-
-        tick();
-
-        component.hour$.subscribe(hour => expect(hour.time).toBe(11));
-        component.minute$.subscribe(minute => expect(minute.time).toBe(15));
-        expect(component.period).toBe(TimePeriod.AM);
-    }));
-
     describe('writeValue', () => {
 
-        it('should change default time when writeValue called ', fakeAsync(() => {
+        it('should update time when writeValue called ', fakeAsync(() => {
             const time = '10:13 pm';
             component.writeValue(time);
 
-            expect(component.defaultTime.toLowerCase()).toBe(time);
+            expect(component.timepickerTime.toLowerCase()).toBe(time);
 
             tick();
 
@@ -101,7 +98,7 @@ describe('NgxTimepickerFieldComponent', () => {
         it('should set hour and minute value to null', fakeAsync(() => {
             component.writeValue(null);
 
-            expect(component.defaultTime).toBeUndefined();
+            expect(component.timepickerTime).toBeUndefined();
 
             tick();
 
@@ -172,7 +169,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
         component.onTimeSet(timeMock);
 
-        expect(component.defaultTime.toLowerCase()).toBe(expectedTime);
+        expect(component.timepickerTime.toLowerCase()).toBe(expectedTime);
         expect(time.toLowerCase()).toBe(expectedTime);
         component.hour$.subscribe(hour => expect(hour.time).toBe(2));
         component.minute$.subscribe(minute => expect(minute.time).toBe(5));
@@ -188,7 +185,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
             it('should convert time from string to DateTime', () => {
                 component.min = '11:20 am';
-                const min: DateTime = component.min as  unknown as DateTime;
+                const min: DateTime = component.min as unknown as DateTime;
                 expect(min.hour).toBe(11);
                 expect(min.minute).toBe(20);
             });
@@ -203,7 +200,7 @@ describe('NgxTimepickerFieldComponent', () => {
 
             it('should convert time from string to DateTime', () => {
                 component.max = '11:20 am';
-                const max: DateTime = component.max as  unknown as DateTime;
+                const max: DateTime = component.max as unknown as DateTime;
                 expect(max.hour).toBe(11);
                 expect(max.minute).toBe(20);
             });
