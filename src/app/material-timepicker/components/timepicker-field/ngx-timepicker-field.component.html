@@ -7,6 +7,8 @@
         [max]="maxHour"
         [timeUnit]="timeUnit.HOUR"
         [disabled]="disabled"
+        [timeList]="hoursList"
+        [preventTyping]="isTimeRangeSet"
         (timeChanged)="changeHour($event)"></ngx-timepicker-time-control>
     <span class="ngx-timepicker__time-colon ngx-timepicker__control--second">:</span>
     <ngx-timepicker-time-control
@@ -17,10 +19,12 @@
         [max]="59"
         [timeUnit]="timeUnit.MINUTE"
         [disabled]="disabled"
+        [timeList]="minutesList"
+        [preventTyping]="isTimeRangeSet"
         (timeChanged)="changeMinute($event)"></ngx-timepicker-time-control>
     <ngx-timepicker-period-selector
         class="ngx-timepicker__control--forth"
-        [selectedPeriod]="period$|async"
+        [selectedPeriod]="period"
         [disabled]="disabled"
         (periodSelected)="changePeriod($event)"
         *ngIf="format !== 24"></ngx-timepicker-period-selector>

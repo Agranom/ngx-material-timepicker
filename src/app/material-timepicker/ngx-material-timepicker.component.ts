@@ -33,6 +33,8 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() defaultTime: string;
     @Input() timepickerClass: string;
     @Input() theme: NgxMaterialTimepickerTheme;
+    @Input() min: DateTime;
+    @Input() max: DateTime;
     /**
      * @deprecated Since version 5.1.1. Will be deleted on version 6.0.0. Use @Input() theme instead
      */
@@ -81,11 +83,11 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     }
 
     get minTime(): DateTime {
-        return this.timepickerInput && (this.timepickerInput.min as DateTime);
+        return this.timepickerInput ? (this.timepickerInput.min as DateTime) : this.min;
     }
 
     get maxTime(): DateTime {
-        return this.timepickerInput && (this.timepickerInput.max as DateTime);
+        return this.timepickerInput ? (this.timepickerInput.max as DateTime) : this.max;
     }
 
     get disabled(): boolean {

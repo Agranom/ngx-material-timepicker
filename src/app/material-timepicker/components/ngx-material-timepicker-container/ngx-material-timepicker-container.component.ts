@@ -73,8 +73,15 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
 
     @Input()
     set defaultTime(time: string) {
+        this._defaultTime = time;
         this.setDefaultTime(time);
     }
+
+    get defaultTime(): string {
+        return this._defaultTime;
+    }
+
+    private _defaultTime: string;
 
     private unsubscribe = new Subject();
 
@@ -167,7 +174,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     private defineTime(): void {
         const minTime = this.minTime;
 
-        if (minTime && !this.time) {
+        if (minTime && (!this.time && !this.defaultTime)) {
             const time = TimeAdapter.fromDateTimeToString(minTime, this.format);
 
             this.setDefaultTime(time);
