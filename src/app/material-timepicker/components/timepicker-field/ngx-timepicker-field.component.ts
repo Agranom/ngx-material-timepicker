@@ -42,6 +42,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     minutesList: ClockFaceTime[];
 
     isTimeRangeSet: boolean;
+    isChangePeriodDisabled: boolean;
 
     @Input() disabled: boolean;
     @Input() toggleIcon: TemplateRef<HTMLObjectElement>;
@@ -127,10 +128,11 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     ngOnInit() {
-        this.updateTime(this.defaultTime);
+        this.initTime(this.defaultTime);
 
         this.hoursList = TimepickerTimeUtils.getHours(this._format);
         this.minutesList = TimepickerTimeUtils.getMinutes();
+        this.isTimeRangeSet = !!(this.min || this.max);
 
         this.hour$ = this.timepickerService.selectedHour.pipe(
             tap((clockTime: ClockFaceTime) => this.selectedHour = clockTime.time),
@@ -141,13 +143,16 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
             map(this.changeDefaultTimeValue.bind(this)),
             tap(() => this.isFirstTimeChange = false)
         ) as Observable<ClockFaceTime>;
-        this.timepickerService.selectedPeriod.pipe(
-            distinctUntilChanged<TimePeriod>(),
-            tap((period: TimePeriod) => this.period = period),
-            takeUntil(this.unsubscribe$)
-        ).subscribe(() => this.updateAvailableTime());
 
-        this.isTimeRangeSet = !!(this.min || this.max);
+        if (this.format === 12) {
+            this.timepickerService.selectedPeriod.pipe(
+                distinctUntilChanged<TimePeriod>(),
+                tap((period: TimePeriod) => this.period = period),
+                tap(period => this.isChangePeriodDisabled = this.isPeriodDisabled(period)),
+                takeUntil(this.unsubscribe$)
+            ).subscribe(() => this.updateAvailableTime());
+        }
+
     }
 
     writeValue(val: string): void {
@@ -249,6 +254,31 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
             this.timepickerService.setDefaultTimeIfAvailable(formattedTime, this.min as DateTime, this.max as DateTime, this.format);
             this.timepickerTime = formattedTime;
         }
+    }
+
+    private initTime(time): void {
+        const isDefaultTimeAvailable = TimeAdapter
+            .isTimeAvailable(time, this.min as DateTime, this.max as DateTime, 'minutes', null, this.format);
+        if (!isDefaultTimeAvailable) {
+            if (this.min) {
+                this.updateTime(TimeAdapter.fromDateTimeToString(this.min as DateTime, this.format));
+                return;
+            }
+            if (this.max) {
+                this.updateTime(TimeAdapter.fromDateTimeToString(this.max as DateTime, this.format));
+                return;
+            }
+        }
+        this.updateTime(time);
+    }
+
+    private isPeriodDisabled(period): boolean {
+        return TimepickerTimeUtils.disableHours(TimepickerTimeUtils.getHours(12), {
+            min: this.min as DateTime,
+            max: this.max as DateTime,
+            format: 12,
+            period: period === TimePeriod.AM ? TimePeriod.PM : TimePeriod.AM
+        }).every(time => time.disabled);
     }
 
 }

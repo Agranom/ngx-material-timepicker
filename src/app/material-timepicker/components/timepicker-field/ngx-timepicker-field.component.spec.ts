@@ -38,14 +38,67 @@ describe('NgxTimepickerFieldComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update time if defaultTime is provided', () => {
-        component.timepickerTime = '';
-        component.defaultTime = '11:12 am';
-        component.format = 12;
+    describe('ngOnInit', () => {
 
-        component.ngOnInit();
-        expect(component.timepickerTime.toLowerCase()).toBe('11:12 am');
+        it('should update time if defaultTime is provided', () => {
+            component.timepickerTime = '';
+            component.defaultTime = '11:12 am';
+            component.format = 12;
+
+            component.ngOnInit();
+            expect(component.timepickerTime.toLowerCase()).toBe('11:12 am');
+        });
+
+        it('should set default time as min value when provided defaultTime is not valid', () => {
+            const expectedTime = '11:11 am';
+            component.timepickerTime = '';
+            component.format = 12;
+            component.min = DateTime.fromObject({hour: 11, minute: 11});
+
+            component.ngOnInit();
+            expect(component.timepickerTime.toLowerCase()).toBe(expectedTime);
+
+            component.defaultTime = '10:00 am';
+            component.ngOnInit();
+            expect(component.timepickerTime.toLowerCase()).toBe(expectedTime);
+        });
+
+        it('should set default time as max value when provided defaultTime is not valid and min is not provided', () => {
+            const expectedTime = '9:11 am';
+            component.timepickerTime = '';
+            component.format = 12;
+            component.max = DateTime.fromObject({hour: 9, minute: 11});
+
+            component.ngOnInit();
+            expect(component.timepickerTime.toLowerCase()).toBe(expectedTime);
+
+            component.defaultTime = '10:00 am';
+            component.ngOnInit();
+            expect(component.timepickerTime.toLowerCase()).toBe(expectedTime);
+        });
+
+        it('should set isChangePeriodDisabled to true', fakeAsync(() => {
+            component.format = 12;
+            component.isChangePeriodDisabled = false;
+            component.defaultTime = '09:00 am';
+            component.max = DateTime.fromObject({hour: 9, minute: 11});
+
+            component.ngOnInit();
+            tick();
+            expect(component.isChangePeriodDisabled).toBeTruthy();
+        }));
+
+        it('should not change period when format is 24', fakeAsync(() => {
+            component.format = 24;
+            component.period = undefined;
+
+            component.ngOnInit();
+            tick();
+
+            expect(component.period).toBeUndefined();
+        }));
     });
+
 
     describe('Format', () => {
 

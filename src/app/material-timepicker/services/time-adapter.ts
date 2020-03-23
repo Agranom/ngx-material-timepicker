@@ -50,7 +50,7 @@ export class TimeAdapter {
         min?: DateTime,
         max?: DateTime,
         granularity?: 'hours' | 'minutes',
-        minutesGap?: number,
+        minutesGap?: number | null,
         format?: number
     ): boolean {
         if (!time) {

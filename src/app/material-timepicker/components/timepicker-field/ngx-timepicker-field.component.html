@@ -25,7 +25,7 @@
     <ngx-timepicker-period-selector
         class="ngx-timepicker__control--forth"
         [selectedPeriod]="period"
-        [disabled]="disabled"
+        [disabled]="disabled || isChangePeriodDisabled"
         (periodSelected)="changePeriod($event)"
         *ngIf="format !== 24"></ngx-timepicker-period-selector>
     <ngx-material-timepicker-toggle
