@@ -7,6 +7,7 @@ import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
 import { TimeAdapter } from '../../services/time-adapter';
+import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 describe('NgxTimepickerFieldComponent', () => {
     let component: NgxTimepickerFieldComponent;
@@ -96,6 +97,32 @@ describe('NgxTimepickerFieldComponent', () => {
             tick();
 
             expect(component.period).toBeUndefined();
+        }));
+
+        it('should call TimepickerTimeUtils.disableMinutes when hour changes and min/max are set', fakeAsync(() => {
+            const spy = spyOn(TimepickerTimeUtils, 'disableMinutes');
+            const minutes = [{time: 1, angle: 0}];
+            const format = 12;
+            const min = DateTime.fromObject({hour: 11, minute: 12});
+            const max = DateTime.fromObject({hour: 11, minute: 12});
+            const hour = 2;
+            const period = TimePeriod.AM;
+            component.format = format;
+            component.min = min;
+            component.max = max;
+            component.minutesList = minutes;
+            component.period = period;
+            component.isTimeRangeSet = true;
+            component.changeHour(hour);
+
+            tick();
+            expect(spy).toHaveBeenCalledWith(minutes, hour, {min, max, format, period});
+
+            component.isTimeRangeSet = false;
+            component.changeHour(3);
+            tick();
+
+            expect(spy).toHaveBeenCalledTimes(1);
         }));
     });
 

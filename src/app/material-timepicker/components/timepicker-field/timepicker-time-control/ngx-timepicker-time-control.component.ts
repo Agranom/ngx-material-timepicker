@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { isDigit } from '../../../utils/timepicker.utils';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
@@ -12,7 +12,7 @@ import { ClockFaceTime } from '../../../models/clock-face-time.interface';
     providers: [TimeParserPipe]
 })
 
-export class NgxTimepickerTimeControlComponent {
+export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     @Input() time: number;
     @Input() min: number;
@@ -30,6 +30,14 @@ export class NgxTimepickerTimeControlComponent {
     private previousTime: number;
 
     constructor(private timeParser: TimeParserPipe) {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.timeList) {
+            if (this.isSelectedTimeDisabled(this.time)) {
+                this.setAvailableTime();
+            }
+        }
     }
 
     changeTime(event: any): void {
@@ -159,6 +167,11 @@ export class NgxTimepickerTimeControlComponent {
     private getAvailableTime(currentTime: number, fn: (index: number) => number | undefined): number | undefined {
         const currentTimeIndex = this.timeList.findIndex(time => time.time === currentTime);
         return fn(currentTimeIndex);
+    }
+
+    private setAvailableTime(): void {
+        this.time = this.timeList.find(t => !t.disabled)?.time;
+        this.timeChanged.emit(this.time);
     }
 }
 

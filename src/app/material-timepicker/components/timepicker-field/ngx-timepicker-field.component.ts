@@ -137,7 +137,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         this.hour$ = this.timepickerService.selectedHour.pipe(
             tap((clockTime: ClockFaceTime) => this.selectedHour = clockTime.time),
             map(this.changeDefaultTimeValue.bind(this)),
-            tap(() => this.updateAvailableMinutes())
+            tap(() => this.isTimeRangeSet && this.updateAvailableMinutes())
         ) as Observable<ClockFaceTime>;
         this.minute$ = this.timepickerService.selectedMinute.pipe(
             map(this.changeDefaultTimeValue.bind(this)),
@@ -150,14 +150,14 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
                 tap((period: TimePeriod) => this.period = period),
                 tap(period => this.isChangePeriodDisabled = this.isPeriodDisabled(period)),
                 takeUntil(this.unsubscribe$)
-            ).subscribe(() => this.updateAvailableTime());
+            ).subscribe(() => this.isTimeRangeSet && this.updateAvailableTime());
         }
 
     }
 
     writeValue(val: string): void {
         if (val) {
-            this.updateTime(val);
+            this.initTime(val);
         } else {
             this.resetTime();
         }
@@ -200,7 +200,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     private changeTime(): void {
-        const time = this.timepickerService.getFullTime(this._format);
+        const time = this.timepickerService.getFullTime(this.format);
         this.timepickerTime = time;
 
         this.emitLocalTimeChange(time);

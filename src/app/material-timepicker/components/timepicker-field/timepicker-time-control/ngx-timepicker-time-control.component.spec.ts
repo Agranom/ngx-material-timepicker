@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 import { DateTime } from 'luxon';
@@ -252,37 +252,49 @@ describe('NgxTimepickerTimeControlComponent', () => {
     });
 
 
-    // describe('ngOnChanges', () => {
-    //     const changes: SimpleChanges = {
-    //         time: {
-    //             currentValue: 10,
-    //             firstChange: true,
-    //             isFirstChange: () => true,
-    //             previousValue: undefined
-    //         }
-    //     };
-    //
-    //     it('should set time to null', () => {
-    //         component.time = 7;
-    //         component.isDefaultTimeSet = false;
-    //         component.ngOnChanges(changes);
-    //
-    //         expect(component.time).toBeNull();
-    //     });
-    //
-    //     it('should not change time', () => {
-    //         const isFirstChange = () => false;
-    //         component.time = 7;
-    //         component.ngOnChanges({time: {...changes.time, isFirstChange}});
-    //
-    //         expect(component.time).toBe(7);
-    //
-    //         component.isDefaultTimeSet = true;
-    //         component.ngOnChanges(changes);
-    //
-    //         expect(component.time).toBe(7);
-    //     });
-    // });
+    describe('ngOnChanges', () => {
+        let changes: SimpleChanges;
+
+        beforeEach(() => {
+            changes = {
+                timeList: {
+                    currentValue: [],
+                    firstChange: true,
+                    isFirstChange: () => true,
+                    previousValue: undefined,
+                }
+            };
+        });
+
+        it('should set time to 1 and emit it when current time is disabled', async(() => {
+            component.time = 2;
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: true},
+                {time: 3, angle: 0, disabled: false},
+            ];
+            component.timeChanged.subscribe(time => expect(time).toBe(1));
+            component.ngOnChanges(changes);
+
+            expect(component.time).toBe(1);
+        }));
+
+        it('should not change and emit time when current time is not disabled', fakeAsync(() => {
+            let counter = 0;
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+            ];
+            component.time = 2;
+            component.timeChanged.subscribe(() => counter++);
+            component.ngOnChanges(changes);
+
+            tick();
+            expect(component.time).toBe(2);
+            expect(counter).toBe(0);
+        }));
+    });
 
     describe('onModelChange', () => {
 
