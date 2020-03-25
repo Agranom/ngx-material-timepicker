@@ -124,6 +124,30 @@ describe('NgxTimepickerFieldComponent', () => {
 
             expect(spy).toHaveBeenCalledTimes(1);
         }));
+
+        it('should not call TimepickerTimeUtils.disableMinutes when selectedHour is undefined', fakeAsync(() => {
+            const spy = spyOn(TimepickerTimeUtils, 'disableMinutes');
+            const minutes = [{time: 1, angle: 0}];
+            const format = 12;
+            const min = DateTime.fromObject({hour: 11, minute: 12});
+            const max = DateTime.fromObject({hour: 11, minute: 12});
+            const hour = 3;
+            const period = TimePeriod.AM;
+            component.format = format;
+            component.min = min;
+            component.max = max;
+            component.minutesList = minutes;
+            component.isTimeRangeSet = true;
+            component.changePeriod(period);
+
+            tick();
+            expect(spy).toHaveBeenCalledTimes(0);
+
+            component.changeHour(hour);
+            tick();
+
+            expect(spy).toHaveBeenCalledWith(minutes, hour, {min, max, format, period});
+        }));
     });
 
 

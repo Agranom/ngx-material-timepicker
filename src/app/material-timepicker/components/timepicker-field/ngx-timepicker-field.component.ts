@@ -245,7 +245,9 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     private updateAvailableTime(): void {
         this.updateAvailableHours();
-        this.updateAvailableMinutes();
+        if (this.selectedHour) {
+            this.updateAvailableMinutes();
+        }
     }
 
     private updateTime(time: string): void {
