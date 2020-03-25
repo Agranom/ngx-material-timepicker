@@ -236,6 +236,23 @@
                 </div>
             </section>
             <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="minMaxFieldExamples">Min and Max value</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Set up min or max value (or both) for the timepicker.
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <ngx-timepicker-field [min]="'03:15 am'"></ngx-timepicker-field>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <ngx-timepicker-field [max]="'06:18 pm'"></ngx-timepicker-field>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <ngx-timepicker-field min="12:10 am" max="08:11 pm"></ngx-timepicker-field>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
                 <app-example-source-code [sourceCode]="toggleSettings">Examples with toggle</app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">
                     <p class="ngx-material-timepicker-example__description">
@@ -261,7 +278,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 5.4.3</p>
+            <p class="footer__version">Current version 5.5.0</p>
         </div>
     </footer>
 </div>

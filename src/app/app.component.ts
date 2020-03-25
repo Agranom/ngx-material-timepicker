@@ -203,4 +203,16 @@ export class AppComponent {
                 [appendToInput]="true"></ngx-material-timepicker>
         </div>
     `;
+
+    minMaxFieldExamples = `
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [min]="'03:15 am'"></ngx-timepicker-field>
+        </div>
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [max]="'06:18 pm'"></ngx-timepicker-field>
+        </div>
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field min="12:10 am" max="08:11 pm"></ngx-timepicker-field>
+        </div>
+    `;
 }

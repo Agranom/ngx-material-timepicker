@@ -166,6 +166,10 @@ Selector: `ngx-timepicker-field`
   cancelBtnTmpl: TemplateRef\<Node\> |  Set if you want to change cancel button for timepicker to your custom one. | 
 | @Input()
   confirmBtnTmpl: TemplateRef\<Node\> | Set if you want to change confirm button for timepicker to your custom one. |
+| @Input()
+  min: string or DateTime | Set min time for timepicker (`11:15 pm` ) |
+| @Input()
+  max: string or DateTime | Set max time for timepicker (`11:15 pm` ) |
 | @Output()
   timeChanged: EventEmitter\<string\> | Emit a new time once it is changed. |
 
