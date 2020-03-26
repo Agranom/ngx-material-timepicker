@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.0 (2020-03-25)
+
+### Features
+
+* feat(ngx-material-timepicker-field): add `min` and `max` time limits,
+closes [(#184)](https://github.com/Agranom/ngx-material-timepicker/issues/184)
+
+### Fixes
+
+* feat(ngx-material-timepicker): fix error that shows after closing timepicker without time changed in 24 format,
+fixes [(#311)](https://github.com/Agranom/ngx-material-timepicker/issues/311)
+
+
 ## 5.4.3 (2020-03-14)
 
 ### Fixes

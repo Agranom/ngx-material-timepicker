@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { isDigit } from '../../../utils/timepicker.utils';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
+import { ClockFaceTime } from '../../../models/clock-face-time.interface';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
@@ -19,7 +20,8 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     @Input() placeholder: string;
     @Input() timeUnit: TimeUnit;
     @Input() disabled: boolean;
-    @Input() isDefaultTimeSet: boolean;
+    @Input() timeList: ClockFaceTime[];
+    @Input() preventTyping: boolean;
 
     @Output() timeChanged = new EventEmitter<number>();
 
@@ -30,17 +32,17 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     constructor(private timeParser: TimeParserPipe) {
     }
 
-
     ngOnChanges(changes: SimpleChanges): void {
-        const timeChanges = changes['time'];
-        const isTimeNotProvided = timeChanges && timeChanges.isFirstChange() && !this.isDefaultTimeSet;
-
-        if (isTimeNotProvided) {
-            this.time = null;
+        if (changes.timeList) {
+            if (this.isSelectedTimeDisabled(this.time)) {
+                this.setAvailableTime();
+            }
         }
     }
 
     changeTime(event: any): void {
+        event.stopPropagation();
+
         const char = String.fromCharCode(event.keyCode);
         const time = concatTime(String(this.time), char);
 
@@ -48,6 +50,8 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     onKeydown(event: any): void {
+        event.stopPropagation();
+
         if (!isDigit(event)) {
             event.preventDefault();
         }
@@ -60,6 +64,10 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
                 this.decrease();
                 break;
         }
+
+        if (this.preventTyping && event.key !== 'Tab') {
+            event.preventDefault();
+        }
     }
 
     increase(): void {
@@ -70,7 +78,13 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
                 nextTime = this.min;
             }
 
-            this.timeChanged.emit(nextTime);
+            if (this.isSelectedTimeDisabled(nextTime)) {
+                nextTime = this.getAvailableTime(nextTime, this.getNextAvailableTime.bind(this)) ?? this.time;
+            }
+
+            if (nextTime !== this.time) {
+                this.timeChanged.emit(nextTime);
+            }
         }
     }
 
@@ -82,7 +96,13 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
                 previousTime = this.max;
             }
 
-            this.timeChanged.emit(previousTime);
+            if (this.isSelectedTimeDisabled(previousTime)) {
+                previousTime = this.getAvailableTime(previousTime, this.getPrevAvailableTime.bind(this)) ?? this.time;
+            }
+
+            if (previousTime !== this.time) {
+                this.timeChanged.emit(previousTime);
+            }
         }
     }
 
@@ -118,6 +138,40 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
 
             this.timeChanged.emit(this.time);
         }
+    }
+
+    private isSelectedTimeDisabled(time: number): boolean {
+        return this.timeList.find((faceTime: ClockFaceTime) => faceTime.time === time)?.disabled;
+    }
+
+    private getNextAvailableTime(index: number): number | undefined {
+        const timeCollection = this.timeList;
+        const maxValue = timeCollection.length;
+        for (let i = index + 1; i < maxValue; i++) {
+            const time = timeCollection[i];
+            if (!time.disabled) {
+                return time.time;
+            }
+        }
+    }
+
+    private getPrevAvailableTime(index: number): number | undefined {
+        for (let i = index; i >= 0; i--) {
+            const time = this.timeList[i];
+            if (!time.disabled) {
+                return time.time;
+            }
+        }
+    }
+
+    private getAvailableTime(currentTime: number, fn: (index: number) => number | undefined): number | undefined {
+        const currentTimeIndex = this.timeList.findIndex(time => time.time === currentTime);
+        return fn(currentTimeIndex);
+    }
+
+    private setAvailableTime(): void {
+        this.time = this.timeList.find(t => !t.disabled)?.time;
+        this.timeChanged.emit(this.time);
     }
 }
 

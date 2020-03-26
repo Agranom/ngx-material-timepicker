@@ -26,65 +26,126 @@ describe('NgxTimepickerTimeControlComponent', () => {
         fixture.detectChanges();
     });
 
+    describe('increase', () => {
 
-    it('should increase time', async(() => {
-        component.time = 1;
-        component.min = 1;
-        component.max = 12;
-        component.disabled = false;
+        beforeEach(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: true},
+            ];
+            component.min = 1;
+            component.max = 12;
+            component.disabled = false;
+        });
 
-        component.timeChanged.subscribe(t => expect(t).toBe(2));
+        it('should increase time', async(() => {
+            component.time = 1;
+            component.timeChanged.subscribe(t => expect(t).toBe(2));
 
-        component.increase();
-    }));
+            component.increase();
+        }));
 
-    it('should set time to min when increase time', async(() => {
-        component.time = 12;
-        component.min = 1;
-        component.max = 12;
-        component.disabled = false;
+        it('should set time to min when increase time', async(() => {
+            component.time = 12;
+            component.timeChanged.subscribe(t => expect(t).toBe(1));
 
-        component.timeChanged.subscribe(t => expect(t).toBe(1));
+            component.increase();
+        }));
 
-        component.increase();
-    }));
+        it('should change time to the nearest available next time', async(() => {
+            component.timeList = [
+                {time: 1, angle: 0},
+                {time: 2, angle: 0, disabled: true},
+                {time: 3, angle: 0},
+            ];
+            component.time = 1;
+            component.timeChanged.subscribe((t) => expect(t).toBe(3));
 
-    it('should decrease time', async(() => {
-        component.time = 5;
-        component.min = 1;
-        component.max = 12;
-        component.disabled = false;
+            component.increase();
+        }));
 
-        component.timeChanged.subscribe(t => expect(t).toBe(4));
+        it('should not change time when all next time is disabled', async(() => {
+            let counter = 0;
+            component.time = 2;
+            component.timeChanged.subscribe(() => counter++);
 
-        component.decrease();
-    }));
+            component.increase();
 
-    it('should set time to max when decrease time', async(() => {
-        component.time = 1;
-        component.min = 1;
-        component.max = 12;
-        component.disabled = false;
-
-        component.timeChanged.subscribe(t => expect(t).toBe(12));
-
-        component.decrease();
-    }));
-
-    it('should not call increase or decrease if disabled true', () => {
-        component.time = 1;
-        component.disabled = true;
-
-        component.increase();
-        expect(component.time).toBe(1);
-
-        component.decrease();
-        expect(component.time).toBe(1);
+            expect(counter).toBe(0);
+        }));
     });
 
+    describe('decrease', () => {
+
+        beforeEach(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: true},
+                {time: 3, angle: 0, disabled: false},
+            ];
+            component.min = 1;
+            component.max = 3;
+            component.disabled = false;
+        });
+
+        it('should decrease time', async(() => {
+            component.time = 2;
+            component.timeChanged.subscribe(t => expect(t).toBe(1));
+
+            component.decrease();
+        }));
+
+        it('should set time to max when decrease time', async(() => {
+            component.time = 1;
+            component.timeChanged.subscribe(t => expect(t).toBe(3));
+
+            component.decrease();
+        }));
+
+        it('should time to nearest available previous time', async(() => {
+            component.time = 3;
+            component.timeChanged.subscribe((t) => expect(t).toBe(1));
+
+            component.decrease();
+        }));
+
+        it('should not change time when all previous time is disabled', async(() => {
+            let counter = 0;
+            component.timeList = [
+                {time: 1, angle: 0, disabled: true},
+                {time: 2, angle: 0, disabled: true},
+                {time: 3, angle: 0},
+            ];
+            component.time = 3;
+            component.timeChanged.subscribe(() => counter++);
+
+            component.decrease();
+            expect(counter).toBe(0);
+        }));
+
+        it('should not call increase or decrease if disabled true', () => {
+            component.time = 1;
+            component.disabled = true;
+
+            component.increase();
+            expect(component.time).toBe(1);
+
+            component.decrease();
+            expect(component.time).toBe(1);
+        });
+    });
+
+
     describe('changeTime', () => {
+        let defaultEvent;
+
+        beforeEach(() => {
+            defaultEvent = {type: 'keypress', stopPropagation: () => null};
+        });
+
         it('should set time to 14 when event fires with keycode 52', async(() => {
-            const event = {keyCode: 52, type: 'keypress'}; // 4
+            const event = {...defaultEvent, keyCode: 52}; // 4
             const expectedTime = 14;
 
             component.time = 1;
@@ -92,23 +153,23 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.max = 59;
             component.timeChanged.subscribe(time => expect(time).toBe(expectedTime));
 
-            component.changeTime(event as KeyboardEvent);
+            component.changeTime(event);
             expect(component.time).toBe(expectedTime);
         }));
 
         it('should set time to 4 when provided value more than max', () => {
-            const event = {keyCode: 52, type: 'keypress'}; // 4
+            const event = {...defaultEvent, keyCode: 52}; // 4
             component.time = 4;
             component.min = 1;
             component.max = 23;
 
-            component.changeTime(event as KeyboardEvent);
+            component.changeTime(event);
 
             expect(component.time).toBe(4);
         });
 
         it('should set time to 22 when provided value less than min', () => {
-            const event = {keyCode: 48, type: 'keypress'}; // 0
+            const event = {...defaultEvent, keyCode: 48}; // 0
             component.time = 1;
             component.min = 22;
             component.max = 23;
@@ -118,73 +179,121 @@ describe('NgxTimepickerTimeControlComponent', () => {
         });
 
         it('should not change time if value is NaN', () => {
-            const event = {keyCode: 83, preventDefault: () => null, type: 'keypress'}; // s
+            const event = {...defaultEvent, keyCode: 83}; // s
             component.time = 1;
             component.min = 1;
             component.max = 23;
 
-            component.changeTime(event as KeyboardEvent);
+            component.changeTime(event);
             expect(component.time).toBe(1);
         });
     });
 
     describe('onKeydown', () => {
+        let defaultEvent;
+        let counter;
+        beforeEach(() => {
+            counter = 0;
+            defaultEvent = {preventDefault: () => counter++, type: 'keydown', stopPropagation: () => null};
+            component.timeList = [
+                {time: 1, angle: 0},
+                {time: 2, angle: 0},
+            ];
+        });
 
         it('should increase time by 1 when key down arrow up', async(() => {
-            const event: KeyboardEvent = {key: 'ArrowUp', type: 'keydown'} as KeyboardEvent;
+            const event = {...defaultEvent, key: 'ArrowUp'};
             component.time = 1;
             component.timeChanged.subscribe(time => expect(time).toBe(2));
             component.onKeydown(event);
         }));
 
         it('should decrease time by 1 when key down arrow down', async(() => {
-            const event: KeyboardEvent = {key: 'ArrowDown', type: 'keydown'} as KeyboardEvent;
-            component.time = 5;
-            component.timeChanged.subscribe(time => expect(time).toBe(4));
+            const event: KeyboardEvent = {...defaultEvent, key: 'ArrowDown'} as KeyboardEvent;
+            component.time = 2;
+            component.timeChanged.subscribe(time => expect(time).toBe(1));
             component.onKeydown(event);
         }));
 
         it('should call preventDefault and not change time', () => {
-            let counter = 0;
-            const event = {keyCode: 70, preventDefault: () => counter++, type: 'keydown'};
+            const event = {...defaultEvent, keyCode: 70};
             component.time = 1;
-            // @ts-ignore
-            component.onKeydown(event as KeyboardEvent);
+
+            component.onKeydown(event);
             expect(counter).toBe(1);
+            expect(component.time).toBe(1);
+        });
+
+        it(`should call preventDefault when preventTyping is true and event.key is not 'Tab' and not change time`, () => {
+            const event = {...defaultEvent, key: 'ArrowLeft'};
+            component.time = 1;
+            component.preventTyping = true;
+
+            component.onKeydown(event);
+            expect(component.time).toBe(1);
+            expect(counter).toBe(1);
+        });
+
+        it(`should not call preventDefault when preventTyping is true and event.key is 'Tab'`, () => {
+            const event = {...defaultEvent, key: 'Tab'};
+            component.preventTyping = true;
+
+            component.onKeydown(event);
+            expect(counter).toBe(0);
+        });
+
+        it(`should not call preventDefault when preventTyping is false and event.key is not 'Tab'`, () => {
+            const event = {...defaultEvent, key: 'ArrowLeft'};
+            component.preventTyping = false;
+
+            component.onKeydown(event);
+            expect(counter).toBe(0);
         });
     });
 
 
     describe('ngOnChanges', () => {
-        const changes: SimpleChanges = {
-            time: {
-                currentValue: 10,
-                firstChange: true,
-                isFirstChange: () => true,
-                previousValue: undefined
-            }
-        };
+        let changes: SimpleChanges;
 
-        it('should set time to null', () => {
-            component.time = 7;
-            component.isDefaultTimeSet = false;
-            component.ngOnChanges(changes);
-
-            expect(component.time).toBeNull();
+        beforeEach(() => {
+            changes = {
+                timeList: {
+                    currentValue: [],
+                    firstChange: true,
+                    isFirstChange: () => true,
+                    previousValue: undefined,
+                }
+            };
         });
 
-        it('should not change time', () => {
-            const isFirstChange = () => false;
-            component.time = 7;
-            component.ngOnChanges({time: {...changes.time, isFirstChange}});
-
-            expect(component.time).toBe(7);
-
-            component.isDefaultTimeSet = true;
+        it('should set time to 1 and emit it when current time is disabled', async(() => {
+            component.time = 2;
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: true},
+                {time: 3, angle: 0, disabled: false},
+            ];
+            component.timeChanged.subscribe(time => expect(time).toBe(1));
             component.ngOnChanges(changes);
 
-            expect(component.time).toBe(7);
-        });
+            expect(component.time).toBe(1);
+        }));
+
+        it('should not change and emit time when current time is not disabled', fakeAsync(() => {
+            let counter = 0;
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+            ];
+            component.time = 2;
+            component.timeChanged.subscribe(() => counter++);
+            component.ngOnChanges(changes);
+
+            tick();
+            expect(component.time).toBe(2);
+            expect(counter).toBe(0);
+        }));
     });
 
     describe('onModelChange', () => {

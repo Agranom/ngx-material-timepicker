@@ -87,6 +87,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
         it('should set default time equal to min time', fakeAsync(() => {
             component.minTime = DateTime.fromObject({hour: 23, minute: 15});
             component.time = undefined;
+            component.defaultTime = undefined;
 
             component.ngOnInit();
 
@@ -101,6 +102,19 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             component.minTime = DateTime.fromObject({hour: 23, minute: 15});
             component.format = 12;
             component.time = '11:11 am';
+
+            component.ngOnInit();
+
+            component.selectedHour.subscribe(hour => expect(hour.time).not.toBe(11));
+            component.selectedMinute.subscribe(minute => !expect(minute.time).not.toBe(15));
+
+            tick();
+        }));
+
+        it('should not set default time equal to minTime if defaultTime is provided', fakeAsync(() => {
+            component.minTime = DateTime.fromObject({hour: 23, minute: 15});
+            component.format = 12;
+            component.defaultTime = '11:11 am';
 
             component.ngOnInit();
 
@@ -142,7 +156,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             component.disableAnimation = false;
             component.ngOnInit();
 
-            expect(component.animationState).toBe('enter');
+            expect(component.animationState).toBe('enter' as AnimationState );
         });
 
         it('should set animationState to false', () => {
