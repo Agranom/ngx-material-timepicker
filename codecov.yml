@@ -1,0 +1,6 @@
+coverage:
+  round: down
+  range: 90..100
+  status:
+    project: no
+    patch: no
