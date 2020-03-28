@@ -54,6 +54,12 @@ describe('TimeAdapter', () => {
             expect(TimeAdapter.formatTime('12:20 am', {format})).toBe('12:20 AM');
             expect(TimeAdapter.formatTime('12:20 am', {format: 33})).toBe('12:20 AM');
         });
+
+        it('should return Invalid Time message when provide invalid time', () => {
+            expect(TimeAdapter.formatTime(null, {format: 12})).toBe('Invalid Time');
+            expect(TimeAdapter.formatTime(undefined, {format: 24})).toBe('Invalid Time');
+            expect(TimeAdapter.formatTime('', {format: 24})).toBe('Invalid Time');
+        });
     });
 
     describe('isTimeAvailable', () => {
