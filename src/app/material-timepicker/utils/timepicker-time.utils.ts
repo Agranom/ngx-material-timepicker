@@ -4,6 +4,7 @@ import { TimeFormat } from '../models/time-format.enum';
 import { DisabledTimeConfig } from '../models/disabled-time-config.interface';
 import { DateTime } from 'luxon';
 
+// @dynamic
 export class TimepickerTimeUtils {
 
   static  getHours(format: number): ClockFaceTime[] {

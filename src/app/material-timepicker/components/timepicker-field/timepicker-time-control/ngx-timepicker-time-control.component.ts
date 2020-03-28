@@ -33,7 +33,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.timeList) {
+        if (changes.timeList && this.time != null) {
             if (this.isSelectedTimeDisabled(this.time)) {
                 this.setAvailableTime();
             }
@@ -79,7 +79,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
             }
 
             if (this.isSelectedTimeDisabled(nextTime)) {
-                nextTime = this.getAvailableTime(nextTime, this.getNextAvailableTime.bind(this)) ?? this.time;
+                nextTime = this.getAvailableTime(nextTime, this.getNextAvailableTime.bind(this));
             }
 
             if (nextTime !== this.time) {
@@ -97,7 +97,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
             }
 
             if (this.isSelectedTimeDisabled(previousTime)) {
-                previousTime = this.getAvailableTime(previousTime, this.getPrevAvailableTime.bind(this)) ?? this.time;
+                previousTime = this.getAvailableTime(previousTime, this.getPrevAvailableTime.bind(this));
             }
 
             if (previousTime !== this.time) {
@@ -141,7 +141,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     private isSelectedTimeDisabled(time: number): boolean {
-        return this.timeList.find((faceTime: ClockFaceTime) => faceTime.time === time)?.disabled;
+        return this.timeList.find((faceTime: ClockFaceTime) => faceTime.time === time).disabled;
     }
 
     private getNextAvailableTime(index: number): number | undefined {
@@ -166,11 +166,13 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     private getAvailableTime(currentTime: number, fn: (index: number) => number | undefined): number | undefined {
         const currentTimeIndex = this.timeList.findIndex(time => time.time === currentTime);
-        return fn(currentTimeIndex);
+        const availableTime = fn(currentTimeIndex);
+
+        return availableTime != null ? availableTime : this.time;
     }
 
     private setAvailableTime(): void {
-        this.time = this.timeList.find(t => !t.disabled)?.time;
+        this.time = this.timeList.find(t => !t.disabled).time;
         this.timeChanged.emit(this.time);
     }
 }
