@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.1 (2020-03-28)
+
+### Fixes
+
+* fix(ngx-material-timepicker): revert to angular 8 and rebuild the package,
+closes [(#315)](https://github.com/Agranom/ngx-material-timepicker/issues/315)
+
+
 ## 5.5.0 (2020-03-25)
 
 ### Features
