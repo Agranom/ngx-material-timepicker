@@ -48,7 +48,7 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "^0.800.3",
         "@angular/animations": "^8.0.0",
-        "@angular/cli": "^8.0.0",
+        "@angular/cli": "^8.3.25",
         "@angular/common": "^8.0.0",
         "@angular/compiler": "^8.0.0",
         "@angular/compiler-cli": "^8.0.0",
@@ -62,6 +62,8 @@
         "@types/jasminewd2": "~2.0.2",
         "@types/node": "~6.0.60",
         "axios": "^0.19.0",
+        "browserslist": "^4.11.0",
+        "caniuse-lite": "^1.0.30001038",
         "codecov": "^3.1.0",
         "codelyzer": "^5.0.1",
         "core-js": "^2.4.1",
