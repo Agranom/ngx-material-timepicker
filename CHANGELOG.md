@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.2 (2020-05-11)
+
+### Fixes
+
+* fix(ngx-material-timepicker): avoid updating time after closing timepicker,
+closes [(#326)](https://github.com/Agranom/ngx-material-timepicker/issues/326)
+
+* fix(ngx-material-timepicker.module): fix NullInjectorError: No provider for InjectionToken TimeLocale for lazy loaded modules,
+closes [(#335)](https://github.com/Agranom/ngx-material-timepicker/issues/335),
+closes [(#259)](https://github.com/Agranom/ngx-material-timepicker/issues/259),
+
 ## 5.5.1 (2020-03-28)
 
 ### Fixes
