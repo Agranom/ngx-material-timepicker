@@ -141,18 +141,12 @@ describe('TimepickerDirective', () => {
         expect(spy).toHaveBeenCalledTimes(2);
     });
 
-    it('should set default time once timepicker is closed and time is available', () => {
-        directive.timepicker = timepickerComponent;
-        directive.value = '11:11 am';
-        timepickerComponent.closed.next();
-        expect(timepickerComponent.defaultTime).toBe('11:11 AM');
-    });
-
-    it('should set time on timeSet output', () => {
+    it('should change value and default time on timeSet output', () => {
         const time = '12:12 PM';
         directive.timepicker = timepickerComponent;
         timepickerComponent.timeSet.next(time);
         expect(directive.value).toBe(time);
+        expect(timepickerComponent.defaultTime).toBe(time);
     });
 
     it('should change time onChange', () => {

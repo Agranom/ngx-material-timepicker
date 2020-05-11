@@ -186,9 +186,8 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
                 this.value = time;
                 this.onChange(this.value);
                 this.onTouched();
+                this.defaultTime = this.value;
             }));
-            this.timepickerSubscriptions.push(
-                this._timepicker.closed.subscribe(() => this.defaultTime = this._value));
         } else {
             throw new Error('NgxMaterialTimepickerComponent is not defined.' +
                 ' Please make sure you passed the timepicker to ngxTimepicker directive');
