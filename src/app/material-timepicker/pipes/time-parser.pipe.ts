@@ -1,7 +1,7 @@
 import { Inject, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { TIME_LOCALE } from '../tokens/time-locale.token';
 import { TimeUnit } from '../models/time-unit.enum';
-import { DateTime, NumberingSystem } from 'luxon';
+import { DateTime } from 'luxon';
 
 type TimeMeasure = 'hour' | 'minute';
 
@@ -11,10 +11,10 @@ type TimeMeasure = 'hour' | 'minute';
 @Injectable()
 export class TimeParserPipe implements PipeTransform {
 
-    private readonly numberingSystem: NumberingSystem;
+    private readonly numberingSystem: string;
 
     constructor(@Inject(TIME_LOCALE) private locale: string) {
-        this.numberingSystem = DateTime.local().setLocale(this.locale).resolvedLocaleOpts().numberingSystem as NumberingSystem;
+        this.numberingSystem = DateTime.local().setLocale(this.locale).resolvedLocaleOpts().numberingSystem;
     }
 
     transform(time: string | number, timeUnit = TimeUnit.HOUR): number | string {
