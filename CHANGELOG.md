@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.3 (2020-05-28)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix error cannot read property 'replace' of null on 24 Hrs format,
+fixes [(#341)](https://github.com/Agranom/ngx-material-timepicker/issues/341)
+* fix(ngx-material-timepicker): fix issue with displaying time `24:xx` instead of `00:xx` with default locale,
+fixes [(#342)](https://github.com/Agranom/ngx-material-timepicker/issues/342)
+
 ## 5.5.2 (2020-05-11)
 
 ### Fixes

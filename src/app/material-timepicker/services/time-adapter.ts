@@ -1,15 +1,15 @@
-import {DateTime, DateTimeFormatOptions, LocaleOptions, NumberingSystem} from 'luxon';
+import { DateTime, LocaleOptions } from 'luxon';
 
-import {TimeFormat} from '../models/time-format.enum';
-import {TimePeriod} from '../models/time-period.enum';
-import {isBetween, isSameOrAfter, isSameOrBefore} from '../utils/timepicker.utils';
-import {TimeOptions} from '../models/time-options.interface';
+import { TimeFormat } from '../models/time-format.enum';
+import { TimePeriod } from '../models/time-period.enum';
+import { isBetween, isSameOrAfter, isSameOrBefore } from '../utils/timepicker.utils';
+import { TimeOptions } from '../models/time-options.interface';
 
 // @dynamic
 export class TimeAdapter {
     static DEFAULT_FORMAT = 12;
     static DEFAULT_LOCALE = 'en-US';
-    static DEFAULT_NUMBERING_SYSTEM: NumberingSystem = 'latn';
+    static DEFAULT_NUMBERING_SYSTEM = 'latn';
 
     static parseTime(time: string, opts: TimeOptions): DateTime {
         const {numberingSystem, locale} = TimeAdapter.getLocaleOptionsByTime(time, opts);
@@ -42,7 +42,8 @@ export class TimeAdapter {
 
     static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
         const {format = TimeAdapter.DEFAULT_FORMAT, locale = TimeAdapter.DEFAULT_LOCALE} = opts;
-        const timeFormat: DateTimeFormatOptions = {...DateTime.TIME_SIMPLE, hour12: format !== 24};
+        const hourCycle = format === 24 ? 'h23' : 'h12';
+        const timeFormat = {...DateTime.TIME_SIMPLE, hourCycle};
         const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
 
         return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(timeFormat);
@@ -105,7 +106,7 @@ export class TimeAdapter {
 
     private static getLocaleOptionsByTime(time: string, opts: TimeOptions): LocaleOptions {
         const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
-        const localeConfig: LocaleOptions = {numberingSystem: numberingSystem as NumberingSystem, locale};
+        const localeConfig: LocaleOptions = {numberingSystem: numberingSystem, locale};
         const defaultConfig: LocaleOptions = {numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM, locale: TimeAdapter.DEFAULT_LOCALE};
 
         return isNaN(parseInt(time, 10)) ? localeConfig : defaultConfig;
