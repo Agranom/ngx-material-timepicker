@@ -1,7 +1,7 @@
 {
     "name": "ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "5.5.2",
+    "version": "5.5.3",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
@@ -42,8 +42,8 @@
     "types": ".src/app/material-timepicker/index.d.ts",
     "private": false,
     "dependencies": {
-        "@types/luxon": "^1.11.1",
-        "luxon": "^1.22.0"
+        "@types/luxon": "1.11.1",
+        "luxon": "1.24.0"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^0.800.3",
