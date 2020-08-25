@@ -43,12 +43,14 @@ import {
     NgxMaterialTimepickerContentComponent
 } from './components/ngx-material-timepicker-content/ngx-material-timepicker-content.component';
 import { AppendToInputDirective } from './directives/append-to-input.directive';
+import { A11yModule } from '@angular/cdk/a11y';
 
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        A11yModule,
     ],
     exports: [
         NgxMaterialTimepickerComponent,
