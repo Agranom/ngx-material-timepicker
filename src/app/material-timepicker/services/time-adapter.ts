@@ -25,7 +25,9 @@ export class TimeAdapter {
         }
         const {format} = opts;
         const parsedTime = TimeAdapter.parseTime(time, opts).setLocale(TimeAdapter.DEFAULT_LOCALE);
-
+        if (!parsedTime.isValid) {
+            return null;
+        }
         if (format !== 24) {
             return parsedTime.toLocaleString({
                 ...DateTime.TIME_SIMPLE,
