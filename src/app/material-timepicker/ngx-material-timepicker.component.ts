@@ -24,7 +24,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
     @Input() editableHintTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
     @Input("ESC") isEsc = true;
-    @Input() innerClockSize:number;
+    @Input() innerClockFaceSize: number = 85;
     @Input() enableKeyboardInput: boolean;
     @Input() preventOverlayClick: boolean;
     @Input() disableAnimation: boolean;
@@ -147,7 +147,7 @@ export class NgxMaterialTimepickerComponent implements TimepickerRef {
                 theme: this.theme || this._ngxMaterialTimepickerTheme,
                 timepickerClass: this.timepickerClass,
                 inputElement: this.inputElement,
-                innerClockSize: this.innerClockSize
+                innerClockFaceSize: this.innerClockFaceSize,
             }
         );
         this.opened.next();

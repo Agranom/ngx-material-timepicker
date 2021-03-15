@@ -69,7 +69,7 @@ export class NgxMaterialTimepickerContainerComponent
     minTime: DateTime;
     maxTime: DateTime;
     time: string;
-    innerClockSize: number;
+    innerClockFaceSize: number;
 
     timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;

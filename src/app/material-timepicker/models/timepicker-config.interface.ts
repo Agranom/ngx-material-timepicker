@@ -23,5 +23,5 @@ export interface TimepickerConfig {
     timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;
     timepickerBaseRef: TimepickerRef;
-    innerClockSize: number;
+    innerClockFaceSize: number;
 }
