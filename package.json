@@ -1,7 +1,7 @@
 {
-    "name": "ngx-material-timepicker",
+    "name": "@micdenny/ngx-material-timepicker",
     "description": "Handy material design timepicker for angular",
-    "version": "5.5.3",
+    "version": "5.6.0",
     "license": "MIT",
     "author": "Vitalii Boiko <boyko330@gmail.com>",
     "keywords": [
