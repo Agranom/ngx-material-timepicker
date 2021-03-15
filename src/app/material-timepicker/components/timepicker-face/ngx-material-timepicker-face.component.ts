@@ -37,7 +37,7 @@ export class NgxMaterialTimepickerFaceComponent implements AfterViewInit, OnChan
     timeUnit = TimeUnit;
 
     isClockFaceDisabled: boolean;
-    innerClockFaceSize = 85;
+    innerClockFaceSize = 135;
 
     @Input() faceTime: ClockFaceTime[];
     @Input() selectedTime: ClockFaceTime;
