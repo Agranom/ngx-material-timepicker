@@ -66,6 +66,7 @@ export class NgxMaterialTimepickerContainerComponent implements OnInit, OnDestro
     minTime: DateTime;
     maxTime: DateTime;
     time: string;
+    innerClockFaceSize: number;
 
     timepickerClass: string;
     theme: NgxMaterialTimepickerTheme;
