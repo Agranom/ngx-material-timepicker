@@ -5,12 +5,11 @@ import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
 
 export class NgxMaterialTimepickerHoursFace {
-
     @Input() selectedHour: ClockFaceTime;
     @Input() minTime: DateTime;
     @Input() maxTime: DateTime;
     @Input() format: number;
-
+    @Input() innerClockSize: number;
     @Output() hourChange = new EventEmitter<ClockFaceTime>();
     @Output() hourSelected = new EventEmitter<number>();
 
