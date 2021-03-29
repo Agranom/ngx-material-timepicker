@@ -1,7 +1,11 @@
 <div class="timepicker-dial">
     <div class="timepicker-dial__container">
+        <div>
+            <button (click)="clickUp()">up</button>
+            <button (click)="clickDown()">down</button>
+        </div>
         <div class="timepicker-dial__time">
-            <ngx-material-timepicker-dial-control [timeList]="hours" [time]="hour" [timeUnit]="timeUnit.HOUR"
+            <ngx-material-timepicker-dial-control #hhComponent [timeList]="hours" [time]="hour" [timeUnit]="timeUnit.HOUR"
                                                   [isActive]="activeTimeUnit === timeUnit.HOUR"
                                                   [isEditable]="isEditable"
                                                   (timeUnitChanged)="changeTimeUnit($event)"
@@ -11,7 +15,7 @@
 
             </ngx-material-timepicker-dial-control>
             <span>:</span>
-            <ngx-material-timepicker-dial-control [timeList]="minutes" [time]="minute" [timeUnit]="timeUnit.MINUTE"
+            <ngx-material-timepicker-dial-control ##mmComponent [timeList]="minutes" [time]="minute" [timeUnit]="timeUnit.MINUTE"
                                                   [isActive]="activeTimeUnit === timeUnit.MINUTE"
                                                   [isEditable]="isEditable"
                                                   [minutesGap]="minutesGap"

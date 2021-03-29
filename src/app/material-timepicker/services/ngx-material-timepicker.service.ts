@@ -1,6 +1,7 @@
+import { NgxMaterialTimepickerDialControlComponent } from './../components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import { Injectable } from '@angular/core';
 import { ClockFaceTime } from '../models/clock-face-time.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { TimePeriod } from '../models/time-period.enum';
 import { TimeAdapter } from './time-adapter';
 import { DateTime } from 'luxon';
@@ -16,14 +17,15 @@ const DEFAULT_MINUTE: ClockFaceTime = {
 };
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class NgxMaterialTimepickerService {
-
     private hourSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_HOUR);
     private minuteSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_MINUTE);
     private periodSubject = new BehaviorSubject<TimePeriod>(TimePeriod.AM);
 
+    private privateLastInputFocused = new Subject<NgxMaterialTimepickerDialControlComponent>();
+    privateLastInputFocused$ = this.privateLastInputFocused.asObservable();
 
     set hour(hour: ClockFaceTime) {
         this.hourSubject.next(hour);
@@ -42,7 +44,8 @@ export class NgxMaterialTimepickerService {
     }
 
     set period(period: TimePeriod) {
-        const isPeriodValid = (period === TimePeriod.AM) || (period === TimePeriod.PM);
+        const isPeriodValid =
+            period === TimePeriod.AM || period === TimePeriod.PM;
 
         if (isPeriodValid) {
             this.periodSubject.next(period);
@@ -53,11 +56,24 @@ export class NgxMaterialTimepickerService {
         return this.periodSubject.asObservable();
     }
 
-
-    setDefaultTimeIfAvailable(time: string, min: DateTime, max: DateTime, format: number, minutesGap?: number) {
+    setDefaultTimeIfAvailable(
+        time: string,
+        min: DateTime,
+        max: DateTime,
+        format: number,
+        minutesGap?: number
+    ) {
         /* Workaround to double error message*/
         try {
-            if (TimeAdapter.isTimeAvailable(time, min, max, 'minutes', minutesGap)) {
+            if (
+                TimeAdapter.isTimeAvailable(
+                    time,
+                    min,
+                    max,
+                    "minutes",
+                    minutesGap
+                )
+            ) {
                 this.setDefaultTime(time, format);
             }
         } catch (e) {
@@ -69,32 +85,35 @@ export class NgxMaterialTimepickerService {
         const selectedHour = this.hourSubject.getValue().time;
         const selectedMinute = this.minuteSubject.getValue().time;
         const hour = selectedHour != null ? selectedHour : DEFAULT_HOUR.time;
-        const minute = selectedMinute != null ? selectedMinute : DEFAULT_MINUTE.time;
-        const period = format === 12 ? this.periodSubject.getValue() : '';
+        const minute =
+            selectedMinute != null ? selectedMinute : DEFAULT_MINUTE.time;
+        const period = format === 12 ? this.periodSubject.getValue() : "";
         const time = `${hour}:${minute} ${period}`.trim();
 
-        return TimeAdapter.formatTime(time, {format});
+        return TimeAdapter.formatTime(time, { format });
     }
 
     private setDefaultTime(time: string, format: number) {
-        const defaultTime = TimeAdapter.parseTime(time, {format}).toJSDate();
+        const defaultTime = TimeAdapter.parseTime(time, { format }).toJSDate();
 
         if (DateTime.fromJSDate(defaultTime).isValid) {
             const period = time.substr(time.length - 2).toUpperCase();
             const hour = defaultTime.getHours();
 
-            this.hour = {...DEFAULT_HOUR, time: formatHourByPeriod(hour, period as TimePeriod)};
-            this.minute = {...DEFAULT_MINUTE, time: defaultTime.getMinutes()};
+            this.hour = {
+                ...DEFAULT_HOUR,
+                time: formatHourByPeriod(hour, period as TimePeriod),
+            };
+            this.minute = { ...DEFAULT_MINUTE, time: defaultTime.getMinutes() };
             this.period = period as TimePeriod;
-
         } else {
             this.resetTime();
         }
     }
 
     private resetTime(): void {
-        this.hour = {...DEFAULT_HOUR};
-        this.minute = {...DEFAULT_MINUTE};
+        this.hour = { ...DEFAULT_HOUR };
+        this.minute = { ...DEFAULT_MINUTE };
         this.period = TimePeriod.AM;
     }
 }

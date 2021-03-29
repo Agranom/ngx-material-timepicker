@@ -1,3 +1,4 @@
+import { NgxMaterialTimepickerDialControlComponent } from './../timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -7,7 +8,9 @@ import {
     OnChanges,
     Output,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
@@ -15,6 +18,7 @@ import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { DateTime, Info } from 'luxon';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
+import { NgxMaterialTimepickerDialService } from '../../services/ngx-material-timepicker-dial-service';
 
 @Component({
     selector: 'ngx-material-timepicker-dial',
@@ -33,6 +37,8 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     isHintVisible: boolean;
 
     @Input() editableHintTmpl: TemplateRef<Node>;
+    @ViewChildren('hhcomponent') hoursComponent: NgxMaterialTimepickerDialControlComponent;
+    @ViewChildren('mmcomponent') minutesComponent: NgxMaterialTimepickerDialControlComponent;
     @Input() hour: number | string;
     @Input() minute: number | string;
     @Input() format: number;
@@ -49,7 +55,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
     @Output() hourChanged = new EventEmitter<ClockFaceTime>();
     @Output() minuteChanged = new EventEmitter<ClockFaceTime>();
 
-    constructor(@Inject(TIME_LOCALE) private locale: string) {
+    constructor(@Inject(TIME_LOCALE) private locale: string, private ngxMaterialTimepickerDialService: NgxMaterialTimepickerDialService) {
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -99,5 +105,16 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     hideHint(): void {
         this.isHintVisible = false;
+    }
+
+     clickUp(): void {
+        this.ngxMaterialTimepickerDialService.lastInputFocused.changeTimeByVirtualArrow(
+            "ARROW_UP"
+        );
+    }
+    clickDown(): void {
+        this.ngxMaterialTimepickerDialService.lastInputFocused.changeTimeByVirtualArrow(
+            "ARROW_DOWN"
+        );
     }
 }
