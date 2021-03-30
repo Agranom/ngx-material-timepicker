@@ -50,7 +50,6 @@
             font-size: 14px;
         }
     }
-
 }
 
 @media (max-device-width: 1023px) and (orientation: landscape) {
@@ -63,4 +62,12 @@
             margin-left: 0;
         }
     }
+}
+
+.timepicker-dial_arrows {
+    width: 32px;
+    margin-right: 50px;
+}
+.arrow {
+    fill: white;
 }

@@ -4,15 +4,15 @@ import {ClockFaceTime} from '../../models/clock-face-time.interface';
 import {TimeUnit} from '../../models/time-unit.enum';
 import {isDigit} from '../../utils/timepicker.utils';
 import {TimeParserPipe} from '../../pipes/time-parser.pipe';
+import { NgxMaterialTimepickerDialService } from '../../services/ngx-material-timepicker-dial-service';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
     templateUrl: 'ngx-material-timepicker-dial-control.component.html',
     styleUrls: ['ngx-material-timepicker-dial-control.component.scss'],
-    providers: [TimeParserPipe]
+    providers: [TimeParserPipe],
 })
 export class NgxMaterialTimepickerDialControlComponent {
-
     previousTime: number | string;
 
     @Input() timeList: ClockFaceTime[];
@@ -28,16 +28,19 @@ export class NgxMaterialTimepickerDialControlComponent {
     @Output() focused = new EventEmitter<null>();
     @Output() unfocused = new EventEmitter<null>();
 
-    constructor(private timeParserPipe: TimeParserPipe) {
-    }
+    constructor(
+        private timeParserPipe: TimeParserPipe,
+        private ngxMaterialTimepickerDialService: NgxMaterialTimepickerDialService
+    ) {}
 
     private get selectedTime(): ClockFaceTime {
         if (!!this.time) {
-            return this.timeList.find(t => t.time === +this.time);
+            return this.timeList.find((t) => t.time === +this.time);
         }
     }
 
     saveTimeAndChangeTimeUnit(event: FocusEvent, unit: TimeUnit): void {
+        this.ngxMaterialTimepickerDialService.setLastInputFocused(this);
         event.preventDefault();
         this.previousTime = this.time;
         this.timeUnitChanged.next(unit);
@@ -69,7 +72,9 @@ export class NgxMaterialTimepickerDialControlComponent {
     }
 
     onModelChange(value: string): void {
-        this.time = this.timeParserPipe.transform(value, this.timeUnit).toString();
+        this.time = this.timeParserPipe
+            .transform(value, this.timeUnit)
+            .toString();
     }
 
     private changeTimeByArrow(keyCode: number): void {
@@ -88,7 +93,22 @@ export class NgxMaterialTimepickerDialControlComponent {
             this.updateTime();
         }
     }
+    public changeTimeByVirtualArrow(keyCode: string): void {
+        const ARROW_UP = 'ARROW_UP';
+        const ARROW_DOWN = 'ARROW_DOWN';
+        let time: string;
 
+        if (keyCode === ARROW_UP) {
+            time = String(+this.time + (this.minutesGap || 1));
+        } else if (keyCode === ARROW_DOWN) {
+            time = String(+this.time - (this.minutesGap || 1));
+        }
+
+        if (!isTimeUnavailable(time, this.timeList)) {
+            this.time = time;
+            this.updateTime();
+        }
+    }
 }
 
 function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {

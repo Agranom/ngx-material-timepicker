@@ -20,5 +20,6 @@ export class NgxMaterialTimepicker24HoursFaceComponent extends NgxMaterialTimepi
             max: this.maxTime,
             format: this.format
         });
+
     }
 }
