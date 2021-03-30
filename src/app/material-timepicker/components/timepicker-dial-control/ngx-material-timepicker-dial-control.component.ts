@@ -7,9 +7,9 @@ import {TimeParserPipe} from '../../pipes/time-parser.pipe';
 import { NgxMaterialTimepickerDialService } from '../../services/ngx-material-timepicker-dial-service';
 
 @Component({
-    selector: "ngx-material-timepicker-dial-control",
-    templateUrl: "ngx-material-timepicker-dial-control.component.html",
-    styleUrls: ["ngx-material-timepicker-dial-control.component.scss"],
+    selector: 'ngx-material-timepicker-dial-control',
+    templateUrl: 'ngx-material-timepicker-dial-control.component.html',
+    styleUrls: ['ngx-material-timepicker-dial-control.component.scss'],
     providers: [TimeParserPipe],
 })
 export class NgxMaterialTimepickerDialControlComponent {
@@ -94,8 +94,8 @@ export class NgxMaterialTimepickerDialControlComponent {
         }
     }
     public changeTimeByVirtualArrow(keyCode: string): void {
-        const ARROW_UP = "ARROW_UP";
-        const ARROW_DOWN = "ARROW_DOWN";
+        const ARROW_UP = 'ARROW_UP';
+        const ARROW_DOWN = 'ARROW_DOWN';
         let time: string;
 
         if (keyCode === ARROW_UP) {

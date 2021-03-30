@@ -1,4 +1,4 @@
-import { NgxMaterialTimepickerDialControlComponent } from './../components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
+import { NgxMaterialTimepickerDialControlComponent }from './../components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
 import { Injectable } from '@angular/core';
 import { ClockFaceTime } from '../models/clock-face-time.interface';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -17,7 +17,7 @@ const DEFAULT_MINUTE: ClockFaceTime = {
 };
 
 @Injectable({
-    providedIn: "root",
+    providedIn: 'root',
 })
 export class NgxMaterialTimepickerService {
     private hourSubject = new BehaviorSubject<ClockFaceTime>(DEFAULT_HOUR);
@@ -70,7 +70,7 @@ export class NgxMaterialTimepickerService {
                     time,
                     min,
                     max,
-                    "minutes",
+                    'minutes',
                     minutesGap
                 )
             ) {

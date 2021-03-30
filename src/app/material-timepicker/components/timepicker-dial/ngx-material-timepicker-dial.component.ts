@@ -109,12 +109,12 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
      clickUp(): void {
         this.ngxMaterialTimepickerDialService.lastInputFocused.changeTimeByVirtualArrow(
-            "ARROW_UP"
+            'ARROW_UP'
         );
     }
     clickDown(): void {
         this.ngxMaterialTimepickerDialService.lastInputFocused.changeTimeByVirtualArrow(
-            "ARROW_DOWN"
+            'ARROW_DOWN'
         );
     }
 }
