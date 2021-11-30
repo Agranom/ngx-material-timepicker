@@ -27,6 +27,10 @@ describe('NgxMaterialTimepickerToggleComponent', () => {
         expect(component.disabled).toBeTruthy();
     });
 
+    it('should get disabled as falsy as default', () => {
+        expect(component.disabled).toBeFalsy();
+    });
+
     it('should override timepicker\'s disabled state', () => {
         component.timepicker = timepicker;
         component.disabled = false;

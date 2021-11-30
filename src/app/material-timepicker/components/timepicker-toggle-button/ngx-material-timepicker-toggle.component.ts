@@ -10,11 +10,11 @@ import {NgxMaterialTimepickerComponent} from '../../ngx-material-timepicker.comp
 
 export class NgxMaterialTimepickerToggleComponent {
 
-    @Input('for') timepicker: NgxMaterialTimepickerComponent;
+    @Input('for') timepicker?: NgxMaterialTimepickerComponent;
 
     @Input()
     get disabled(): boolean {
-        return this._disabled === undefined ? this.timepicker.disabled : this._disabled;
+        return this._disabled === undefined ? (this.timepicker || { disabled: false }).disabled : this._disabled;
     }
 
     set disabled(value: boolean) {

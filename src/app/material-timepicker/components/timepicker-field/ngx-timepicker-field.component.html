@@ -1,3 +1,13 @@
+<div class="ngx-timepicker-input-to-append" *ngIf="appendToInput">
+    <input [ngxTimepicker]="timepicker"
+           [format]="format"
+           [min]="min"
+           [max]="max"
+           [value]="timepickerTime"
+           [disabled]="false"
+           [disableClick]="false"
+    >
+</div>
 <div class="ngx-timepicker" [ngClass]="{'ngx-timepicker--disabled': disabled}">
     <ngx-timepicker-time-control
         class="ngx-timepicker__control--first"
@@ -30,9 +40,21 @@
         *ngIf="format !== 24"></ngx-timepicker-period-selector>
     <ngx-material-timepicker-toggle
         class="ngx-timepicker__toggle"
-        *ngIf="!controlOnly"
+        *ngIf="!controlOnly && !appendToInput"
         [ngClass]="{'ngx-timepicker__toggle--left': buttonAlign === 'left'}"
         [for]="timepicker"
+        [disabled]="disabled">
+        <span ngxMaterialTimepickerToggleIcon>
+            <!--suppress HtmlUnknownAttribute -->
+            <ng-container *ngTemplateOutlet="toggleIcon || defaultIcon"></ng-container>
+        </span>
+    </ngx-material-timepicker-toggle>
+
+    <ngx-material-timepicker-toggle
+        class="ngx-timepicker__toggle"
+        *ngIf="!controlOnly && appendToInput"
+        [ngClass]="{'ngx-timepicker__toggle--left': buttonAlign === 'left'}"
+        (click)="onTimepickerToggle($event)"
         [disabled]="disabled">
         <span ngxMaterialTimepickerToggleIcon>
             <!--suppress HtmlUnknownAttribute -->
@@ -48,6 +70,7 @@
     [format]="format"
     [cancelBtnTmpl]="cancelBtnTmpl"
     [confirmBtnTmpl]="confirmBtnTmpl"
+    [appendToInput]="appendToInput"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
 
 <ng-template #defaultIcon>

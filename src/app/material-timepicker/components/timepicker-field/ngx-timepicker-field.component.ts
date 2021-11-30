@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable, Subject } from 'rxjs';
@@ -11,6 +22,7 @@ import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 import { DateTime } from 'luxon';
 import { distinctUntilChanged, map, takeUntil, tap } from 'rxjs/operators';
+import { NgxMaterialTimepickerComponent } from '../../ngx-material-timepicker.component';
 
 @Component({
     selector: 'ngx-timepicker-field',
@@ -51,6 +63,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     @Input() controlOnly: boolean;
     @Input() cancelBtnTmpl: TemplateRef<Node>;
     @Input() confirmBtnTmpl: TemplateRef<Node>;
+    @Input() appendToInput = false;
 
     @Input()
     set format(value: number) {
@@ -105,6 +118,8 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     get defaultTime(): string {
         return this._defaultTime;
     }
+
+    @ViewChild('timepicker', { static: false }) timepicker: NgxMaterialTimepickerComponent;
 
     @Output() timeChanged = new EventEmitter<string>();
 
@@ -197,6 +212,13 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
+    }
+
+    onTimepickerToggle($event: MouseEvent) {
+        if (this.timepicker) {
+            $event.stopPropagation();
+            this.timepicker.open();
+        }
     }
 
     private changeTime(): void {
