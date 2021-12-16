@@ -46,9 +46,9 @@
         "luxon": "1.24.0"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "^0.800.3",
+        "@angular-devkit/build-angular": "^0.803.29",
         "@angular/animations": "^8.0.0",
-        "@angular/cli": "^8.3.25",
+        "@angular/cli": "^8.3.29",
         "@angular/common": "^8.0.0",
         "@angular/compiler": "^8.0.0",
         "@angular/compiler-cli": "^8.0.0",
