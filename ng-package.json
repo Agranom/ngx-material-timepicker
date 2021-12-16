@@ -3,7 +3,7 @@
     "lib": {
         "entryFile": "public_api.ts"
     },
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
         "luxon",
         "@types/luxon"
     ]

@@ -14,4 +14,4 @@ export * from './src/app/material-timepicker/components/timepicker-24-hours-face
 export * from './src/app/material-timepicker/components/timepicker-minutes-face/ngx-material-timepicker-minutes-face.component';
 export * from './src/app/material-timepicker/components/timepicker-dial/ngx-material-timepicker-dial.component';
 export * from './src/app/material-timepicker/components/timepicker-dial-control/ngx-material-timepicker-dial-control.component';
-
+export * from './src/app/material-timepicker/components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';

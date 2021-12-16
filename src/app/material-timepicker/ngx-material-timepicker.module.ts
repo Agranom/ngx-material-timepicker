@@ -92,8 +92,7 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         NgxMaterialTimepickerContainerComponent,
         NgxMaterialTimepickerContentComponent,
         AppendToInputDirective
-    ],
-    entryComponents: [NgxMaterialTimepickerContainerComponent]
+    ]
 })
 export class NgxMaterialTimepickerModule {
 

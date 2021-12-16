@@ -17,7 +17,7 @@ export class NgxMaterialTimepickerDialControlComponent {
 
     @Input() timeList: ClockFaceTime[];
     @Input() timeUnit: TimeUnit;
-    @Input() time: string;
+    @Input() time: string | number;
     @Input() isActive: boolean;
     @Input() isEditable: boolean;
     @Input() minutesGap: number;
@@ -91,7 +91,7 @@ export class NgxMaterialTimepickerDialControlComponent {
 
 }
 
-function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
+function isTimeDisabledToChange(currentTime: string | number, nextTime: string, timeList: ClockFaceTime[]): boolean {
     const isNumber = /\d/.test(nextTime);
 
     if (isNumber) {
