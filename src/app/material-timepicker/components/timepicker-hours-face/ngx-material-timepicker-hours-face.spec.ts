@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {Component} from '@angular/core';
 import {NgxMaterialTimepickerHoursFace} from './ngx-material-timepicker-hours-face';
@@ -43,14 +43,14 @@ describe('NgxMaterialTimepickerHoursFace', () => {
         expect(component24.hoursList.length).toBe(24);
     });
 
-    it('should emit selected hour (12hr format)', async(() => {
+    it('should emit selected hour (12hr format)', waitForAsync(() => {
         const time = 10;
 
         component12.hourSelected.subscribe(hour => expect(hour).toBe(time));
         component12.onTimeSelected(time);
     }));
 
-    it('should emit selected hour (24hr format)', async(() => {
+    it('should emit selected hour (24hr format)', waitForAsync(() => {
         const time = 15;
 
         component24.hourSelected.subscribe(hour => expect(hour).toBe(time));

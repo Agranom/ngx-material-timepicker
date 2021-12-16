@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NgxMaterialTimepickerFaceComponent } from './ngx-material-timepicker-face.component';
 import { ElementRef, NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
@@ -286,7 +286,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime).toEqual({time: 1, angle: 5});
         }));
 
-        it('should emit selected time once user stop interaction with clock face', async(() => {
+        it('should emit selected time once user stop interaction with clock face', waitForAsync(() => {
             const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
             component.faceTime = minutesFaceTime;
