@@ -107,7 +107,6 @@
             }
         }
     },
-    "defaultProject": "ngx-material-timepicker",
     "schematics": {
         "@schematics/angular:component": {
             "prefix": "app",
