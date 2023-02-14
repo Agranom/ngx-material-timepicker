@@ -32,7 +32,10 @@ export class TimeParserPipe implements PipeTransform {
     }
 
     private parseTime(time: string | number, format: string, timeMeasure: TimeMeasure): number {
-        const parsedTime = DateTime.fromFormat(String(time), format, {numberingSystem: this.numberingSystem, locale: this.locale})[timeMeasure];
+        const parsedTime = DateTime.fromFormat(String(time), format, {
+            numberingSystem: this.numberingSystem,
+            locale: this.locale
+        })[timeMeasure];
 
         if (!isNaN(parsedTime)) {
             return parsedTime;

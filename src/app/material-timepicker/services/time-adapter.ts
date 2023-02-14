@@ -45,7 +45,7 @@ export class TimeAdapter {
         const hourCycle = format === 24 ? 'h23' : 'h12';
         const timeFormat = {...DateTime.TIME_SIMPLE, hourCycle};
         const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
-        let localOpts = { locale: opts.locale, numberingSystem: opts.numberingSystem, ...timeFormat };
+        const localOpts = { locale: opts.locale, numberingSystem: opts.numberingSystem, ...timeFormat };
         return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(localOpts).replace(/\u202F/g, ' ');
     }
 
