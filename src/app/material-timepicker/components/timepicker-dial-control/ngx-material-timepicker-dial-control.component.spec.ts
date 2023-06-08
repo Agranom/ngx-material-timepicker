@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
 import { TimeParserPipe } from '../../pipes/time-parser.pipe';
-import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { NUMBERING_SYSTEM, TIME_LOCALE } from '../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
@@ -21,7 +21,8 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             ],
             providers: [
                 TimeParserPipe,
-                {provide: TIME_LOCALE, useValue: 'ar-AE'}
+                {provide: TIME_LOCALE, useValue: 'ar-AE'},
+                {provide: NUMBERING_SYSTEM, useValue: 'arab'},
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerDialControlComponent);
@@ -177,7 +178,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
     describe('onModelChange', () => {
 
         it('should parse value and set it to time property', () => {
-            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab'}).toFormat('m');
+            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab', locale: 'ar-AE'}).toFormat('m');
             component.time = '5';
             component.timeUnit = TimeUnit.MINUTE;
 

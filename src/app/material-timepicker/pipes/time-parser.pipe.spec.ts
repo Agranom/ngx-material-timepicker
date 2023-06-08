@@ -4,7 +4,8 @@ import { DateTime } from 'luxon';
 
 describe('TimeParserPipe', () => {
     const locale = 'ar-AE';
-    const pipe = new TimeParserPipe(locale);
+    const numberingSystem = 'arab';
+    const pipe = new TimeParserPipe(locale, numberingSystem);
 
     it('should create an instance', () => {
         expect(pipe).toBeTruthy();

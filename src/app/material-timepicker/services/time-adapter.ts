@@ -31,13 +31,13 @@ export class TimeAdapter {
                 ...DateTime.TIME_SIMPLE,
                 hour12: format !== 24,
                 numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM
-            }).replace(/\u200E/g, '');
+            }).replace(/\u200E/g, '').replace(/\u202F/g, ' ');
         }
         return parsedTime.toISOTime({
             includeOffset: false,
             suppressMilliseconds: true,
             suppressSeconds: true
-        }).replace(/\u200E/g, '');
+        }).replace(/\u200E/g, '').replace(/\u202F/g, ' ');
     }
 
     static toLocaleTimeString(time: string, opts: TimeOptions = {}): string {
@@ -45,8 +45,8 @@ export class TimeAdapter {
         const hourCycle = format === 24 ? 'h23' : 'h12';
         const timeFormat = {...DateTime.TIME_SIMPLE, hourCycle};
         const timeMask = (format === 24) ? TimeFormat.TWENTY_FOUR_SHORT : TimeFormat.TWELVE_SHORT;
-
-        return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(timeFormat);
+        const localOpts = { locale: opts.locale, numberingSystem: opts.numberingSystem, ...timeFormat };
+        return DateTime.fromFormat(time, timeMask).setLocale(locale).toLocaleString(localOpts).replace(/\u202F/g, ' ');
     }
 
     static isTimeAvailable(
@@ -101,12 +101,11 @@ export class TimeAdapter {
         return time.reconfigure({
             numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM,
             locale: TimeAdapter.DEFAULT_LOCALE
-        }).toFormat(timeFormat);
+        }).toFormat(timeFormat).replace(/\u202F/g, ' ');
     }
 
     private static getLocaleOptionsByTime(time: string, opts: TimeOptions): LocaleOptions {
-        const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
-        const localeConfig: LocaleOptions = {numberingSystem: numberingSystem, locale};
+        const localeConfig: LocaleOptions = {numberingSystem: opts.numberingSystem, locale: opts.locale};
         const defaultConfig: LocaleOptions = {numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM, locale: TimeAdapter.DEFAULT_LOCALE};
 
         return isNaN(parseInt(time, 10)) ? localeConfig : defaultConfig;
