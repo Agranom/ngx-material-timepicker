@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.4 (2023-06-08)
+
+### Fixes
+
+* fix(ngx-material-timepicker): remove default browser's outline in focus-visible state
+* fix(ngx-material-timepicker): replace the Narrow No-Break Space (NNBSP) for a standard space,
+  fixes [(#427)](https://github.com/Agranom/ngx-material-timepicker/issues/427)
+
 ## 5.5.3 (2020-05-28)
 
 ### Fixes
