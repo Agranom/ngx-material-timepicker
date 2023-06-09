@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { isDigit } from '../../../utils/timepicker.utils';
+import { ClockFaceTime } from '../../../models/clock-face-time.interface';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
-import { ClockFaceTime } from '../../../models/clock-face-time.interface';
+import { isDigit } from '../../../utils/timepicker.utils';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TimeParserPipe]
+    providers: [TimeParserPipe],
 })
 
 export class NgxTimepickerTimeControlComponent implements OnChanges {
@@ -172,8 +172,11 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     private setAvailableTime(): void {
-        this.time = this.timeList.find(t => !t.disabled).time;
-        this.timeChanged.emit(this.time);
+        const availableTime = this.timeList.find(t => !t.disabled);
+        if (availableTime != null) {
+            this.time = availableTime.time;
+            this.timeChanged.emit(this.time);
+        }
     }
 }
 
