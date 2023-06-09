@@ -151,8 +151,9 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
                 tap(period => this.isChangePeriodDisabled = this.isPeriodDisabled(period)),
                 takeUntil(this.unsubscribe$)
             ).subscribe(() => this.isTimeRangeSet && this.updateAvailableTime());
+        } else if (this.isTimeRangeSet) {
+            this.updateAvailableTime();
         }
-
     }
 
     writeValue(val: string): void {
