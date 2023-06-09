@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.5.5 (2023-06-09)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix npm package,
+  fixes [(#431)](https://github.com/Agranom/ngx-material-timepicker/issues/431)
+
+
 ## 5.5.4 (2023-06-08)
 
 ### Fixes
