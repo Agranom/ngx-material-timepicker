@@ -148,6 +148,24 @@ describe('NgxTimepickerFieldComponent', () => {
 
             expect(spy).toHaveBeenCalledWith(minutes, hour, {min, max, format, period});
         }));
+
+        it('should call TimepickerTimeUtils.disableHours and disable hours (24 format) and minutes if min/max are set', () => {
+            const spy = spyOn(TimepickerTimeUtils, 'disableHours');
+            const hours = [{time: 1, angle: 0}];
+            const format = 24;
+            const min = DateTime.fromObject({hour: 10, minute: 12});
+            component.format = format;
+            component.min = min;
+            component.max = null;
+            component.hoursList = hours;
+            component.isTimeRangeSet = true;
+            component.period = null;
+            spyOn(TimepickerTimeUtils, 'getHours').and.returnValue(hours);
+
+            component.ngOnInit();
+
+            expect(spy).toHaveBeenCalledWith(hours, {min, max: null, period: null, format});
+        });
     });
 
 
