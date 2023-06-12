@@ -215,4 +215,13 @@ export class AppComponent {
             <ngx-timepicker-field min="12:10 am" max="08:11 pm"></ngx-timepicker-field>
         </div>
     `;
+
+    minutesGapForField = `
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [defaultTime]="'11:00 am'" [minutesGap]="5"></ngx-timepicker-field>
+        </div>
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [defaultTime]="'11:00 am'" [minutesGap]="30"></ngx-timepicker-field>
+        </div>
+    `;
 }
