@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file
 
+## 5.6.0 (2023-06-12)
+
+### Features
+
+* feat(ngx-material-timepicker-field): add `minutesGap` to `ngx-material-timepicker-field` component,
+  closes [(#236)](https://github.com/Agranom/ngx-material-timepicker/issues/236),
+  [(#248)](https://github.com/Agranom/ngx-material-timepicker/issues/248),
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): fix hours validation with `min/max` values set,
+  fixes [(#346)](https://github.com/Agranom/ngx-material-timepicker/issues/346),
+  [(#369)](https://github.com/Agranom/ngx-material-timepicker/issues/369),
+
+
+
 ## 5.5.5 (2023-06-09)
 
 ### Fixes

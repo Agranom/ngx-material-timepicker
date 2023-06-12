@@ -170,6 +170,8 @@ Selector: `ngx-timepicker-field`
   min: string or DateTime | Set min time for timepicker (`11:15 pm` ) |
 | @Input()
   max: string or DateTime | Set max time for timepicker (`11:15 pm` ) |
+| @Input()
+  minutesGap: number | To define a gap between minutes. Set `1` by default |
 | @Output()
   timeChanged: EventEmitter\<string\> | Emit a new time once it is changed. |
 
