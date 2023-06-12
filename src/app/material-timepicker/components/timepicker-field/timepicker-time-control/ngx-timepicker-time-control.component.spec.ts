@@ -46,6 +46,22 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.increase();
         }));
 
+        it('should increase time by 5 with minutesGap set', async(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+                {time: 4, angle: 0, disabled: false},
+                {time: 5, angle: 0, disabled: false},
+                {time: 6, angle: 0, disabled: false},
+            ];
+            component.time = 1;
+            component.minutesGap = 5;
+            component.timeChanged.subscribe(t => expect(t).toBe(6));
+
+            component.increase();
+        }));
+
         it('should set time to min when increase time', async(() => {
             component.time = 12;
             component.timeChanged.subscribe(t => expect(t).toBe(1));
@@ -96,8 +112,33 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.decrease();
         }));
 
+        it('should decrease time with minutesGap', async(() => {
+            component.time = 3;
+            component.minutesGap = 2;
+            component.timeChanged.subscribe(t => expect(t).toBe(1));
+
+            component.decrease();
+        }));
+
         it('should set time to max when decrease time', async(() => {
             component.time = 1;
+            component.timeChanged.subscribe(t => expect(t).toBe(3));
+
+            component.decrease();
+        }));
+
+        it('should set time to (max - minutesGap) when decrease time', async(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+                {time: 5, angle: 0, disabled: false},
+                {time: 6, angle: 0, disabled: false},
+            ];
+            component.time = 5;
+            component.min = 3;
+            component.max = 5;
+            component.minutesGap = 3;
             component.timeChanged.subscribe(t => expect(t).toBe(3));
 
             component.decrease();

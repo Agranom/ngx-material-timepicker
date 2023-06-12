@@ -21,6 +21,7 @@
         [disabled]="disabled"
         [timeList]="minutesList"
         [preventTyping]="isTimeRangeSet"
+        [minutesGap]="minutesGap"
         (timeChanged)="changeMinute($event)"></ngx-timepicker-time-control>
     <ngx-timepicker-period-selector
         class="ngx-timepicker__control--forth"
@@ -48,6 +49,7 @@
     [format]="format"
     [cancelBtnTmpl]="cancelBtnTmpl"
     [confirmBtnTmpl]="confirmBtnTmpl"
+    [minutesGap]="minutesGap"
     (timeSet)="onTimeSet($event)" #timepicker></ngx-material-timepicker>
 
 <ng-template #defaultIcon>
