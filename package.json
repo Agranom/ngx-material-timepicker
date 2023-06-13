@@ -42,7 +42,7 @@
     "test": "ng test --watch=false --code-coverage --browsers ChromeHeadlessNoSandbox",
     "test:watch": "ng test --watch=true --browsers ChromeHeadlessNoSandbox --code-coverage",
     "codecov": "codecov",
-    "packagr": "ng-packagr -p ng-package.json -c ./src/tsconfig.app.json",
+    "packagr": "ng-packagr -p ng-package.json -c ./src/tsconfig.lib.json",
     "publish": "run-s packagr && cd dist && npm publish",
     "gh-publish": "ng build --configuration production --base-href ngx-material-timepicker && gh-pages -d dist"
   },
