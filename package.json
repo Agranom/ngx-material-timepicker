@@ -1,7 +1,7 @@
 {
   "name": "ngx-material-timepicker",
   "description": "Handy material design timepicker for angular",
-  "version": "11.0.0",
+  "version": "12.1.0",
   "license": "MIT",
   "author": "Vitalii Boiko <boyko330@gmail.com>",
   "keywords": [
@@ -37,14 +37,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --configuration production",
     "lint": "ng lint",
     "test": "ng test --watch=false --code-coverage --browsers ChromeHeadlessNoSandbox",
     "test:watch": "ng test --watch=true --browsers ChromeHeadlessNoSandbox --code-coverage",
     "codecov": "codecov",
-    "packagr": "ng-packagr -p ng-package.json",
+    "packagr": "ng-packagr -p ng-package.json -c ./src/tsconfig.app.json",
     "publish": "run-s packagr && cd dist && npm publish",
-    "gh-publish": "ng build --prod --base-href ngx-material-timepicker && gh-pages -d dist"
+    "gh-publish": "ng build --configuration production --base-href ngx-material-timepicker && gh-pages -d dist"
   },
   "types": ".src/app/material-timepicker/index.d.ts",
   "private": false,
@@ -54,19 +54,19 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.19",
-    "@angular-devkit/schematics": "^11.2.19",
-    "@angular/animations": "^11.2.14",
-    "@angular/cli": "^11.2.19",
-    "@angular/common": "^11.2.14",
-    "@angular/compiler": "^11.2.14",
-    "@angular/compiler-cli": "^11.2.14",
-    "@angular/core": "^11.2.14",
-    "@angular/forms": "^11.2.14",
-    "@angular/language-service": "^11.2.14",
-    "@angular/platform-browser": "^11.2.14",
-    "@angular/platform-browser-dynamic": "^11.2.14",
-    "@angular/router": "^11.2.14",
+    "@angular-devkit/build-angular": "~12.2.18",
+    "@angular-devkit/schematics": "^12.2.18",
+    "@angular/animations": "^12.2.17",
+    "@angular/cli": "^12.2.18",
+    "@angular/common": "^12.2.17",
+    "@angular/compiler": "^12.2.17",
+    "@angular/compiler-cli": "^12.2.17",
+    "@angular/core": "^12.2.17",
+    "@angular/forms": "^12.2.17",
+    "@angular/language-service": "^12.2.17",
+    "@angular/platform-browser": "^12.2.17",
+    "@angular/platform-browser-dynamic": "^12.2.17",
+    "@angular/router": "^12.2.17",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^12.11.1",
@@ -86,7 +86,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^11.2.4",
+    "ng-packagr": "^12.2.7",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.3",
     "protractor": "^7.0.0",
@@ -94,7 +94,7 @@
     "travis-deploy-once": "^5.0.0",
     "ts-node": "~4.1.0",
     "tslint": "~6.1.3",
-    "typescript": "4.0.8",
-    "zone.js": "~0.10.2"
+    "typescript": "4.3.5",
+    "zone.js": "~0.11.4"
   }
 }
