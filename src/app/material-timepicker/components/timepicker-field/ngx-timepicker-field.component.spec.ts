@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { NgxTimepickerFieldComponent } from './ngx-timepicker-field.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -14,7 +14,7 @@ describe('NgxTimepickerFieldComponent', () => {
     let fixture: ComponentFixture<NgxTimepickerFieldComponent>;
     let timer;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [NgxTimepickerFieldComponent],
             providers: [
@@ -281,7 +281,7 @@ describe('NgxTimepickerFieldComponent', () => {
         });
     });
 
-    it('should update time and emit timeChanged event when timeSet called', async(() => {
+    it('should update time and emit timeChanged event when timeSet called', waitForAsync(() => {
         let time: string | null = null;
         const timeMock = '2:5 am';
         const expectedTime = '2:05 am';

@@ -57,12 +57,6 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
         NgxMaterialTimepickerThemeDirective,
-        NgxMaterialTimepicker24HoursFaceComponent,
-        NgxMaterialTimepicker12HoursFaceComponent,
-        NgxMaterialTimepickerMinutesFaceComponent,
-        NgxMaterialTimepickerFaceComponent,
-        NgxMaterialTimepickerDialComponent,
-        NgxMaterialTimepickerDialControlComponent
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
@@ -93,7 +87,6 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         NgxMaterialTimepickerContentComponent,
         AppendToInputDirective
     ],
-    entryComponents: [NgxMaterialTimepickerContainerComponent]
 })
 export class NgxMaterialTimepickerModule {
 
