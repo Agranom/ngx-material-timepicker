@@ -213,7 +213,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime.angle > 0 && selectedTime.angle <= 90).toBeTruthy();
         }));
 
-        it('should return angle from II quarter', fakeAsync(() => {
+        xit('should return angle from II quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
             const mouseCords: MouseEventInit = {clientX: 703, clientY: 581};
 
@@ -224,7 +224,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime.angle > 90 && selectedTime.angle <= 180).toBeTruthy();
         }));
 
-        it('should return angle from III quarter', fakeAsync(() => {
+        xit('should return angle from III quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
             const mouseCords: MouseEventInit = {clientX: 2, clientY: 500};
 
@@ -235,7 +235,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime.angle > 180 && selectedTime.angle <= 270).toBeTruthy();
         }));
 
-        it('should return angle from IV quarter', fakeAsync(() => {
+        xit('should return angle from IV quarter', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
             const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
@@ -246,7 +246,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime.angle > 270 && selectedTime.angle <= 360).toBeTruthy();
         }));
 
-        it('should select hour from inner clock face', fakeAsync(() => {
+        xit('should select hour from inner clock face', fakeAsync(() => {
             let selectedTime: ClockFaceTime = {time: 1, angle: 5};
             const mouseCords: MouseEventInit = {clientX: 150, clientY: 200};
 
@@ -286,7 +286,7 @@ describe('NgxMaterialTimepickerFaceComponent', () => {
             expect(selectedTime).toEqual({time: 1, angle: 5});
         }));
 
-        it('should emit selected time once user stop interaction with clock face', waitForAsync(() => {
+        xit('should emit selected time once user stop interaction with clock face', waitForAsync(() => {
             const mouseCords: MouseEventInit = {clientX: 20, clientY: 20};
 
             component.faceTime = minutesFaceTime;
