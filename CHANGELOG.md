@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file
 
+## BREAKING CHANGES
+
+## 12.1.0 (2023-06-13)
+
+* feat(ngx-material-timepicker): add Ivy partial compilation mode,
+closes [(#401)](https://github.com/Agranom/ngx-material-timepicker/issues/401)
+  
+* remove entry components
+  
+### Improvements
+
+* remove unnecessary exports from module
+* reduce package size
+
 ## 5.6.0 (2023-06-12)
 
 ### Features
