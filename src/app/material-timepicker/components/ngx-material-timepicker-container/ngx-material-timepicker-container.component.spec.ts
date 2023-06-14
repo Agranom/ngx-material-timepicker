@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { AnimationState, NgxMaterialTimepickerContainerComponent } from './ngx-material-timepicker-container.component';
 import { Component, EventEmitter, NO_ERRORS_SCHEMA, Output } from '@angular/core';
@@ -73,7 +73,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
     });
 
     describe('setTime', () => {
-        it('should emit time on setTime and call close fn', async(() => {
+        it('should emit time on setTime and call close fn', waitForAsync(() => {
             const spy = spyOn(component, 'close');
 
             component.timepickerBaseRef.timeSet.subscribe(time => expect(time).toBeDefined());
@@ -224,7 +224,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
 
     describe('onHourSelected', () => {
 
-        it('should change timeUnit to MINUTE and emit selected hour', async(() => {
+        it('should change timeUnit to MINUTE and emit selected hour', waitForAsync(() => {
             const hour = 10;
             component.hoursOnly = false;
 
@@ -236,7 +236,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             expect(component.activeTimeUnit).toBe(TimeUnit.MINUTE);
         }));
 
-        it('should not change timeUnit and emit selected hour', async(() => {
+        it('should not change timeUnit and emit selected hour', waitForAsync(() => {
             const hour = 10;
             component.hoursOnly = true;
 
@@ -310,7 +310,7 @@ describe('NgxMaterialTimepickerContainerComponent', () => {
             const spy = spyOn(eventService, 'dispatchEvent');
             component.onKeydown(event as KeyboardEvent);
 
-            expect(spy).toHaveBeenCalledWith(event);
+            expect(spy).toHaveBeenCalledWith(event as KeyboardEvent);
         });
     });
 });
