@@ -29,6 +29,7 @@ https://agranom.github.io/ngx-material-timepicker/
 Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker
+npm install --save luxon
 ```
 Next import the timepicker module into your app's module:
 ```typescript
