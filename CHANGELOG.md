@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file
 
 ## BREAKING CHANGES
 
+## 13.0.3 (2023-06-14)
+
+* move `luxon` library from dependencies to peerDependencies to avoid duplications in bundle,
+closes [(#355)](https://github.com/Agranom/ngx-material-timepicker/issues/355)
+
+
+## BREAKING CHANGES
+
 ## 12.1.0 (2023-06-13)
 
 * feat(ngx-material-timepicker): add Ivy partial compilation mode,
