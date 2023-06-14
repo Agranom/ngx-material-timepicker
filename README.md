@@ -29,6 +29,7 @@ https://agranom.github.io/ngx-material-timepicker/
 Install timepicker through npm:
 ```angular2html
 npm install --save ngx-material-timepicker
+npm install --save luxon
 ```
 Next import the timepicker module into your app's module:
 ```typescript
@@ -50,13 +51,13 @@ The timepicker opens once you click on the input
 ## Internationalization
 Timepicker supports locales in format `BCP 47`. It has `en-US` locale by default.
 
-To override default locale:
+To override default locale and numbering system (`latn` or `arab`):
 ```typescript
 import {NgModule} from '@angular/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
-  imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')]
+  imports: [NgxMaterialTimepickerModule.setOpts('ar-AE', 'arab')]
 })
 export class MyModule {}
 ```
