@@ -194,7 +194,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             <DateTime>this._min,
             <DateTime>this._max,
             'minutes',
-            this._timepicker.minutesGap,
+            this._timepicker?.minutesGap,
             this._format
         );
 
