@@ -127,18 +127,22 @@ describe('TimepickerDirective', () => {
         expect(directive.value).toBe('11:00 AM');
     });
 
-    it('should call console.warn if time is not between min and max(inclusively) value', () => {
+    it('should call console.warn if time is not between min and max(inclusively) value and reset time', () => {
         directive.timepicker = timepickerComponent;
         const spy = spyOn(console, 'warn');
         directive.min = '11:00 am';
         directive.value = '10:00 am';
         expect(spy).toHaveBeenCalledWith(consoleWarnValue);
+        expect(directive.value).toBe('');
 
         directive.max = '11:30 am';
         directive.value = '11:35 am';
+        expect(directive.value).toBe('');
+
         directive.value = '11:20 am';
 
         expect(spy).toHaveBeenCalledTimes(2);
+        expect(directive.value).toBe('11:20 AM');
     });
 
     it('should change value and default time on timeSet output', () => {

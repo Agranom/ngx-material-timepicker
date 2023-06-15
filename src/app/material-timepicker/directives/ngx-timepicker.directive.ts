@@ -201,9 +201,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (isAvailable) {
             this._value = time;
             this.updateInputValue();
-            return;
+        } else {
+            this.value = null;
+            console.warn('Selected time doesn\'t match min or max value');
         }
-        console.warn('Selected time doesn\'t match min or max value');
     }
 }
 
