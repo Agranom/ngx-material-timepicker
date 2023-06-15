@@ -161,36 +161,6 @@ describe('TimepickerDirective', () => {
         expect(directive.value).toBe('Invalid DateTime');
     });
 
-    it('should set default time if binding value changes', () => {
-        const changes: SimpleChanges = {
-            value: {
-                currentValue: '10:00 am',
-                firstChange: true,
-                previousValue: undefined,
-                isFirstChange: () => null
-            }
-        };
-
-        directive.timepicker = timepickerComponent;
-        directive.ngOnChanges(changes);
-        expect(timepickerComponent.defaultTime).toBe('10:00 AM');
-    });
-
-    it('should not set default time if binding value does not change ', () => {
-        const changes: SimpleChanges = {
-            min: {
-                currentValue: '11:00',
-                firstChange: true,
-                previousValue: undefined,
-                isFirstChange: () => null
-            }
-        };
-        directive.timepicker = timepickerComponent;
-
-        directive.ngOnChanges(changes);
-        expect(timepickerComponent.defaultTime).toBeUndefined();
-    });
-
     it('should open timepicker on click', () => {
         const spy = spyOn(timepickerComponent, 'open');
         directive.timepicker = timepickerComponent;
@@ -255,6 +225,43 @@ describe('TimepickerDirective', () => {
 
         it('should return current HTMLInputElement', () => {
             expect(directive.element).toEqual(input.nativeElement);
+        });
+    });
+
+    describe('onChanges', () => {
+        it('should set default time if binding value changes', () => {
+            const changes: SimpleChanges = {
+                value: {
+                    currentValue: '10:00 pm',
+                    firstChange: true,
+                    previousValue: undefined,
+                    isFirstChange: () => null
+                }
+            };
+
+            directive.timepicker = timepickerComponent;
+            directive.ngOnChanges(changes);
+            expect(timepickerComponent.defaultTime).toBe('10:00 PM');
+
+            directive.format = 24;
+            directive.ngOnChanges(changes);
+            expect(timepickerComponent.defaultTime).toBe('22:00');
+            expect(directive.value).toBe('22:00');
+        });
+
+        it('should not set default time if binding value does not change ', () => {
+            const changes: SimpleChanges = {
+                min: {
+                    currentValue: '11:00',
+                    firstChange: true,
+                    previousValue: undefined,
+                    isFirstChange: () => null
+                }
+            };
+            directive.timepicker = timepickerComponent;
+
+            directive.ngOnChanges(changes);
+            expect(timepickerComponent.defaultTime).toBeUndefined();
         });
     });
 });
