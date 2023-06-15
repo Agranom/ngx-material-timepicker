@@ -9,3 +9,4 @@ export * from './src/app/material-timepicker/directives/ngx-timepicker.directive
 export * from './src/app/material-timepicker/ngx-material-timepicker.component';
 export * from './src/app/material-timepicker/components/timepicker-field/ngx-timepicker-field.component';
 export * from './src/app/material-timepicker/components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
+export { NUMBERING_SYSTEM, TIME_LOCALE } from './src/app/material-timepicker/tokens/time-locale.token';
