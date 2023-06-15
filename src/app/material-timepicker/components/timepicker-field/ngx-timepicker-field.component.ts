@@ -106,12 +106,26 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         return this._defaultTime;
     }
 
+    @Input()
+    set minutesGap(gap: number) {
+        if (gap == null) {
+            return;
+        }
+        gap = Math.floor(gap);
+        this._minutesGap = gap <= 59 ? gap : 1;
+    }
+
+    get minutesGap(): number {
+        return this._minutesGap;
+    }
+
     @Output() timeChanged = new EventEmitter<string>();
 
     private _defaultTime: string;
     private _format = 12;
     private _min: string | DateTime;
     private _max: string | DateTime;
+    private _minutesGap: number;
     private previousFormat: number;
 
     private unsubscribe$ = new Subject();
@@ -151,8 +165,9 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
                 tap(period => this.isChangePeriodDisabled = this.isPeriodDisabled(period)),
                 takeUntil(this.unsubscribe$)
             ).subscribe(() => this.isTimeRangeSet && this.updateAvailableTime());
+        } else if (this.isTimeRangeSet) {
+            this.updateAvailableTime();
         }
-
     }
 
     writeValue(val: string): void {

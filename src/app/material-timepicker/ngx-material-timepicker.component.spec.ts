@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
 import { NgxMaterialTimepickerEventService } from './services/ngx-material-timepicker-event.service';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
@@ -90,7 +90,7 @@ describe('NgxMaterialTimepickerComponent', () => {
 
     describe('open', () => {
 
-        it(`should call appendTimepickerToBody with config and emit event on open call`, async(() => {
+        it(`should call appendTimepickerToBody with config and emit event on open call`, waitForAsync(() => {
             let counter = 0;
             const spy = spyOn(domService, 'appendTimepickerToBody');
             const expectedConfig: TimepickerConfig = {
@@ -230,7 +230,7 @@ describe('NgxMaterialTimepickerComponent', () => {
 
     describe('updateTime', () => {
 
-        it('should emit time when method is called', async(() => {
+        it('should emit time when method is called', waitForAsync(() => {
             const expectedTime = '14:20';
             component.timeUpdated.subscribe(time => expect(time).toBe(expectedTime));
 

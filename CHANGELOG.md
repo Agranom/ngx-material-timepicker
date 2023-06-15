@@ -2,6 +2,60 @@
 
 All notable changes to this project will be documented in this file
 
+## BREAKING CHANGES
+
+## 13.0.3 (2023-06-14)
+
+* move `luxon` library from dependencies to peerDependencies to avoid duplications in bundle,
+closes [(#355)](https://github.com/Agranom/ngx-material-timepicker/issues/355)
+
+
+## BREAKING CHANGES
+
+## 12.1.0 (2023-06-13)
+
+* feat(ngx-material-timepicker): add Ivy partial compilation mode,
+closes [(#401)](https://github.com/Agranom/ngx-material-timepicker/issues/401)
+  
+* remove entry components
+  
+### Improvements
+
+* remove unnecessary exports from module
+* reduce package size
+
+## 5.6.0 (2023-06-12)
+
+### Features
+
+* feat(ngx-material-timepicker-field): add `minutesGap` to `ngx-material-timepicker-field` component,
+  closes [(#236)](https://github.com/Agranom/ngx-material-timepicker/issues/236),
+  [(#248)](https://github.com/Agranom/ngx-material-timepicker/issues/248),
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): fix hours validation with `min/max` values set,
+  fixes [(#346)](https://github.com/Agranom/ngx-material-timepicker/issues/346),
+  [(#369)](https://github.com/Agranom/ngx-material-timepicker/issues/369),
+
+
+
+## 5.5.5 (2023-06-09)
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix npm package,
+  fixes [(#431)](https://github.com/Agranom/ngx-material-timepicker/issues/431)
+
+
+## 5.5.4 (2023-06-08)
+
+### Fixes
+
+* fix(ngx-material-timepicker): remove default browser's outline in focus-visible state
+* fix(ngx-material-timepicker): replace the Narrow No-Break Space (NNBSP) for a standard space,
+  fixes [(#427)](https://github.com/Agranom/ngx-material-timepicker/issues/427)
+
 ## 5.5.3 (2020-05-28)
 
 ### Fixes

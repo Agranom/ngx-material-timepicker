@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control.component';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
@@ -13,7 +13,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NgxMaterialTimepickerModule.setLocale('ar-AE')],
+            imports: [NgxMaterialTimepickerModule.setOpts('ar-AE', 'arab')],
             providers: [
                 TimeParserPipe,
                 TimeFormatterPipe
@@ -39,21 +39,37 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.disabled = false;
         });
 
-        it('should increase time', async(() => {
+        it('should increase time', waitForAsync(() => {
             component.time = 1;
             component.timeChanged.subscribe(t => expect(t).toBe(2));
 
             component.increase();
         }));
 
-        it('should set time to min when increase time', async(() => {
+        it('should increase time by 5 with minutesGap set', waitForAsync(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+                {time: 4, angle: 0, disabled: false},
+                {time: 5, angle: 0, disabled: false},
+                {time: 6, angle: 0, disabled: false},
+            ];
+            component.time = 1;
+            component.minutesGap = 5;
+            component.timeChanged.subscribe(t => expect(t).toBe(6));
+
+            component.increase();
+        }));
+
+        it('should set time to min when increase time', waitForAsync(() => {
             component.time = 12;
             component.timeChanged.subscribe(t => expect(t).toBe(1));
 
             component.increase();
         }));
 
-        it('should change time to the nearest available next time', async(() => {
+        it('should change time to the nearest available next time', waitForAsync(() => {
             component.timeList = [
                 {time: 1, angle: 0},
                 {time: 2, angle: 0, disabled: true},
@@ -65,7 +81,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.increase();
         }));
 
-        it('should not change time when all next time is disabled', async(() => {
+        it('should not change time when all next time is disabled', waitForAsync(() => {
             let counter = 0;
             component.time = 2;
             component.timeChanged.subscribe(() => counter++);
@@ -89,28 +105,53 @@ describe('NgxTimepickerTimeControlComponent', () => {
             component.disabled = false;
         });
 
-        it('should decrease time', async(() => {
+        it('should decrease time', waitForAsync(() => {
             component.time = 2;
             component.timeChanged.subscribe(t => expect(t).toBe(1));
 
             component.decrease();
         }));
 
-        it('should set time to max when decrease time', async(() => {
+        it('should decrease time with minutesGap', waitForAsync(() => {
+            component.time = 3;
+            component.minutesGap = 2;
+            component.timeChanged.subscribe(t => expect(t).toBe(1));
+
+            component.decrease();
+        }));
+
+        it('should set time to max when decrease time', waitForAsync(() => {
             component.time = 1;
             component.timeChanged.subscribe(t => expect(t).toBe(3));
 
             component.decrease();
         }));
 
-        it('should time to nearest available previous time', async(() => {
+        it('should set time to (max - minutesGap) when decrease time', waitForAsync(() => {
+            component.timeList = [
+                {time: 1, angle: 0, disabled: false},
+                {time: 2, angle: 0, disabled: false},
+                {time: 3, angle: 0, disabled: false},
+                {time: 5, angle: 0, disabled: false},
+                {time: 6, angle: 0, disabled: false},
+            ];
+            component.time = 5;
+            component.min = 3;
+            component.max = 5;
+            component.minutesGap = 3;
+            component.timeChanged.subscribe(t => expect(t).toBe(3));
+
+            component.decrease();
+        }));
+
+        it('should time to nearest available previous time', waitForAsync(() => {
             component.time = 3;
             component.timeChanged.subscribe((t) => expect(t).toBe(1));
 
             component.decrease();
         }));
 
-        it('should not change time when all previous time is disabled', async(() => {
+        it('should not change time when all previous time is disabled', waitForAsync(() => {
             let counter = 0;
             component.timeList = [
                 {time: 1, angle: 0, disabled: true},
@@ -144,7 +185,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             defaultEvent = {type: 'keypress', stopPropagation: () => null};
         });
 
-        it('should set time to 14 when event fires with keycode 52', async(() => {
+        it('should set time to 14 when event fires with keycode 52', waitForAsync(() => {
             const event = {...defaultEvent, keyCode: 52}; // 4
             const expectedTime = 14;
 
@@ -201,14 +242,14 @@ describe('NgxTimepickerTimeControlComponent', () => {
             ];
         });
 
-        it('should increase time by 1 when key down arrow up', async(() => {
+        it('should increase time by 1 when key down arrow up', waitForAsync(() => {
             const event = {...defaultEvent, key: 'ArrowUp'};
             component.time = 1;
             component.timeChanged.subscribe(time => expect(time).toBe(2));
             component.onKeydown(event);
         }));
 
-        it('should decrease time by 1 when key down arrow down', async(() => {
+        it('should decrease time by 1 when key down arrow down', waitForAsync(() => {
             const event: KeyboardEvent = {...defaultEvent, key: 'ArrowDown'} as KeyboardEvent;
             component.time = 2;
             component.timeChanged.subscribe(time => expect(time).toBe(1));
@@ -266,7 +307,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             };
         });
 
-        it('should set time to 1 and emit it when current time is disabled', async(() => {
+        it('should set time to 1 and emit it when current time is disabled', waitForAsync(() => {
             component.time = 2;
             component.timeList = [
                 {time: 1, angle: 0, disabled: false},
@@ -299,7 +340,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
     describe('onModelChange', () => {
 
         it('should parse value and set it to time property', () => {
-            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab'}).toFormat('m');
+            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab', locale: 'ar-AE'}).toFormat('m');
             component.time = 5;
             component.timeUnit = TimeUnit.MINUTE;
 
@@ -329,7 +370,7 @@ describe('NgxTimepickerTimeControlComponent', () => {
             expect(component.isFocused).toBeFalsy();
         });
 
-        it('should emit time when blur event fires and time was changed', async(() => {
+        it('should emit time when blur event fires and time was changed', waitForAsync(() => {
             const expectedTime = 10;
             component.time = expectedTime;
 

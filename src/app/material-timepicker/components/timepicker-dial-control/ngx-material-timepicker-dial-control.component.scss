@@ -28,4 +28,7 @@
     &:disabled {
         cursor: default;
     }
+    &:focus-visible {
+        outline: none;
+    }
 }

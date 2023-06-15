@@ -1,10 +1,10 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NgxMaterialTimepickerDialControlComponent } from './ngx-material-timepicker-dial-control.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimeUnit } from '../../models/time-unit.enum';
 import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
 import { TimeParserPipe } from '../../pipes/time-parser.pipe';
-import { TIME_LOCALE } from '../../tokens/time-locale.token';
+import { NUMBERING_SYSTEM, TIME_LOCALE } from '../../tokens/time-locale.token';
 import { DateTime } from 'luxon';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
@@ -21,7 +21,8 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
             ],
             providers: [
                 TimeParserPipe,
-                {provide: TIME_LOCALE, useValue: 'ar-AE'}
+                {provide: TIME_LOCALE, useValue: 'ar-AE'},
+                {provide: NUMBERING_SYSTEM, useValue: 'arab'},
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).createComponent(NgxMaterialTimepickerDialControlComponent);
@@ -29,7 +30,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should set current time to previous time, change time unit and emit focus event', async(() => {
+    it('should set current time to previous time, change time unit and emit focus event', waitForAsync(() => {
         let counter = 0;
         component.timeUnitChanged.subscribe(unit => expect(unit).toBe(TimeUnit.MINUTE));
         component.focused.subscribe(() => expect(++counter).toBe(1));
@@ -177,7 +178,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
     describe('onModelChange', () => {
 
         it('should parse value and set it to time property', () => {
-            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab'}).toFormat('m');
+            const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab', locale: 'ar-AE'}).toFormat('m');
             component.time = '5';
             component.timeUnit = TimeUnit.MINUTE;
 

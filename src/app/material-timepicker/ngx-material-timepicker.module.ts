@@ -32,7 +32,8 @@ import {
     NgxTimepickerPeriodSelectorComponent
 } from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
 import { TimeLocalizerPipe } from './pipes/time-localizer.pipe';
-import { TIME_LOCALE } from './tokens/time-locale.token';
+import { TimeAdapter } from './services/time-adapter';
+import { NUMBERING_SYSTEM, TIME_LOCALE } from './tokens/time-locale.token';
 import { TimeParserPipe } from './pipes/time-parser.pipe';
 import { ActiveHourPipe } from './pipes/active-hour.pipe';
 import { ActiveMinutePipe } from './pipes/active-minute.pipe';
@@ -57,12 +58,6 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
         NgxMaterialTimepickerThemeDirective,
-        NgxMaterialTimepicker24HoursFaceComponent,
-        NgxMaterialTimepicker12HoursFaceComponent,
-        NgxMaterialTimepickerMinutesFaceComponent,
-        NgxMaterialTimepickerFaceComponent,
-        NgxMaterialTimepickerDialComponent,
-        NgxMaterialTimepickerDialControlComponent
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
@@ -93,15 +88,16 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         NgxMaterialTimepickerContentComponent,
         AppendToInputDirective
     ],
-    entryComponents: [NgxMaterialTimepickerContainerComponent]
 })
 export class NgxMaterialTimepickerModule {
 
-    static setLocale(locale: string): ModuleWithProviders<NgxMaterialTimepickerModule> {
+    // tslint:disable-next-line:max-line-length
+    static setOpts(locale: string, numberingSystem = TimeAdapter.DEFAULT_NUMBERING_SYSTEM): ModuleWithProviders<NgxMaterialTimepickerModule> {
         return {
             ngModule: NgxMaterialTimepickerModule,
             providers: [
-                {provide: TIME_LOCALE, useValue: locale}
+                {provide: TIME_LOCALE, useValue: locale},
+                {provide: NUMBERING_SYSTEM, useValue: numberingSystem}
             ]
         };
     }

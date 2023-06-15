@@ -253,6 +253,20 @@
                 </div>
             </section>
             <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
+                <app-example-source-code [sourceCode]="minutesGapForField">Minutes Gap</app-example-source-code>
+                <div class="ngx-material-timepicker-example__body">
+                    <p class="ngx-material-timepicker-example__description">
+                        Set up a gap for minutes (it's '1' by default).
+                    </p>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <ngx-timepicker-field [defaultTime]="'11:00 am'" [minutesGap]="5"></ngx-timepicker-field>
+                    </div>
+                    <div class="ngx-material-timepicker-example__form-group">
+                        <ngx-timepicker-field [defaultTime]="'11:00 am'" [minutesGap]="30"></ngx-timepicker-field>
+                    </div>
+                </div>
+            </section>
+            <section class="ngx-material-timepicker-examples__container ngx-material-timepicker-example">
                 <app-example-source-code [sourceCode]="toggleSettings">Examples with toggle</app-example-source-code>
                 <div class="ngx-material-timepicker-example__body">
                     <p class="ngx-material-timepicker-example__description">
@@ -278,7 +292,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <p class="footer__version">Current version 5.5.3</p>
+            <p class="footer__version">Current version 13.0.3</p>
         </div>
     </footer>
 </div>

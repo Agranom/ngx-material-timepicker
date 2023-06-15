@@ -128,14 +128,14 @@ describe('TimeAdapter', () => {
             const expected = '١١:١١ ص';
             const actual = '11:11 am';
 
-            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE'})).toBe(expected);
+            expect(TimeAdapter.toLocaleTimeString(actual, {numberingSystem: 'arab', locale: 'ar-AE'})).toBe(expected);
         });
 
         it('should convert provided time (en-US) to provided locale (ar-AE) in 24-hours format', () => {
             const expected = '٢١:١١';
             const actual = '21:11';
 
-            expect(TimeAdapter.toLocaleTimeString(actual, {locale: 'ar-AE', format: 24})).toBe(expected);
+            expect(TimeAdapter.toLocaleTimeString(actual, {numberingSystem: 'arab', locale: 'ar-AE', format: 24})).toBe(expected);
         });
     });
 

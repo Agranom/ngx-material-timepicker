@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { isDigit } from '../../../utils/timepicker.utils';
+import { ClockFaceTime } from '../../../models/clock-face-time.interface';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
-import { ClockFaceTime } from '../../../models/clock-face-time.interface';
+import { isDigit } from '../../../utils/timepicker.utils';
 
 @Component({
     selector: 'ngx-timepicker-time-control',
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TimeParserPipe]
+    providers: [TimeParserPipe],
 })
 
 export class NgxTimepickerTimeControlComponent implements OnChanges {
@@ -22,6 +22,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     @Input() disabled: boolean;
     @Input() timeList: ClockFaceTime[];
     @Input() preventTyping: boolean;
+    @Input() minutesGap: number;
 
     @Output() timeChanged = new EventEmitter<number>();
 
@@ -72,7 +73,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     increase(): void {
         if (!this.disabled) {
-            let nextTime = +this.time + 1;
+            let nextTime = +this.time + (this.minutesGap || 1);
 
             if (nextTime > this.max) {
                 nextTime = this.min;
@@ -90,10 +91,10 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
 
     decrease(): void {
         if (!this.disabled) {
-            let previousTime = +this.time - 1;
+            let previousTime = +this.time - (this.minutesGap || 1);
 
             if (previousTime < this.min) {
-                previousTime = this.max;
+                previousTime = this.minutesGap ? this.max - (this.minutesGap - 1) : this.max;
             }
 
             if (this.isSelectedTimeDisabled(previousTime)) {
@@ -172,8 +173,11 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     private setAvailableTime(): void {
-        this.time = this.timeList.find(t => !t.disabled).time;
-        this.timeChanged.emit(this.time);
+        const availableTime = this.timeList.find(t => !t.disabled);
+        if (availableTime != null) {
+            this.time = availableTime.time;
+            this.timeChanged.emit(this.time);
+        }
     }
 }
 
