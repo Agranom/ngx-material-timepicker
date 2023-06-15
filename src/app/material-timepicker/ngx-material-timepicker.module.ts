@@ -32,6 +32,7 @@ import {
     NgxTimepickerPeriodSelectorComponent
 } from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
 import { TimeLocalizerPipe } from './pipes/time-localizer.pipe';
+import { TimeAdapter } from './services/time-adapter';
 import { NUMBERING_SYSTEM, TIME_LOCALE } from './tokens/time-locale.token';
 import { TimeParserPipe } from './pipes/time-parser.pipe';
 import { ActiveHourPipe } from './pipes/active-hour.pipe';
@@ -90,7 +91,8 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
 })
 export class NgxMaterialTimepickerModule {
 
-    static setOpts(locale: string, numberingSystem: string): ModuleWithProviders<NgxMaterialTimepickerModule> {
+    // tslint:disable-next-line:max-line-length
+    static setOpts(locale: string, numberingSystem = TimeAdapter.DEFAULT_NUMBERING_SYSTEM): ModuleWithProviders<NgxMaterialTimepickerModule> {
         return {
             ngModule: NgxMaterialTimepickerModule,
             providers: [
