@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener, Inject, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { TimeAdapter } from '../services/time-adapter';
 import { DateTime } from 'luxon';
+import { Subscription } from 'rxjs';
+import { NgxMaterialTimepickerComponent } from '../ngx-material-timepicker.component';
+import { TimeAdapter } from '../services/time-adapter';
 import { TIME_LOCALE } from '../tokens/time-locale.token';
 
 @Directive({
@@ -43,6 +43,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set min(value: string | DateTime) {
+        console.log(value);
         if (typeof value === 'string') {
             this._min = TimeAdapter.parseTime(value, {locale: this.locale, format: this.format});
             return;
@@ -85,22 +86,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
             this.updateInputValue();
             return;
         }
-        const time = TimeAdapter.formatTime(value, {locale: this.locale, format: this.format});
-        const isAvailable = TimeAdapter.isTimeAvailable(
-            time,
-            <DateTime>this._min,
-            <DateTime>this._max,
-            'minutes',
-            this._timepicker.minutesGap,
-            this._format
-        );
-
-        if (isAvailable) {
-            this._value = time;
-            this.updateInputValue();
-            return;
-        }
-        console.warn('Selected time doesn\'t match min or max value');
+        this.setTimeIfAvailable(value);
     }
 
     get value(): string {
@@ -142,8 +128,11 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['value'] && changes['value'].currentValue) {
-            this.defaultTime = changes['value'].currentValue;
+        const value = changes?.value?.currentValue;
+        if (value) {
+            // Call setTimeIfAvailable after @Input setters
+            this.setTimeIfAvailable(value);
+            this.defaultTime = value;
         }
     }
 
@@ -198,5 +187,24 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         this.elementRef.nativeElement.value = this.value;
     }
 
+    private setTimeIfAvailable(value: string): void {
+        const time = TimeAdapter.formatTime(value, {locale: this.locale, format: this.format});
+        const isAvailable = TimeAdapter.isTimeAvailable(
+            time,
+            <DateTime>this._min,
+            <DateTime>this._max,
+            'minutes',
+            this._timepicker?.minutesGap,
+            this._format
+        );
+
+        if (isAvailable) {
+            this._value = time;
+            this.updateInputValue();
+        } else {
+            this.value = null;
+            console.warn('Selected time doesn\'t match min or max value');
+        }
+    }
 }
 
