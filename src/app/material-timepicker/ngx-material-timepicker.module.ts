@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaterialTimepickerToggleComponent } from './components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { NgxMaterialTimepickerToggleIconDirective } from './directives/ngx-material-timepicker-toggle-icon.directive';
@@ -49,7 +49,8 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [
         NgxMaterialTimepickerComponent,
