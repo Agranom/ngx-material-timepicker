@@ -41,7 +41,7 @@
         "lint": "ng lint",
         "test": "ng test --watch=false --code-coverage --browsers ChromeHeadlessNoSandbox",
         "test:watch": "ng test --watch=true --browsers ChromeHeadlessNoSandbox --code-coverage",
-        "codecov": "codecov",
+        "codecov": "codecov --disable=gcov",
         "packagr": "ng-packagr -p ng-package.json -c ./src/tsconfig.lib.json",
         "publish": "run-s packagr && cd dist && npm publish",
         "gh-publish": "ng build --configuration production --base-href ngx-material-timepicker && gh-pages -d dist"
