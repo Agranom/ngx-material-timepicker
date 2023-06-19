@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerComponent } from './ngx-material-timepicker.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaterialTimepickerToggleComponent } from './components/timepicker-toggle-button/ngx-material-timepicker-toggle.component';
 import { TimepickerDirective } from './directives/ngx-timepicker.directive';
 import { NgxMaterialTimepickerToggleIconDirective } from './directives/ngx-material-timepicker-toggle-icon.directive';
@@ -32,6 +32,7 @@ import {
     NgxTimepickerPeriodSelectorComponent
 } from './components/timepicker-field/timepicker-period-selector/ngx-timepicker-period-selector.component';
 import { TimeLocalizerPipe } from './pipes/time-localizer.pipe';
+import { TimeAdapter } from './services/time-adapter';
 import { NUMBERING_SYSTEM, TIME_LOCALE } from './tokens/time-locale.token';
 import { TimeParserPipe } from './pipes/time-parser.pipe';
 import { ActiveHourPipe } from './pipes/active-hour.pipe';
@@ -48,7 +49,8 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [
         NgxMaterialTimepickerComponent,
@@ -57,12 +59,6 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         TimepickerDirective,
         NgxMaterialTimepickerToggleIconDirective,
         NgxMaterialTimepickerThemeDirective,
-        NgxMaterialTimepicker24HoursFaceComponent,
-        NgxMaterialTimepicker12HoursFaceComponent,
-        NgxMaterialTimepickerMinutesFaceComponent,
-        NgxMaterialTimepickerFaceComponent,
-        NgxMaterialTimepickerDialComponent,
-        NgxMaterialTimepickerDialControlComponent
     ],
     declarations: [
         NgxMaterialTimepickerComponent,
@@ -93,11 +89,11 @@ import { AppendToInputDirective } from './directives/append-to-input.directive';
         NgxMaterialTimepickerContentComponent,
         AppendToInputDirective
     ],
-    entryComponents: [NgxMaterialTimepickerContainerComponent]
 })
 export class NgxMaterialTimepickerModule {
 
-    static setOpts(locale: string, numberingSystem: string): ModuleWithProviders<NgxMaterialTimepickerModule> {
+    // tslint:disable-next-line:max-line-length
+    static setOpts(locale: string, numberingSystem = TimeAdapter.DEFAULT_NUMBERING_SYSTEM): ModuleWithProviders<NgxMaterialTimepickerModule> {
         return {
             ngModule: NgxMaterialTimepickerModule,
             providers: [

@@ -7,12 +7,12 @@ import {
     OnChanges,
     Output,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
 } from '@angular/core';
+import { DateTime, Info } from 'luxon';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
 import { TimePeriod } from '../../models/time-period.enum';
 import { TimeUnit } from '../../models/time-unit.enum';
-import { ClockFaceTime } from '../../models/clock-face-time.interface';
-import { DateTime, Info } from 'luxon';
 import { TIME_LOCALE } from '../../tokens/time-locale.token';
 import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
 
@@ -20,7 +20,7 @@ import { TimepickerTimeUtils } from '../../utils/timepicker-time.utils';
     selector: 'ngx-material-timepicker-dial',
     templateUrl: 'ngx-material-timepicker-dial.component.html',
     styleUrls: ['ngx-material-timepicker-dial.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
@@ -28,7 +28,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     hours: ClockFaceTime[];
     minutes: ClockFaceTime[];
-    meridiems = Info.meridiems({locale: this.locale});
+    meridiems = Info.meridiems({ locale: this.locale });
 
     isHintVisible: boolean;
 
@@ -61,7 +61,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
-                period: this.period
+                period: this.period,
             });
         }
         if (changes['period'] && changes['period'].currentValue
@@ -72,7 +72,7 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
                 min: this.minTime,
                 max: this.maxTime,
                 format: this.format,
-                period: this.period
+                period: this.period,
             });
         }
     }
@@ -87,6 +87,9 @@ export class NgxMaterialTimepickerDialComponent implements OnChanges {
 
     changeHour(hour: ClockFaceTime): void {
         this.hourChanged.next(hour);
+        if (this.isEditable) {
+            this.changeTimeUnit(TimeUnit.MINUTE);
+        }
     }
 
     changeMinute(minute: ClockFaceTime): void {

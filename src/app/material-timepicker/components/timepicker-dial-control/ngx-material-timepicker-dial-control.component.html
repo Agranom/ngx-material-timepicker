@@ -11,10 +11,10 @@
 <ng-template #editableTemplate>
     <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
     <input class="timepicker-dial__control timepicker-dial__item timepicker-dial__control_editable"
+           #editableTimeTmpl
+           [formControl]="timeControl"
            [ngClass]="{'timepicker-dial__item_active': isActive}"
-           [ngModel]="time | timeParser: timeUnit | timeLocalizer: timeUnit : true"
-           (ngModelChange)="onModelChange($event)"
-           [disabled]="disabled"
-           (input)="updateTime()" (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
-           [timepickerAutofocus]="isActive" (keydown)="onKeydown($event)" (keypress)="changeTimeByKeyboard($event)">
+           [timepickerAutofocus]="isActive"
+           (focus)="saveTimeAndChangeTimeUnit($event, timeUnit)"
+           (keydown)="onKeydown($event)">
 </ng-template>

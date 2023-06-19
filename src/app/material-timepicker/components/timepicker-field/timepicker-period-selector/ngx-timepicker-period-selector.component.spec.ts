@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NgxTimepickerPeriodSelectorComponent } from './ngx-timepicker-period-selector.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TimePeriod } from '../../../models/time-period.enum';
@@ -38,7 +38,7 @@ describe('NgxTimepickerPeriodSelectorComponent', () => {
         expect(component.isOpened).toBeFalsy();
     });
 
-    it('should emit selected period and close selector', async(() => {
+    it('should emit selected period and close selector', waitForAsync(() => {
         component.isOpened = true;
         component.periodSelected.subscribe(p => expect(p).toBe(TimePeriod.PM));
 
