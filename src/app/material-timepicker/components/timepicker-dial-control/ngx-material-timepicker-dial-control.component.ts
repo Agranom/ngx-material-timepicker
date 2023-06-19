@@ -1,17 +1,20 @@
 /* tslint:disable:triple-equals */
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ClockFaceTime} from '../../models/clock-face-time.interface';
-import {TimeUnit} from '../../models/time-unit.enum';
-import {isDigit} from '../../utils/timepicker.utils';
-import {TimeParserPipe} from '../../pipes/time-parser.pipe';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
+import { ClockFaceTime } from '../../models/clock-face-time.interface';
+import { TimeUnit } from '../../models/time-unit.enum';
+import { TimeLocalizerPipe } from '../../pipes/time-localizer.pipe';
+import { TimeParserPipe } from '../../pipes/time-parser.pipe';
+import { isDigit } from '../../utils/timepicker.utils';
 
 @Component({
     selector: 'ngx-material-timepicker-dial-control',
     templateUrl: 'ngx-material-timepicker-dial-control.component.html',
     styleUrls: ['ngx-material-timepicker-dial-control.component.scss'],
-    providers: [TimeParserPipe]
+    providers: [TimeParserPipe, TimeLocalizerPipe],
 })
-export class NgxMaterialTimepickerDialControlComponent {
+export class NgxMaterialTimepickerDialControlComponent implements OnInit {
 
     previousTime: number | string;
 
@@ -23,18 +26,41 @@ export class NgxMaterialTimepickerDialControlComponent {
     @Input() minutesGap: number;
     @Input() disabled: boolean;
 
+    @ViewChild('editableTimeTmpl') editableTimeTmpl: ElementRef<HTMLInputElement>;
+
     @Output() timeUnitChanged = new EventEmitter<TimeUnit>();
     @Output() timeChanged = new EventEmitter<ClockFaceTime>();
     @Output() focused = new EventEmitter<null>();
     @Output() unfocused = new EventEmitter<null>();
 
-    constructor(private timeParserPipe: TimeParserPipe) {
+    timeControl: FormControl;
+
+    constructor(private timeParserPipe: TimeParserPipe,
+                private timeLocalizerPipe: TimeLocalizerPipe) {
     }
 
     private get selectedTime(): ClockFaceTime {
         if (!!this.time) {
             return this.timeList.find(t => t.time === +this.time);
         }
+    }
+
+    ngOnInit() {
+        if (this.isEditable) {
+            this.timeControl = new FormControl({ value: this.formatTimeForUI(this.time), disabled: this.disabled });
+            this.timeControl.valueChanges.pipe(
+                tap((value) => {
+                    if (value.length > 2) {
+                        this.updateInputValue(value.slice(-1));
+                    }
+                }),
+                debounceTime(500),
+                distinctUntilChanged(),
+                filter((value) => !isTimeDisabledToChange(this.time, value, this.timeList)),
+                tap((value) => this.time = this.timeParserPipe.transform(value, this.timeUnit).toString()),
+            ).subscribe(() => this.updateTime());
+        }
+
     }
 
     saveTimeAndChangeTimeUnit(event: FocusEvent, unit: TimeUnit): void {
@@ -49,14 +75,9 @@ export class NgxMaterialTimepickerDialControlComponent {
         if (time) {
             this.timeChanged.next(time);
             this.previousTime = time.time;
-        }
-    }
-
-    changeTimeByKeyboard(e: any): void {
-        const char = String.fromCharCode(e.keyCode);
-
-        if (isTimeDisabledToChange(this.time, char, this.timeList)) {
-            e.preventDefault();
+            if (this.isEditable) {
+                this.updateInputValue(this.formatTimeForUI(time.time));
+            }
         }
     }
 
@@ -66,10 +87,6 @@ export class NgxMaterialTimepickerDialControlComponent {
         } else {
             this.changeTimeByArrow(e.keyCode);
         }
-    }
-
-    onModelChange(value: string): void {
-        this.time = this.timeParserPipe.transform(value, this.timeUnit).toString();
     }
 
     private changeTimeByArrow(keyCode: number): void {
@@ -89,14 +106,22 @@ export class NgxMaterialTimepickerDialControlComponent {
         }
     }
 
+    private formatTimeForUI(value: string | number): string {
+        const parsedTime = this.timeParserPipe.transform(value, this.timeUnit).toString();
+        return this.timeLocalizerPipe.transform(parsedTime, this.timeUnit, true);
+    }
+
+    private updateInputValue(value: string): void {
+        this.editableTimeTmpl.nativeElement.value = value;
+    }
+
 }
 
 function isTimeDisabledToChange(currentTime: string, nextTime: string, timeList: ClockFaceTime[]): boolean {
     const isNumber = /\d/.test(nextTime);
 
     if (isNumber) {
-        const time = currentTime + nextTime;
-        return isTimeUnavailable(time, timeList);
+        return isTimeUnavailable(nextTime, timeList);
     }
 }
 
