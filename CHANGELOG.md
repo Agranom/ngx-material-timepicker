@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file
 
+## 13.1.0 (2023-06-19)
+
+### Features
+
+* feat(ngx-material-timepicker): make `TIME_LOCALE`and `NUMBERING_SYSTEM` part of the public api allow consuming applications to provide such values by themselves instead of using `NgxMaterialTimepickerModule.setOpts()`,
+  closes [(#409)](https://github.com/Agranom/ngx-material-timepicker/issues/401),
+
+### Fixes
+
+* fix(ngx-material-timepicker): fix `@Input` order dependencies when setting `value`,
+  fixes [(#320)](https://github.com/Agranom/ngx-material-timepicker/issues/320)
+    
+* fix(ngx-material-timepicker): fix throwing error if set value input before `ngxTimepicker`,
+      fixes [(#344)](https://github.com/Agranom/ngx-material-timepicker/issues/344)
+
+* fix(ngx-material-timepicker): fix issue with keyboard input and minutes gap,
+  fixes [(#323)](https://github.com/Agranom/ngx-material-timepicker/issues/323)
+
+### Improvements
+
+* clear current time while typing the new one,
+closes [(#417)](https://github.com/Agranom/ngx-material-timepicker/issues/417)
+  
+* automatically switch to minute after inputting the correct hour,
+  closes [(#417)](https://github.com/Agranom/ngx-material-timepicker/issues/417)
+
+
 ## BREAKING CHANGES
 
 ## 13.0.3 (2023-06-14)
