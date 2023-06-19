@@ -116,6 +116,20 @@ describe('NgxMaterialTimepickerDialComponent', () => {
         expect(hour).toEqual({time: 2, angle: 60});
     }));
 
+    it('should emit changed hour and change time unit if editable mode', fakeAsync(() => {
+        let hour = {time: 1, angle: 30};
+        let timeUnit = null;
+
+        component.isEditable = true;
+        component.hourChanged.subscribe(h => hour = h);
+        component.timeUnitChanged.subscribe(u => timeUnit = u);
+        component.changeHour({time: 2, angle: 60});
+
+        tick();
+        expect(hour).toEqual({time: 2, angle: 60});
+        expect(timeUnit).toBe(TimeUnit.MINUTE);
+    }));
+
     it('should emit changed minute', fakeAsync(() => {
         let minute = {time: 10, angle: 30};
 
