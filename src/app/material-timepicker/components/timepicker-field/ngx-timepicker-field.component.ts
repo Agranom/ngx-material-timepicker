@@ -188,6 +188,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
         } else {
             this.resetTime();
         }
+        this.cdr.markForCheck();
     }
 
     registerOnTouched(fn: any): void {
