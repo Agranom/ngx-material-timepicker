@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxMaterialTimepickerService } from '../../services/ngx-material-timepicker.service';
 import { Observable, Subject } from 'rxjs';
@@ -138,6 +149,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
     }
 
     constructor(private timepickerService: NgxMaterialTimepickerService,
+                private cdr: ChangeDetectorRef,
                 @Inject(TIME_LOCALE) private locale: string) {
     }
 
@@ -187,6 +199,7 @@ export class NgxTimepickerFieldComponent implements OnInit, OnDestroy, ControlVa
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this.cdr.markForCheck();
     }
 
     changeHour(hour: number): void {
