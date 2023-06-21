@@ -43,7 +43,6 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set min(value: string | DateTime) {
-        console.log(value);
         if (typeof value === 'string') {
             this._min = TimeAdapter.parseTime(value, {locale: this.locale, format: this.format});
             return;
