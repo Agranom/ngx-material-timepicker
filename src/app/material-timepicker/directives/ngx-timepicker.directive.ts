@@ -31,6 +31,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (isDynamicallyChanged) {
             this.value = this._value;
             this._timepicker.updateTime(this._value);
+            this.defaultTime = this.value;
         }
         this.previousFormat = this._format;
     }
@@ -74,6 +75,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input('ngxTimepicker')
     set timepicker(picker: NgxMaterialTimepickerComponent) {
         this.registerTimepicker(picker);
+    }
+
+    get timepicker(): NgxMaterialTimepickerComponent {
+        return this._timepicker;
     }
 
     private _timepicker: NgxMaterialTimepickerComponent;
