@@ -72,6 +72,7 @@ describe('TimepickerDirective', () => {
 
             expect(directive.value).toBe('23:11');
             expect(spy).toHaveBeenCalledWith('23:11');
+            expect(directive.timepicker.defaultTime).toBe('23:11');
         });
 
         it('should not call updateTime when format the same as before', () => {
