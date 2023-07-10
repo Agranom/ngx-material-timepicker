@@ -135,7 +135,9 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     onModelChange(value: string): void {
-        if (+value > this.max) {
+        if (!value) {
+            this.time = null;
+        } else if (+value > this.max) {
             this.timeControlTmpl.nativeElement.value = this.timeLocalizerPipe.transform(value.slice(-1), this.timeUnit, true);
         } else {
             this.time = +this.timeParser.transform(value, this.timeUnit);

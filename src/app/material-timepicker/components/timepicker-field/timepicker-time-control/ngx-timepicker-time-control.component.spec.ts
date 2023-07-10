@@ -341,6 +341,20 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
     describe('onModelChange', () => {
 
+        it('should set time to null if invalid time was provided', () => {
+            component.time = 5;
+            component.timeUnit = TimeUnit.MINUTE;
+
+            component.onModelChange(null);
+            expect(component.time).toBeNull();
+
+            component.onModelChange(undefined);
+            expect(component.time).toBeNull();
+
+            component.onModelChange('');
+            expect(component.time).toBeNull();
+        });
+
         it('should parse value and set it to time property', () => {
             const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab', locale: 'ar-AE'}).toFormat('m');
             component.time = 5;
