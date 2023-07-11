@@ -1,6 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { ClockFaceTime } from '../../../models/clock-face-time.interface';
 import { TimeUnit } from '../../../models/time-unit.enum';
+import { TimeLocalizerPipe } from '../../../pipes/time-localizer.pipe';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 import { isDigit } from '../../../utils/timepicker.utils';
 
@@ -9,7 +20,7 @@ import { isDigit } from '../../../utils/timepicker.utils';
     templateUrl: './ngx-timepicker-time-control.component.html',
     styleUrls: ['./ngx-timepicker-time-control.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TimeParserPipe],
+    providers: [TimeParserPipe, TimeLocalizerPipe],
 })
 
 export class NgxTimepickerTimeControlComponent implements OnChanges {
@@ -24,13 +35,16 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     @Input() preventTyping: boolean;
     @Input() minutesGap: number;
 
+    @ViewChild('timeControlTmpl', { static: true }) timeControlTmpl: ElementRef<HTMLInputElement>;
+
     @Output() timeChanged = new EventEmitter<number>();
 
     isFocused: boolean;
 
     private previousTime: number;
 
-    constructor(private timeParser: TimeParserPipe) {
+    constructor(private timeParser: TimeParserPipe,
+                private timeLocalizerPipe: TimeLocalizerPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -121,7 +135,13 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
     }
 
     onModelChange(value: string): void {
-        this.time = +this.timeParser.transform(value, this.timeUnit);
+        if (!value) {
+            this.time = null;
+        } else if (+value > this.max) {
+            this.timeControlTmpl.nativeElement.value = this.timeLocalizerPipe.transform(value.slice(-1), this.timeUnit, true);
+        } else {
+            this.time = +this.timeParser.transform(value, this.timeUnit);
+        }
     }
 
     private changeTimeIfValid(value: number | undefined) {
@@ -129,8 +149,7 @@ export class NgxTimepickerTimeControlComponent implements OnChanges {
             this.time = value;
 
             if (this.time > this.max) {
-                const timeString = String(value);
-                this.time = +timeString[timeString.length - 1];
+                this.time = +String(value).slice(-1);
             }
 
             if (this.time < this.min) {

@@ -4,11 +4,6 @@ All notable changes to this project will be documented in this file
 
 ## 13.1.1 (2023-07-11)
 
-### Features
-
-* feat(ngx-material-timepicker): make `TIME_LOCALE`and `NUMBERING_SYSTEM` part of the public api allow consuming applications to provide such values by themselves instead of using `NgxMaterialTimepickerModule.setOpts()`,
-  closes [(#409)](https://github.com/Agranom/ngx-material-timepicker/issues/401),
-
 ### Fixes
 
 * fix(ngx-material-timepicker-field): fix issues with deleting selected value in input field,

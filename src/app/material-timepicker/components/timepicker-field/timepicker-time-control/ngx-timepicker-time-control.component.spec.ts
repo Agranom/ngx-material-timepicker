@@ -1,6 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { TimeLocalizerPipe } from '../../../pipes/time-localizer.pipe';
 import { NgxTimepickerTimeControlComponent } from './ngx-timepicker-time-control.component';
-import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
+import { ElementRef, NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { TimeUnit } from '../../../models/time-unit.enum';
 import { TimeParserPipe } from '../../../pipes/time-parser.pipe';
 import { DateTime } from 'luxon';
@@ -16,7 +17,8 @@ describe('NgxTimepickerTimeControlComponent', () => {
             imports: [NgxMaterialTimepickerModule.setOpts('ar-AE', 'arab')],
             providers: [
                 TimeParserPipe,
-                TimeFormatterPipe
+                TimeFormatterPipe,
+                TimeLocalizerPipe,
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
@@ -339,6 +341,20 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
     describe('onModelChange', () => {
 
+        it('should set time to null if invalid time was provided', () => {
+            component.time = 5;
+            component.timeUnit = TimeUnit.MINUTE;
+
+            component.onModelChange(null);
+            expect(component.time).toBeNull();
+
+            component.onModelChange(undefined);
+            expect(component.time).toBeNull();
+
+            component.onModelChange('');
+            expect(component.time).toBeNull();
+        });
+
         it('should parse value and set it to time property', () => {
             const unparsedTime = DateTime.fromObject({minute: 10, numberingSystem: 'arab', locale: 'ar-AE'}).toFormat('m');
             component.time = 5;
@@ -348,6 +364,17 @@ describe('NgxTimepickerTimeControlComponent', () => {
 
             expect(component.time).toBe(10);
 
+        });
+
+        it('should parse the latest char in the value and set it to input element if value more than max', () => {
+            component.time = 5;
+            component.timeUnit = TimeUnit.HOUR;
+            component.max = 12;
+            component.timeControlTmpl = {nativeElement: {value: ''}} as ElementRef<HTMLInputElement>;
+
+            component.onModelChange('66');
+
+            expect(component.timeControlTmpl.nativeElement.value).toBe('06');
         });
     });
 

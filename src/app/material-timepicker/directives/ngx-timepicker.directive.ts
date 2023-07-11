@@ -31,6 +31,7 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
         if (isDynamicallyChanged) {
             this.value = this._value;
             this._timepicker.updateTime(this._value);
+            this.defaultTime = this.value;
         }
         this.previousFormat = this._format;
     }
@@ -43,7 +44,6 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
 
     @Input()
     set min(value: string | DateTime) {
-        console.log(value);
         if (typeof value === 'string') {
             this._min = TimeAdapter.parseTime(value, {locale: this.locale, format: this.format});
             return;
@@ -75,6 +75,10 @@ export class TimepickerDirective implements ControlValueAccessor, OnDestroy, OnC
     @Input('ngxTimepicker')
     set timepicker(picker: NgxMaterialTimepickerComponent) {
         this.registerTimepicker(picker);
+    }
+
+    get timepicker(): NgxMaterialTimepickerComponent {
+        return this._timepicker;
     }
 
     private _timepicker: NgxMaterialTimepickerComponent;
