@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file
 
+## 13.1.1 (2023-07-11)
+
+### Fixes
+
+* fix(ngx-material-timepicker-field): fix issues with deleting selected value in input field,
+  fixes [(#327)](https://github.com/Agranom/ngx-material-timepicker/issues/327)
+
+* fix(ngx-material-timepicker): fix issues with reactive forms by triggering change detection manually,
+  fixes [(#381)](https://github.com/Agranom/ngx-material-timepicker/issues/381),
+  fixes [(#343)](https://github.com/Agranom/ngx-material-timepicker/issues/343),
+
+* fix(ngx-material-timepicker-field): fix `invalidDateTime` in case of typing invalid numbers as `33`, `44` ect.,
+  fixes [(#312)](https://github.com/Agranom/ngx-material-timepicker/issues/312)
+
+* fix(ngx-material-timepicker): fix issue with dynamically changing format,
+  fixes [(#368)](https://github.com/Agranom/ngx-material-timepicker/issues/368)
+
+
 ## 13.1.0 (2023-06-19)
 
 ### Features
