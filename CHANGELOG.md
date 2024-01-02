@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file
 
+## 13.1.2 (2024-01-02)
+
+### Fixes
+
+* fix(ngx-material-timepicker-component): fix issue where hours and minutes fields are not updated when "enableKeyboardInput" is set to true,
+  fixes [(#453)](https://github.com/Agranom/ngx-material-timepicker/issues/453)
+
 ## 13.1.1 (2023-07-11)
 
 ### Fixes
