@@ -1,5 +1,5 @@
 /* tslint:disable:triple-equals */
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, OnChanges, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { ClockFaceTime } from '../../models/clock-face-time.interface';
@@ -14,7 +14,7 @@ import { isDigit } from '../../utils/timepicker.utils';
     styleUrls: ['ngx-material-timepicker-dial-control.component.scss'],
     providers: [TimeParserPipe, TimeLocalizerPipe],
 })
-export class NgxMaterialTimepickerDialControlComponent implements OnInit {
+export class NgxMaterialTimepickerDialControlComponent implements OnInit, OnChanges {
 
     previousTime: number | string;
 
