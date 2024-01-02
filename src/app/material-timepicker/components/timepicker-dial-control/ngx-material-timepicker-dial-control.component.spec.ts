@@ -28,6 +28,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         }).createComponent(NgxMaterialTimepickerDialControlComponent);
 
         component = fixture.componentInstance;
+        component.timeList = [];
     });
 
     it('should set current time to previous time, change time unit and emit focus event', waitForAsync(() => {
