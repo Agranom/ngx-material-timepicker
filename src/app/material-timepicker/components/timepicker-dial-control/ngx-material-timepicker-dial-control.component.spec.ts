@@ -28,6 +28,7 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         }).createComponent(NgxMaterialTimepickerDialControlComponent);
 
         component = fixture.componentInstance;
+        component.timeList = [];
     });
 
     it('should set current time to previous time, change time unit and emit focus event', waitForAsync(() => {
@@ -151,9 +152,17 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         it('should set value to form control', () => {
             component.time = '10';
             component.ngOnInit();
+            component.ngOnChanges();
             const timeControl = component.timeControl;
             expect(timeControl.value).toBe('10');
             expect(timeControl.enabled).toBeTruthy();
+        });
+
+        it('should not set value to form control if form control is not available yet', () => {
+            component.time = '10';
+            component.ngOnChanges();
+            const timeControl = component.timeControl;
+            expect(timeControl).toBe(undefined);
         });
 
         it('should disable form control', () => {
