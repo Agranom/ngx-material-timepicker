@@ -159,11 +159,10 @@ describe('NgxMaterialTimepickerDialControlComponent', () => {
         });
 
         it('should not set value to form control if form control is not available yet', () => {
-            const ngOnChangesSpy = spyOn(component, 'ngOnChanges');
             component.time = '10';
+            component.ngOnChanges();
             const timeControl = component.timeControl;
             expect(timeControl).toBe(undefined);
-            expect(ngOnChangesSpy).not.toHaveBeenCalled();
         });
 
         it('should disable form control', () => {
